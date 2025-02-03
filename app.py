@@ -14,15 +14,21 @@ metadata_fields = [
     {"field": "year", "prompt": "What year was your dataset published?"},
     {"field": "title", "prompt": "What is the title of the dataset or associated paper?"},
     {"field": "description", "prompt": "Please provide a brief description of your dataset."},
-    {"field": "license", "prompt": "What license is your dataset under?"},
+    {"field": "license", "prompt": "Please select a license for your dataset:"},
     {"field": "url", "prompt": "Please provide the URL to your dataset or repository."},
-    {"field": "distribution", "prompt": "How is your dataset distributed (e.g., GitHub repo, file formats)?"},
-    {"field": "structure", "prompt": "Please specify the structure of your dataset (e.g., fields like context and completion)."},
 ]
 
 # Metadata storage
 metadata = {}
-current_field_idx = 0
+current_field_idx = 0  # Start with the first metadata question
+waiting_for_greeting = True  # Flag to track greeting stage
+
+LICENSE_OPTIONS = [
+    "Public Domain", "CC-0", "ODC-PDDL", "CC-BY", "ODC-BY", "CC-BY-SA", 
+    "ODC-ODbL", "CC-BY-NC", "CC-BY-NC-SA", "CC BY-ND", "CC BY-NC-ND", 
+    "CDLA-Permissive-1.0", "CDLA-Sharing-1.0", "MIT", "GPL", 
+    "Apache License, Version 2.0", "BSD-3-Clause", "Other"
+]
 
 def generate_bibtex(metadata):
     """Generates a single-line BibTeX citation from metadata fields."""
@@ -34,10 +40,18 @@ def generate_bibtex(metadata):
     return bibtex_entry
 
 def respond(prompt: str, history):
-    global current_field_idx
+    global current_field_idx, waiting_for_greeting
 
     if not history:
-        history = [{"role": "system", "content": "I will guide you through generating metadata for your dataset, including a BibTeX citation."}]
+        history = []
+
+    # Handle greeting stage
+    if waiting_for_greeting:
+        history.append({"role": "user", "content": prompt})  # Store user's initial message
+        history.append({"role": "assistant", "content": "Hello! I will help you create metadata for your dataset, including a BibTeX citation. Let's begin!"})
+        history.append({"role": "assistant", "content": metadata_fields[current_field_idx]["prompt"]})
+        waiting_for_greeting = False  # Now start metadata collection
+        return history
 
     # Save user input to metadata
     if current_field_idx < len(metadata_fields):
@@ -51,47 +65,78 @@ def respond(prompt: str, history):
         current_field_idx += 1
         if current_field_idx < len(metadata_fields):
             next_prompt = metadata_fields[current_field_idx]["prompt"]
+            history.append({"role": "assistant", "content": next_prompt})
         else:
-            next_prompt = "Thanks for sharing the information! Here is your dataset metadata:"
+            history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
+            metadata_json = {
+                "@context": {"@language": "en", "@vocab": "https://schema.org/"},
+                "@type": "sc:Dataset",
+                "name": metadata.get("name"),
+                "citeAs": generate_bibtex(metadata),
+                "description": metadata.get("description"),
+                "license": metadata.get("license"),
+                "url": metadata.get("url"),
+            }
+            history.append({"role": "assistant", "content": f"```json\n{metadata_json}\n```"})
 
-        # Append assistant response
-        history.append({"role": "assistant", "content": next_prompt})
-        yield history  # Show response immediately
+    return history
 
-    # If all fields are filled, display final metadata including BibTeX
-    if current_field_idx >= len(metadata_fields):
+def select_license(license_choice, history):
+    global current_field_idx
+
+    metadata["license"] = license_choice  # Store selected license
+
+    if not history:
+        history = []
+
+    # Append selected license as a user response
+    history.append({"role": "user", "content": f"Selected License: {license_choice}"})
+
+    # Move to next question
+    current_field_idx += 1
+    if current_field_idx < len(metadata_fields):
+        history.append({"role": "assistant", "content": metadata_fields[current_field_idx]["prompt"]})
+    else:
+        history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
         metadata_json = {
+            "@context": {"@language": "en", "@vocab": "https://schema.org/"},
             "@type": "sc:Dataset",
             "name": metadata.get("name"),
-            "citeAs": generate_bibtex(metadata),  # Store BibTeX as a single-line string
+            "citeAs": generate_bibtex(metadata),
             "description": metadata.get("description"),
             "license": metadata.get("license"),
             "url": metadata.get("url"),
-            "distribution": metadata.get("distribution"),
-            "recordSet": metadata.get("structure"),
-            "@context": {
-                "@language": "en",
-                "@vocab": "https://schema.org/",
-                "cr": "http://mlcommons.org/croissant/",
-                "dct": "http://purl.org/dc/terms/",
-            },
         }
-
         history.append({"role": "assistant", "content": f"```json\n{metadata_json}\n```"})
-        yield history  # Show metadata JSON
+
+    return history  # Return updated chatbot history
 
 with gr.Blocks() as demo:
-    gr.Markdown("# Dataset Metadata Creator")
+    gr.Markdown("# Croissant Metadata Creator")
     chatbot = gr.Chatbot(
         label="Metadata Agent",
         type="messages",
-        avatar_images=(
-            None,
-            "https://em-content.zobj.net/source/twitter/376/hugging-face_1f917.png",
-        ),
+        avatar_images=(None, "https://em-content.zobj.net/source/twitter/376/hugging-face_1f917.png"),
     )
     prompt = gr.Textbox(max_lines=1, label="Chat Message")
-    prompt.submit(respond, [prompt, chatbot], [chatbot])
+
+    # License dropdown - initially hidden
+    license_dropdown = gr.Dropdown(choices=LICENSE_OPTIONS, label="Select License", interactive=True, visible=False)
+
+    def check_license_visibility(history):
+        """Show license dropdown when the bot asks for license selection."""
+        if current_field_idx < len(metadata_fields) and metadata_fields[current_field_idx]["field"] == "license":
+            return gr.update(visible=True)  # Show dropdown
+        return gr.update(visible=False)  # Hide dropdown otherwise
+
+    # Trigger visibility update when chatbot history changes
+    chatbot.change(check_license_visibility, chatbot, license_dropdown)
+
+    # Handle license selection
+    license_dropdown.change(select_license, [license_dropdown, chatbot], chatbot)
+
+    # Normal text input for other questions
+    prompt.submit(respond, [prompt, chatbot], chatbot)
     prompt.submit(lambda: "", None, [prompt])
 
 if __name__ == "__main__":
