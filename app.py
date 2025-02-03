@@ -7,51 +7,49 @@ client = InferenceClient(
     token=os.getenv("HUGGING_FACE_API_KEY")  # Make sure you have your Hugging Face API key set
 )
 
-# Store metadata fields in a dictionary
+# Define metadata fields and associated prompts
+metadata_fields = [
+    {"field": "name", "prompt": "What is the name of your dataset?"},
+    {"field": "citation", "prompt": "Can you provide a citation for your dataset (title, authors, year, etc.)?"},
+    {"field": "description", "prompt": "Please provide a brief description of your dataset."},
+    {"field": "license", "prompt": "What license is your dataset under?"},
+    {"field": "url", "prompt": "Please provide the URL to your dataset or repository."},
+    {"field": "distribution", "prompt": "How is your dataset distributed (e.g., GitHub repo, file formats)?"},
+    {"field": "structure", "prompt": "Please specify the structure of your dataset (e.g., fields like context and completion)."},
+]
+
+# Initialize metadata storage
 metadata = {}
+current_field_idx = 0
 
 def respond(prompt: str, history):
-    # Initialize history if empty
+    global current_field_idx
+
     if not history:
-        history = [{"role": "system", "content": "You are a friendly chatbot. I will guide you through creating metadata for your dataset."}]
+        history = [{"role": "system", "content": "You are a chatbot that helps users create machine-readable metadata for datasets."}]
     
-    # Process user input
-    history.append({"role": "user", "content": prompt})
+    # Save user input to the metadata dictionary
+    if current_field_idx < len(metadata_fields):
+        field = metadata_fields[current_field_idx]["field"]
+        metadata[field] = prompt
 
-    # Check if the first question is about the dataset name
-    if "name" not in metadata:
-        metadata["name"] = prompt
-        response = {"role": "assistant", "content": "Great! Now, can you provide a citation for your dataset (title, authors, year, etc.)?"}
-    # Ask for citation if dataset name is collected
-    elif "citation" not in metadata:
-        metadata["citation"] = prompt
-        response = {"role": "assistant", "content": "Thanks! Now, can you provide a brief description of your dataset?"}
-    # Ask for description if citation is collected
-    elif "description" not in metadata:
-        metadata["description"] = prompt
-        response = {"role": "assistant", "content": "Awesome! What license is your dataset under?"}
-    # Ask for license if description is collected
-    elif "license" not in metadata:
-        metadata["license"] = prompt
-        response = {"role": "assistant", "content": "Got it! Please provide the URL to your dataset or repository."}
-    # Ask for URL if license is collected
-    elif "url" not in metadata:
-        metadata["url"] = prompt
-        response = {"role": "assistant", "content": "Great! Could you specify how the dataset is distributed (e.g., GitHub repo, file formats)?"}
-    # Ask for distribution info if URL is collected
-    elif "distribution" not in metadata:
-        metadata["distribution"] = prompt
-        response = {"role": "assistant", "content": "Perfect! Please specify the structure of your dataset (e.g., fields like context and completion)."}
-    # Ask for dataset structure (fields) if distribution info is collected
-    elif "structure" not in metadata:
-        metadata["structure"] = prompt
-        response = {"role": "assistant", "content": "Thanks for sharing the dataset structure! Your metadata is now ready."}
+        # Append user input to history
+        history.append({"role": "user", "content": prompt})
 
-    # Yield the updated history and response
-    yield history + [response]
+        # Move to next question or finish
+        current_field_idx += 1
+        if current_field_idx < len(metadata_fields):
+            next_prompt = metadata_fields[current_field_idx]["prompt"]
+        else:
+            next_prompt = "Thanks for sharing the information! Here is your dataset metadata:"
 
-    # After all fields are collected, show metadata as JSON
-    if "structure" in metadata:
+        # Append assistant response to history
+        history.append({"role": "assistant", "content": next_prompt})
+
+        yield history  # Display user input + next question
+
+    # If all fields are filled, display the final metadata
+    if current_field_idx >= len(metadata_fields):
         metadata_json = {
             "@type": "sc:Dataset",
             "name": metadata.get("name"),
@@ -68,11 +66,12 @@ def respond(prompt: str, history):
                 "dct": "http://purl.org/dc/terms/",
             },
         }
-        response["content"] = f"Here is your dataset metadata:\n\n{metadata_json}"
-        yield history + [response]
+
+        history.append({"role": "assistant", "content": f"```json\n{metadata_json}\n```"})
+        yield history  # Display the final metadata JSON
 
 with gr.Blocks() as demo:
-    gr.Markdown("# Chat with Hugging Face Zephyr 7b 🤗")
+    gr.Markdown("# Dataset Metadata Creator")
     chatbot = gr.Chatbot(
         label="Metadata Agent",
         type="messages",
