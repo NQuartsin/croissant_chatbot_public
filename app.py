@@ -4,13 +4,15 @@ import os
 
 # Initialize Hugging Face Inference Client
 client = InferenceClient(
-    token=os.getenv("HUGGING_FACE_API_KEY")  # Make sure you have your Hugging Face API key set
+    token=os.getenv("HUGGING_FACE_API_KEY")  # Ensure your Hugging Face API key is set
 )
 
-# Define metadata fields and associated prompts
+# Define metadata fields and prompts
 metadata_fields = [
     {"field": "name", "prompt": "What is the name of your dataset?"},
-    {"field": "citation", "prompt": "Can you provide a citation for your dataset (title, authors, year, etc.)?"},
+    {"field": "author", "prompt": "Who is the author of your dataset? (Provide full name)"},
+    {"field": "year", "prompt": "What year was your dataset published?"},
+    {"field": "title", "prompt": "What is the title of the dataset or associated paper?"},
     {"field": "description", "prompt": "Please provide a brief description of your dataset."},
     {"field": "license", "prompt": "What license is your dataset under?"},
     {"field": "url", "prompt": "Please provide the URL to your dataset or repository."},
@@ -18,20 +20,29 @@ metadata_fields = [
     {"field": "structure", "prompt": "Please specify the structure of your dataset (e.g., fields like context and completion)."},
 ]
 
-# Initialize metadata storage
+# Metadata storage
 metadata = {}
 current_field_idx = 0
+
+def generate_bibtex(metadata):
+    """Generates a single-line BibTeX citation from metadata fields."""
+    bibtex_entry = f"@misc{{{metadata.get('author', 'unknown').split(' ')[0]}{metadata.get('year', 'XXXX')}," \
+                   f" author = {{{metadata.get('author', 'Unknown Author')}}}," \
+                   f" title = {{{metadata.get('title', 'Untitled Dataset')}}}," \
+                   f" year = {{{metadata.get('year', 'XXXX')}}}," \
+                   f" url = {{{metadata.get('url', 'N/A')}}} }}"
+    return bibtex_entry
 
 def respond(prompt: str, history):
     global current_field_idx
 
     if not history:
-        history = [{"role": "system", "content": "You are a chatbot that helps users create machine-readable metadata for datasets."}]
-    
-    # Save user input to the metadata dictionary
+        history = [{"role": "system", "content": "I will guide you through generating metadata for your dataset, including a BibTeX citation."}]
+
+    # Save user input to metadata
     if current_field_idx < len(metadata_fields):
         field = metadata_fields[current_field_idx]["field"]
-        metadata[field] = prompt
+        metadata[field] = prompt.strip()
 
         # Append user input to history
         history.append({"role": "user", "content": prompt})
@@ -43,17 +54,16 @@ def respond(prompt: str, history):
         else:
             next_prompt = "Thanks for sharing the information! Here is your dataset metadata:"
 
-        # Append assistant response to history
+        # Append assistant response
         history.append({"role": "assistant", "content": next_prompt})
+        yield history  # Show response immediately
 
-        yield history  # Display user input + next question
-
-    # If all fields are filled, display the final metadata
+    # If all fields are filled, display final metadata including BibTeX
     if current_field_idx >= len(metadata_fields):
         metadata_json = {
             "@type": "sc:Dataset",
             "name": metadata.get("name"),
-            "citeAs": metadata.get("citation"),
+            "citeAs": generate_bibtex(metadata),  # Store BibTeX as a single-line string
             "description": metadata.get("description"),
             "license": metadata.get("license"),
             "url": metadata.get("url"),
@@ -68,7 +78,7 @@ def respond(prompt: str, history):
         }
 
         history.append({"role": "assistant", "content": f"```json\n{metadata_json}\n```"})
-        yield history  # Display the final metadata JSON
+        yield history  # Show metadata JSON
 
 with gr.Blocks() as demo:
     gr.Markdown("# Dataset Metadata Creator")
