@@ -1,6 +1,8 @@
 from huggingface_hub import InferenceClient
 import gradio as gr
 import os
+import datetime
+
 
 # Initialize Hugging Face Inference Client
 client = InferenceClient(
@@ -111,33 +113,85 @@ def select_license(license_choice, history):
 
     return history  # Return updated chatbot history
 
+# Generate years dynamically (from 1900 to the current year)
+current_year = datetime.datetime.now().year
+YEAR_OPTIONS = [str(y) for y in range(1900, current_year + 1)]
+
+
+def reset_chat():
+    """Reset global state variables and clear chat."""
+    global metadata, current_field_idx, waiting_for_greeting
+    metadata = {}
+    current_field_idx = 0
+    waiting_for_greeting = True
+    return []  # Clear chatbot history
+
 with gr.Blocks() as demo:
     gr.Markdown("# Croissant Metadata Creator")
+    
     chatbot = gr.Chatbot(
         label="Metadata Agent",
         type="messages",
         avatar_images=(None, "https://em-content.zobj.net/source/twitter/376/hugging-face_1f917.png"),
-        height=500  
-
+        height=500  # Make chatbot bigger
     )
+    
     prompt = gr.Textbox(max_lines=1, label="Chat Message")
+    with gr.Row():  # Buttons in a row
+        retry_btn = gr.Button("🔄 Retry")
+        undo_btn = gr.Button("↩️ Undo")
+        refresh_btn = gr.Button("🔄 Refresh")  # Our custom refresh button
 
-    # License dropdown - initially hidden
+    # Define behavior for each button
+    retry_btn.click(lambda history: history, chatbot, chatbot)  # Retry does nothing for now
+    undo_btn.click(lambda history: history[:-1], chatbot, chatbot)  # Removes last message
+    refresh_btn.click(reset_chat, [], chatbot)  # Clears chat history
+    
+    # Dropdown for selecting the publication year
+    year_dropdown = gr.Dropdown(choices=YEAR_OPTIONS, label="Select Publication Year", interactive=True, visible=False)
+    
     license_dropdown = gr.Dropdown(choices=LICENSE_OPTIONS, label="Select License", interactive=True, visible=False)
 
-    def check_license_visibility(history):
-        """Show license dropdown when the bot asks for license selection."""
-        if current_field_idx < len(metadata_fields) and metadata_fields[current_field_idx]["field"] == "license":
-            return gr.update(visible=True)  # Show dropdown
-        return gr.update(visible=False)  # Hide dropdown otherwise
+    def check_ui_visibility(history):
+        """Show dropdowns when necessary."""
+        if current_field_idx < len(metadata_fields):
+            field = metadata_fields[current_field_idx]["field"]
+            if field == "year":
+                return gr.update(visible=True), gr.update(visible=False)
+            elif field == "license":
+                return gr.update(visible=False), gr.update(visible=True)
+        
+        return gr.update(visible=False), gr.update(visible=False)
 
-    # Trigger visibility update when chatbot history changes
-    chatbot.change(check_license_visibility, chatbot, license_dropdown)
+    chatbot.change(check_ui_visibility, chatbot, [year_dropdown, license_dropdown])
 
-    # Handle license selection
+    # Handle year selection
+    def select_year(year, history):
+        global current_field_idx
+        metadata["year"] = year
+        history.append({"role": "user", "content": f"Selected Year: {year}"})
+        
+        current_field_idx += 1
+        if current_field_idx < len(metadata_fields):
+            history.append({"role": "assistant", "content": metadata_fields[current_field_idx]["prompt"]})
+        else:
+            history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
+            metadata_json = {
+                "@context": {"@language": "en", "@vocab": "https://schema.org/"},
+                "@type": "sc:Dataset",
+                "name": metadata.get("name"),
+                "citeAs": generate_bibtex(metadata),
+                "description": metadata.get("description"),
+                "license": metadata.get("license"),
+                "url": metadata.get("url"),
+            }
+            history.append({"role": "assistant", "content": f"```json\n{metadata_json}\n```"})
+
+        return history
+
+    year_dropdown.change(select_year, [year_dropdown, chatbot], chatbot)
     license_dropdown.change(select_license, [license_dropdown, chatbot], chatbot)
 
-    # Normal text input for other questions
     prompt.submit(respond, [prompt, chatbot], chatbot)
     prompt.submit(lambda: "", None, [prompt])
 
