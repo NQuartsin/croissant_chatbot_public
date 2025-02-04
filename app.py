@@ -117,6 +117,8 @@ with gr.Blocks() as demo:
         label="Metadata Agent",
         type="messages",
         avatar_images=(None, "https://em-content.zobj.net/source/twitter/376/hugging-face_1f917.png"),
+        height=500  
+
     )
     prompt = gr.Textbox(max_lines=1, label="Chat Message")
 
