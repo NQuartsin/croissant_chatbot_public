@@ -1,13 +1,17 @@
 from huggingface_hub import InferenceClient
 import gradio as gr
 import os
-import datetime
+import requests
+from datetime import datetime
+import json  
 
 
 # Initialize Hugging Face Inference Client
 client = InferenceClient(
     token=os.getenv("HUGGING_FACE_API_KEY")  # Ensure your Hugging Face API key is set
 )
+
+HF_datasets_url = "https://huggingface.co/api/datasets"
 
 # Define metadata fields and prompts
 metadata_fields = [
@@ -31,6 +35,28 @@ LICENSE_OPTIONS = [
     "CDLA-Permissive-1.0", "CDLA-Sharing-1.0", "MIT", "GPL", 
     "Apache License, Version 2.0", "BSD-3-Clause", "Other"
 ]
+
+def find_dataset_info(dataset_id):
+    url = f"https://huggingface.co/api/datasets/{dataset_id}"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        dataset = response.json()
+        
+        metadata["name"] = dataset.get("id", "Unknown")
+        metadata["author"] = dataset.get("author", "Unknown Author")
+        metadata["year"] = datetime.strptime(dataset.get("lastModified", "XXXX"), "%Y-%m-%dT%H:%M:%S.%fZ").year if dataset.get("lastModified") else "XXXX"
+        metadata["title"] = dataset.get("title", "Untitled Dataset")
+        metadata["description"] = dataset.get("description", "No description available.")
+        metadata["license"] = dataset.get("license", "Other")
+        metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
+        
+        return metadata
+    else:
+        print(f"Failed to fetch dataset info. Status code: {response.status_code}")
+        return None
+
+
 
 def generate_bibtex(metadata):
     """Generates a single-line BibTeX citation from metadata fields."""
@@ -62,6 +88,15 @@ def respond(prompt: str, history):
 
         # Append user input to history
         history.append({"role": "user", "content": prompt})
+
+        # If the current field is "name", call find_dataset_info
+        if field == "name":
+            dataset_info = find_dataset_info(prompt.strip())
+            if dataset_info:
+                history.append({"role": "assistant", "content": "I have fetched the following metadata for your dataset:"})
+                history.append({"role": "assistant", "content": f"```json\n{json.dumps(dataset_info, indent=2)}\n```"})
+            else:
+                history.append({"role": "assistant", "content": "I couldn't fetch metadata for the provided dataset name. Please continue providing the information."})
 
         # Move to next question or finish
         current_field_idx += 1
@@ -114,7 +149,7 @@ def select_license(license_choice, history):
     return history  # Return updated chatbot history
 
 # Generate years dynamically (from 1900 to the current year)
-current_year = datetime.datetime.now().year
+current_year = datetime.now().year
 YEAR_OPTIONS = [str(y) for y in range(1900, current_year + 1)]
 
 
