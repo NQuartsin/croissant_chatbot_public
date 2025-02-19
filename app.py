@@ -84,14 +84,18 @@ def respond(prompt: str, history):
     # Save user input to metadata
     if current_field_idx < len(metadata_fields):
         field = metadata_fields[current_field_idx]["field"]
-        metadata[field] = prompt.strip()
+        user_input = prompt.strip()
 
         # Append user input to history
         history.append({"role": "user", "content": prompt})
 
+        # If user input is not blank, update the metadata
+        if user_input:
+            metadata[field] = user_input
+
         # If the current field is "name", call find_dataset_info
         if field == "name":
-            dataset_info = find_dataset_info(prompt.strip())
+            dataset_info = find_dataset_info(user_input)
             if dataset_info:
                 history.append({"role": "assistant", "content": "I have fetched the following metadata for your dataset:"})
                 history.append({"role": "assistant", "content": f"```json\n{json.dumps(dataset_info, indent=2)}\n```"})
@@ -179,8 +183,16 @@ with gr.Blocks() as demo:
 
     # Define behavior for each button
     retry_btn.click(lambda history: history, chatbot, chatbot)  # Retry does nothing for now
-    undo_btn.click(lambda history: history[:-1], chatbot, chatbot)  # Removes last message
+    undo_btn.click(lambda history: undo_last_message(history), chatbot, chatbot)  # Removes last message
     refresh_btn.click(reset_chat, [], chatbot)  # Clears chat history
+
+    def undo_last_message(history):
+        global current_field_idx
+        if history:
+            history.pop()  # Remove last message
+            if current_field_idx > 0:
+                current_field_idx -= 1  # Move back to the previous question
+        return history
     
     # Dropdown for selecting the publication year
     year_dropdown = gr.Dropdown(choices=YEAR_OPTIONS, label="Select Publication Year", interactive=True, visible=False)
