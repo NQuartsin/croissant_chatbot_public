@@ -118,7 +118,7 @@ def respond(prompt: str, history):
                 "license": metadata.get("license"),
                 "url": metadata.get("url"),
             }
-            history.append({"role": "assistant", "content": f"```json\n{metadata_json}\n```"})
+            history.append({"role": "assistant", "content": f"```json\n{json.dumps(metadata_json, indent=2)}\n```"})
 
     return history
 
