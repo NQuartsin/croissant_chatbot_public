@@ -67,6 +67,22 @@ def generate_bibtex(metadata):
                    f" url = {{{metadata.get('url', 'N/A')}}} }}"
     return bibtex_entry
 
+def finalise_metadata(metadata, history):
+    if not history:
+        history = []
+    history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
+    metadata_json = {
+        "@context": {"@language": "en", "@vocab": "https://schema.org/"},
+        "@type": "sc:Dataset",
+        "name": metadata.get("name"),
+        "citeAs": generate_bibtex(metadata),
+        "description": metadata.get("description"),
+        "license": metadata.get("license"),
+        "url": metadata.get("url"),
+    }
+    history.append({"role": "assistant", "content": f"```json\n{json.dumps(metadata_json, indent=2)}\n```"})
+    return history
+
 def respond(prompt: str, history):
     global current_field_idx, waiting_for_greeting
 
@@ -108,17 +124,7 @@ def respond(prompt: str, history):
             next_prompt = metadata_fields[current_field_idx]["prompt"]
             history.append({"role": "assistant", "content": next_prompt})
         else:
-            history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
-            metadata_json = {
-                "@context": {"@language": "en", "@vocab": "https://schema.org/"},
-                "@type": "sc:Dataset",
-                "name": metadata.get("name"),
-                "citeAs": generate_bibtex(metadata),
-                "description": metadata.get("description"),
-                "license": metadata.get("license"),
-                "url": metadata.get("url"),
-            }
-            history.append({"role": "assistant", "content": f"```json\n{json.dumps(metadata_json, indent=2)}\n```"})
+            history = finalise_metadata(metadata, history)
 
     return history
 
@@ -138,18 +144,7 @@ def select_license(license_choice, history):
     if current_field_idx < len(metadata_fields):
         history.append({"role": "assistant", "content": metadata_fields[current_field_idx]["prompt"]})
     else:
-        history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
-        metadata_json = {
-            "@context": {"@language": "en", "@vocab": "https://schema.org/"},
-            "@type": "sc:Dataset",
-            "name": metadata.get("name"),
-            "citeAs": generate_bibtex(metadata),
-            "description": metadata.get("description"),
-            "license": metadata.get("license"),
-            "url": metadata.get("url"),
-        }
-        history.append({"role": "assistant", "content": f"```json\n{metadata_json}\n```"})
-
+        history = finalise_metadata(metadata, history)
     return history  # Return updated chatbot history
 
 # Generate years dynamically (from 1900 to the current year)
@@ -222,17 +217,7 @@ with gr.Blocks() as demo:
         if current_field_idx < len(metadata_fields):
             history.append({"role": "assistant", "content": metadata_fields[current_field_idx]["prompt"]})
         else:
-            history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
-            metadata_json = {
-                "@context": {"@language": "en", "@vocab": "https://schema.org/"},
-                "@type": "sc:Dataset",
-                "name": metadata.get("name"),
-                "citeAs": generate_bibtex(metadata),
-                "description": metadata.get("description"),
-                "license": metadata.get("license"),
-                "url": metadata.get("url"),
-            }
-            history.append({"role": "assistant", "content": f"```json\n{metadata_json}\n```"})
+            history = finalise_metadata(metadata, history)
 
         return history
 
