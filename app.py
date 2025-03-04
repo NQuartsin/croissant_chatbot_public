@@ -1,33 +1,12 @@
-from huggingface_hub import InferenceClient
 import gradio as gr
-import os
 import requests
 from datetime import datetime
 import json  
 
-
-# Initialize Hugging Face Inference Client
-client = InferenceClient(
-    token=os.getenv("HUGGING_FACE_API_KEY")  # Ensure your Hugging Face API key is set
-)
-
-HF_datasets_url = "https://huggingface.co/api/datasets"
-
-# Define metadata fields and prompts
-metadata_fields = [
-    {"field": "name", "prompt": "What is the name of your dataset?"},
-    {"field": "author", "prompt": "Who is the author of your dataset? (Provide full name)"},
-    {"field": "year", "prompt": "What year was your dataset published?"},
-    {"field": "title", "prompt": "What is the title of the dataset or associated paper?"},
-    {"field": "description", "prompt": "Please provide a brief description of your dataset."},
-    {"field": "license", "prompt": "Please select a license for your dataset:"},
-    {"field": "url", "prompt": "Please provide the URL to your dataset or repository."},
-]
-
 # Metadata storage
 metadata = {}
-current_field_idx = 0  # Start with the first metadata question
-waiting_for_greeting = True  # Flag to track greeting stage
+waiting_for_greeting = True  
+pending_field = None  # Keeps track of which field the user is answering
 
 LICENSE_OPTIONS = [
     "Public Domain", "CC-0", "ODC-PDDL", "CC-BY", "ODC-BY", "CC-BY-SA", 
@@ -36,6 +15,17 @@ LICENSE_OPTIONS = [
     "Apache License, Version 2.0", "BSD-3-Clause", "Other"
 ]
 
+metadata_fields = {
+    "name": "What is the name of your dataset?",
+    "author": "Who is the author of your dataset?",
+    "year": "What year was your dataset published?",
+    "title": "What is the title of the dataset or associated paper?",
+    "description": "Please provide a brief description of your dataset.",
+    "license": "Please select a license for your dataset:",
+    "url": "Please provide the URL to your dataset or repository.",
+}
+
+# Fetch dataset details
 def find_dataset_info(dataset_id):
     url = f"https://huggingface.co/api/datasets/{dataset_id}"
     response = requests.get(url)
@@ -43,7 +33,7 @@ def find_dataset_info(dataset_id):
     if response.status_code == 200:
         dataset = response.json()
         
-        metadata["name"] = dataset.get("id", "Unknown")
+        metadata["name"] = dataset.get("id", dataset_id)
         metadata["author"] = dataset.get("author", "Unknown Author")
         metadata["year"] = datetime.strptime(dataset.get("lastModified", "XXXX"), "%Y-%m-%dT%H:%M:%S.%fZ").year if dataset.get("lastModified") else "XXXX"
         metadata["title"] = dataset.get("title", "Untitled Dataset")
@@ -52,24 +42,18 @@ def find_dataset_info(dataset_id):
         metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
         
         return metadata
-    else:
-        print(f"Failed to fetch dataset info. Status code: {response.status_code}")
-        return None
+    return None  
 
-
-
+# Generate BibTeX
 def generate_bibtex(metadata):
-    """Generates a single-line BibTeX citation from metadata fields."""
-    bibtex_entry = f"@misc{{{metadata.get('author', 'unknown').split(' ')[0]}{metadata.get('year', 'XXXX')}," \
-                   f" author = {{{metadata.get('author', 'Unknown Author')}}}," \
-                   f" title = {{{metadata.get('title', 'Untitled Dataset')}}}," \
-                   f" year = {{{metadata.get('year', 'XXXX')}}}," \
-                   f" url = {{{metadata.get('url', 'N/A')}}} }}"
-    return bibtex_entry
+    return f"@misc{{{metadata.get('author', 'unknown').split(' ')[0]}{metadata.get('year', 'XXXX')}," \
+           f" author = {{{metadata.get('author', 'Unknown Author')}}}," \
+           f" title = {{{metadata.get('title', 'Untitled Dataset')}}}," \
+           f" year = {{{metadata.get('year', 'XXXX')}}}," \
+           f" url = {{{metadata.get('url', 'N/A')}}} }}"
 
-def finalise_metadata(metadata, history):
-    if not history:
-        history = []
+# Finalize metadata
+def finalise_metadata(history):
     history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
     metadata_json = {
         "@context": {"@language": "en", "@vocab": "https://schema.org/"},
@@ -83,149 +67,118 @@ def finalise_metadata(metadata, history):
     history.append({"role": "assistant", "content": f"```json\n{json.dumps(metadata_json, indent=2)}\n```"})
     return history
 
-def respond(prompt: str, history):
-    global current_field_idx, waiting_for_greeting
+# Handle user input through chat
+def handle_user_input(prompt, history):
+    global waiting_for_greeting, pending_field
 
     if not history:
         history = []
 
-    # Handle greeting stage
+    history.append({"role": "user", "content": prompt})
+
     if waiting_for_greeting:
-        history.append({"role": "user", "content": prompt})  # Store user's initial message
-        history.append({"role": "assistant", "content": "Hello! I will help you create metadata for your dataset, including a BibTeX citation. Let's begin!"})
-        history.append({"role": "assistant", "content": metadata_fields[current_field_idx]["prompt"]})
-        waiting_for_greeting = False  # Now start metadata collection
+        history.append({"role": "assistant", "content": "Hello! I'm the Croissant Metadata Assistant. Click a button to provide metadata fields!"})
+        waiting_for_greeting = False
         return history
 
-    # Save user input to metadata
-    if current_field_idx < len(metadata_fields):
-        field = metadata_fields[current_field_idx]["field"]
-        user_input = prompt.strip()
+    if pending_field:
+        metadata[pending_field] = prompt.strip()
+        history.append({"role": "assistant", "content": f"Saved `{pending_field}` as: {prompt.strip()}."})
 
-        # Append user input to history
-        history.append({"role": "user", "content": prompt})
-
-        # If user input is not blank, update the metadata
-        if user_input:
-            metadata[field] = user_input
-
-        # If the current field is "name", call find_dataset_info
-        if field == "name":
-            dataset_info = find_dataset_info(user_input)
+        # If the user just provided the dataset name, fetch metadata
+        if pending_field == "name":
+            dataset_info = find_dataset_info(prompt.strip())
             if dataset_info:
-                history.append({"role": "assistant", "content": "I have fetched the following metadata for your dataset:"})
+                history.append({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
                 history.append({"role": "assistant", "content": f"```json\n{json.dumps(dataset_info, indent=2)}\n```"})
             else:
-                history.append({"role": "assistant", "content": "I couldn't fetch metadata for the provided dataset name. Please continue providing the information."})
+                history.append({"role": "assistant", "content": "I couldn't fetch metadata for the provided dataset name. Please enter the information manually."})
 
-        # Move to next question or finish
-        current_field_idx += 1
-        if current_field_idx < len(metadata_fields):
-            next_prompt = metadata_fields[current_field_idx]["prompt"]
-            history.append({"role": "assistant", "content": next_prompt})
-        else:
-            history = finalise_metadata(metadata, history)
+        pending_field = None  # Reset pending field after handling input
+    else:
+        history.append({"role": "assistant", "content": "Click a button to provide metadata fields."})
+
+    if all(field in metadata for field in metadata_fields):
+        history = finalise_metadata(history)
 
     return history
 
-def select_license(license_choice, history):
-    global current_field_idx
-
-    metadata["license"] = license_choice  # Store selected license
+# Handle button clicks (sets the pending field)
+def ask_for_field(field, history):
+    global pending_field
 
     if not history:
         history = []
 
-    # Append selected license as a user response
+    pending_field = field
+    history.append({"role": "assistant", "content": metadata_fields[field]})
+
+    return history
+
+# Handle license selection
+def select_license(license_choice, history):
+    metadata["license"] = license_choice
     history.append({"role": "user", "content": f"Selected License: {license_choice}"})
+    return history  
 
-    # Move to next question
-    current_field_idx += 1
-    if current_field_idx < len(metadata_fields):
-        history.append({"role": "assistant", "content": metadata_fields[current_field_idx]["prompt"]})
-    else:
-        history = finalise_metadata(metadata, history)
-    return history  # Return updated chatbot history
+# Handle year selection
+def select_year(year, history):
+    metadata["year"] = year
+    history.append({"role": "user", "content": f"Selected Year: {year}"})
+    return history
 
-# Generate years dynamically (from 1900 to the current year)
+# Undo last message
+def undo_last_message(history):
+    if history:
+        history.pop()
+    return history
+
+# Reset chat
+def reset_chat():
+    global metadata, waiting_for_greeting, pending_field
+    metadata = {}
+    waiting_for_greeting = True
+    pending_field = None
+    return []  
+
+# Generate years dynamically
 current_year = datetime.now().year
 YEAR_OPTIONS = [str(y) for y in range(1900, current_year + 1)]
 
-
-def reset_chat():
-    """Reset global state variables and clear chat."""
-    global metadata, current_field_idx, waiting_for_greeting
-    metadata = {}
-    current_field_idx = 0
-    waiting_for_greeting = True
-    return []  # Clear chatbot history
-
+# Gradio UI
 with gr.Blocks() as demo:
     gr.Markdown("# Croissant Metadata Creator")
     
-    chatbot = gr.Chatbot(
-        label="Metadata Agent",
-        type="messages",
-        avatar_images=(None, "https://em-content.zobj.net/source/twitter/376/hugging-face_1f917.png"),
-        height=500  # Make chatbot bigger
-    )
+    chatbot = gr.Chatbot(label="Metadata Agent", type="messages", height=500)
     
     prompt = gr.Textbox(max_lines=1, label="Chat Message")
-    with gr.Row():  # Buttons in a row
+    
+    # Chat message input
+    prompt.submit(handle_user_input, [prompt, chatbot], chatbot)
+    prompt.submit(lambda: "", None, [prompt])
+
+    # Buttons for metadata fields
+    for field in metadata_fields.keys():
+        btn = gr.Button(field)
+        btn.click(ask_for_field, [gr.State(field), chatbot], chatbot)
+
+    # Chat control buttons
+    with gr.Row():  
         retry_btn = gr.Button("🔄 Retry")
         undo_btn = gr.Button("↩️ Undo")
-        refresh_btn = gr.Button("🔄 Refresh")  # Our custom refresh button
+        refresh_btn = gr.Button("🔄 Refresh")
 
-    # Define behavior for each button
-    retry_btn.click(lambda history: history, chatbot, chatbot)  # Retry does nothing for now
-    undo_btn.click(lambda history: undo_last_message(history), chatbot, chatbot)  # Removes last message
-    refresh_btn.click(reset_chat, [], chatbot)  # Clears chat history
+    retry_btn.click(lambda h: h, chatbot, chatbot)  
+    undo_btn.click(undo_last_message, chatbot, chatbot)  
+    refresh_btn.click(reset_chat, [], chatbot)  
 
-    def undo_last_message(history):
-        global current_field_idx
-        if history:
-            history.pop()  # Remove last message
-            if current_field_idx > 0:
-                current_field_idx -= 1  # Move back to the previous question
-        return history
-    
-    # Dropdown for selecting the publication year
-    year_dropdown = gr.Dropdown(choices=YEAR_OPTIONS, label="Select Publication Year", interactive=True, visible=False)
-    
-    license_dropdown = gr.Dropdown(choices=LICENSE_OPTIONS, label="Select License", interactive=True, visible=False)
-
-    def check_ui_visibility(history):
-        """Show dropdowns when necessary."""
-        if current_field_idx < len(metadata_fields):
-            field = metadata_fields[current_field_idx]["field"]
-            if field == "year":
-                return gr.update(visible=True), gr.update(visible=False)
-            elif field == "license":
-                return gr.update(visible=False), gr.update(visible=True)
-        
-        return gr.update(visible=False), gr.update(visible=False)
-
-    chatbot.change(check_ui_visibility, chatbot, [year_dropdown, license_dropdown])
-
-    # Handle year selection
-    def select_year(year, history):
-        global current_field_idx
-        metadata["year"] = year
-        history.append({"role": "user", "content": f"Selected Year: {year}"})
-        
-        current_field_idx += 1
-        if current_field_idx < len(metadata_fields):
-            history.append({"role": "assistant", "content": metadata_fields[current_field_idx]["prompt"]})
-        else:
-            history = finalise_metadata(metadata, history)
-
-        return history
+    # Dropdowns for year & license selection
+    year_dropdown = gr.Dropdown(choices=YEAR_OPTIONS, label="Select Publication Year", interactive=True)
+    license_dropdown = gr.Dropdown(choices=LICENSE_OPTIONS, label="Select License", interactive=True)
 
     year_dropdown.change(select_year, [year_dropdown, chatbot], chatbot)
     license_dropdown.change(select_license, [license_dropdown, chatbot], chatbot)
 
-    prompt.submit(respond, [prompt, chatbot], chatbot)
-    prompt.submit(lambda: "", None, [prompt])
-
+# Run app
 if __name__ == "__main__":
     demo.launch()
