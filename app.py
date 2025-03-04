@@ -157,16 +157,17 @@ with gr.Blocks() as demo:
     prompt.submit(handle_user_input, [prompt, chatbot], chatbot)
     prompt.submit(lambda: "", None, [prompt])
 
-    # Buttons for metadata fields
-    for field in metadata_fields.keys():
-        btn = gr.Button(field)
-        btn.click(ask_for_field, [gr.State(field), chatbot], chatbot)
+    # Buttons for metadata fields with smaller size
+    with gr.Row():
+        for field in metadata_fields.keys():
+            btn = gr.Button(field, elem_id=field, scale=0.5)  # Added scale argument to shrink the button size
+            btn.click(ask_for_field, [gr.State(field), chatbot], chatbot)
 
-    # Chat control buttons
+    # Chat control buttons with smaller size
     with gr.Row():  
-        retry_btn = gr.Button("🔄 Retry")
-        undo_btn = gr.Button("↩️ Undo")
-        refresh_btn = gr.Button("🔄 Refresh")
+        retry_btn = gr.Button("🔄 Retry", scale=0.5)  # Scale set to 0.5 to reduce size
+        undo_btn = gr.Button("↩️ Undo", scale=0.5)    # Scale set to 0.5 to reduce size
+        refresh_btn = gr.Button("🔄 Refresh", scale=0.5)  # Scale set to 0.5 to reduce size
 
     retry_btn.click(lambda h: h, chatbot, chatbot)  
     undo_btn.click(undo_last_message, chatbot, chatbot)  
