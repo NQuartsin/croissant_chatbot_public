@@ -81,6 +81,14 @@ def handle_user_input(prompt, history):
         waiting_for_greeting = False
         return history
 
+    if prompt.lower() == "complete":
+        if all(field in metadata for field in metadata_fields):  # Ensure all fields are present
+            print("Finalizing metadata...")
+            return finalise_metadata(history)
+        else:
+            history.append({"role": "assistant", "content": "Some metadata fields are still missing. Please fill them before finalizing."})
+            return history
+
     if pending_field:
         metadata[pending_field] = prompt.strip()
         history.append({"role": "assistant", "content": f"Saved `{pending_field}` as: {prompt.strip()}."})
@@ -91,17 +99,13 @@ def handle_user_input(prompt, history):
             if dataset_info:
                 history.append({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
                 history.append({"role": "assistant", "content": f"```json\n{json.dumps(dataset_info, indent=2)}\n```"})
-            else:
-                history.append({"role": "assistant", "content": "I couldn't fetch metadata for the provided dataset name. Please enter the information manually."})
+        pending_field = None  # Reset after processing
 
-        pending_field = None  # Reset pending field after handling input
-    else:
-        history.append({"role": "assistant", "content": "Click a button to provide metadata fields."})
-
-    if all(field in metadata for field in metadata_fields):
-        history = finalise_metadata(history)
+    if all(field in metadata for field in metadata_fields) and "All metadata fields have been filled" not in [msg["content"] for msg in history]:
+        history.append({"role": "assistant", "content": "All metadata fields have been filled. Click any field to update its value or type 'Complete' to finalize the metadata."})
 
     return history
+
 
 # Handle button clicks (sets the pending field)
 def ask_for_field(field, history):
@@ -117,15 +121,16 @@ def ask_for_field(field, history):
 
 # Handle license selection
 def select_license(license_choice, history):
-    metadata["license"] = license_choice
-    history.append({"role": "user", "content": f"Selected License: {license_choice}"})
-    return history  
+    global pending_field
+    pending_field = "license"
+    return handle_user_input(license_choice, history)
+  
 
 # Handle year selection
 def select_year(year, history):
-    metadata["year"] = year
-    history.append({"role": "user", "content": f"Selected Year: {year}"})
-    return history
+    global pending_field
+    pending_field = "year"
+    return handle_user_input(year, history)
 
 # Undo last message
 def undo_last_message(history):
