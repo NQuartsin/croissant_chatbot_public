@@ -2,6 +2,9 @@ import gradio as gr
 import requests
 from datetime import datetime
 import json  
+import mlcroissant as mlc  # Import mlcroissant for creating Croissant format
+import hashlib
+import pandas as pd
 
 # Metadata storage
 metadata = {}
@@ -25,7 +28,48 @@ metadata_fields = {
     "url": "Please provide the URL to your dataset or repository.",
 }
 
-# Fetch dataset details
+def detect_fields(dataset_url):
+    """Automatically detects field names from the dataset file."""
+    response = requests.get(dataset_url)
+    
+    if response.status_code != 200:
+        return []
+
+    content = response.text
+
+    # Try JSON first (assumes JSONL format)
+    try:
+        first_line = content.split("\n")[0].strip()
+        json_data = json.loads(first_line)
+        return list(json_data.keys())  # Extract JSON keys as fields
+    except json.JSONDecodeError:
+        pass  # If it fails, try CSV
+
+    # Try CSV
+    try:
+        df = pd.read_csv(dataset_url, nrows=1)  # Read only the first row
+        return df.columns.tolist()  # Extract column headers
+    except Exception:
+        pass  # If it fails, return empty list
+
+    return []
+
+# Function to download dataset and calculate checksum (MD5 or SHA256)
+def download_and_get_checksum(url, checksum_type="sha256"):
+    # Download dataset
+    response = requests.get(url)
+    if response.status_code != 200:
+        return None  # Handle failed download case
+    
+    file_content = response.content
+    if checksum_type == "sha256":
+        checksum = hashlib.sha256(file_content).hexdigest()
+    else:  # default to MD5
+        checksum = hashlib.md5(file_content).hexdigest()
+    
+    return checksum
+
+# Fetch dataset metadata from Hugging Face
 def find_dataset_info(dataset_id):
     url = f"https://huggingface.co/api/datasets/{dataset_id}"
     response = requests.get(url)
@@ -40,9 +84,18 @@ def find_dataset_info(dataset_id):
         metadata["description"] = dataset.get("description", "No description available.")
         metadata["license"] = dataset.get("license", "Other")
         metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
-        
+
+        # Fetch checksum
+        checksum = download_and_get_checksum(metadata["url"], checksum_type="sha256")
+        metadata["checksum"] = checksum if checksum else "Checksum not available"
+
+        # Auto-detect fields
+        detected_fields = detect_fields(metadata["url"])
+        metadata["fields"] = detected_fields if detected_fields else ["text", "label"]  # Default fields if none found
+
         return metadata
-    return None  
+    return None
+
 
 # Generate BibTeX
 def generate_bibtex(metadata):
@@ -52,20 +105,76 @@ def generate_bibtex(metadata):
            f" year = {{{metadata.get('year', 'XXXX')}}}," \
            f" url = {{{metadata.get('url', 'N/A')}}} }}"
 
-# Finalize metadata
+def fetch_huggingface_files(dataset_id, checksum):
+    url = f"https://huggingface.co/api/datasets/{dataset_id}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        dataset_info = response.json()
+        files = dataset_info.get("siblings", [])
+        
+        file_objects = []
+        for file in files:
+            file_url = f"https://huggingface.co/datasets/{dataset_id}/resolve/main/{file['rfilename']}"
+            file_objects.append(mlc.FileObject(
+                id=file["rfilename"],
+                name=file["rfilename"],
+                description=f"File from dataset {dataset_id}",
+                content_url=file_url,
+                encoding_format="application/jsonlines" if file["rfilename"].endswith(".jsonl") else "text/csv", 
+                sha256=checksum
+            ))
+        return file_objects
+    return []
+
+# Finalize metadata in Croissant format
 def finalise_metadata(history):
     history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
-    metadata_json = {
-        "@context": {"@language": "en", "@vocab": "https://schema.org/"},
-        "@type": "sc:Dataset",
-        "name": metadata.get("name"),
-        "citeAs": generate_bibtex(metadata),
-        "description": metadata.get("description"),
-        "license": metadata.get("license"),
-        "url": metadata.get("url"),
-    }
-    history.append({"role": "assistant", "content": f"```json\n{json.dumps(metadata_json, indent=2)}\n```"})
+
+    # Convert into Croissant metadata format (using mlcroissant)
+  
+
+    # Ensure checksum exists, else fallback to default "Checksum not available"
+    checksum_value = metadata.get("checksum", "Checksum not available")
+
+    distribution = fetch_huggingface_files(metadata.get("name", "unknown-dataset"), checksum_value)
+
+
+    # Assuming `distribution` contains a list of FileObjects
+
+    # Create Fields linked to this DataSource
+    fields = []
+    file_object_id = distribution[0].id if distribution else "unknown-file"
+
+    for field_name in metadata.get("fields", ["text", "label"]):
+        fields.append(
+            mlc.Field(
+                id=f"{field_name}-field",
+                name=field_name,
+                description=f"{field_name} data field",
+                data_types=[mlc.DataType.TEXT],
+                source=mlc.Source(
+                    extract=mlc.Extract(column=field_name),
+                    file_object=file_object_id,  # Ensure it's a valid file object
+                ),
+            )
+        )
+
+
+    croissant_metadata = mlc.Metadata(
+        name=metadata.get("name"),
+        description=metadata.get("description"),
+        cite_as=generate_bibtex(metadata),
+        license=metadata.get("license"),
+        url=metadata.get("url"),
+        distribution=distribution,
+        record_sets=[mlc.RecordSet(id="jsonl", name="jsonl", fields=fields)]
+    )
+
+    history.append({"role": "assistant", "content": f"```json\n{json.dumps(croissant_metadata.to_json(), indent=2)}\n```"})
     return history
+
+
 
 # Handle user input through chat
 def handle_user_input(prompt, history):
