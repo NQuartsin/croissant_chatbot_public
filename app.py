@@ -5,18 +5,13 @@ import json
 import mlcroissant as mlc  # Import mlcroissant for creating Croissant format
 import hashlib
 import pandas as pd
+from validation import validate_metadata, validate_year, validate_url, validate_license
+from constants import LICENSE_OPTIONS
 
 # Metadata storage
 metadata = {}
 waiting_for_greeting = True  
 pending_field = None  # Keeps track of which field the user is answering
-
-LICENSE_OPTIONS = [
-    "Public Domain", "CC-0", "ODC-PDDL", "CC-BY", "ODC-BY", "CC-BY-SA", 
-    "ODC-ODbL", "CC-BY-NC", "CC-BY-NC-SA", "CC BY-ND", "CC BY-NC-ND", 
-    "CDLA-Permissive-1.0", "CDLA-Sharing-1.0", "MIT", "GPL", 
-    "Apache License, Version 2.0", "BSD-3-Clause", "Other"
-]
 
 metadata_fields = {
     "name": "What is the name of your dataset?",
@@ -190,8 +185,13 @@ def handle_user_input(prompt, history):
         waiting_for_greeting = False
         return history
 
+    
     if prompt.lower() == "complete":
-        if all(field in metadata for field in metadata_fields):  # Ensure all fields are present
+        errors = validate_metadata(metadata)
+        if errors:
+            history.append({"role": "assistant", "content": "Some metadata fields are invalid:\n" + "\n".join(errors)})
+            return history
+        elif all(field in metadata for field in metadata_fields):  # Ensure all fields are present
             print("Finalizing metadata...")
             return finalise_metadata(history)
         else:
