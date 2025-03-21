@@ -5,13 +5,15 @@ import json
 import mlcroissant as mlc  # Import mlcroissant for creating Croissant format
 import hashlib
 import pandas as pd
-from validation import validate_metadata, validate_year, validate_url, validate_license
+from validation import validate_metadata
 from constants import LICENSE_OPTIONS
+from metadata_suggestions import suggest_metadata
 
 # Metadata storage
 metadata = {}
 waiting_for_greeting = True  
 pending_field = None  # Keeps track of which field the user is answering
+
 
 metadata_fields = {
     "name": "What is the name of your dataset?",
@@ -21,6 +23,15 @@ metadata_fields = {
     "description": "Please provide a brief description of your dataset.",
     "license": "Please select a license for your dataset:",
     "url": "Please provide the URL to your dataset or repository.",
+}
+
+file_object_fields = {
+    "id": "unique identifier",
+    "name": "name",
+    "description": "description",
+    "content_url": "content URL",
+    "encoding_format": "encoding format",
+    "sha256": "SHA-256 checksum",
 }
 
 def detect_fields(dataset_url):
@@ -73,11 +84,11 @@ def find_dataset_info(dataset_id):
         dataset = response.json()
         
         metadata["name"] = dataset.get("id", dataset_id)
-        metadata["author"] = dataset.get("author", "Unknown Author")
-        metadata["year"] = datetime.strptime(dataset.get("lastModified", "XXXX"), "%Y-%m-%dT%H:%M:%S.%fZ").year if dataset.get("lastModified") else "XXXX"
-        metadata["title"] = dataset.get("title", "Untitled Dataset")
-        metadata["description"] = dataset.get("description", "No description available.")
-        metadata["license"] = dataset.get("license", "Other")
+        metadata["author"] = dataset.get("author", "N/A")
+        metadata["year"] = datetime.strptime(dataset.get("lastModified", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").year if dataset.get("lastModified") else "XXXX"
+        metadata["title"] = dataset.get("title", "N/A")
+        metadata["description"] = dataset.get("description", "N/A")
+        metadata["license"] = dataset.get("license", "N/A")
         metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
 
         # Fetch checksum
@@ -114,10 +125,11 @@ def fetch_huggingface_files(dataset_id, checksum):
             file_objects.append(mlc.FileObject(
                 id=file["rfilename"],
                 name=file["rfilename"],
-                description=f"File from dataset {dataset_id}",
+                content_size=file["size"],
                 content_url=file_url,
                 encoding_format="application/jsonlines" if file["rfilename"].endswith(".jsonl") else "text/csv", 
-                sha256=checksum
+                sha256=checksum,
+
             ))
         return file_objects
     return []
@@ -197,8 +209,12 @@ def handle_user_input(prompt, history):
         else:
             history.append({"role": "assistant", "content": "Some metadata fields are still missing. Please fill them before finalizing."})
             return history
+        
+    
 
+    # Handle pending field input
     if pending_field:
+        # Save the user-provided value
         metadata[pending_field] = prompt.strip()
         history.append({"role": "assistant", "content": f"Saved `{pending_field}` as: {prompt.strip()}."})
 
@@ -208,7 +224,19 @@ def handle_user_input(prompt, history):
             if dataset_info:
                 history.append({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
                 history.append({"role": "assistant", "content": f"```json\n{json.dumps(dataset_info, indent=2)}\n```"})
-        pending_field = None  # Reset after processing
+
+        # Reset pending field after processing
+        pending_field = None
+
+    # # Suggest missing fields
+    # for field, question in metadata_fields.items():
+    #     if not metadata.get(field):  # Check if the field is missing
+    #         pending_field = field
+    #         suggested_value = suggest_metadata(field, metadata.get("name", ""), metadata.get("description", ""))
+    #         history.append({"role": "assistant", "content": f"The field `{field}` is missing. Suggested value: {suggested_value}. Please confirm or modify."})
+    #         return history
+    #     # Reset pending field after processing
+    #     pending_field = None
 
     if all(field in metadata for field in metadata_fields) and "All metadata fields have been filled" not in [msg["content"] for msg in history]:
         history.append({"role": "assistant", "content": "All metadata fields have been filled. Click any field to update its value or type 'Complete' to finalize the metadata."})
@@ -224,7 +252,16 @@ def ask_for_field(field, history):
         history = []
 
     pending_field = field
-    history.append({"role": "assistant", "content": metadata_fields[field]})
+
+    # Check if the field is missing or has "N/A"
+    if not metadata.get(field) or metadata.get(field) == "N/A":
+        # Suggest a value for the field
+        suggested_value = suggest_metadata(field, metadata.get("name", ""), metadata.get("description", ""))
+        history.append({"role": "assistant", "content": f"The field `{field}` is missing or has no valid value. Suggested value: {suggested_value}. Please confirm or modify."})
+    else:
+        # Prompt the user to update the existing value
+        current_value = metadata.get(field)
+        history.append({"role": "assistant", "content": f"The field `{field}` already has a value: `{current_value}`. You can update it if needed."})
 
     return history
 

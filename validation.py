@@ -21,8 +21,13 @@ def validate_metadata(metadata):
     """Check if all required fields are valid before finalizing metadata."""
     errors = []
 
-    if "year" in metadata and not validate_year(metadata["year"]):
-        errors.append("Invalid year format. It should be between 1900 and the current year.")
+    if "year" in metadata:
+        try:
+            year = int(metadata["year"])  # Convert to integer for validation
+            if not validate_year(year):
+                errors.append("Invalid year format. It should be between 1900 and the current year.")
+        except ValueError:
+            errors.append("Year must be a valid number.")
 
     if "url" in metadata and not validate_url(metadata["url"]):
         errors.append("Invalid URL format.")
