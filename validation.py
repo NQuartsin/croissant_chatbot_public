@@ -6,7 +6,7 @@ from constants import LICENSE_OPTIONS
 def validate_year(year):
     """Ensure the year is a four-digit number within a reasonable range."""
     current_year = datetime.now().year
-    return year.isdigit() and 1900 <= int(year) <= current_year
+    return 1900 <= int(year) <= current_year
 
 def validate_url(url):
     """Ensure the URL is valid."""
