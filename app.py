@@ -1,4 +1,6 @@
 from turtle import pu
+
+from yaml import serialize
 import gradio as gr
 import requests
 from datetime import datetime
@@ -8,13 +10,16 @@ import hashlib
 import pandas as pd
 from validation import validate_metadata
 from constants import LICENSE_OPTIONS
-from metadata_suggestions import suggest_metadata
+from llm import suggest_metadata, ask_user_for_informal_description
 
 
 # Metadata storage
 metadata = {}
 waiting_for_greeting = True  
+waiting_for_informal_description = False
 pending_field = None  # Keeps track of which field the user is answering
+informal_description = "" # Global variable to store the informal description
+suggested_values = {} # Store suggested values for metadata fields
 
 
 metadata_fields = {
@@ -30,7 +35,7 @@ metadata_fields = {
     "keywords": "Please provide keywords for your dataset.",
     "date_modified": "When was the dataset last modified?",
     "date_created": "When was the dataset created?",
-    "date_publihsed": "When was the dataset published?",
+    "date_published": "When was the dataset published?",
     "language": "What are the languages of the dataset?",
     "cite_as": "Please provide a citation for your dataset."
 }
@@ -58,7 +63,7 @@ def find_dataset_info(dataset_id):
         metadata["year"] = datetime.strptime(dataset.get("lastModified", "XXXX"), "%Y-%m-%dT%H:%M:%S.%fZ").year if dataset.get("lastModified") else "N/A"
         metadata["title"] = dataset.get("title", "N/A")
         metadata["description"] = dataset.get("description", "N/A")
-        metadata["license"] = card_data.get("license", "N/A")
+        metadata["license"] = card_data.get("license")[0] if card_data.get("license") else "N/A"
         metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
         metadata["publisher"] = dataset.get("author", "N/A")
         metadata["version"] = dataset.get("codebase_version", "N/A")
@@ -73,36 +78,57 @@ def find_dataset_info(dataset_id):
         return metadata
     return None  
 
+def convert_string_to_datetime(value):
+    """Convert a string in 'YYYY-MM-DD' format to a datetime object."""
+    if isinstance(value, str):
+        try:
+            return datetime.strptime(value, "%Y-%m-%d")
+        except ValueError:
+            print(f"Invalid date format for value: {value}")
+            return None
+    return value
+
 # Finalize metadata in Croissant format
 def finalise_metadata(history):
     history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
-
+    # Ensure all metadata fields are JSON-serializable
+    # serializable_metadata = {k: v if not isinstance(v, datetime) else v.strftime("%Y-%m-%d") for k, v in metadata.items()}
+    serializable_metadata = metadata
+    # Create Croissant metadata
     croissant_metadata = mlc.Metadata(
-        name=metadata.get("name"),
-        creators=metadata.get("author"),
-        description=metadata.get("description"),
-        license=metadata.get("license"),
-        url=metadata.get("url"),
-        publisher=metadata.get("publisher"),
-        version=metadata.get("version"),
-        keywords=metadata.get("keywords"),
-        last_modified=metadata.get("date_modified"),
-        date_created=metadata.get("date_created"),
-        date_published=metadata.get("date_published"),
-        in_language=metadata.get("language"),
-        cite_as=metadata.get("cite_as"),
-
+        name=serializable_metadata.get("name", "N/A"),
+        creators=serializable_metadata.get("author", "N/A"),
+        description=serializable_metadata.get("description", "N/A"),
+        license=serializable_metadata.get("license", "N/A"),
+        url=serializable_metadata.get("url", "N/A"),
+        publisher=serializable_metadata.get("publisher", "N/A"),
+        version=serializable_metadata.get("version", "N/A"),
+        keywords=serializable_metadata.get("keywords", "N/A"),
+        date_modified=serializable_metadata.get("date_modified", "N/A"),
+        date_created=serializable_metadata.get("date_created", "N/A"),
+        date_published=serializable_metadata.get("date_published", "N/A"),
+        in_language=serializable_metadata.get("language", "N/A"),
+        cite_as=serializable_metadata.get("cite_as", "N/A"),
     )
-    final_metadata = croissant_metadata.to_json()
-    
 
-    history.append({"role": "assistant", "content": f"```json\n{json.dumps(croissant_metadata.to_json(), indent=2)}\n```"})
+    # Convert the Croissant metadata to JSON
+    final_metadata = croissant_metadata.to_json()
+
+    # Serialize final_metadata with a custom handler for datetime
+    def json_serial(obj):
+        if isinstance(obj, datetime):
+            return obj.strftime("%Y-%m-%d")
+        raise TypeError(f"Type {type(obj)} not serializable")
+
+    # Append the metadata to the history
+    history.append({"role": "assistant", "content": f"```json\n{json.dumps(final_metadata, indent=2, default=json_serial)}\n```"})
     return history
 
 
 # Handle user input through chat
 def handle_user_input(prompt, history):
-    global waiting_for_greeting, pending_field
+    """Handle user input through chat."""
+    global waiting_for_greeting, waiting_for_informal_description, pending_field
 
     if not history:
         history = []
@@ -113,13 +139,24 @@ def handle_user_input(prompt, history):
     if waiting_for_greeting:
         return handle_greeting(history)
 
+    # Handle informal description prompt
+    if waiting_for_informal_description:
+        return handle_informal_description_prompt(prompt, history)
+
     # Handle "complete" command
     if prompt.lower() == "complete":
         return handle_complete_command(history)
 
+    # Handle save suggestion
+    if prompt.lower() == "confirm":
+        return handle_save_suggestion(history)
+
+
     # Handle pending field input
     if pending_field:
         history = handle_pending_field_input(prompt, history)
+
+
 
     # Check if all fields are filled
     if all_fields_filled():
@@ -130,19 +167,41 @@ def handle_user_input(prompt, history):
 
 def handle_greeting(history):
     """Handle the initial greeting."""
-    global waiting_for_greeting
-    history.append({"role": "assistant", "content": "Hello! I'm the Croissant Metadata Assistant. Click a button to provide metadata fields!"})
+    global waiting_for_greeting, waiting_for_informal_description
+    history.append({"role": "assistant", "content": "Hello! I'm the Croissant Metadata Assistant. Let's start creating metadata for your dataset."})
+    history.append({"role": "assistant", "content": "Would you like to provide an informal description of your dataset? (yes/no): "})
     waiting_for_greeting = False
+    waiting_for_informal_description = True  # Set flag to wait for informal description
     return history
 
+def handle_informal_description_prompt(prompt, history):
+    """Handle the user's response to the informal description prompt."""
+    global waiting_for_informal_description, informal_description
+
+    if prompt.lower() == "yes":
+        ask  = ask_user_for_informal_description()
+        history.append({"role": "assistant", "content": f"{ask}"})
+        waiting_for_informal_description = True  # Wait for the user to provide the description
+    elif prompt.lower() == "no":
+        history.append({"role": "assistant", "content": "Alright! Click any field to enter/update its value."})
+        waiting_for_informal_description = False  # Reset the flag
+    elif waiting_for_informal_description:
+        informal_description = prompt.strip()
+        history.append({"role": "assistant", "content": f"Saved the informal description: {informal_description}"})
+        history.append({"role": "assistant", "content": "Click any field to enter/update its value."})
+        waiting_for_informal_description = False  # Reset the flag
+    # HANDLE OTHER RESPONSES
+    
+
+    return history
 
 def handle_complete_command(history):
     """Handle the 'complete' command."""
     errors = validate_metadata(metadata)
+    # DETECT EMPTY or INSUFFICIENT FIELDS
     if errors:
         history.append({"role": "assistant", "content": "Some metadata fields are invalid:\n" + "\n".join(errors)})
     elif all_fields_filled():
-        print("Finalizing metadata...")
         return finalise_metadata(history)
     else:
         history.append({"role": "assistant", "content": "Some metadata fields are still missing. Please fill them before finalizing."})
@@ -161,9 +220,7 @@ def handle_pending_field_input(prompt, history):
         dataset_info = find_dataset_info(prompt.strip())
 
         if dataset_info:
-            print(f"cite_as: {metadata.get('cite_as')}")
             if metadata.get("cite_as") is None or metadata.get("cite_as") == "None" or metadata.get("cite_as") == "N/A":
-                print("Generating citation...")
                 metadata["cite_as"] = generate_bibtex(metadata)
             history.append({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
             history.append({"role": "assistant", "content": f"```json\n{json.dumps(metadata, indent=2)}\n```"})
@@ -177,10 +234,17 @@ def all_fields_filled():
     """Check if all metadata fields are filled."""
     return all(field in metadata for field in metadata_fields)
 
+def handle_save_suggestion(history):
+    global pending_field, suggested_values
+    if pending_field and pending_field in suggested_values:
+        metadata[pending_field] = suggested_values[pending_field]
+        history.append({"role": "assistant", "content": f"Saved `{pending_field}` as: {suggested_values[pending_field]}."})
+        pending_field = None
+    return history
 
 # Handle button clicks (sets the pending field)
 def ask_for_field(field, history):
-    global pending_field
+    global pending_field, suggested_values
 
     if not history:
         history = []
@@ -190,8 +254,9 @@ def ask_for_field(field, history):
     # Check if the field is missing or has "N/A"
     if not metadata.get(field) or metadata.get(field) == "N/A":
         # Suggest a value for the field
-        suggested_value = suggest_metadata(field, metadata.get("name", ""), metadata.get("description", ""))
-        history.append({"role": "assistant", "content": f"The field `{field}` is missing or has no valid value. Suggested value: {suggested_value}. Please confirm or modify."})
+        suggested_value = suggest_metadata(metadata, informal_description, field)
+        suggested_values[field] = suggested_value  # Store the suggested value
+        history.append({"role": "assistant", "content": f"The field `{field}` is missing or has no valid value. \n {suggested_value}. \nType 'confirm' to accept this value or provide a new value."})
     else:
         # Prompt the user to update the existing value
         current_value = metadata.get(field)
@@ -224,6 +289,8 @@ def reset_chat():
     metadata = {}
     waiting_for_greeting = True
     pending_field = None
+    waiting_for_informal_description = False
+    informal_description = ""
     return []  
 
 # Generate years dynamically
@@ -293,4 +360,4 @@ with gr.Blocks() as demo:
 
 # Run app
 if __name__ == "__main__":
-    demo.launch()
+        demo.launch()
