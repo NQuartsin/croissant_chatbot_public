@@ -37,7 +37,9 @@ metadata_fields = {
     "date_created": "When was the dataset created?",
     "date_published": "When was the dataset published?",
     "language": "What are the languages of the dataset?",
-    "cite_as": "Please provide a citation for your dataset."
+    "cite_as": "Please provide a citation for your dataset.",
+    "task": "What tasks can be perfomed with your dataset?",
+    "modality": "What are the modalities of your dataset?"
 }
 
 # Generate BibTeX
@@ -71,48 +73,45 @@ def find_dataset_info(dataset_id):
         metadata["date_modified"] = datetime.strptime(dataset.get("lastModified", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("lastModified") else "N/A"
         metadata["date_created"] = datetime.strptime(dataset.get("createdAt", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else "N/A"
         metadata["date_published"] = datetime.strptime(dataset.get("createdAt", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else "N/A"
-        metadata["language"] = ", ".join(card_data.get("languages", [])) if card_data.get("languages") else "N/A"
-        
+        metadata["language"] = ", ".join(card_data.get("languages", [])) if card_data.get("languages") else "N/A"        
         metadata["cite_as"] = dataset.get("citation", "N/A")
+        metadata["task"] = ", ".join(card_data.get("task_categories", [])) if card_data.get("task_categories") else "N/A"
+        metadata["modality"] = ", ".join(card_data.get("modality", [])) if card_data.get("modality") else "N/A"
 
         return metadata
+
+    
     return None  
 
-def convert_string_to_datetime(value):
-    """Convert a string in 'YYYY-MM-DD' format to a datetime object."""
-    if isinstance(value, str):
-        try:
-            return datetime.strptime(value, "%Y-%m-%d")
-        except ValueError:
-            print(f"Invalid date format for value: {value}")
-            return None
-    return value
+
 
 # Finalize metadata in Croissant format
 def finalise_metadata(history):
     history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
-    # Ensure all metadata fields are JSON-serializable
-    # serializable_metadata = {k: v if not isinstance(v, datetime) else v.strftime("%Y-%m-%d") for k, v in metadata.items()}
-    serializable_metadata = metadata
+
     # Create Croissant metadata
     croissant_metadata = mlc.Metadata(
-        name=serializable_metadata.get("name", "N/A"),
-        creators=serializable_metadata.get("author", "N/A"),
-        description=serializable_metadata.get("description", "N/A"),
-        license=serializable_metadata.get("license", "N/A"),
-        url=serializable_metadata.get("url", "N/A"),
-        publisher=serializable_metadata.get("publisher", "N/A"),
-        version=serializable_metadata.get("version", "N/A"),
-        keywords=serializable_metadata.get("keywords", "N/A"),
-        date_modified=serializable_metadata.get("date_modified", "N/A"),
-        date_created=serializable_metadata.get("date_created", "N/A"),
-        date_published=serializable_metadata.get("date_published", "N/A"),
-        in_language=serializable_metadata.get("language", "N/A"),
-        cite_as=serializable_metadata.get("cite_as", "N/A"),
+        name=metadata.get("name"),
+        creators=metadata.get("author"),
+        description=metadata.get("description"),
+        license=metadata.get("license"),
+        url=metadata.get("url"),
+        publisher=metadata.get("publisher"),
+        version=metadata.get("version"),
+        keywords=metadata.get("keywords"),
+        date_modified=metadata.get("date_modified", "Unknown"),
+        date_created=metadata.get("date_created", "Unknown"),
+        date_published=metadata.get("date_published", "Unknown"),
+        in_language=metadata.get("language", "Unknown"),
+        cite_as=metadata.get("cite_as", "Unknown")
     )
 
     # Convert the Croissant metadata to JSON
     final_metadata = croissant_metadata.to_json()
+
+    # Add custom fields (task and modality) to the final metadata
+    final_metadata["task"] = metadata.get("task", "N/A")
+    final_metadata["modality"] = metadata.get("modality", "N/A")
 
     # Serialize final_metadata with a custom handler for datetime
     def json_serial(obj):
