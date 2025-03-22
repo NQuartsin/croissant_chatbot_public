@@ -30,10 +30,10 @@ def get_metadata_info_for_prompt(metadata):
         task: {metadata.get("tasks", "No tasks provided")},
         modality: {metadata.get("modality", "No modality provided")}
     """
-    return metadata_info
+    return metadata_info 
 
 def suggest_field_value(metadata, informal_description, field):
-    # for the fields: name, title, description, publisher, keywords, task, modality
+    # for the fields: name, title, description, publisher, keywords, task, modality, license, language
     prompt = f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
@@ -47,7 +47,7 @@ def suggest_field_value(metadata, informal_description, field):
     return prompt
 
 def suggest_ways_to_fill_field(metadata, informal_description, field):
-    # for the fields: author, year, license, url, version, date_modified, date_created, date_published, language
+    # for the fields: author, year, url, version, date_modified, date_created, date_published
     prompt = f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
@@ -83,7 +83,7 @@ def suggest_metadata(metadata, informal_description, field):
 
     if field == "cite_as":
         prompt = suggest_citation(metadata)
-    elif field in ["name", "title", "description", "publisher", "keywords", "task", "modality"]:
+    elif field in ["name", "title", "description", "publisher", "keywords", "task", "modality", "license", "language"]:
         prompt = suggest_field_value(metadata, informal_description, field)
     else:
         prompt = suggest_ways_to_fill_field(metadata, informal_description, field)

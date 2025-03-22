@@ -1,12 +1,9 @@
-from turtle import pu
-
-from yaml import serialize
+# app.py
 import gradio as gr
 import requests
 from datetime import datetime
 import json  
 import mlcroissant as mlc  # Import mlcroissant for creating Croissant format
-import hashlib
 import pandas as pd
 from validation import validate_metadata
 from constants import LICENSE_OPTIONS
@@ -80,9 +77,7 @@ def find_dataset_info(dataset_id):
 
         return metadata
 
-    
     return None  
-
 
 
 # Finalize metadata in Croissant format
@@ -222,12 +217,16 @@ def handle_pending_field_input(prompt, history):
             if metadata.get("cite_as") is None or metadata.get("cite_as") == "None" or metadata.get("cite_as") == "N/A":
                 metadata["cite_as"] = generate_bibtex(metadata)
             history.append({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
-            history.append({"role": "assistant", "content": f"```json\n{json.dumps(metadata, indent=2)}\n```"})
+            hiatory = display_metadata(metadata, history)
 
     # Reset pending field after processing
     pending_field = None
     return history
 
+def display_metadata(metadata, history):
+    """Display the dataset metadata."""
+    json_metadata = json.dumps(metadata, indent=2)
+    history.append({"role": "assistant", "content": f"Here is the current metadata for your dataset:\n```json\n{json_metadata}\n```"})
 
 def all_fields_filled():
     """Check if all metadata fields are filled."""
@@ -338,6 +337,12 @@ def create_dropdowns(chatbot):
 
     return year_dropdown, license_dropdown
 
+def create_display_metadata_button(chatbot, history):
+    """Create a button to display the current metadata."""
+    with gr.Row():
+        display_btn = gr.Button("📋 Display Metadata So Far", scale=0.5)
+        display_btn.click(lambda: [{"role": "assistant", "content": display_metadata(metadata, history)}], [], chatbot)
+        
 # Main Gradio UI
 with gr.Blocks() as demo:
     gr.Markdown("# Croissant Metadata Creator")
@@ -345,17 +350,25 @@ with gr.Blocks() as demo:
     # Chatbot UI
     chatbot = create_chatbot_ui()
 
+    # Initialize history as a Gradio State object
+    # history = gr.State([])  # Start with an empty history
+    history = []
+
     # Prompt Input
     prompt = create_prompt_input(chatbot, validation_context=None)
 
     # Metadata Buttons
     create_metadata_buttons(chatbot)
 
+    # Display Metadata Button
+    create_display_metadata_button(chatbot, history)
+
     # Control Buttons
     create_control_buttons(chatbot)
 
     # Dropdowns
     create_dropdowns(chatbot)
+
 
 # Run app
 if __name__ == "__main__":
