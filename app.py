@@ -1,3 +1,4 @@
+from turtle import pu
 import gradio as gr
 import requests
 from datetime import datetime
@@ -8,6 +9,7 @@ import pandas as pd
 from validation import validate_metadata
 from constants import LICENSE_OPTIONS
 from metadata_suggestions import suggest_metadata
+
 
 # Metadata storage
 metadata = {}
@@ -23,6 +25,14 @@ metadata_fields = {
     "description": "Please provide a brief description of your dataset.",
     "license": "Please select a license for your dataset:",
     "url": "Please provide the URL to your dataset or repository.",
+    "publisher": "Who is the publisher of your dataset?",
+    "version": "What is the version of your dataset?",
+    "keywords": "Please provide keywords for your dataset.",
+    "date_modified": "When was the dataset last modified?",
+    "date_created": "When was the dataset created?",
+    "date_publihsed": "When was the dataset published?",
+    "language": "What are the languages of the dataset?",
+    "cite_as": "Please provide a citation for your dataset."
 }
 
 # Generate BibTeX
@@ -40,15 +50,26 @@ def find_dataset_info(dataset_id):
 
     if response.status_code == 200:
         dataset = response.json()
+        card_data = dataset.get("cardData", {})
+
         
         metadata["name"] = dataset.get("id", dataset_id)
         metadata["author"] = dataset.get("author", "N/A")
         metadata["year"] = datetime.strptime(dataset.get("lastModified", "XXXX"), "%Y-%m-%dT%H:%M:%S.%fZ").year if dataset.get("lastModified") else "N/A"
         metadata["title"] = dataset.get("title", "N/A")
         metadata["description"] = dataset.get("description", "N/A")
-        metadata["license"] = dataset.get("license", "N/A")
+        metadata["license"] = card_data.get("license", "N/A")
         metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
+        metadata["publisher"] = dataset.get("author", "N/A")
+        metadata["version"] = dataset.get("codebase_version", "N/A")
+        metadata["keywords"] = ", ".join(card_data.get("tags", [])) if card_data.get("tags") else "N/A"
+        metadata["date_modified"] = datetime.strptime(dataset.get("lastModified", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("lastModified") else "N/A"
+        metadata["date_created"] = datetime.strptime(dataset.get("createdAt", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else "N/A"
+        metadata["date_published"] = datetime.strptime(dataset.get("createdAt", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else "N/A"
+        metadata["language"] = ", ".join(card_data.get("languages", [])) if card_data.get("languages") else "N/A"
         
+        metadata["cite_as"] = dataset.get("citation", "N/A")
+
         return metadata
     return None  
 
@@ -58,12 +79,22 @@ def finalise_metadata(history):
 
     croissant_metadata = mlc.Metadata(
         name=metadata.get("name"),
+        creators=metadata.get("author"),
         description=metadata.get("description"),
-        cite_as=generate_bibtex(metadata),
         license=metadata.get("license"),
         url=metadata.get("url"),
+        publisher=metadata.get("publisher"),
+        version=metadata.get("version"),
+        keywords=metadata.get("keywords"),
+        last_modified=metadata.get("date_modified"),
+        date_created=metadata.get("date_created"),
+        date_published=metadata.get("date_published"),
+        in_language=metadata.get("language"),
+        cite_as=metadata.get("cite_as"),
 
     )
+    final_metadata = croissant_metadata.to_json()
+    
 
     history.append({"role": "assistant", "content": f"```json\n{json.dumps(croissant_metadata.to_json(), indent=2)}\n```"})
     return history
@@ -128,9 +159,14 @@ def handle_pending_field_input(prompt, history):
     # Fetch metadata if the dataset name was provided
     if pending_field == "name":
         dataset_info = find_dataset_info(prompt.strip())
+
         if dataset_info:
+            print(f"cite_as: {metadata.get('cite_as')}")
+            if metadata.get("cite_as") is None or metadata.get("cite_as") == "None" or metadata.get("cite_as") == "N/A":
+                print("Generating citation...")
+                metadata["cite_as"] = generate_bibtex(metadata)
             history.append({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
-            history.append({"role": "assistant", "content": f"```json\n{json.dumps(dataset_info, indent=2)}\n```"})
+            history.append({"role": "assistant", "content": f"```json\n{json.dumps(metadata, indent=2)}\n```"})
 
     # Reset pending field after processing
     pending_field = None
