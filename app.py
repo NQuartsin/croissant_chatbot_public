@@ -1,4 +1,5 @@
 # app.py
+import dis
 import re
 import gradio as gr
 import requests
@@ -9,11 +10,13 @@ import pandas as pd
 from validation import validate_metadata
 from constants import LICENSE_OPTIONS
 from llm import suggest_metadata, ask_user_for_informal_description
-
+import os
+import unicodedata
 
 class CroissantChatbot:
     def __init__(self):
         self.metadata = {}
+        self.final_metadata = {}
         self.history = []
         self.waiting_for_greeting = True
         self.waiting_for_informal_description = False
@@ -49,9 +52,9 @@ class CroissantChatbot:
         """Append a message to the chat history."""
         self.history.append(message)
 
-    def json_to_code_block(self, json_data):
+    def json_to_code_block(self, json_data, default_value=None):
         """Convert JSON data to a formatted code block."""
-        return f"```json\n{json.dumps(json_data, indent=2)}\n```"
+        return f"```json\n{json.dumps(json_data, indent=2, default=default_value)}\n```"
 
     def display_metadata(self):
         """Display the dataset metadata."""
@@ -85,14 +88,14 @@ class CroissantChatbot:
     def handle_greeting(self):
         """Handle the initial greeting."""
         self.append_to_history({"role": "assistant", "content": "Hello! I'm the Croissant Metadata Assistant. Let's start creating metadata for your dataset."})
-        self.append_to_history({"role": "assistant", "content": "Would you like to provide an informal description of your dataset? (yes/no): "})
+        self.append_to_history({"role": "assistant", "content": "Would you like to provide an informal description of your dataset? \nPlease type : your informal description/help (for guidance on providing an informal description)/no "})
         self.waiting_for_greeting = False
         self.waiting_for_informal_description = True
         return self.history
 
     def handle_informal_description_prompt(self, prompt):
         """Handle the user's response to the informal description prompt."""
-        if prompt.lower() == "yes":
+        if prompt.lower() == "help":
             ask = ask_user_for_informal_description()
             self.append_to_history({"role": "assistant", "content": f"{ask}"})
         elif prompt.lower() == "no":
@@ -191,6 +194,8 @@ class CroissantChatbot:
         if response.status_code == 200:
             dataset = response.json()
             card_data = dataset.get("cardData", {})
+            all_tags = dataset.get("tags", [])
+
 
             self.metadata["name"] = dataset.get("id", dataset_id)
             self.metadata["author"] = dataset.get("author", "N/A")
@@ -209,6 +214,21 @@ class CroissantChatbot:
             self.metadata["cite_as"] = dataset.get("citation", "N/A")
             self.metadata["task"] = ", ".join(card_data.get("task_categories", [])) if card_data.get("task_categories") else "N/A"
             self.metadata["modality"] = ", ".join(card_data.get("modality", [])) if card_data.get("modality") else "N/A"
+
+            # tasks = []  # Store all task categories
+            # modality = []  # Store all modalities
+            # language
+            
+            # # Loop through the tags to find all task categories and modalities
+            # for tag in all_tags:
+            #     if tag.startswith("task_categories:"):
+            #         tasks.append(tag.split(":", 1)[1])  # Add task category value to the list
+            #     elif tag.startswith("modality:"):
+            #         modality.append(tag.split(":", 1)[1])  # Add modality value to the list
+
+            # # If tasks or modality lists are not empty, join them into strings
+            # tasks = ", ".join(tasks) if tasks else "Unknown"
+            # modality = ", ".join(modality) if modality else "Unknown"
 
             return self.metadata
 
@@ -234,34 +254,59 @@ class CroissantChatbot:
             cite_as=self.metadata.get("cite_as", "Unknown")
         )
 
-        final_metadata = croissant_metadata.to_json()
+        self.final_metadata = croissant_metadata.to_json()
 
-        final_metadata["task"] = self.metadata.get("task", "N/A")
-        final_metadata["modality"] = self.metadata.get("modality", "N/A")
+        self.final_metadata["task"] = self.metadata.get("task", "N/A")
+        self.final_metadata["modality"] = self.metadata.get("modality", "N/A")
 
-        def json_serial(obj):
-            if isinstance(obj, datetime):
-                return obj.strftime("%Y-%m-%d")
-            raise TypeError(f"Type {type(obj)} not serializable")
+
         
         # Convert metadata to JSON and display it
-        json_metadata = self.json_to_code_block(json.dumps(final_metadata, indent=2, default=json_serial))
-        self.append_to_history({"role": "assistant", "content": f"\n{json_metadata}"})
+        display_metadata = self.json_to_code_block(self.final_metadata, self.json_serial)
+        self.append_to_history({"role": "assistant", "content": f"\n{display_metadata}"})
 
         # Save metadata to a file
-        filename = self.save_metadata_to_file()
+        filepath, filename = self.save_metadata_to_file(json.dumps(self.final_metadata, indent=2, default=self.json_serial))
 
         # Inform the user about the saved file
-        self.append_to_history({"role": "assistant", "content": f"The metadata has been saved to a file: `{filename}`. You can download it from your system."})
+        self.append_to_history({"role": "assistant", "content": f"The metadata has been saved to a file: `{filename}`. \n Click the 'Download Metadata File' button below to download it."})
 
         return self.history
     
-    def save_metadata_to_file(self):
-        """Save the metadata to a file."""
-        filename = "final_metadata.json"
-        with open(filename, "w") as file:
-            json.dump(self.metadata, file, indent=2)
-        return filename
+    def json_serial(self, obj):
+        if isinstance(obj, datetime):
+            return obj.strftime("%Y-%m-%d")
+        raise TypeError(f"Type {type(obj)} not serializable")    
+    
+    def remove_emojis(self, text):
+        """Remove emojis from a string."""
+        return ''.join(c for c in text if unicodedata.category(c) != 'So')
+
+    def get_filename(self):
+        """Get the filename for the metadata file."""
+        if self.metadata.get("name"):
+            # Remove emojis
+            name_without_emojis = self.remove_emojis(self.metadata['name'])
+            # Replace invalid filename characters with a hyphen (-)
+            sanitized_name = re.sub(r'[<>:"/\\|?*]', '-', name_without_emojis)
+            return f"{sanitized_name.replace(' ', '_').lower()}_metadata.json"
+        return "metadata.json"
+            
+    def save_metadata_to_file(self, metadata):
+        """Save the metadata to a file in the annotations folder."""
+        directory = "annotations"  # Specify the folder where files should be saved
+        if not os.path.exists(directory):
+            os.makedirs(directory)  # Create the folder if it doesn't exist
+
+        # Generate the filename
+        filename = self.get_filename()
+        filepath = os.path.join(directory, filename)  # Save in the annotations folder
+
+        # Save the file
+        with open(filepath, "w") as file:
+            json.dump(metadata, file, indent=2)
+
+        return filepath, filename  # Return only the filename for download
 
     
 # Refactored Gradio UI functions
@@ -336,17 +381,34 @@ def create_display_metadata_button(chatbot_instance, chatbot_ui):
         # Use the wrapper function to return the correct output
         display_btn.click(lambda: display_metadata_wrapper(chatbot_instance), [], [chatbot_ui])
 
+
 def create_download_metadata_button(chatbot_instance):
-    """Create a button to download the metadata file."""
+    """Create a button for downloading the metadata file."""
     with gr.Row():
-        download_btn = gr.Button("📥 Download Metadata File")
-        output_file = gr.File(label="Download Metadata File")
+        download_btn = gr.Button("📥 Download Metadata File", scale=1)
+        download_section = gr.Group(visible=False)  # Create a hidden section
         
-        # Save metadata to a file and return the file path
+        with download_section:
+            output_file = gr.File(label="Metadata File", interactive=False)  # File component for download
+        
+        # Save metadata to a file and show the download section
+        def save_and_show():
+            # Save the metadata to the annotations folder
+            filepath, filename = chatbot_instance.save_metadata_to_file(chatbot_instance.metadata)
+            
+            # Copy the file to the current working directory for download
+            download_path = os.path.join(os.getcwd(), filename)
+            if os.path.exists(download_path):
+                os.remove(download_path)  # Remove any existing file with the same name
+            os.symlink(filepath, download_path)  # Create a symbolic link to the file
+            
+            # Return the download path for Gradio to serve the file
+            return gr.update(visible=True), download_path
+
         download_btn.click(
-            lambda: chatbot_instance.save_metadata_to_file(),
-            [],
-            [output_file]
+            save_and_show,
+            inputs=[],
+            outputs=[download_section, output_file]
         )
 
 # Main Gradio UI
@@ -367,14 +429,14 @@ with gr.Blocks() as demo:
     # Display Metadata Button
     create_display_metadata_button(chatbot_instance, chatbot_ui)
 
-    # Download Metadata Button
-    create_download_metadata_button(chatbot_instance)
-
     # Control Buttons
     create_control_buttons(chatbot_instance, chatbot_ui)
 
     # Dropdowns
     create_dropdowns(chatbot_instance, chatbot_ui)
+    
+    # Download Metadata Button
+    create_download_metadata_button(chatbot_instance)
 
 
 
