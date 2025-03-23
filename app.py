@@ -5,7 +5,7 @@ import gradio as gr
 import requests
 from datetime import datetime
 import json  
-import mlcroissant as mlc  # Import mlcroissant for creating Croissant format
+import mlcroissant as mlc 
 import pandas as pd
 from validation import validate_metadata
 from constants import LICENSE_OPTIONS
@@ -67,8 +67,10 @@ class CroissantChatbot:
             self.history = []
 
         self.append_to_history({"role": "user", "content": prompt})
+        if prompt.lower() == "start new dataset":
+            self.reset_metadata_for_new_dataset()
 
-        if self.waiting_for_greeting:
+        elif self.waiting_for_greeting:
             self.handle_greeting()
 
         elif self.waiting_for_informal_description:
@@ -77,11 +79,13 @@ class CroissantChatbot:
         elif prompt.lower() == "complete":
             self.handle_complete_command()
 
+
         elif self.pending_field:
             self.handle_pending_field_input(prompt)
 
         elif self.is_all_fields_filled():
             self.append_to_history({"role": "assistant", "content": "All metadata fields have been filled. Click any field to update its value or type 'Complete' to finalize the metadata."})
+
 
         return self.history
 
@@ -146,11 +150,11 @@ class CroissantChatbot:
         if not self.metadata.get(field) or self.metadata.get(field) == "N/A":
             # Suggest a value for the field
             suggested_value = suggest_metadata(self.metadata, self.informal_description, field)
-            self.history.append({"role": "assistant", "content": f"The field `{field}` is missing or has no valid value. \n {suggested_value}. \nType 'confirm' to accept this value or provide a new value."})
+            self.append_to_history({"role": "assistant", "content": f"The field `{field}` is missing or has no valid value. \n {suggested_value}. \nType 'confirm' to accept this value or provide a new value."})
         else:
             # Prompt the user to update the existing value
             current_value = self.metadata.get(field)
-            self.history.append({"role": "assistant", "content": f"The field `{field}` already has a value: `{current_value}`. You can update it if needed."})
+            self.append_to_history({"role": "assistant", "content": f"The field `{field}` already has a value: `{current_value}`. You can update it if needed."})
 
         return self.history
 
@@ -266,10 +270,10 @@ class CroissantChatbot:
         self.append_to_history({"role": "assistant", "content": f"\n{display_metadata}"})
 
         # Save metadata to a file
-        filepath, filename = self.save_metadata_to_file(json.dumps(self.final_metadata, indent=2, default=self.json_serial))
+        filepath, filename = self.save_metadata_to_file(self.final_metadata)
 
         # Inform the user about the saved file
-        self.append_to_history({"role": "assistant", "content": f"The metadata has been saved to a file: `{filename}`. \n Click the 'Download Metadata File' button below to download it."})
+        self.append_to_history({"role": "assistant", "content": f"The metadata has been saved to a file: `{filename}`. \n Click the 'Download Metadata File' button below to download it. \n You can also start annotating a new dataset by typing 'Start new dataset'."})
 
         return self.history
     
@@ -304,9 +308,18 @@ class CroissantChatbot:
 
         # Save the file
         with open(filepath, "w") as file:
-            json.dump(metadata, file, indent=2)
+            json.dump(metadata, file, indent=2, default=self.json_serial)
 
-        return filepath, filename  # Return only the filename for download
+        return filepath, filename 
+    
+    def reset_metadata_for_new_dataset(self):
+        """Reset metadata fields for annotating a new dataset."""
+        self.metadata = {}
+        self.final_metadata = {}
+        self.pending_field = None
+        self.informal_description = ""
+        self.append_to_history({"role": "assistant", "content": "You can now start annotating a new dataset. Let's begin!"})
+        return self.history
 
     
 # Refactored Gradio UI functions
@@ -328,7 +341,7 @@ def create_metadata_buttons(chatbot_instance, chatbot_ui):
     buttons = []
     with gr.Row():
         for field in chatbot_instance.metadata_fields.keys():
-            btn = gr.Button(field, elem_id=field, scale=0.5)  # Added scale argument to shrink the button size
+            btn = gr.Button(field, elem_id=field, scale=1) 
             btn.click(
                 lambda f=field: chatbot_instance.ask_for_field(f),
                 [], 
@@ -340,9 +353,9 @@ def create_metadata_buttons(chatbot_instance, chatbot_ui):
 def create_control_buttons(chatbot_instance, chatbot_ui):
     """Create control buttons (Retry, Undo, Refresh)."""
     with gr.Row():
-        retry_btn = gr.Button("🔄 Retry", scale=0.5)
-        undo_btn = gr.Button("↩️ Undo", scale=0.5)
-        refresh_btn = gr.Button("🔄 Refresh", scale=0.5)
+        retry_btn = gr.Button("🔄 Retry", scale=1)
+        undo_btn = gr.Button("↩️ Undo", scale=1)
+        refresh_btn = gr.Button("🔄 Refresh", scale=1)
 
         retry_btn.click(lambda h=chatbot_instance.history: h, [], [chatbot_ui])
         undo_btn.click(lambda: chatbot_instance.undo_last_message(), [], [chatbot_ui])
@@ -377,7 +390,7 @@ def display_metadata_wrapper(chatbot_instance):
 def create_display_metadata_button(chatbot_instance, chatbot_ui):
     """Create a button to display the current metadata."""
     with gr.Row():
-        display_btn = gr.Button("📋 Display Metadata So Far", scale=0.5)
+        display_btn = gr.Button("📋 Display Metadata So Far", scale=1)
         # Use the wrapper function to return the correct output
         display_btn.click(lambda: display_metadata_wrapper(chatbot_instance), [], [chatbot_ui])
 
@@ -394,7 +407,7 @@ def create_download_metadata_button(chatbot_instance):
         # Save metadata to a file and show the download section
         def save_and_show():
             # Save the metadata to the annotations folder
-            filepath, filename = chatbot_instance.save_metadata_to_file(chatbot_instance.metadata)
+            filepath, filename = chatbot_instance.save_metadata_to_file(chatbot_instance.final_metadata)
             
             # Copy the file to the current working directory for download
             download_path = os.path.join(os.getcwd(), filename)
@@ -441,4 +454,4 @@ with gr.Blocks() as demo:
 
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch() # share=True to share the link
