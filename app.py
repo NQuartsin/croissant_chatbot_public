@@ -1,4 +1,5 @@
 # app.py
+import re
 import gradio as gr
 import requests
 from datetime import datetime
@@ -10,366 +11,338 @@ from constants import LICENSE_OPTIONS
 from llm import suggest_metadata, ask_user_for_informal_description
 
 
-# Metadata storage
-metadata = {}
-waiting_for_greeting = True  
-waiting_for_informal_description = False
-pending_field = None  # Keeps track of which field the user is answering
-informal_description = "" # Global variable to store the informal description
-suggested_values = {} # Store suggested values for metadata fields
+class CroissantChatbot:
+    def __init__(self):
+        self.metadata = {}
+        self.history = []
+        self.waiting_for_greeting = True
+        self.waiting_for_informal_description = False
+        self.pending_field = None
+        self.informal_description = ""
 
+        # Metadata fields
+        self.metadata_fields = {
+            "name": "What is the name of your dataset?",
+            "author": "Who is the author of your dataset?",
+            "year": "What year was your dataset published?",
+            "title": "What is the title of the dataset or associated paper?",
+            "description": "Please provide a brief description of your dataset.",
+            "license": "Please select a license for your dataset:",
+            "url": "Please provide the URL to your dataset or repository.",
+            "publisher": "Who is the publisher of your dataset?",
+            "version": "What is the version of your dataset?",
+            "keywords": "Please provide keywords for your dataset.",
+            "date_modified": "When was the dataset last modified?",
+            "date_created": "When was the dataset created?",
+            "date_published": "When was the dataset published?",
+            "language": "What are the languages of the dataset?",
+            "cite_as": "Please provide a citation for your dataset.",
+            "task": "What tasks can be performed with your dataset?",
+            "modality": "What are the modalities of your dataset?"
+        }
 
-metadata_fields = {
-    "name": "What is the name of your dataset?",
-    "author": "Who is the author of your dataset?",
-    "year": "What year was your dataset published?",
-    "title": "What is the title of the dataset or associated paper?",
-    "description": "Please provide a brief description of your dataset.",
-    "license": "Please select a license for your dataset:",
-    "url": "Please provide the URL to your dataset or repository.",
-    "publisher": "Who is the publisher of your dataset?",
-    "version": "What is the version of your dataset?",
-    "keywords": "Please provide keywords for your dataset.",
-    "date_modified": "When was the dataset last modified?",
-    "date_created": "When was the dataset created?",
-    "date_published": "When was the dataset published?",
-    "language": "What are the languages of the dataset?",
-    "cite_as": "Please provide a citation for your dataset.",
-    "task": "What tasks can be perfomed with your dataset?",
-    "modality": "What are the modalities of your dataset?"
-}
+        # Generate years dynamically
+        current_year = datetime.now().year
+        self.YEAR_OPTIONS = [str(y) for y in range(1900, current_year + 1)]
 
-# Generate BibTeX
-def generate_bibtex(metadata):
-    return f"@misc{{{metadata.get('author', 'unknown').split(' ')[0]}{metadata.get('year', 'XXXX')}," \
-           f" author = {{{metadata.get('author', 'Unknown Author')}}}," \
-           f" title = {{{metadata.get('title', 'Untitled Dataset')}}}," \
-           f" year = {{{metadata.get('year', 'XXXX')}}}," \
-           f" url = {{{metadata.get('url', 'N/A')}}} }}"
+    def append_to_history(self, message):
+        """Append a message to the chat history."""
+        self.history.append(message)
 
-# Fetch dataset details
-def find_dataset_info(dataset_id):
-    url = f"https://huggingface.co/api/datasets/{dataset_id}"
-    response = requests.get(url)
+    def json_to_code_block(self, json_data):
+        """Convert JSON data to a formatted code block."""
+        return f"```json\n{json.dumps(json_data, indent=2)}\n```"
 
-    if response.status_code == 200:
-        dataset = response.json()
-        card_data = dataset.get("cardData", {})
+    def display_metadata(self):
+        """Display the dataset metadata."""
+        json_metadata = self.json_to_code_block(self.metadata)
+        self.append_to_history({"role": "assistant", "content": f"Here is the current metadata for your dataset:\n{json_metadata}"})
 
-        
-        metadata["name"] = dataset.get("id", dataset_id)
-        metadata["author"] = dataset.get("author", "N/A")
-        metadata["year"] = datetime.strptime(dataset.get("lastModified", "XXXX"), "%Y-%m-%dT%H:%M:%S.%fZ").year if dataset.get("lastModified") else "N/A"
-        metadata["title"] = dataset.get("title", "N/A")
-        metadata["description"] = dataset.get("description", "N/A")
-        metadata["license"] = card_data.get("license")[0] if card_data.get("license") else "N/A"
-        metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
-        metadata["publisher"] = dataset.get("author", "N/A")
-        metadata["version"] = dataset.get("codebase_version", "N/A")
-        metadata["keywords"] = ", ".join(card_data.get("tags", [])) if card_data.get("tags") else "N/A"
-        metadata["date_modified"] = datetime.strptime(dataset.get("lastModified", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("lastModified") else "N/A"
-        metadata["date_created"] = datetime.strptime(dataset.get("createdAt", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else "N/A"
-        metadata["date_published"] = datetime.strptime(dataset.get("createdAt", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else "N/A"
-        metadata["language"] = ", ".join(card_data.get("languages", [])) if card_data.get("languages") else "N/A"        
-        metadata["cite_as"] = dataset.get("citation", "N/A")
-        metadata["task"] = ", ".join(card_data.get("task_categories", [])) if card_data.get("task_categories") else "N/A"
-        metadata["modality"] = ", ".join(card_data.get("modality", [])) if card_data.get("modality") else "N/A"
+    def handle_user_input(self, prompt):
+        """Handle user input through chat."""
+        if not self.history:
+            self.history = []
 
-        return metadata
+        self.append_to_history({"role": "user", "content": prompt})
 
-    return None  
+        if self.waiting_for_greeting:
+            self.handle_greeting()
 
+        elif self.waiting_for_informal_description:
+            self.handle_informal_description_prompt(prompt)
 
-# Finalize metadata in Croissant format
-def finalise_metadata(history):
-    history.append({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
+        elif prompt.lower() == "complete":
+            self.handle_complete_command()
 
-    # Create Croissant metadata
-    croissant_metadata = mlc.Metadata(
-        name=metadata.get("name"),
-        creators=metadata.get("author"),
-        description=metadata.get("description"),
-        license=metadata.get("license"),
-        url=metadata.get("url"),
-        publisher=metadata.get("publisher"),
-        version=metadata.get("version"),
-        keywords=metadata.get("keywords"),
-        date_modified=metadata.get("date_modified", "Unknown"),
-        date_created=metadata.get("date_created", "Unknown"),
-        date_published=metadata.get("date_published", "Unknown"),
-        in_language=metadata.get("language", "Unknown"),
-        cite_as=metadata.get("cite_as", "Unknown")
-    )
+        elif self.pending_field:
+            self.handle_pending_field_input(prompt)
 
-    # Convert the Croissant metadata to JSON
-    final_metadata = croissant_metadata.to_json()
+        elif self.is_all_fields_filled():
+            self.append_to_history({"role": "assistant", "content": "All metadata fields have been filled. Click any field to update its value or type 'Complete' to finalize the metadata."})
 
-    # Add custom fields (task and modality) to the final metadata
-    final_metadata["task"] = metadata.get("task", "N/A")
-    final_metadata["modality"] = metadata.get("modality", "N/A")
+        return self.history
 
-    # Serialize final_metadata with a custom handler for datetime
-    def json_serial(obj):
-        if isinstance(obj, datetime):
-            return obj.strftime("%Y-%m-%d")
-        raise TypeError(f"Type {type(obj)} not serializable")
+    def handle_greeting(self):
+        """Handle the initial greeting."""
+        self.append_to_history({"role": "assistant", "content": "Hello! I'm the Croissant Metadata Assistant. Let's start creating metadata for your dataset."})
+        self.append_to_history({"role": "assistant", "content": "Would you like to provide an informal description of your dataset? (yes/no): "})
+        self.waiting_for_greeting = False
+        self.waiting_for_informal_description = True
+        return self.history
 
-    # Append the metadata to the history
-    history.append({"role": "assistant", "content": f"```json\n{json.dumps(final_metadata, indent=2, default=json_serial)}\n```"})
-    return history
+    def handle_informal_description_prompt(self, prompt):
+        """Handle the user's response to the informal description prompt."""
+        if prompt.lower() == "yes":
+            ask = ask_user_for_informal_description()
+            self.append_to_history({"role": "assistant", "content": f"{ask}"})
+        elif prompt.lower() == "no":
+            self.append_to_history({"role": "assistant", "content": "Alright! Click any field to enter/update its value."})
+            self.waiting_for_informal_description = False
+        else:
+            self.informal_description = prompt.strip()
+            self.append_to_history({"role": "assistant", "content": f"Saved the informal description: {self.informal_description}"})
+            self.append_to_history({"role": "assistant", "content": "Click any field to enter/update its value."})
+            self.waiting_for_informal_description = False
+        return self.history
 
+    def handle_complete_command(self):
+        """Handle the 'complete' command."""
+        errors = validate_metadata(self.metadata)
+        if errors:
+            self.append_to_history({"role": "assistant", "content": "Some metadata fields are invalid:\n" + "\n".join(errors)})
+        elif self.is_all_fields_filled():
+            return self.finalise_metadata()
+        else:
+            missing_fields = self.list_missing_fields()
+            json_missing_fields = self.json_to_code_block(missing_fields)
+            self.append_to_history({"role": "assistant", "content": f"Cannot finalize metadata. The following fields are missing: \n{json_missing_fields}"})
+        return self.history
 
-# Handle user input through chat
-def handle_user_input(prompt, history):
-    """Handle user input through chat."""
-    global waiting_for_greeting, waiting_for_informal_description, pending_field
+    def handle_pending_field_input(self, prompt):
+        """Handle input for a pending field."""
+        self.metadata[self.pending_field] = prompt.strip()
+        self.append_to_history({"role": "assistant", "content": f"Saved `{self.pending_field}` as: {prompt.strip()}."})
 
-    if not history:
-        history = []
+        if self.pending_field == "name":
+            dataset_info = self.find_dataset_info(prompt.strip())
+            if dataset_info:
+                if not self.metadata.get("cite_as") or self.metadata["cite_as"] in ["None", "N/A"]:
+                    self.metadata["cite_as"] = self.generate_bibtex()
+                self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
+                self.display_metadata()
 
-    history.append({"role": "user", "content": prompt})
-
-    # Handle initial greeting
-    if waiting_for_greeting:
-        return handle_greeting(history)
-
-    # Handle informal description prompt
-    if waiting_for_informal_description:
-        return handle_informal_description_prompt(prompt, history)
-
-    # Handle "complete" command
-    if prompt.lower() == "complete":
-        return handle_complete_command(history)
-
-    # Handle save suggestion
-    if prompt.lower() == "confirm":
-        return handle_save_suggestion(history)
-
-
-    # Handle pending field input
-    if pending_field:
-        history = handle_pending_field_input(prompt, history)
-
-
-
-    # Check if all fields are filled
-    if all_fields_filled():
-        history.append({"role": "assistant", "content": "All metadata fields have been filled. Click any field to update its value or type 'Complete' to finalize the metadata."})
-
-    return history
-
-
-def handle_greeting(history):
-    """Handle the initial greeting."""
-    global waiting_for_greeting, waiting_for_informal_description
-    history.append({"role": "assistant", "content": "Hello! I'm the Croissant Metadata Assistant. Let's start creating metadata for your dataset."})
-    history.append({"role": "assistant", "content": "Would you like to provide an informal description of your dataset? (yes/no): "})
-    waiting_for_greeting = False
-    waiting_for_informal_description = True  # Set flag to wait for informal description
-    return history
-
-def handle_informal_description_prompt(prompt, history):
-    """Handle the user's response to the informal description prompt."""
-    global waiting_for_informal_description, informal_description
-
-    if prompt.lower() == "yes":
-        ask  = ask_user_for_informal_description()
-        history.append({"role": "assistant", "content": f"{ask}"})
-        waiting_for_informal_description = True  # Wait for the user to provide the description
-    elif prompt.lower() == "no":
-        history.append({"role": "assistant", "content": "Alright! Click any field to enter/update its value."})
-        waiting_for_informal_description = False  # Reset the flag
-    elif waiting_for_informal_description:
-        informal_description = prompt.strip()
-        history.append({"role": "assistant", "content": f"Saved the informal description: {informal_description}"})
-        history.append({"role": "assistant", "content": "Click any field to enter/update its value."})
-        waiting_for_informal_description = False  # Reset the flag
-    # HANDLE OTHER RESPONSES
+        self.pending_field = None
+        return self.history
     
+    # Handle button clicks (sets the pending field)
+    def ask_for_field(self, field):
+        self.pending_field = field
 
-    return history
+        # Check if the field is missing or has "N/A"
+        if not self.metadata.get(field) or self.metadata.get(field) == "N/A":
+            # Suggest a value for the field
+            suggested_value = suggest_metadata(self.metadata, self.informal_description, field)
+            self.history.append({"role": "assistant", "content": f"The field `{field}` is missing or has no valid value. \n {suggested_value}. \nType 'confirm' to accept this value or provide a new value."})
+        else:
+            # Prompt the user to update the existing value
+            current_value = self.metadata.get(field)
+            self.history.append({"role": "assistant", "content": f"The field `{field}` already has a value: `{current_value}`. You can update it if needed."})
 
-def handle_complete_command(history):
-    """Handle the 'complete' command."""
-    errors = validate_metadata(metadata)
-    # DETECT EMPTY or INSUFFICIENT FIELDS
-    if errors:
-        history.append({"role": "assistant", "content": "Some metadata fields are invalid:\n" + "\n".join(errors)})
-    elif all_fields_filled():
-        return finalise_metadata(history)
-    else:
-        history.append({"role": "assistant", "content": "Some metadata fields are still missing. Please fill them before finalizing."})
-    return history
+        return self.history
+
+    def undo_last_message(self):
+        """Undo the last message."""
+        if self.history:
+            self.history.pop()
+        return self.history
+
+    def reset_chat(self):
+        """Reset the chat."""
+        self.metadata = {}
+        self.history = []
+        self.waiting_for_greeting = True
+        self.pending_field = None
+        self.waiting_for_informal_description = False
+        self.informal_description = ""
+        return self.history
+
+    def is_all_fields_filled(self):
+        """Check if all metadata fields are filled."""
+        return all(field in self.metadata for field in self.metadata_fields)
+    
+    def list_missing_fields(self):
+        """List the missing metadata fields."""
+        return [field for field in self.metadata_fields if field not in self.metadata]
+
+    def generate_bibtex(self):
+        """Generate BibTeX citation."""
+        return f"@misc{{{self.metadata.get('author', 'unknown').split(' ')[0]}{self.metadata.get('year', 'XXXX')}," \
+               f" author = {{{self.metadata.get('author', 'Unknown Author')}}}," \
+               f" title = {{{self.metadata.get('title', 'Untitled Dataset')}}}," \
+               f" year = {{{self.metadata.get('year', 'XXXX')}}}," \
+               f" url = {{{self.metadata.get('url', 'N/A')}}} }}"
+
+    def find_dataset_info(self, dataset_id):
+        """Fetch dataset details."""
+        url = f"https://huggingface.co/api/datasets/{dataset_id}"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            dataset = response.json()
+            card_data = dataset.get("cardData", {})
+
+            self.metadata["name"] = dataset.get("id", dataset_id)
+            self.metadata["author"] = dataset.get("author", "N/A")
+            self.metadata["year"] = datetime.strptime(dataset.get("lastModified", "XXXX"), "%Y-%m-%dT%H:%M:%S.%fZ").year if dataset.get("lastModified") else "N/A"
+            self.metadata["title"] = dataset.get("title", "N/A")
+            self.metadata["description"] = dataset.get("description", "N/A")
+            self.metadata["license"] = card_data.get("license")[0] if card_data.get("license") else "N/A"
+            self.metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
+            self.metadata["publisher"] = dataset.get("author", "N/A")
+            self.metadata["version"] = dataset.get("codebase_version", "N/A")
+            self.metadata["keywords"] = ", ".join(card_data.get("tags", [])) if card_data.get("tags") else "N/A"
+            self.metadata["date_modified"] = datetime.strptime(dataset.get("lastModified", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("lastModified") else "N/A"
+            self.metadata["date_created"] = datetime.strptime(dataset.get("createdAt", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else "N/A"
+            self.metadata["date_published"] = datetime.strptime(dataset.get("createdAt", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else "N/A"
+            self.metadata["language"] = ", ".join(card_data.get("languages", [])) if card_data.get("languages") else "N/A"        
+            self.metadata["cite_as"] = dataset.get("citation", "N/A")
+            self.metadata["task"] = ", ".join(card_data.get("task_categories", [])) if card_data.get("task_categories") else "N/A"
+            self.metadata["modality"] = ", ".join(card_data.get("modality", [])) if card_data.get("modality") else "N/A"
+
+            return self.metadata
+
+        return None  
+
+    def finalise_metadata(self):
+        """Finalize metadata in Croissant format."""
+        self.append_to_history({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
+
+        croissant_metadata = mlc.Metadata(
+            name=self.metadata.get("name"),
+            creators=self.metadata.get("author"),
+            description=self.metadata.get("description"),
+            license=self.metadata.get("license"),
+            url=self.metadata.get("url"),
+            publisher=self.metadata.get("publisher"),
+            version=self.metadata.get("version"),
+            keywords=self.metadata.get("keywords"),
+            date_modified=self.metadata.get("date_modified", "Unknown"),
+            date_created=self.metadata.get("date_created", "Unknown"),
+            date_published=self.metadata.get("date_published", "Unknown"),
+            in_language=self.metadata.get("language", "Unknown"),
+            cite_as=self.metadata.get("cite_as", "Unknown")
+        )
+
+        final_metadata = croissant_metadata.to_json()
+
+        final_metadata["task"] = self.metadata.get("task", "N/A")
+        final_metadata["modality"] = self.metadata.get("modality", "N/A")
+
+        def json_serial(obj):
+            if isinstance(obj, datetime):
+                return obj.strftime("%Y-%m-%d")
+            raise TypeError(f"Type {type(obj)} not serializable")
+
+        json_metadata = self.json_to_code_block(json.dumps(final_metadata, indent=2, default=json_serial))
+        self.append_to_history({"role": "assistant", "content": json_metadata})
+        return self.history
 
 
-def handle_pending_field_input(prompt, history):
-    """Handle input for a pending field."""
-    global pending_field
-    # Save the user-provided value
-    metadata[pending_field] = prompt.strip()
-    history.append({"role": "assistant", "content": f"Saved `{pending_field}` as: {prompt.strip()}."})
-
-    # Fetch metadata if the dataset name was provided
-    if pending_field == "name":
-        dataset_info = find_dataset_info(prompt.strip())
-
-        if dataset_info:
-            if metadata.get("cite_as") is None or metadata.get("cite_as") == "None" or metadata.get("cite_as") == "N/A":
-                metadata["cite_as"] = generate_bibtex(metadata)
-            history.append({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
-            hiatory = display_metadata(metadata, history)
-
-    # Reset pending field after processing
-    pending_field = None
-    return history
-
-def display_metadata(metadata, history):
-    """Display the dataset metadata."""
-    json_metadata = json.dumps(metadata, indent=2)
-    history.append({"role": "assistant", "content": f"Here is the current metadata for your dataset:\n```json\n{json_metadata}\n```"})
-
-def all_fields_filled():
-    """Check if all metadata fields are filled."""
-    return all(field in metadata for field in metadata_fields)
-
-def handle_save_suggestion(history):
-    global pending_field, suggested_values
-    if pending_field and pending_field in suggested_values:
-        metadata[pending_field] = suggested_values[pending_field]
-        history.append({"role": "assistant", "content": f"Saved `{pending_field}` as: {suggested_values[pending_field]}."})
-        pending_field = None
-    return history
-
-# Handle button clicks (sets the pending field)
-def ask_for_field(field, history):
-    global pending_field, suggested_values
-
-    if not history:
-        history = []
-
-    pending_field = field
-
-    # Check if the field is missing or has "N/A"
-    if not metadata.get(field) or metadata.get(field) == "N/A":
-        # Suggest a value for the field
-        suggested_value = suggest_metadata(metadata, informal_description, field)
-        suggested_values[field] = suggested_value  # Store the suggested value
-        history.append({"role": "assistant", "content": f"The field `{field}` is missing or has no valid value. \n {suggested_value}. \nType 'confirm' to accept this value or provide a new value."})
-    else:
-        # Prompt the user to update the existing value
-        current_value = metadata.get(field)
-        history.append({"role": "assistant", "content": f"The field `{field}` already has a value: `{current_value}`. You can update it if needed."})
-
-    return history
-
-# Handle license selection
-def select_license(license_choice, history):
-    global pending_field
-    pending_field = "license"
-    return handle_user_input(license_choice, history)
-  
-
-# Handle year selection
-def select_year(year, history):
-    global pending_field
-    pending_field = "year"
-    return handle_user_input(year, history)
-
-# Undo last message
-def undo_last_message(history):
-    if history:
-        history.pop()
-    return history
-
-# Reset chat
-def reset_chat():
-    global metadata, waiting_for_greeting, pending_field
-    metadata = {}
-    waiting_for_greeting = True
-    pending_field = None
-    waiting_for_informal_description = False
-    informal_description = ""
-    return []  
-
-# Generate years dynamically
-current_year = datetime.now().year
-YEAR_OPTIONS = [str(y) for y in range(1900, current_year + 1)]
-
+# Refactored Gradio UI functions
 def create_chatbot_ui():
     """Create the chatbot UI."""
     return gr.Chatbot(label="Metadata Agent", type="messages", height=500)
 
-def create_prompt_input(chatbot, validation_context):
+def create_prompt_input(chatbot_instance, chatbot_ui):
     """Create the prompt input box."""
     prompt = gr.Textbox(max_lines=1, label="Chat Message")
-    prompt.submit(handle_user_input, [prompt, chatbot], chatbot)
+    prompt.submit(chatbot_instance.handle_user_input, [prompt], [chatbot_ui])
     prompt.submit(lambda: "", None, [prompt])  # Clear the input box after submission
     return prompt
 
-def create_metadata_buttons(chatbot):
+
+
+def create_metadata_buttons(chatbot_instance, chatbot_ui):
     """Create buttons for metadata fields."""
     buttons = []
     with gr.Row():
-        for field in metadata_fields.keys():
+        for field in chatbot_instance.metadata_fields.keys():
             btn = gr.Button(field, elem_id=field, scale=0.5)  # Added scale argument to shrink the button size
-            btn.click(ask_for_field, [gr.State(field), chatbot], chatbot)
+            btn.click(
+                lambda f=field: chatbot_instance.ask_for_field(f),
+                [], 
+                [chatbot_ui]
+            )
             buttons.append(btn)
     return buttons
 
-def create_control_buttons(chatbot):
+def create_control_buttons(chatbot_instance, chatbot_ui):
     """Create control buttons (Retry, Undo, Refresh)."""
     with gr.Row():
         retry_btn = gr.Button("🔄 Retry", scale=0.5)
         undo_btn = gr.Button("↩️ Undo", scale=0.5)
         refresh_btn = gr.Button("🔄 Refresh", scale=0.5)
 
-        retry_btn.click(lambda h: h, chatbot, chatbot)
-        undo_btn.click(undo_last_message, chatbot, chatbot)
-        refresh_btn.click(reset_chat, [], chatbot)
+        retry_btn.click(lambda h=chatbot_instance.history: h, [], [chatbot_ui])
+        undo_btn.click(lambda: chatbot_instance.undo_last_message(), [], [chatbot_ui])
+        refresh_btn.click(lambda: chatbot_instance.reset_chat(), [], [chatbot_ui])
 
-def create_dropdowns(chatbot):
+def select_license(chatbot_instance, license_choice):
+    chatbot_instance.pending_field = "license"
+    return chatbot_instance.handle_user_input(license_choice)
+  
+
+# Handle year selection
+def select_year(chatbot_instance, year_choice):
+    chatbot_instance.pending_field = "year"
+    return chatbot_instance.handle_user_input(year_choice)
+
+
+def create_dropdowns(chatbot_instance, chatbot_ui):
     """Create dropdowns for year and license selection."""
-    year_dropdown = gr.Dropdown(choices=YEAR_OPTIONS, label="Select Publication Year", interactive=True)
+    year_dropdown = gr.Dropdown(choices=chatbot_instance.YEAR_OPTIONS, label="Select Publication Year", interactive=True)
     license_dropdown = gr.Dropdown(choices=LICENSE_OPTIONS, label="Select License", interactive=True)
 
-    year_dropdown.change(select_year, [year_dropdown, chatbot], chatbot)
-    license_dropdown.change(select_license, [license_dropdown, chatbot], chatbot)
+    year_dropdown.change(lambda y: select_year(chatbot_instance, y), [year_dropdown], [chatbot_ui])
+    license_dropdown.change(lambda l: select_license(chatbot_instance, l), [license_dropdown], [chatbot_ui])
 
     return year_dropdown, license_dropdown
 
-def create_display_metadata_button(chatbot, history):
+def display_metadata_wrapper(chatbot_instance):
+    """Wrapper for the display_metadata method to work with Gradio."""
+    chatbot_instance.display_metadata()
+    return chatbot_instance.history
+
+def create_display_metadata_button(chatbot_instance, chatbot_ui):
     """Create a button to display the current metadata."""
     with gr.Row():
         display_btn = gr.Button("📋 Display Metadata So Far", scale=0.5)
-        display_btn.click(lambda: [{"role": "assistant", "content": display_metadata(metadata, history)}], [], chatbot)
-        
+        # Use the wrapper function to return the correct output
+        display_btn.click(lambda: display_metadata_wrapper(chatbot_instance), [], [chatbot_ui])
+
 # Main Gradio UI
 with gr.Blocks() as demo:
     gr.Markdown("# Croissant Metadata Creator")
 
-    # Chatbot UI
-    chatbot = create_chatbot_ui()
+    chatbot_instance = CroissantChatbot()
 
-    # Initialize history as a Gradio State object
-    # history = gr.State([])  # Start with an empty history
-    history = []
+    # Chatbot UI
+    chatbot_ui = create_chatbot_ui()
 
     # Prompt Input
-    prompt = create_prompt_input(chatbot, validation_context=None)
+    prompt = create_prompt_input(chatbot_instance, chatbot_ui)
 
     # Metadata Buttons
-    create_metadata_buttons(chatbot)
+    create_metadata_buttons(chatbot_instance, chatbot_ui)
 
     # Display Metadata Button
-    create_display_metadata_button(chatbot, history)
+    create_display_metadata_button(chatbot_instance, chatbot_ui)
 
     # Control Buttons
-    create_control_buttons(chatbot)
+    create_control_buttons(chatbot_instance, chatbot_ui)
 
     # Dropdowns
-    create_dropdowns(chatbot)
+    create_dropdowns(chatbot_instance, chatbot_ui)
 
-
-# Run app
 if __name__ == "__main__":
-        demo.launch()
+    demo.launch()
