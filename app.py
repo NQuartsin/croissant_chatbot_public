@@ -108,6 +108,7 @@ class CroissantChatbot:
     def handle_complete_command(self):
         """Handle the 'complete' command."""
         errors = validate_metadata(self.metadata)
+        errors = None
         if errors:
             self.append_to_history({"role": "assistant", "content": "Some metadata fields are invalid:\n" + "\n".join(errors)})
         elif self.is_all_fields_filled():
@@ -242,12 +243,27 @@ class CroissantChatbot:
             if isinstance(obj, datetime):
                 return obj.strftime("%Y-%m-%d")
             raise TypeError(f"Type {type(obj)} not serializable")
-
+        
+        # Convert metadata to JSON and display it
         json_metadata = self.json_to_code_block(json.dumps(final_metadata, indent=2, default=json_serial))
-        self.append_to_history({"role": "assistant", "content": json_metadata})
+        self.append_to_history({"role": "assistant", "content": f"\n{json_metadata}"})
+
+        # Save metadata to a file
+        filename = self.save_metadata_to_file()
+
+        # Inform the user about the saved file
+        self.append_to_history({"role": "assistant", "content": f"The metadata has been saved to a file: `{filename}`. You can download it from your system."})
+
         return self.history
+    
+    def save_metadata_to_file(self):
+        """Save the metadata to a file."""
+        filename = "final_metadata.json"
+        with open(filename, "w") as file:
+            json.dump(self.metadata, file, indent=2)
+        return filename
 
-
+    
 # Refactored Gradio UI functions
 def create_chatbot_ui():
     """Create the chatbot UI."""
@@ -320,6 +336,19 @@ def create_display_metadata_button(chatbot_instance, chatbot_ui):
         # Use the wrapper function to return the correct output
         display_btn.click(lambda: display_metadata_wrapper(chatbot_instance), [], [chatbot_ui])
 
+def create_download_metadata_button(chatbot_instance):
+    """Create a button to download the metadata file."""
+    with gr.Row():
+        download_btn = gr.Button("📥 Download Metadata File")
+        output_file = gr.File(label="Download Metadata File")
+        
+        # Save metadata to a file and return the file path
+        download_btn.click(
+            lambda: chatbot_instance.save_metadata_to_file(),
+            [],
+            [output_file]
+        )
+
 # Main Gradio UI
 with gr.Blocks() as demo:
     gr.Markdown("# Croissant Metadata Creator")
@@ -338,11 +367,16 @@ with gr.Blocks() as demo:
     # Display Metadata Button
     create_display_metadata_button(chatbot_instance, chatbot_ui)
 
+    # Download Metadata Button
+    create_download_metadata_button(chatbot_instance)
+
     # Control Buttons
     create_control_buttons(chatbot_instance, chatbot_ui)
 
     # Dropdowns
     create_dropdowns(chatbot_instance, chatbot_ui)
+
+
 
 if __name__ == "__main__":
     demo.launch()

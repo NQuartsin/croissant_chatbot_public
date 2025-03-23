@@ -1,0 +1,19 @@
+{
+  "name": "fka/awesome-chatgpt-prompts",
+  "author": "fka",
+  "year": 2025,
+  "title": "N/A",
+  "description": "\ud83e\udde0 Awesome ChatGPT Prompts [CSV dataset]\n\nThis is a Dataset Repository of Awesome ChatGPT Prompts\nView All Prompts on GitHub\n\n\t\n\t\t\n\t\tLicense\n\t\n\nCC-0\n",
+  "license": "c",
+  "url": "https://huggingface.co/datasets/fka/awesome-chatgpt-prompts",
+  "publisher": "fka",
+  "version": "N/A",
+  "keywords": "ChatGPT",
+  "date_modified": "2025-01-06",
+  "date_created": "2022-12-13",
+  "date_published": "2022-12-13",
+  "language": "N/A",
+  "cite_as": "@misc{fka2025, author = {fka}, title = {N/A}, year = {2025}, url = {https://huggingface.co/datasets/fka/awesome-chatgpt-prompts} }",
+  "task": "question-answering",
+  "modality": "N/A"
+}
