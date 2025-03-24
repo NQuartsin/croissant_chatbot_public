@@ -1,6 +1,6 @@
 import requests
 from datetime import datetime
-import pandas as pd
+import pandas as pd # pip install pandas
 import json  
 
 # Hugging Face API URL for datasets

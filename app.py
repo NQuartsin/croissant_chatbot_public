@@ -7,11 +7,12 @@ from datetime import datetime
 import json  
 import mlcroissant as mlc 
 import pandas as pd
-from validation import validate_metadata
+from validation import MetadataValidator
 from constants import LICENSE_OPTIONS
 from llm import suggest_metadata, ask_user_for_informal_description
 import os
 import unicodedata
+from field_quality import FieldQualityChecker
 
 class CroissantChatbot:
     def __init__(self):
@@ -114,10 +115,17 @@ class CroissantChatbot:
 
     def handle_complete_command(self):
         """Handle the 'complete' command."""
-        errors = validate_metadata(self.metadata)
-        errors = None
-        if errors:
-            self.append_to_history({"role": "assistant", "content": "Some metadata fields are invalid:\n" + "\n".join(errors)})
+        validator = MetadataValidator()
+        errors = validator.validate_metadata(self.metadata)
+        issues = FieldQualityChecker().validate_all_fields(self.metadata)
+        if errors or issues:
+            if errors:
+                error_messages = "\n".join([f"{field}: {message}" for field, message in errors.items()])
+                self.append_to_history({"role": "assistant", "content": f"Some metadata fields are invalid:\n{error_messages}"})
+            
+            if issues:
+                issue_messages = "\n".join([f"{field}: {message}" for field, message in issues.items()])
+                self.append_to_history({"role": "assistant", "content": f"Some metadata fields could be improved:\n{issue_messages}"})
         elif self.is_all_fields_filled():
             return self.finalise_metadata()
         else:
@@ -134,7 +142,7 @@ class CroissantChatbot:
         if self.pending_field == "name":
             dataset_info = self.find_dataset_info(prompt.strip())
             if dataset_info:
-                if not self.metadata.get("cite_as") or self.metadata["cite_as"] in ["None", "N/A"]:
+                if not self.metadata.get("cite_as") or self.metadata["cite_as"] in ["None", ""]:
                     self.metadata["cite_as"] = self.generate_bibtex()
                 self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
                 self.display_metadata()
@@ -146,8 +154,8 @@ class CroissantChatbot:
     def ask_for_field(self, field):
         self.pending_field = field
 
-        # Check if the field is missing or has "N/A"
-        if not self.metadata.get(field) or self.metadata.get(field) == "N/A":
+        # Check if the field is missing
+        if not self.metadata.get(field) or self.metadata.get(field) == "":
             # Suggest a value for the field
             suggested_value = suggest_metadata(self.metadata, self.informal_description, field)
             self.append_to_history({"role": "assistant", "content": f"The field `{field}` is missing or has no valid value. \n {suggested_value}. \nType 'confirm' to accept this value or provide a new value."})
@@ -188,7 +196,7 @@ class CroissantChatbot:
                f" author = {{{self.metadata.get('author', 'Unknown Author')}}}," \
                f" title = {{{self.metadata.get('title', 'Untitled Dataset')}}}," \
                f" year = {{{self.metadata.get('year', 'XXXX')}}}," \
-               f" url = {{{self.metadata.get('url', 'N/A')}}} }}"
+               f" url = {{{self.metadata.get('url', '')}}} }}"
 
     def find_dataset_info(self, dataset_id):
         """Fetch dataset details."""
@@ -202,22 +210,22 @@ class CroissantChatbot:
 
 
             self.metadata["name"] = dataset.get("id", dataset_id)
-            self.metadata["author"] = dataset.get("author", "N/A")
-            self.metadata["year"] = datetime.strptime(dataset.get("lastModified", "XXXX"), "%Y-%m-%dT%H:%M:%S.%fZ").year if dataset.get("lastModified") else "N/A"
-            self.metadata["title"] = dataset.get("title", "N/A")
-            self.metadata["description"] = dataset.get("description", "N/A")
-            self.metadata["license"] = card_data.get("license")[0] if card_data.get("license") else "N/A"
+            self.metadata["author"] = dataset.get("author", "")
+            self.metadata["year"] = datetime.strptime(dataset.get("lastModified", "XXXX"), "%Y-%m-%dT%H:%M:%S.%fZ").year if dataset.get("lastModified") else ""
+            self.metadata["title"] = dataset.get("title", "")
+            self.metadata["description"] = dataset.get("description", "")
+            self.metadata["license"] = card_data.get("license")[0] if card_data.get("license") else ""
             self.metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
-            self.metadata["publisher"] = dataset.get("author", "N/A")
-            self.metadata["version"] = dataset.get("codebase_version", "N/A")
-            self.metadata["keywords"] = ", ".join(card_data.get("tags", [])) if card_data.get("tags") else "N/A"
-            self.metadata["date_modified"] = datetime.strptime(dataset.get("lastModified", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("lastModified") else "N/A"
-            self.metadata["date_created"] = datetime.strptime(dataset.get("createdAt", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else "N/A"
-            self.metadata["date_published"] = datetime.strptime(dataset.get("createdAt", "N/A"), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else "N/A"
-            self.metadata["language"] = ", ".join(card_data.get("languages", [])) if card_data.get("languages") else "N/A"        
-            self.metadata["cite_as"] = dataset.get("citation", "N/A")
-            self.metadata["task"] = ", ".join(card_data.get("task_categories", [])) if card_data.get("task_categories") else "N/A"
-            self.metadata["modality"] = ", ".join(card_data.get("modality", [])) if card_data.get("modality") else "N/A"
+            self.metadata["publisher"] = dataset.get("author", "")
+            self.metadata["version"] = dataset.get("codebase_version", "")
+            self.metadata["keywords"] = ", ".join(card_data.get("tags", [])) if card_data.get("tags") else ""
+            self.metadata["date_modified"] = datetime.strptime(dataset.get("lastModified", ""), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("lastModified") else ""
+            self.metadata["date_created"] = datetime.strptime(dataset.get("createdAt", ""), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else ""
+            self.metadata["date_published"] = datetime.strptime(dataset.get("createdAt", ""), "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d") if dataset.get("createdAt") else ""
+            self.metadata["language"] = ", ".join(card_data.get("languages", [])) if card_data.get("languages") else ""        
+            self.metadata["cite_as"] = dataset.get("citation", "")
+            self.metadata["task"] = ", ".join(card_data.get("task_categories", [])) if card_data.get("task_categories") else ""
+            self.metadata["modality"] = ", ".join(card_data.get("modality", [])) if card_data.get("modality") else ""
 
             # tasks = []  # Store all task categories
             # modality = []  # Store all modalities
@@ -260,8 +268,8 @@ class CroissantChatbot:
 
         self.final_metadata = croissant_metadata.to_json()
 
-        self.final_metadata["task"] = self.metadata.get("task", "N/A")
-        self.final_metadata["modality"] = self.metadata.get("modality", "N/A")
+        self.final_metadata["task"] = self.metadata.get("task", "")
+        self.final_metadata["modality"] = self.metadata.get("modality", "")
 
 
         
