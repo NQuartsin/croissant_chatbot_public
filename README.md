@@ -6,7 +6,8 @@
    OPENROUTER_API_KEY=your_api_key_here
 
 
-External code information:
+# External code information
+Licences:
 A comprehensive list of licenses can be found at the following link:
 https://spdx.org/licenses/
 
