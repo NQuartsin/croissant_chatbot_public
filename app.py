@@ -27,6 +27,7 @@ class CroissantChatbot:
         self.pending_attribute = None
         self.informal_description = ""
         self.confirmed_metadata = {}
+        self.waiting_for_HF_name = False
 
         # Metadata attributes
         self.metadata_attributes = {
@@ -81,6 +82,9 @@ class CroissantChatbot:
         elif self.waiting_for_informal_description:
             self.handle_informal_description_prompt(prompt)
 
+        elif self.waiting_for_HF_name:
+            self.handle_HF_name(prompt)
+
         elif prompt.lower() == "complete":
             self.handle_complete_command()
 
@@ -113,8 +117,26 @@ class CroissantChatbot:
         else:
             self.informal_description = prompt.strip()
             self.append_to_history({"role": "assistant", "content": f"Saved the informal description: {self.informal_description}"})
-            self.append_to_history({"role": "assistant", "content": "Click any attribute to enter/update its value."})
             self.waiting_for_informal_description = False
+        self.append_to_history({"role": "assistant", "content": "Is your dataset from Hugging Face Datasets? \nIf so, please provide the dataset name so I can fill in some of the metadata. \nOtherwise type 'no'."})
+        self.waiting_for_HF_name = True
+        return self.history
+    
+    def handle_HF_name(self, prompt):
+        """Handle the user's response to the Hugging Face dataset name prompt."""
+        if prompt.lower() == "no":
+            self.append_to_history({"role": "assistant", "content": "Alright! Click any attribute to enter/update its value."})
+            self.waiting_for_HF_name = False
+        else:
+            dataset_info = self.find_dataset_info(prompt.strip())
+            if dataset_info:
+                if not self.metadata.get("cite_as") or self.metadata["cite_as"] in ["None", ""]:
+                    self.metadata["cite_as"] = self.generate_bibtex()
+                self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
+                self.display_metadata()
+            else:
+                self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name. Click any attribute to enter/update its value."})
+            self.waiting_for_HF_name = False
         return self.history
 
     def handle_complete_command(self):
@@ -138,7 +160,7 @@ class CroissantChatbot:
                 self.metadata.update(self.confirmed_metadata)
                 return self.finalise_metadata()
             else:
-                self.append_to_history({"role": "assistant", "content": "Type 'confirm' to save the metadata despite these issues, or update the attributes to resolve the problems."})
+                self.append_to_history({"role": "assistant", "content": "Please update the attributes to resolve the problems (for each attribute u can confirm invalid values)."})
         elif self.is_all_attributes_filled():
             # Merge confirmed_metadata into metadata before finalising
             return self.finalise_metadata()
@@ -165,15 +187,6 @@ class CroissantChatbot:
             self.append_to_history({"role": "assistant", "content": f"The value for `{self.pending_attribute}` has been saved as: {self.confirmed_metadata[self.pending_attribute]} despite validation issues."})
             self.pending_attribute = None
             return self.history
-        
-        if self.pending_attribute == "name":
-            dataset_info = self.find_dataset_info(prompt.strip())
-            if dataset_info:
-                if not self.metadata.get("cite_as") or self.metadata["cite_as"] in ["None", ""]:
-                    self.metadata["cite_as"] = self.generate_bibtex()
-                self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
-                self.display_metadata()
-                return self.history
             
         # Validate the input for the pending attribute
         self.metadata[self.pending_attribute] = prompt.strip()
@@ -230,6 +243,8 @@ class CroissantChatbot:
         self.waiting_for_informal_description = False
         self.informal_description = ""
         self.confirmed_metadata = {}
+        self.waiting_for_HF_name = False
+
         return self.history
 
     def is_all_attributes_filled(self):
@@ -372,6 +387,7 @@ class CroissantChatbot:
         self.pending_attribute = None
         self.informal_description = ""
         self.confirmed_metadata = {}
+        self.waiting_for_HF_name = False
         self.append_to_history({"role": "assistant", "content": "You can now start annotating a new dataset. Let's begin!"})
         return self.history
 
