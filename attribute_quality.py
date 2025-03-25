@@ -1,12 +1,12 @@
-# field_quality.py
+# attribute_quality.py
 
 import spacy  # pip install spacy && python -m spacy download en_core_web_sm
 from lexical_diversity import lex_div as ld 
 
 nlp = spacy.load("en_core_web_sm")
 
-class FieldQualityChecker:
-    """Assess the quality of metadata field values beyond basic validation."""
+class AttributeQualityChecker:
+    """Assess the quality of metadata attribute values beyond basic validation."""
 
     def __init__(self):
         self.min_keywords = 3
@@ -15,19 +15,19 @@ class FieldQualityChecker:
         self.sentence_variety_threshold = 2  # Minimum unique sentence structures
         self.mattr_window = 20  # Window size for MATTR calculation
 
-    def check_field_quality(self, field_name, value):
-        """Check the quality of a given field's value."""
+    def check_attribute_quality(self, attribute_name, value):
+        """Check the quality of a given attribute's value."""
 
-        if field_name == "description":
+        if attribute_name == "description":
             return self.check_description(value)
 
-        if field_name == "title":
+        if attribute_name == "title":
             return self.check_title(value)
 
-        if field_name == "keywords":
+        if attribute_name == "keywords":
             return self.check_keywords(value)
 
-        return True, "Field quality is acceptable."
+        return True, "attribute quality is acceptable."
 
     def check_description(self, value):
         """Assess the quality of the dataset description."""
@@ -83,11 +83,11 @@ class FieldQualityChecker:
 
 
 
-    def validate_all_fields(self, metadata):
-        """Evaluate all metadata fields and return quality issues."""
+    def check_quality_of_all_attributes(self, metadata):
+        """Evaluate all metadata attributes and return quality issues."""
         issues = {}
-        for field_name, value in metadata.items():
-            is_valid, message = self.check_field_quality(field_name, value)
+        for attribute_name, value in metadata.items():
+            is_valid, message = self.check_attribute_quality(attribute_name, value)
             if not is_valid:
-                issues[field_name] = message
+                issues[attribute_name] = message
         return issues

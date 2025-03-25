@@ -32,29 +32,40 @@ def get_metadata_info_for_prompt(metadata):
     """
     return metadata_info 
 
-def suggest_field_value(metadata, informal_description, field):
-    # for the fields: name, title, description, publisher, keywords, task, modality, license, language
+def suggest_attribute_value(metadata, informal_description, attribute):
+    # for the attributes: name, title, description, publisher, keywords, task, modality, license, language
     prompt = f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
     Additional information: {informal_description}
     
-    The field '{field}' is missing or insufficient.
-    Please provide 1-3 reasonable suggestions for this field only.
-    If there is no information available, prompt the user to provide more information.
+    The attribute '{attribute}' is missing or insufficient.
+    Please provide 1-3 reasonable suggestions for this attribute only.
     """
 
     return prompt
 
-def suggest_ways_to_fill_field(metadata, informal_description, field):
-    # for the fields: author, year, url, version, date_modified, date_created, date_published
+def suggest_description(metadata, informal_description):
     prompt = f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
     Additional information: {informal_description}
 
-    The field '{field}' is missing or insufficient.
-    Please suggest at most 5 ways for the user to figure out how to fill this field.
+    The attribute 'description' is missing or insufficient.
+    Please provide 1-3 diverse, non-repetitive descriptions that are at least 2 sentences long.
+    """
+
+    return prompt
+
+def suggest_ways_to_fill_attribute(metadata, informal_description, attribute):
+    # for the attributes: author, year, url, version, date_modified, date_created, date_published
+    prompt = f"""
+    The user is creating metadata for a dataset with the following information:
+    {get_metadata_info_for_prompt(metadata)}
+    Additional information: {informal_description}
+
+    The attribute '{attribute}' is missing or insufficient.
+    Please suggest at most 5 ways for the user to figure out how to fill this attribute.
     """
 
     return prompt
@@ -79,19 +90,21 @@ def ask_user_for_informal_description():
 
     return create_llm_response(prompt)
 
-def suggest_metadata(metadata, informal_description, field):
+def suggest_metadata(metadata, informal_description, attribute):
 
-    if field == "cite_as":
+    if attribute == "cite_as":
         prompt = suggest_citation(metadata)
-    elif field in ["name", "title", "description", "publisher", "keywords", "task", "modality", "license", "language"]:
-        prompt = suggest_field_value(metadata, informal_description, field)
+    elif attribute in ["name", "title", "publisher", "keywords", "task", "modality", "license", "language"]:
+        prompt = suggest_attribute_value(metadata, informal_description, attribute)
+    elif attribute == "description":
+        prompt = suggest_description(metadata, informal_description)
     else:
-        prompt = suggest_ways_to_fill_field(metadata, informal_description, field)
+        prompt = suggest_ways_to_fill_attribute(metadata, informal_description, attribute)
 
     return create_llm_response(prompt)
     
 def handle_conversation(metadata, user_prompt, history, informal_description):
-    """Handle a conversation with the user to suggest metadata fields."""
+    """Handle a conversation with the user to suggest metadata attributes."""
     prompt =f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
@@ -99,13 +112,15 @@ def handle_conversation(metadata, user_prompt, history, informal_description):
     The last thing said by the user was: {user_prompt}
     The conversation history is: {history}
 
-    Please suggest the next step in the conversation to help the user fill in the missing metadata fields.
+    Please suggest the next step in the conversation to help the user fill in the missing metadata attributes.
     """
 
     return create_llm_response(prompt)
 
 def create_llm_response(prompt):
-    """Use OpenRouter's Llama 3.1 8B Instruct model to suggest missing metadata fields."""
+    """Use OpenRouter's Llama 3.1 8B Instruct model to suggest missing metadata attributes."""
+
+    propmt = "You are helping a user create metadata for a dataset." + prompt
 
     api_url = "https://openrouter.ai/api/v1/chat/completions"
     headers = {

@@ -1,7 +1,7 @@
 # validation.py
 import re
 from datetime import datetime
-from langcodes import Language 
+import langcodes 
 import bibtexparser 
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import homogenize_latex_encoding
@@ -10,7 +10,7 @@ from constants import LICENSE_OPTIONS as LICENSES
 
 
 class MetadataValidator():
-    """Validate metadata fields and values for a dataset entry."""
+    """Validate metadata attributes and values for a dataset entry."""
 
     def validate_year(self, year):
         """Ensure the year is a four-digit number within a reasonable range."""
@@ -41,11 +41,11 @@ class MetadataValidator():
         except Exception as e:
             return False, f"Error validating license: {str(e)}"
 
-    def validate_non_empty_string(self, value, field_name):
+    def validate_non_empty_string(self, value, attribute_name):
         """Ensure the value is a non-empty string."""
         if isinstance(value, str) and value.strip():
             return True, "Value is a non-empty string."
-        return False, f"{field_name} must be a non-empty string."
+        return False, f"{attribute_name} must be a non-empty string."
 
     def validate_keywords(self, keywords):
         """Ensure keywords are a comma-separated list of non-empty strings."""
@@ -53,27 +53,40 @@ class MetadataValidator():
             return True, "Keywords are valid."
         return False, "Keywords must be a comma-separated list of non-empty strings."
 
-    def validate_date(self, date, field_name):
+    def validate_date(self, date, attribute_name):
         """Ensure the date is in the format YYYY-MM-DD."""
         try:
             datetime.strptime(date, "%Y-%m-%d")
             return True, "Date is valid."
         except ValueError:
-            return False, f"{field_name} must be in the format YYYY-MM-DD."
+            return False, f"{attribute_name} must be in the format YYYY-MM-DD."
 
     def validate_language(self, language):
-        """Ensure the language is valid by converting names to ISO codes and validating."""
+        """Ensure the language(s) are valid by converting names to ISO codes and validating."""
         try:
-            # Attempt to get the language object from the input
-            lang = Language.find(language)  # This handles both names (e.g., "English") and codes (e.g., "en")
-            if not lang.is_valid():
-                return False, f"Language '{language}' is not a valid ISO language code or name."
-            
-            # Convert to ISO language code and return None if valid
-            iso_code = lang.language
-            return True, "Language is valid."
+            # Split the input into multiple languages if it's a comma-separated string
+            languages = [lang.strip() for lang in language.split(",")]
+
+            # Validate each language
+            invalid_languages = []
+            for lang in languages:
+                try:
+                    # Try creating a valid language object
+                    lang_obj = langcodes.Language.make(lang)
+                    # If it doesn't return a proper language code, mark as invalid
+                    if not lang_obj.language:
+                        invalid_languages.append(lang)
+                except ValueError:
+                    invalid_languages.append(lang)
+
+            # If there are invalid languages, return an error
+            if invalid_languages:
+                return False, f"The following languages are invalid: {', '.join(invalid_languages)}"
+
+            # If all languages are valid, return success
+            return True, "All languages are valid."
         except Exception:
-            return False, f"Language '{language}' is not a valid ISO language code or name."
+            return False, f"Language(s) '{language}' are not valid ISO language codes or names."
 
     def validate_bibtex(self, cite_as):
         """Ensure the citation is in valid BibTeX format."""
@@ -87,8 +100,8 @@ class MetadataValidator():
         except Exception as e:
             return False, f"Citation must be in valid BibTeX format. Error: {str(e)}"
 
-    def validate_metadata(self, metadata):
-        """Check if all required fields are valid before finalizing metadata."""
+    def validate_all_attributes(self, metadata):
+        """Check if all required attributes are valid."""
         errors = {}
 
         # Validate year
@@ -113,12 +126,12 @@ class MetadataValidator():
             if not valid:
                 errors["license"] = message
 
-        # Validate non-empty string fields
-        for field in ["name", "author", "title", "description", "publisher", "version"]:
-            if field in metadata:
-                valid, message = self.validate_non_empty_string(metadata[field], field.capitalize())
+        # Validate non-empty string attributes
+        for attribute in ["name", "author", "title", "description", "publisher", "version"]:
+            if attribute in metadata:
+                valid, message = self.validate_non_empty_string(metadata[attribute], attribute.capitalize())
                 if not valid:
-                    errors[field] = message
+                    errors[attribute] = message
 
         # Validate keywords
         if "keywords" in metadata:
@@ -127,11 +140,11 @@ class MetadataValidator():
                 errors["keywords"] = message
 
         # Validate dates
-        for date_field in ["date_modified", "date_created", "date_published"]:
-            if date_field in metadata:
-                valid, message = self.validate_date(metadata[date_field], date_field.replace("_", " ").capitalize())
+        for date_attribute in ["date_modified", "date_created", "date_published"]:
+            if date_attribute in metadata:
+                valid, message = self.validate_date(metadata[date_attribute], date_attribute.replace("_", " ").capitalize())
                 if not valid:
-                    errors[date_field] = message
+                    errors[date_attribute] = message
 
         # Validate language
         if "language" in metadata:
@@ -140,11 +153,11 @@ class MetadataValidator():
                 errors["language"] = message
 
         # Validate task and modality
-        for field in ["task", "modality"]:
-            if field in metadata:
-                valid, message = self.validate_non_empty_string(metadata[field], field.capitalize())
+        for attribute in ["task", "modality"]:
+            if attribute in metadata:
+                valid, message = self.validate_non_empty_string(metadata[attribute], attribute.capitalize())
                 if not valid:
-                    errors[field] = message
+                    errors[attribute] = message
 
         # Validate citation
         if "cite_as" in metadata:
