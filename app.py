@@ -12,6 +12,7 @@ import os
 import unicodedata
 from attribute_quality import AttributeQualityChecker
 from huggingface_hub import list_datasets
+import numpy as np
 
 
 class CroissantChatbot:
@@ -572,7 +573,11 @@ def create_download_metadata_button(chatbot_instance):
             outputs=[download_section, output_file]
         )
 
+def flip_metadata_buttons(x):
+    return x[::-1]
 
+def flip_control_buttons(x):
+    return np.fliplr(x)
 
 # Main Gradio UI
 with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.cyan
@@ -586,13 +591,12 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.cyan
         background-color: var(--secondary-600) !important;
         border: 1px solid var(--secondary-700);
         color: white; 
-        border-radius: 12px; /* Rounded corners */
+        border-radius: 8px; /* Rounded corners */
     }
     .control-btn { 
         background-color: var(--primary-600) !important; /* Use primary hue */
         border: 1px solid var(--primary-700);
         color: white;
-        
     }
 """) as demo:
 
@@ -606,15 +610,15 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.cyan
     # Prompt Input
     prompt = create_prompt_input(chatbot_instance, chatbot_ui)
 
+    with gr.Tab("Show Metadata Buttons"):
+        create_metadata_group(chatbot_instance, chatbot_ui)
 
-    create_metadata_group(chatbot_instance, chatbot_ui)
+    with gr.Tab("Show Control Buttons"):
+        # Control Buttons
+        create_control_buttons(chatbot_instance, chatbot_ui)
 
-
-    # Control Buttons
-    create_control_buttons(chatbot_instance, chatbot_ui)
-
-    # Download Metadata Button
-    create_download_metadata_button(chatbot_instance)
+        # Download Metadata Button
+        create_download_metadata_button(chatbot_instance)
 
 
 
