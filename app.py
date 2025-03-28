@@ -26,26 +26,27 @@ class CroissantChatbot:
         self.informal_description = ""
         self.confirmed_metadata = {}
         self.waiting_for_HF_name = False
+        self.temporary_metadata = {}
 
         # Metadata attributes
         self.metadata_attributes = {
-            "name": "The name of the dataset (string).",
-            "author": "The author of the dataset (string).",
-            "year": "The publication year of the dataset (YYYY).",
-            "title": "The title of the dataset/publication that describes the dataset (string).",
-            "description": "A description of the dataset (string) (2+ sentences).",
-            "license": "The license of the dataset (string) (one of the valid options).",
-            "url": "The URL of the dataset (string) (valid URL format).",
-            "publisher": "The publisher of the dataset (string).",
-            "version": "The version of the dataset (string).",
-            "keywords": "The keywords of the dataset (comma-separated string) (at least 3).",
-            "date_modified": "The date the dataset was last modified (YYYY-MM-DD).",
-            "date_created": "The date the dataset was created (YYYY-MM-DD).",
-            "date_published":  "The date the dataset was published (YYYY-MM-DD).",
-            "cite_as": "The citation for the dataset (string) (BibTeX format).",
-            "language": "The language(s) of the dataset (comma-separated string) (ISO 639-1 codes/Language names).",
-            "task": "The task(s) associated with the dataset (comma-separated string).",
-            "modality": "The modality(s) of the dataset (comma-separated string)."
+            "name": "the name of the dataset (string).",
+            "author": "the author of the dataset (string).",
+            "year": "the publication year of the dataset (YYYY).",
+            "title": "the title of the dataset/publication that describes the dataset (string).",
+            "description": "a description of the dataset (string) (2+ sentences).",
+            "license": "the license of the dataset (string) (one of the valid options).",
+            "url": "the URL of the dataset (string) (valid URL format).",
+            "publisher": "the publisher of the dataset (string).",
+            "version": "the version of the dataset (string).",
+            "keywords": "the keywords of the dataset (comma-separated string) (at least 3).",
+            "date_modified": "the date the dataset was last modified (YYYY-MM-DD).",
+            "date_created": "the date the dataset was created (YYYY-MM-DD).",
+            "date_published":  "the date the dataset was published (YYYY-MM-DD).",
+            "cite_as": "the citation for the dataset (string) (BibTeX format).",
+            "in_language": "the language(s) of the dataset (comma-separated string) (ISO 639-1 codes/Language names).",
+            "task": "the task(s) associated with the dataset (comma-separated string).",
+            "modality": "the modality(s) of the dataset (comma-separated string)."
         }
 
         # Generate years dynamically
@@ -66,7 +67,6 @@ class CroissantChatbot:
 
     def display_chatbot_instructions(self):
         """Get the chatbot instructions."""
-        attributes_list = "\n".join([f"- {attribute}: {description}" for attribute, description in self.metadata_attributes.items()])
         instructions = f"""
             This is a very simple chatbot that helps you create Croissant metadata for your dataset.
             When you start the chat, the chatbot will guide you through the process of entering metadata attributes.\n
@@ -85,9 +85,9 @@ class CroissantChatbot:
             If the value is invalid, the chatbot will ask you to provide a new value.
             If you want to confirm the value despite validation issues, type 'confirm' in the chat box.
             If you want to update an attribute, click on the attribute name again and enter the new value.\n
-
-            The attributes you need to provide values for are:
-            {attributes_list}\n
+            If you are unsure about a value, you can skip the attribute by not entering anything.
+            The chatbot will only save attributes with meaningful values.
+            You can always return to an attribute later to update it.\n
 
             If you want to see the current metadata stored in the chatbot, click the 'Display Metadata So Far' button.
             If you think you have entered all the metadata attributes, type 'complete' in the chat box to finalise the metadata.
@@ -210,37 +210,28 @@ class CroissantChatbot:
 
     def handle_complete_command(self):
         """Handle the 'complete' command."""
-        validator = MetadataValidator()
-        errors = validator.validate_all_attributes(self.metadata)
-        issues = AttributeQualityChecker().check_quality_of_all_attributes(self.metadata)
-
-        if errors or issues:
-            if errors:
-                error_messages = "\n".join([f"{attribute}: {message}" for attribute, message in errors.items()])
-                self.append_to_history({"role": "assistant", "content": f"Some metadata attributes are invalid:\n{error_messages}"})
-            
-            if issues:
-                issue_messages = "\n".join([f"{attribute}: {message}" for attribute, message in issues.items()])
-                self.append_to_history({"role": "assistant", "content": f"Some metadata attributes could be improved:\n{issue_messages}"})
+        is_valid, error_messages, issue_messages = self.validate_and_check_quality_all_attributes(self.metadata)
+        if not is_valid:
             if self.confirmed_metadata:
                 confirmed_attributes = ",".join(self.confirmed_metadata.keys())
                 self.append_to_history({"role": "assistant", "content": f"You have confirmed the values for these attributes '{confirmed_attributes}' despite validation issues. Finalising metadata with these values."})
                 self.metadata.update(self.confirmed_metadata) # Merge confirmed_metadata into metadata before finalising
                 return self.finalise_metadata()
+            elif error_messages or issue_messages:
+                self.append_to_history({"role": "assistant", "content": f"Here are the issues with the metadata:\n{error_messages}\n{issue_messages}"})
+                self.append_to_history({"role": "assistant", "content": "Please resolve the issues before finalising the metadata."})
+                self.append_to_history({"role": "assistant", "content": "You can click on the attributes to update them."})
+                self.append_to_history({"role": "assistant", "content": "If you want to confirm the values despite validation issues, type 'confirm' in the chat box after clicking each attribute."})
             else:
                 self.append_to_history({"role": "assistant", "content": "Please update the attributes to resolve the problems (for each attribute u can confirm invalid values)."})
-        elif self.is_all_attributes_filled():
-            return self.finalise_metadata()
         else:
-            missing_attributes = self.list_missing_attributes()
-            json_missing_attributes = self.json_to_code_block(missing_attributes)
-            self.append_to_history({"role": "assistant", "content": f"Cannot finalise metadata. The following attributes are missing: \n{json_missing_attributes}"})
+            return self.finalise_metadata()
         return self.history
 
     def handle_pending_attribute_input(self, prompt):
         """Handle input for a pending attribute."""
 
-        if prompt.lower() == "confirm" and self.pending_attribute:
+        if prompt.lower() == "confirm" and self.pending_attribute and self.pending_attribute in self.temporary_metadata:
             if self.pending_attribute in ["date_created", "date_modified", "date_published"]:
                 self.append_to_history({
                     "role": "assistant",
@@ -248,31 +239,32 @@ class CroissantChatbot:
                 })
                 return self.history
             # Save the attribute in confirmed_metadata
-            self.confirmed_metadata[self.pending_attribute] = self.metadata[self.pending_attribute]
-            self.append_to_history({"role": "assistant", "content": f"The value for `{self.pending_attribute}` has been saved as: {self.confirmed_metadata[self.pending_attribute]} despite validation issues."})
+            self.confirmed_metadata[self.pending_attribute] = self.temporary_metadata[self.pending_attribute]
+            self.metadata[self.pending_attribute] = self.temporary_metadata[self.pending_attribute]
+            del self.temporary_metadata[self.pending_attribute]
+            self.append_to_history({"role": "assistant", "content": f"Despite validation issues, the value for `{self.pending_attribute}` has been saved as: {self.confirmed_metadata[self.pending_attribute]}"})
             self.pending_attribute = None
             return self.history
-            
-        # Validate the input for the pending attribute
-        self.metadata[self.pending_attribute] = prompt.strip()
-        self.append_to_history({"role": "assistant", "content": f"Saved `{self.pending_attribute}` as: {prompt.strip()}."})
+        
+        elif self.pending_attribute:
+            # Validate the input for the pending attribute
+            self.temporary_metadata[self.pending_attribute] = prompt.strip()
 
-        # Perform validation checks
-        validator = MetadataValidator()
-        errors = validator.validate_all_attributes({f"{self.pending_attribute}": f"{prompt.strip()}"})
-        issues = AttributeQualityChecker().check_quality_of_all_attributes({f"{self.pending_attribute}": f"{prompt.strip()}"})
-        if errors or issues:
-            error_messages = "\n".join([f"{attribute}: {message}" for attribute, message in errors.items()]) if errors else ""
-            issue_messages = "\n".join([f"{attribute}: {message}" for attribute, message in issues.items()]) if issues else ""
-            suggested_value = suggest_metadata(self.metadata, self.informal_description, self.pending_attribute)
+            # Perform checks
+            is_valid, error_messages, issue_messages = self.validate_and_check_quality(self.pending_attribute, self.temporary_metadata[self.pending_attribute])
+            if not is_valid:
+                # If the value is invalid, suggest a new value
+                self.append_to_history({"role": "assistant", "content": f"The value you provided for `{self.pending_attribute}` is invalid."})
+                self.append_to_history({"role": "assistant", "content": f"Here are the issues with the value you provided:\n{error_messages}\n{issue_messages}"})
+                suggested_value = suggest_metadata(self.metadata, self.informal_description, self.pending_attribute)
+                self.append_to_history({"role": "assistant", "content": f"{suggested_value}"})
+                self.append_to_history({"role": "assistant", "content":"Type **confirm** to save this value anyway, or use one of these suggestions as the value or enter your own idea for the value. \n If the attribute is `date_created`, `date_modified`, or `date_published`, please provide a valid date in the format YYYY-MM-DD."})
+            else:
+                self.append_to_history({"role": "assistant", "content": f"Saved `{self.pending_attribute}` as: {prompt.strip()}."})
+                self.metadata[self.pending_attribute] = self.temporary_metadata[self.pending_attribute]
+                del self.temporary_metadata[self.pending_attribute]
+                self.pending_attribute = None
 
-            self.append_to_history({"role": "assistant", "content": f"There are issues with the value you provided for `{self.pending_attribute}`:\n{error_messages}\n{issue_messages}"})
-            self.append_to_history({"role": "assistant", "content": f"{suggested_value}"})
-            self.append_to_history({"role": "assistant", "content":"Type **confirm** to save this value anyway, or use one of these suggestions as the value or enter your own idea for the value. \n If the attribute is `date_created`, `date_modified`, or `date_published`, please provide a valid date in the format YYYY-MM-DD."})
-        else:
-            self.pending_attribute = None
-
-        # Regenerate citation if title, author, year, or URL is updated (but citation isnt provided by user or HF dataset)
         
         return self.history
     
@@ -290,7 +282,6 @@ class CroissantChatbot:
                 "role": "assistant",
                 "content": f"""The attribute `{attribute}` is missing. This is: {attribute_description}
                 {suggested_value}
-
                 You can use one of these suggestions as the value or enter your own value."""
             })
         else:
@@ -299,6 +290,30 @@ class CroissantChatbot:
             self.append_to_history({"role": "assistant", "content": f"The attribute `{attribute}` already has a value: `{current_value}`. You can update it if needed."})
 
         return self.history
+    
+    def validate_and_check_quality(self, attribute, value):
+        """Validate and check the quality of the attribute value."""
+        # Validate the attribute value
+        validator = MetadataValidator()
+        errors = validator.validate_all_attributes({attribute: value})
+        issues = AttributeQualityChecker().check_quality_of_all_attributes({attribute: value})
+
+        if errors or issues:
+            error_messages = "\n".join([f"{attribute}: {message}" for attribute, message in errors.items()]) if errors else ""
+            issue_messages = "\n".join([f"{attribute}: {message}" for attribute, message in issues.items()]) if issues else ""
+            return False, error_messages, issue_messages
+        return True, "",""
+    
+    def validate_and_check_quality_all_attributes(self, metadata):
+        """Validate and check the quality of all attributes."""
+        validator = MetadataValidator()
+        errors = validator.validate_all_attributes(metadata)
+        issues = AttributeQualityChecker().check_quality_of_all_attributes(metadata)
+        if errors or issues:
+            error_messages = "\n".join([f"{attribute}: {message}" for attribute, message in errors.items()]) if errors else ""
+            issue_messages = "\n".join([f"{attribute}: {message}" for attribute, message in issues.items()]) if issues else ""
+            return False, error_messages, issue_messages
+        return True, "", ""
 
     def reset_chat(self):
         """Reset the chat."""
@@ -364,24 +379,43 @@ class CroissantChatbot:
                 modalities.append(tag.split(":", 1)[1])
             elif tag.startswith("language:"):
                 languages.append(tag.split(":", 1)[1])
+        
+        # Use getattr() for all fields to handle missing attributes gracefully
+        dataset_id = getattr(dataset, "id", None)
+        author = getattr(dataset, "author", None)
+        last_modified = getattr(dataset, "last_modified", None)
+        created_at = getattr(dataset, "created_at", None)
+        description = getattr(dataset, "description", None)
+        citation = getattr(dataset, "citation", None)
 
-        self.metadata["name"] = getattr(dataset, "id", "")
-        self.metadata["author"] = getattr(dataset, "author", "")
-        self.metadata["year"] = dataset.last_modified.year if getattr(dataset, "last_modified", None) else ""
-        self.metadata["title"] = ""  # No title field in the dataset object
-        self.metadata["description"] = getattr(dataset, "description", "")
-        self.metadata["license"] = lisence if lisence else ""
-        self.metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
-        self.metadata["publisher"] = getattr(dataset, "author", "")
-        self.metadata["version"] = ""  # No version field in the dataset object
-        self.metadata["keywords"] = "" # No easy way to fetch keywords
-        self.metadata["date_modified"] = dataset.last_modified.strftime("%Y-%m-%d") if getattr(dataset, "last_modified", None) else ""
-        self.metadata["date_created"] = dataset.created_at.strftime("%Y-%m-%d") if getattr(dataset, "created_at", None) else ""
-        self.metadata["date_published"] = dataset.created_at.strftime("%Y-%m-%d") if getattr(dataset, "created_at", None) else ""
-        self.metadata["cite_as"] = getattr(dataset, "citation", "")
-        self.metadata["task"] = ", ".join(tasks) if tasks else ""
-        self.metadata["modality"] = ", ".join(modalities) if modalities else ""
-        self.metadata["language"] = ", ".join(languages) if languages else ""
+
+        # Only add attributes to metadata if they have a meaningful value
+        if dataset_id:
+            self.metadata["name"] = dataset_id
+        if author:
+            self.metadata["author"] = author
+        if last_modified:
+            self.metadata["year"] = last_modified.year
+            self.metadata["date_modified"] = last_modified.strftime("%Y-%m-%d")
+        if created_at:
+            self.metadata["date_created"] = created_at.strftime("%Y-%m-%d")
+            self.metadata["date_published"] = created_at.strftime("%Y-%m-%d")
+        if description:
+            self.metadata["description"] = description
+        if lisence:
+            self.metadata["license"] = lisence
+        if dataset_id:
+            self.metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
+        if author:
+            self.metadata["publisher"] = author
+        if tasks:
+            self.metadata["task"] = ", ".join(tasks)
+        if modalities:
+            self.metadata["modality"] = ", ".join(modalities)
+        if languages:
+            self.metadata["language"] = ", ".join(languages)
+        if citation:
+            self.metadata["cite_as"] = citation
 
         return self.metadata
 
@@ -395,29 +429,39 @@ class CroissantChatbot:
             self.metadata["cite_as"] = self.generate_bibtex()
 
         try:
-            croissant_metadata = mlc.Metadata(
-                name=self.metadata.get("name"),
-                creators=self.metadata.get("author"),
-                description=self.metadata.get("description"),
-                license=self.metadata.get("license"),
-                url=self.metadata.get("url"),
-                publisher=self.metadata.get("publisher"),
-                version=self.metadata.get("version"),
-                keywords=self.metadata.get("keywords"),
-                date_modified=self.metadata.get("date_modified", "Unknown"),
-                date_created=self.metadata.get("date_created", "Unknown"),
-                date_published=self.metadata.get("date_published", "Unknown"),
-                cite_as=self.metadata.get("cite_as", "Unknown"),
-                in_language=self.metadata.get("language", "Unknown"),
-            )
+
+            # Map your metadata fields to the expected Croissant Metadata fields
+            metadata_mapping = {
+                "name": "name",
+                "author": "creators",
+                "description": "description",
+                "license": "license",
+                "url": "url",
+                "publisher": "publisher",
+                "version": "version",
+                "keywords": "keywords",
+                "date_modified": "date_modified",
+                "date_created": "date_created",
+                "date_published": "date_published",
+                "cite_as": "cite_as",
+                "language": "in_language",
+            }
+
+            # Dynamically build the metadata dictionary for the Croissant object
+            filtered_metadata = {
+                croissant_field: self.metadata[original_field]
+                for original_field, croissant_field in metadata_mapping.items()
+                if original_field in self.metadata and self.metadata[original_field]
+            }
+
+            # Create the Croissant metadata object
+            croissant_metadata = mlc.Metadata(**filtered_metadata)           
 
             self.final_metadata = croissant_metadata.to_json()
 
             self.final_metadata["task"] = self.metadata.get("task", "")
             self.final_metadata["modality"] = self.metadata.get("modality", "")
 
-
-            
             # Convert metadata to JSON and display it
             display_metadata = self.json_to_code_block(self.final_metadata, self.json_serial)
             self.append_to_history({"role": "assistant", "content": f"\n{display_metadata}"})
