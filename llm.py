@@ -86,6 +86,7 @@ def ask_user_for_informal_description():
     prompt = f"""
     The user is creating metadata for a dataset.
     Please ask the user probing questions to get an informal description of the dataset.
+    Ask 1-5 questions.
     """
 
     return create_llm_response(prompt)

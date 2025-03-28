@@ -1,5 +1,5 @@
 from datetime import datetime
-import pandas as pd # pip install pandas
+import pandas as pd 
 from huggingface_hub import list_datasets
 from itertools import islice
 
@@ -7,7 +7,7 @@ datasets = list_datasets()
 dataset_info = []
 
 for dataset in islice(datasets, 100):  
-    dataset_id = dataset.id  # Use dot notation instead of .get()
+    dataset_id = dataset.id 
     link = f"https://huggingface.co/datasets/{dataset_id}"
     likes = dataset.likes if dataset.likes is not None else 0
     downloads = dataset.downloads if dataset.downloads is not None else 0

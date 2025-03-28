@@ -1,8 +1,6 @@
 # app.py
-import keyword
 import re
 import gradio as gr
-import requests
 from datetime import datetime
 import json  
 import mlcroissant as mlc 
@@ -14,7 +12,6 @@ import os
 import unicodedata
 from attribute_quality import AttributeQualityChecker
 from huggingface_hub import list_datasets
-from itertools import islice
 
 
 class CroissantChatbot:
@@ -31,28 +28,27 @@ class CroissantChatbot:
 
         # Metadata attributes
         self.metadata_attributes = {
-            "name": "What is the name of your dataset?",
-            "author": "Who is the author of your dataset?",
-            "year": "What year was your dataset published?",
-            "title": "What is the title of the dataset or associated paper?",
-            "description": "Please provide a brief description of your dataset.",
-            "license": "Please select a license for your dataset:",
-            "url": "Please provide the URL to your dataset or repository.",
-            "publisher": "Who is the publisher of your dataset?",
-            "version": "What is the version of your dataset?",
-            "keywords": "Please provide keywords for your dataset.",
-            "date_modified": "When was the dataset last modified?",
-            "date_created": "When was the dataset created?",
-            "date_published": "When was the dataset published?",
-            "cite_as": "Please provide a citation for your dataset.",
-            "language": "What are the languages of the dataset?",
-            "task": "What tasks can be performed with your dataset?",
-            "modality": "What are the modalities of your dataset?"
+            "name": "The name of the dataset (string).",
+            "author": "The author of the dataset (string).",
+            "year": "The publication year of the dataset (YYYY).",
+            "title": "The title of the dataset/publication that describes the dataset (string).",
+            "description": "A description of the dataset (string) (2+ sentences).",
+            "license": "The license of the dataset (string) (one of the valid options).",
+            "url": "The URL of the dataset (string) (valid URL format).",
+            "publisher": "The publisher of the dataset (string).",
+            "version": "The version of the dataset (string).",
+            "keywords": "The keywords of the dataset (comma-separated string) (at least 3).",
+            "date_modified": "The date the dataset was last modified (YYYY-MM-DD).",
+            "date_created": "The date the dataset was created (YYYY-MM-DD).",
+            "date_published":  "The date the dataset was published (YYYY-MM-DD).",
+            "cite_as": "The citation for the dataset (string) (BibTeX format).",
+            "language": "The language(s) of the dataset (comma-separated string) (ISO 639-1 codes/Language names).",
+            "task": "The task(s) associated with the dataset (comma-separated string).",
+            "modality": "The modality(s) of the dataset (comma-separated string)."
         }
 
         # Generate years dynamically
         current_year = datetime.now().year
-        self.YEAR_OPTIONS = [str(y) for y in range(1900, current_year + 1)]
 
     def append_to_history(self, message):
         """Append a message to the chat history."""
@@ -66,6 +62,62 @@ class CroissantChatbot:
         """Display the dataset metadata."""
         json_metadata = self.json_to_code_block(self.metadata)
         self.append_to_history({"role": "assistant", "content": f"Here is the current metadata for your dataset:\n{json_metadata}"})
+
+    def display_chatbot_instructions(self):
+        """Get the chatbot instructions."""
+        attributes_list = "\n".join([f"- {attribute}: {description}" for attribute, description in self.metadata_attributes.items()])
+        instructions = f"""
+            This is a very simple chatbot that helps you create Croissant metadata for your dataset.
+            When you start the chat, the chatbot will guide you through the process of entering metadata attributes.\n
+
+            At the start of the chat, you can provide an informal description of your dataset.
+            This will help the chatbot suggest more relevant metadata attributes for you. \n
+            You can also provide the name of your dataset if it is from Hugging Face Datasets.
+            The chatbot will try to fetch some metadata for you based on the dataset name.
+            You can only do these things at the start of the chat, if you want to do them later you must click the "Refresh" button to start over.\n
+
+            To enter metadata attributes, click on the attribute name and enter the value in the chat box.
+            When you click on the attribute name, the chatbot will provide guidance on what to enter using the attribute name as a prompt.
+            You must enter a value immediately after clicking the attribute name.\n
+            After entering the value of an attribute, the chatbot will validate the value and suggest improvements if needed.
+            If the value is valid, the chatbot will save the value and you can proceed to the next attribute.
+            If the value is invalid, the chatbot will ask you to provide a new value.
+            If you want to confirm the value despite validation issues, type 'confirm' in the chat box.
+            If you want to update an attribute, click on the attribute name again and enter the new value.\n
+
+            The attributes you need to provide values for are:
+            {attributes_list}\n
+
+            If you want to see the current metadata stored in the chatbot, click the 'Display Metadata So Far' button.
+            If you think you have entered all the metadata attributes, type 'complete' in the chat box to finalise the metadata.
+            After finalising the metadata, the chatbot will display the metadata in JSON format and save it to a file, if all the fields are valid or confirmed.
+            Once the metadata is finalised, you can download the metadata file by clicking the 'Download Metadata File' button, 
+            and the file will appear next to the button for download when you click the blue file size text.\n
+            If you want to start annotating a new dataset, type 'start new dataset' in the chat box.\n
+
+            This chatbot is not smart. It will not be able to process any input that is not a value for a metadata attribute
+            or one of the expected commands when prompted for: 'confirm', 'complete', 'start new dataset', 'help', 'no'.
+            When asked a question you must immediately answer it before the chatbot can proceed.
+            Please do not press any button or enter anything unexpected when the chatbot is waiting for a response, otherwise it may not work as expected.\n
+            The validation checks are basic and may not cover all possible issues with the metadata.
+            They are meant to guide you in providing the best metadata possible.
+            If you encounter any issues, you can refresh the chat by clicking the 'Refresh Chat' button.\n
+
+            If you want to see these instructions again at any time, press the 'See Instructions' button.\n
+        """
+        formatted_instructions = f"```text\n{instructions}\n```"
+        self.append_to_history({"role": "assistant", "content": formatted_instructions})
+
+    def promt_to_click_attribute(self):
+        """Prompt the user to click on an attribute to enter/update its value."""
+        self.append_to_history({
+            "role": "assistant",
+            "content": """Click any attribute to enter/update its value. 
+                If the value is empty, the chatbot will provide guidance on what to enter using the informal description.
+                If the value is already filled, you can update it if needed.
+                If you want to see the current metadata stored in the chatbot, click the 'Display Metadata So Far' button.
+                If you think you have entered all the metadata attributes, type **complete** in the chat box to finalise the metadata."""
+        })
 
     def handle_user_input(self, prompt):
         """Handle user input through chat."""
@@ -88,20 +140,30 @@ class CroissantChatbot:
         elif prompt.lower() == "complete":
             self.handle_complete_command()
 
-
         elif self.pending_attribute:
             self.handle_pending_attribute_input(prompt)
 
         elif self.is_all_attributes_filled():
-            self.append_to_history({"role": "assistant", "content": "All metadata attributes have been filled. Click any attribute to update its value or type 'Complete' to finalise the metadata."})
-
+            self.append_to_history({
+                "role": "assistant", 
+                "content": """All metadata attributes have been filled."""
+            })
+            self.promt_to_click_attribute()
 
         return self.history
 
     def handle_greeting(self):
         """Handle the initial greeting."""
-        self.append_to_history({"role": "assistant", "content": "Hello! I'm the Croissant Metadata Assistant. Let's start creating metadata for your dataset."})
-        self.append_to_history({"role": "assistant", "content": "Would you like to provide an informal description of your dataset? \nPlease type : your informal description/help (for guidance on providing an informal description)/no "})
+        self.append_to_history({"role": "assistant", "content": "Hello! I'm the Croissant Metadata Assistant."})
+        self.display_chatbot_instructions()
+        self.append_to_history({
+            "role": "assistant",
+            "content": """Would you like to provide an informal description of your dataset? 
+                **Please type one of these options:**
+                - &lt;your informal description&gt;
+                - help (will provide guidance on providing an informal description) 
+                - no"""
+        })
         self.waiting_for_greeting = False
         self.waiting_for_informal_description = True
         return self.history
@@ -111,31 +173,37 @@ class CroissantChatbot:
         if prompt.lower() == "help":
             ask = ask_user_for_informal_description()
             self.append_to_history({"role": "assistant", "content": f"{ask}"})
+            return self.history
         elif prompt.lower() == "no":
-            self.append_to_history({"role": "assistant", "content": "Alright! Click any attribute to enter/update its value."})
             self.waiting_for_informal_description = False
         else:
             self.informal_description = prompt.strip()
-            self.append_to_history({"role": "assistant", "content": f"Saved the informal description: {self.informal_description}"})
+            self.append_to_history({"role": "assistant", "content": f"Saved the 'informal description': {self.informal_description}"})
             self.waiting_for_informal_description = False
-        self.append_to_history({"role": "assistant", "content": "Is your dataset from Hugging Face Datasets? \nIf so, please provide the dataset name so I can fill in some of the metadata. \nOtherwise type 'no'."})
+        self.append_to_history({
+            "role": "assistant", 
+            "content": """Is your dataset from Hugging Face Datasets? 
+                **Please type one of these options:**
+                -  &lt;dataset name&gt;
+                - no"""
+        })
         self.waiting_for_HF_name = True
         return self.history
     
     def handle_HF_name(self, prompt):
         """Handle the user's response to the Hugging Face dataset name prompt."""
         if prompt.lower() == "no":
-            self.append_to_history({"role": "assistant", "content": "Alright! Click any attribute to enter/update its value."})
+            self.prompt_user_to_click_attribute()
             self.waiting_for_HF_name = False
         else:
             dataset_info = self.find_dataset_info(prompt.strip())
             if dataset_info:
-                if not self.metadata.get("cite_as") or self.metadata["cite_as"] in ["None", ""]:
-                    self.metadata["cite_as"] = self.generate_bibtex()
                 self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
                 self.display_metadata()
+                self.prompt_user_to_click_attribute()
             else:
-                self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name. Click any attribute to enter/update its value."})
+                self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name."})
+                self.prompt_user_to_click_attribute()
             self.waiting_for_HF_name = False
         return self.history
 
@@ -156,20 +224,16 @@ class CroissantChatbot:
             if self.confirmed_metadata:
                 confirmed_attributes = ",".join(self.confirmed_metadata.keys())
                 self.append_to_history({"role": "assistant", "content": f"You have confirmed the values for these attributes '{confirmed_attributes}' despite validation issues. Finalising metadata with these values."})
-                # Merge confirmed_metadata into metadata before finalising
-                self.metadata.update(self.confirmed_metadata)
+                self.metadata.update(self.confirmed_metadata) # Merge confirmed_metadata into metadata before finalising
                 return self.finalise_metadata()
             else:
                 self.append_to_history({"role": "assistant", "content": "Please update the attributes to resolve the problems (for each attribute u can confirm invalid values)."})
         elif self.is_all_attributes_filled():
-            # Merge confirmed_metadata into metadata before finalising
             return self.finalise_metadata()
         else:
-            return self.finalise_metadata()
-            # missing_attributes = self.list_missing_attributes()
-            # json_missing_attributes = self.json_to_code_block(missing_attributes)
-            # self.append_to_history({"role": "assistant", "content": f"Cannot finalise metadata. The following attributes are missing: \n{json_missing_attributes}"})
-        
+            missing_attributes = self.list_missing_attributes()
+            json_missing_attributes = self.json_to_code_block(missing_attributes)
+            self.append_to_history({"role": "assistant", "content": f"Cannot finalise metadata. The following attributes are missing: \n{json_missing_attributes}"})
         return self.history
 
     def handle_pending_attribute_input(self, prompt):
@@ -196,8 +260,6 @@ class CroissantChatbot:
         validator = MetadataValidator()
         errors = validator.validate_all_attributes({f"{self.pending_attribute}": f"{prompt.strip()}"})
         issues = AttributeQualityChecker().check_quality_of_all_attributes({f"{self.pending_attribute}": f"{prompt.strip()}"})
-
-
         if errors or issues:
             error_messages = "\n".join([f"{attribute}: {message}" for attribute, message in errors.items()]) if errors else ""
             issue_messages = "\n".join([f"{attribute}: {message}" for attribute, message in issues.items()]) if issues else ""
@@ -205,10 +267,12 @@ class CroissantChatbot:
 
             self.append_to_history({"role": "assistant", "content": f"There are issues with the value you provided for `{self.pending_attribute}`:\n{error_messages}\n{issue_messages}"})
             self.append_to_history({"role": "assistant", "content": f"{suggested_value}"})
-            self.append_to_history({"Type 'confirm' to save this value anyway, or use one of these suggestions as the value or enter your own idea for the value. \n If the attribute is `date_created`, `date_modified`, or `date_published`, please provide a valid date in the format YYYY-MM-DD."})
+            self.append_to_history({"role": "assistant", "content":"Type **confirm** to save this value anyway, or use one of these suggestions as the value or enter your own idea for the value. \n If the attribute is `date_created`, `date_modified`, or `date_published`, please provide a valid date in the format YYYY-MM-DD."})
         else:
             self.pending_attribute = None
 
+        # Regenerate citation if title, author, year, or URL is updated (but citation isnt provided by user or HF dataset)
+        
         return self.history
     
     # Handle button clicks (sets the pending attribute)
@@ -216,22 +280,23 @@ class CroissantChatbot:
         self.pending_attribute = attribute
         self.append_to_history({"role": "user", "content": f"Selected attribute: `{attribute}`."})
 
+        attribute_description = self.metadata_attributes.get(attribute, "")
         # Check if the attribute is missing
         if not self.metadata.get(attribute) or self.metadata.get(attribute) == "":
             # Suggest a value for the attribute
             suggested_value = suggest_metadata(self.metadata, self.informal_description, attribute)
-            self.append_to_history({"role": "assistant", "content": f"The attribute `{attribute}` is missing. \n {suggested_value}. \n\nYou can use one of these suggestions as the value or enter your own idea for the value."})
+            self.append_to_history({
+                "role": "assistant",
+                "content": f"""The attribute `{attribute}` is missing. This is: {attribute_description}
+                {suggested_value}
+
+                You can use one of these suggestions as the value or enter your own value."""
+            })
         else:
             # Prompt the user to update the existing value
             current_value = self.metadata.get(attribute)
             self.append_to_history({"role": "assistant", "content": f"The attribute `{attribute}` already has a value: `{current_value}`. You can update it if needed."})
 
-        return self.history
-
-    def undo_last_message(self):
-        """Undo the last message."""
-        if self.history:
-            self.history.pop()
         return self.history
 
     def reset_chat(self):
@@ -256,12 +321,26 @@ class CroissantChatbot:
         return [attribute for attribute in self.metadata_attributes if attribute not in self.metadata]
 
     def generate_bibtex(self):
-        """Generate BibTeX citation."""
-        return f"@misc{{{self.metadata.get('author', 'unknown').split(' ')[0]}{self.metadata.get('year', 'XXXX')}," \
-               f" author = {{{self.metadata.get('author', 'Unknown Author')}}}," \
-               f" title = {{{self.metadata.get('title', 'Untitled Dataset')}}}," \
-               f" year = {{{self.metadata.get('year', 'XXXX')}}}," \
-               f" url = {{{self.metadata.get('url', '')}}} }}"
+        """Generate BibTeX citation dynamically based on available metadata."""
+        # Start the BibTeX entry with the type and ID
+        bibtex = f"@misc{self.metadata.get('author', 'unknown').split(' ')[0]}{self.metadata.get('year', 'XXXX')},\n"
+
+        # Dynamically add fields if they exist
+        if "author" in self.metadata and self.metadata["author"]:
+            bibtex += f"  author = {{{self.metadata['author']}}},\n"
+        if "title" in self.metadata and self.metadata["title"]:
+            bibtex += f"  title = {{{self.metadata['title']}}},\n"
+        if "year" in self.metadata and self.metadata["year"]:
+            bibtex += f"  year = {{{self.metadata['year']}}},\n"
+        if "url" in self.metadata and self.metadata["url"]:
+            bibtex += f"  url = {{{self.metadata['url']}}},\n"
+
+        # Remove the trailing comma and newline, then close the BibTeX entry
+        if bibtex.endswith(",\n"):
+            bibtex = bibtex[:-2] + "\n"
+        bibtex += "}"
+
+        return bibtex
 
     def find_dataset_info(self, dataset_id):
         """Fetch dataset details."""
@@ -309,40 +388,51 @@ class CroissantChatbot:
     def finalise_metadata(self):
         """Finalise metadata in Croissant format."""
         self.append_to_history({"role": "assistant", "content": "Thanks for sharing the information! Here is your dataset metadata:"})
-
-        croissant_metadata = mlc.Metadata(
-            name=self.metadata.get("name"),
-            creators=self.metadata.get("author"),
-            description=self.metadata.get("description"),
-            license=self.metadata.get("license"),
-            url=self.metadata.get("url"),
-            publisher=self.metadata.get("publisher"),
-            version=self.metadata.get("version"),
-            keywords=self.metadata.get("keywords"),
-            date_modified=self.metadata.get("date_modified", "Unknown"),
-            date_created=self.metadata.get("date_created", "Unknown"),
-            date_published=self.metadata.get("date_published", "Unknown"),
-            cite_as=self.metadata.get("cite_as", "Unknown"),
-            in_language=self.metadata.get("language", "Unknown"),
-        )
-
-        self.final_metadata = croissant_metadata.to_json()
-
-        self.final_metadata["task"] = self.metadata.get("task", "")
-        self.final_metadata["modality"] = self.metadata.get("modality", "")
-
-
         
-        # Convert metadata to JSON and display it
-        display_metadata = self.json_to_code_block(self.final_metadata, self.json_serial)
-        self.append_to_history({"role": "assistant", "content": f"\n{display_metadata}"})
+        # Generate citation if not provided
+        if not self.metadata.get("cite_as"):
+            self.metadata["cite_as"] = self.generate_bibtex()
 
-        # Save metadata to a file
-        filepath, filename = self.save_metadata_to_file(self.final_metadata)
+        try:
+            croissant_metadata = mlc.Metadata(
+                name=self.metadata.get("name"),
+                creators=self.metadata.get("author"),
+                description=self.metadata.get("description"),
+                license=self.metadata.get("license"),
+                url=self.metadata.get("url"),
+                publisher=self.metadata.get("publisher"),
+                version=self.metadata.get("version"),
+                keywords=self.metadata.get("keywords"),
+                date_modified=self.metadata.get("date_modified", "Unknown"),
+                date_created=self.metadata.get("date_created", "Unknown"),
+                date_published=self.metadata.get("date_published", "Unknown"),
+                cite_as=self.metadata.get("cite_as", "Unknown"),
+                in_language=self.metadata.get("language", "Unknown"),
+            )
 
-        # Inform the user about the saved file
-        self.append_to_history({"role": "assistant", "content": f"The metadata has been saved to a file: `{filename}`. \n Click the 'Download Metadata File' button below to download it. \n You can also start annotating a new dataset by typing 'Start new dataset'."})
+            self.final_metadata = croissant_metadata.to_json()
 
+            self.final_metadata["task"] = self.metadata.get("task", "")
+            self.final_metadata["modality"] = self.metadata.get("modality", "")
+
+
+            
+            # Convert metadata to JSON and display it
+            display_metadata = self.json_to_code_block(self.final_metadata, self.json_serial)
+            self.append_to_history({"role": "assistant", "content": f"\n{display_metadata}"})
+
+            # Save metadata to a file
+            filepath, filename = self.save_metadata_to_file(self.final_metadata)
+
+            # Inform the user about the saved file
+            self.append_to_history({
+                "role": "assistant",
+                "content": f"""The metadata has been saved to a file: `{filename}`. 
+                    Click the 'Download Metadata File' button below to download it. 
+                    You can also start annotating a new dataset by typing **start new dataset**."""
+                  })
+        except Exception as e:
+            self.append_to_history({"role": "assistant", "content": f"An error occurred while finalising the metadata: {str(e)}"})
         return self.history
     
     def json_serial(self, obj):
@@ -395,7 +485,7 @@ class CroissantChatbot:
 # Gradio UI functions
 def create_chatbot_ui():
     """Create the chatbot UI."""
-    return gr.Chatbot(label="Metadata Agent", type="messages", height=500)
+    return gr.Chatbot(type="messages", height=500)
 
 def create_prompt_input(chatbot_instance, chatbot_ui):
     """Create the prompt input box."""
@@ -405,13 +495,12 @@ def create_prompt_input(chatbot_instance, chatbot_ui):
     return prompt
 
 
-
 def create_attribute_buttons(chatbot_instance, chatbot_ui):
-    """Create buttons for metadata attributes."""
+    """Create buttons for metadata attributes with styling."""
     buttons = []
     with gr.Row():
         for attribute in chatbot_instance.metadata_attributes.keys():
-            btn = gr.Button(attribute, elem_id=attribute, scale=1) 
+            btn = gr.Button(attribute, elem_id=attribute, scale=1, elem_classes="metadata-btn")
             btn.click(
                 lambda f=attribute: chatbot_instance.handle_clicked_attribute(f),
                 [], 
@@ -420,50 +509,52 @@ def create_attribute_buttons(chatbot_instance, chatbot_ui):
             buttons.append(btn)
     return buttons
 
-def create_control_buttons(chatbot_instance, chatbot_ui):
-    """Create control buttons (Retry, Undo, Refresh)."""
-    with gr.Row():
-        retry_btn = gr.Button("🔄 Retry", scale=1)
-        undo_btn = gr.Button("↩️ Undo", scale=1)
-        refresh_btn = gr.Button("🔄 Refresh", scale=1)
-
-        retry_btn.click(lambda h=chatbot_instance.history: h, [], [chatbot_ui])
-        undo_btn.click(lambda: chatbot_instance.undo_last_message(), [], [chatbot_ui])
-        refresh_btn.click(lambda: chatbot_instance.reset_chat(), [], [chatbot_ui])
-
 def select_license(chatbot_instance, license_choice):
     chatbot_instance.pending_attribute = "license"
     return chatbot_instance.handle_user_input(license_choice)
-  
-
-# Handle year selection
-def select_year(chatbot_instance, year_choice):
-    chatbot_instance.pending_attribute = "year"
-    return chatbot_instance.handle_user_input(year_choice)
 
 
-def create_dropdowns(chatbot_instance, chatbot_ui):
-    """Create dropdowns for year and license selection."""
-    year_dropdown = gr.Dropdown(choices=chatbot_instance.YEAR_OPTIONS, label="Select Publication Year", interactive=True)
+def create_license_dropdown(chatbot_instance, chatbot_ui):
+    """Create dropdowns for license selection."""
     license_dropdown = gr.Dropdown(choices=LICENSE_OPTIONS, label="Select License", interactive=True)
 
-    year_dropdown.change(lambda y: select_year(chatbot_instance, y), [year_dropdown], [chatbot_ui])
     license_dropdown.change(lambda l: select_license(chatbot_instance, l), [license_dropdown], [chatbot_ui])
 
-    return year_dropdown, license_dropdown
+    return license_dropdown 
+
+def create_metadata_group(chatbot_instance, chatbot_ui):
+    """Create a grouped section for metadata attribute buttons and license dropdown."""
+    with gr.Group():  # Use a box to visually group the components
+        gr.Markdown("### Metadata Attributes and License Selection")  # Add a title for the group
+
+        # Metadata Attribute Buttons
+        create_attribute_buttons(chatbot_instance, chatbot_ui)
+
+        # License Dropdown
+        create_license_dropdown(chatbot_instance, chatbot_ui)
 
 def display_metadata_wrapper(chatbot_instance):
     """Wrapper for the display_metadata method to work with Gradio."""
     chatbot_instance.display_metadata()
     return chatbot_instance.history
 
-def create_display_metadata_button(chatbot_instance, chatbot_ui):
-    """Create a button to display the current metadata."""
-    with gr.Row():
-        display_btn = gr.Button("📋 Display Metadata So Far", scale=1)
-        # Use the wrapper function to return the correct output
-        display_btn.click(lambda: display_metadata_wrapper(chatbot_instance), [], [chatbot_ui])
+def display_instructions_wrapper(chatbot_instance):
+    """Wrapper for the display_chatbot_instructions method to work with Gradio."""
+    chatbot_instance.display_chatbot_instructions()
+    return chatbot_instance.history
 
+
+def create_control_buttons(chatbot_instance, chatbot_ui):
+    """Create styled control buttons."""
+    with gr.Row():
+        display_btn = gr.Button("📋 Display Metadata So Far", scale=1, elem_classes="control-btn")
+        display_btn.click(lambda: display_metadata_wrapper(chatbot_instance), inputs=[], outputs=[chatbot_ui])
+
+        see_instructions_btn = gr.Button("📖 See Instructions", scale=1, elem_classes="control-btn")
+        see_instructions_btn.click(lambda: display_instructions_wrapper(chatbot_instance), inputs=[], outputs=[chatbot_ui])
+
+        refresh_btn = gr.Button("🔄 Refresh Chat", scale=1, elem_classes="control-btn")
+        refresh_btn.click(lambda: chatbot_instance.reset_chat(), inputs=[], outputs=[chatbot_ui])
 
 def create_download_metadata_button(chatbot_instance):
     """Create a button for downloading the metadata file."""
@@ -494,8 +585,27 @@ def create_download_metadata_button(chatbot_instance):
             outputs=[download_section, output_file]
         )
 
+
+
+
 # Main Gradio UI
-with gr.Blocks() as demo:
+with gr.Blocks(css="""
+    .gr-button { 
+        border: 2px solid black; 
+        margin: 5px; 
+        padding: 8px 12px;
+    }
+    .metadata-btn { 
+        background-color: #4CAF50; 
+        color: white; 
+        border-radius: 12px; /* Rounded corners */
+    }
+    .control-btn { 
+        background-color: #008CBA; 
+        color: white;
+    }
+""") as demo:
+
     gr.Markdown("# Croissant Metadata Creator")
 
     chatbot_instance = CroissantChatbot()
@@ -506,22 +616,18 @@ with gr.Blocks() as demo:
     # Prompt Input
     prompt = create_prompt_input(chatbot_instance, chatbot_ui)
 
-    # Metadata Buttons
-    create_attribute_buttons(chatbot_instance, chatbot_ui)
 
-    # Display Metadata Button
-    create_display_metadata_button(chatbot_instance, chatbot_ui)
+    create_metadata_group(chatbot_instance, chatbot_ui)
+
 
     # Control Buttons
     create_control_buttons(chatbot_instance, chatbot_ui)
 
-    # Dropdowns
-    create_dropdowns(chatbot_instance, chatbot_ui)
-    
     # Download Metadata Button
     create_download_metadata_button(chatbot_instance)
 
 
 
+
 if __name__ == "__main__":
-    demo.launch() # share=True to share the link
+    demo.launch() 
