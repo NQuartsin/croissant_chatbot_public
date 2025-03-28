@@ -485,7 +485,7 @@ class CroissantChatbot:
 # Gradio UI functions
 def create_chatbot_ui():
     """Create the chatbot UI."""
-    return gr.Chatbot(type="messages", height=500)
+    return gr.Chatbot(type="messages")
 
 def create_prompt_input(chatbot_instance, chatbot_ui):
     """Create the prompt input box."""
@@ -509,29 +509,16 @@ def create_attribute_buttons(chatbot_instance, chatbot_ui):
             buttons.append(btn)
     return buttons
 
-def select_license(chatbot_instance, license_choice):
-    chatbot_instance.pending_attribute = "license"
-    return chatbot_instance.handle_user_input(license_choice)
-
-
-def create_license_dropdown(chatbot_instance, chatbot_ui):
-    """Create dropdowns for license selection."""
-    license_dropdown = gr.Dropdown(choices=LICENSE_OPTIONS, label="Select License", interactive=True)
-
-    license_dropdown.change(lambda l: select_license(chatbot_instance, l), [license_dropdown], [chatbot_ui])
-
-    return license_dropdown 
 
 def create_metadata_group(chatbot_instance, chatbot_ui):
-    """Create a grouped section for metadata attribute buttons and license dropdown."""
+    """Create a grouped section for metadata attribute buttons."""
     with gr.Group():  # Use a box to visually group the components
-        gr.Markdown("### Metadata Attributes and License Selection")  # Add a title for the group
+        gr.Markdown("### Metadata Attributes")  # Add a title for the group
 
         # Metadata Attribute Buttons
         create_attribute_buttons(chatbot_instance, chatbot_ui)
 
-        # License Dropdown
-        create_license_dropdown(chatbot_instance, chatbot_ui)
+
 
 def display_metadata_wrapper(chatbot_instance):
     """Wrapper for the display_metadata method to work with Gradio."""
@@ -550,7 +537,7 @@ def create_control_buttons(chatbot_instance, chatbot_ui):
         display_btn = gr.Button("📋 Display Metadata So Far", scale=1, elem_classes="control-btn")
         display_btn.click(lambda: display_metadata_wrapper(chatbot_instance), inputs=[], outputs=[chatbot_ui])
 
-        see_instructions_btn = gr.Button("📖 See Instructions", scale=1, elem_classes="control-btn")
+        see_instructions_btn = gr.Button("📃 See Instructions", scale=1, elem_classes="control-btn")
         see_instructions_btn.click(lambda: display_instructions_wrapper(chatbot_instance), inputs=[], outputs=[chatbot_ui])
 
         refresh_btn = gr.Button("🔄 Refresh Chat", scale=1, elem_classes="control-btn")
@@ -559,7 +546,7 @@ def create_control_buttons(chatbot_instance, chatbot_ui):
 def create_download_metadata_button(chatbot_instance):
     """Create a button for downloading the metadata file."""
     with gr.Row():
-        download_btn = gr.Button("📥 Download Metadata File", scale=1)
+        download_btn = gr.Button("💾 Download Metadata File", scale=1, elem_classes="control-btn")
         download_section = gr.Group(visible=False)  # Create a hidden section
         
         with download_section:
@@ -587,22 +574,25 @@ def create_download_metadata_button(chatbot_instance):
 
 
 
-
 # Main Gradio UI
-with gr.Blocks(css="""
+with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.cyan
+, secondary_hue=gr.themes.colors.pink, neutral_hue=gr.themes.colors.neutral), css="""
     .gr-button { 
         border: 2px solid black; 
         margin: 5px; 
         padding: 8px 12px;
     }
     .metadata-btn { 
-        background-color: #4CAF50; 
+        background-color: var(--secondary-600) !important;
+        border: 1px solid var(--secondary-700);
         color: white; 
         border-radius: 12px; /* Rounded corners */
     }
     .control-btn { 
-        background-color: #008CBA; 
+        background-color: var(--primary-600) !important; /* Use primary hue */
+        border: 1px solid var(--primary-700);
         color: white;
+        
     }
 """) as demo:
 
