@@ -533,15 +533,13 @@ def create_chatbot_ui():
     """Create the chatbot UI."""
     return gr.Chatbot(type="messages")
 
+
 def create_prompt_input(chatbot_instance, chatbot_ui):
     """Create the prompt input box."""
-    prompt = gr.Textbox(max_lines=1, label="Chat Message")
+    prompt = gr.Textbox(max_lines=1, label="Chat Message", value="Type a greeting to start the chatbot")
     prompt.submit(chatbot_instance.handle_user_input, [prompt], [chatbot_ui])
     prompt.submit(lambda: "", None, [prompt])  # Clear the input box after submission
     return prompt
-
-
-
 
 def create_metadata_attributes_dropdown(chatbot_instance):
     """Create a dropdown for metadata attributes."""
@@ -644,7 +642,6 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.pink
 
         # Download Metadata Button
         create_download_metadata_button(chatbot_instance)
-
 
 
 
