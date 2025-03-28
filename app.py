@@ -1,4 +1,5 @@
 # app.py
+from calendar import c
 import re
 import gradio as gr
 from datetime import datetime
@@ -77,15 +78,15 @@ class CroissantChatbot:
             The chatbot will try to fetch some metadata for you based on the dataset name.
             You can only do these things at the start of the chat, if you want to do them later you must click the "Refresh" button to start over.\n
 
-            To enter metadata attributes, click on the attribute name and enter the value in the chat box.
-            When you click on the attribute name, the chatbot will provide guidance on what to enter using the attribute name as a prompt.
-            You must enter a value immediately after clicking the attribute name.\n
+            To enter metadata attributes, select an attribute from the dropdown and enter the value in the chat box.
+            When you select the attribute name, the chatbot will provide guidance on what to enter using the attribute name as a prompt.
+            You must enter a value immediately after selecting the attribute name.\n
             After entering the value of an attribute, the chatbot will validate the value and suggest improvements if needed.
             If the value is valid, the chatbot will save the value and you can proceed to the next attribute.
             If the value is invalid, the chatbot will ask you to provide a new value.
             If you want to confirm the value despite validation issues, type 'confirm' in the chat box.
-            If you want to update an attribute, click on the attribute name again and enter the new value.\n
-            If you are unsure about a value, you can skip the attribute by not entering anything.
+            If you want to update an attribute, select an attribute name and enter the new value.\n
+            If you are unsure about a value, you can skip the attribute by not entering anything or selecting an attribute.
             The chatbot will only save attributes with meaningful values.
             You can always return to an attribute later to update it.\n
 
@@ -109,11 +110,11 @@ class CroissantChatbot:
         formatted_instructions = f"```text\n{instructions}\n```"
         self.append_to_history({"role": "assistant", "content": formatted_instructions})
 
-    def prompt_user_to_click_attribute(self):
-        """Prompt the user to click on an attribute to enter/update its value."""
+    def prompt_user_to_select_attribute(self):
+        """Prompt the user to select on an attribute to enter/update its value."""
         self.append_to_history({
             "role": "assistant",
-            "content": """Click any attribute to enter/update its value. 
+            "content": """Select any attribute from the dropdown to enter/update its value. 
                 If the value is empty, the chatbot will provide guidance on what to enter using the informal description.
                 If the value is already filled, you can update it if needed.
                 If you want to see the current metadata stored in the chatbot, click the 'Display Metadata So Far' button.
@@ -149,7 +150,7 @@ class CroissantChatbot:
                 "role": "assistant", 
                 "content": """All metadata attributes have been filled."""
             })
-            self.prompt_user_to_click_attribute()
+            self.prompt_user_to_select_attribute()
 
         return self.history
 
@@ -194,17 +195,17 @@ class CroissantChatbot:
     def handle_HF_name(self, prompt):
         """Handle the user's response to the Hugging Face dataset name prompt."""
         if prompt.lower() == "no":
-            self.prompt_user_to_click_attribute()
+            self.prompt_user_to_select_attribute()
             self.waiting_for_HF_name = False
         else:
             dataset_info = self.find_dataset_info(prompt.strip())
             if dataset_info:
                 self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
                 self.display_metadata()
-                self.prompt_user_to_click_attribute()
+                self.prompt_user_to_select_attribute()
             else:
                 self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name."})
-                self.prompt_user_to_click_attribute()
+                self.prompt_user_to_select_attribute()
             self.waiting_for_HF_name = False
         return self.history
 
@@ -220,8 +221,8 @@ class CroissantChatbot:
             elif error_messages or issue_messages:
                 self.append_to_history({"role": "assistant", "content": f"Here are the issues with the metadata:\n{error_messages}\n{issue_messages}"})
                 self.append_to_history({"role": "assistant", "content": "Please resolve the issues before finalising the metadata."})
-                self.append_to_history({"role": "assistant", "content": "You can click on the attributes to update them."})
-                self.append_to_history({"role": "assistant", "content": "If you want to confirm the values despite validation issues, type 'confirm' in the chat box after clicking each attribute."})
+                self.append_to_history({"role": "assistant", "content": "You can select any attribute from the dropdown to update them."})
+                self.append_to_history({"role": "assistant", "content": "If you want to confirm the values despite validation issues, type 'confirm' in the chat box after selecting each attribute."})
             else:
                 self.append_to_history({"role": "assistant", "content": "Please update the attributes to resolve the problems (for each attribute u can confirm invalid values)."})
         else:
@@ -268,8 +269,7 @@ class CroissantChatbot:
         
         return self.history
     
-    # Handle button clicks (sets the pending attribute)
-    def handle_clicked_attribute(self, attribute):
+    def handle_selected_attribute(self, attribute):
         self.pending_attribute = attribute
         self.append_to_history({"role": "user", "content": f"Selected attribute: `{attribute}`."})
 
@@ -541,28 +541,22 @@ def create_prompt_input(chatbot_instance, chatbot_ui):
     return prompt
 
 
-def create_attribute_buttons(chatbot_instance, chatbot_ui):
-    """Create buttons for metadata attributes with styling."""
-    buttons = []
+
+
+def create_metadata_attributes_dropdown(chatbot_instance):
+    """Create a dropdown for metadata attributes."""
     with gr.Row():
-        for attribute in chatbot_instance.metadata_attributes.keys():
-            btn = gr.Button(attribute, elem_id=attribute, scale=1, elem_classes="metadata-btn")
-            btn.click(
-                lambda f=attribute: chatbot_instance.handle_clicked_attribute(f),
-                [], 
-                [chatbot_ui]
-            )
-            buttons.append(btn)
-    return buttons
-
-
-def create_metadata_group(chatbot_instance, chatbot_ui):
-    """Create a grouped section for metadata attribute buttons."""
-    with gr.Group():  # Use a box to visually group the components
-        gr.Markdown("### Metadata Attributes")  # Add a title for the group
-
-        # Metadata Attribute Buttons
-        create_attribute_buttons(chatbot_instance, chatbot_ui)
+        dropdown = gr.Dropdown(
+            choices=["Select an attribute"] + list(chatbot_instance.metadata_attributes.keys()),  # Adds a placeholder to choices
+            label="Select Metadata Attribute",
+            multiselect=False,
+        )
+        dropdown.change(
+            lambda x: chatbot_instance.handle_selected_attribute(x),
+            [dropdown],
+            [chatbot_ui]
+        )
+        return dropdown
 
 def display_metadata_wrapper(chatbot_instance):
     """Wrapper for the display_metadata method to work with Gradio."""
@@ -616,29 +610,17 @@ def create_download_metadata_button(chatbot_instance):
             outputs=[download_section, output_file]
         )
 
-def flip_metadata_buttons(x):
-    return x[::-1]
-
-def flip_control_buttons(x):
-    return np.fliplr(x)
-
 # Main Gradio UI
-with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.cyan
-, secondary_hue=gr.themes.colors.pink, neutral_hue=gr.themes.colors.neutral), css="""
+with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.pink
+, secondary_hue=gr.themes.colors.cyan, neutral_hue=gr.themes.colors.neutral), css="""
     .gr-button { 
         border: 2px solid black; 
         margin: 5px; 
         padding: 8px 12px;
     }
-    .metadata-btn { 
-        background-color: var(--secondary-600) !important;
-        border: 1px solid var(--secondary-700);
-        color: white; 
-        border-radius: 8px; /* Rounded corners */
-    }
     .control-btn { 
-        background-color: var(--primary-600) !important; /* Use primary hue */
-        border: 1px solid var(--primary-700);
+        background-color: var(--secondary-600) !important; /* Use primary hue */
+        border: 1px solid var(--secondary-700);
         color: white;
     }
 """) as demo:
@@ -653,8 +635,8 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.cyan
     # Prompt Input
     prompt = create_prompt_input(chatbot_instance, chatbot_ui)
 
-    with gr.Tab("Show Metadata Buttons"):
-        create_metadata_group(chatbot_instance, chatbot_ui)
+    with gr.Tab("Show Metadata Dropdown"):
+        create_metadata_attributes_dropdown(chatbot_instance)
 
     with gr.Tab("Show Control Buttons"):
         # Control Buttons
