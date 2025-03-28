@@ -109,7 +109,7 @@ class CroissantChatbot:
         formatted_instructions = f"```text\n{instructions}\n```"
         self.append_to_history({"role": "assistant", "content": formatted_instructions})
 
-    def promt_to_click_attribute(self):
+    def prompt_user_to_click_attribute(self):
         """Prompt the user to click on an attribute to enter/update its value."""
         self.append_to_history({
             "role": "assistant",
@@ -149,7 +149,7 @@ class CroissantChatbot:
                 "role": "assistant", 
                 "content": """All metadata attributes have been filled."""
             })
-            self.promt_to_click_attribute()
+            self.prompt_user_to_click_attribute()
 
         return self.history
 
@@ -484,6 +484,7 @@ class CroissantChatbot:
 
     
 # Gradio UI functions
+# All emojis used come from: https://emojidb.org/gradio-emojis
 def create_chatbot_ui():
     """Create the chatbot UI."""
     return gr.Chatbot(type="messages")
@@ -518,8 +519,6 @@ def create_metadata_group(chatbot_instance, chatbot_ui):
 
         # Metadata Attribute Buttons
         create_attribute_buttons(chatbot_instance, chatbot_ui)
-
-
 
 def display_metadata_wrapper(chatbot_instance):
     """Wrapper for the display_metadata method to work with Gradio."""
