@@ -132,10 +132,10 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.pink
     # Prompt Input
     prompt = create_prompt_input(chatbot_instance, chatbot_ui)
 
-    with gr.Tab("Show Metadata Dropdown"):
+    with gr.Tab("Metadata Dropdown"):
         create_metadata_attributes_dropdown(chatbot_instance)
 
-    with gr.Tab("Show Control Buttons"):
+    with gr.Tab("Control Buttons"):
         # Control Buttons
         create_control_buttons(chatbot_instance, chatbot_ui)
 

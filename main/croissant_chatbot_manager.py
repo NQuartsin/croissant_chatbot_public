@@ -105,6 +105,7 @@ class CroissantChatbotManager:
                 - If the value is already filled, you can update it if needed.
                 - If you want to see the current metadata stored in the chatbot, click the 'Display Metadata So Far' button.
                 - If you want to see a longer version of the instructions, click the 'See Instructions' button.
+                - If you make a mistake, specifically if you add an attribute you don't want to include, press the "Refresh" button to start over.
                 - If you think you have entered all the metadata attributes, type **complete** in the chat box to finalise the metadata."""
         })
 

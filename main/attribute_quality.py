@@ -21,9 +21,6 @@ class AttributeQualityChecker:
         if attribute_name == "description":
             return self.check_description(value)
 
-        if attribute_name == "title":
-            return self.check_title(value)
-
         if attribute_name == "keywords":
             return self.check_keywords(value)
 
@@ -56,12 +53,6 @@ class AttributeQualityChecker:
         unique_structures = len(set(sentence_structures))
         return unique_structures
 
-    def check_title(self, value):
-        """Ensure the title is informative and not overly generic."""
-        if len(value.split()) < 3:
-            return False, "The title is too short to convey meaningful information."
-        return True, "Title quality is acceptable."
-
     def check_keywords(self, value):
         """Ensure keywords are diverse and not redundant."""
         keyword_list = [kw.strip().lower() for kw in value.split(",") if kw.strip()]
@@ -80,8 +71,6 @@ class AttributeQualityChecker:
     def get_sentence_structure(self, sentence):
         """Extracts a simplified structure of a sentence (e.g., 'NOUN VERB NOUN')."""
         return " ".join([token.pos_ for token in sentence])
-
-
 
     def check_quality_of_all_attributes(self, metadata):
         """Evaluate all metadata attributes and return quality issues."""

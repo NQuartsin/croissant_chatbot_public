@@ -7,7 +7,6 @@ from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import homogenize_latex_encoding
 import json
 
-
 class MetadataValidator():
     """Validate metadata attributes and values for a dataset entry."""
 
@@ -41,7 +40,7 @@ class MetadataValidator():
             for license_info in licenses_list:
                 if license_info.get("licenseId", "").lower() == normalized_license:
                     return True, "License is valid."
-            return False, "Invalid License"
+            return False, "Invalid License: liecence must be from the SPDX License List"
         except Exception as e:
             return False, f"Error validating license: {str(e)}"
 
@@ -104,30 +103,10 @@ class MetadataValidator():
         except Exception as e:
             return False, f"Citation must be in valid BibTeX format. Error: {str(e)}"
 
-    def validate_english_words(self, value, attribute_name):
-        """Ensure the value contains only English words and no special characters or punctuation."""
-        if not isinstance(value, str):
-            return False, f"{attribute_name} must be a string."
-
-        # Check for non-English words or punctuation
-
-        # TODO Fix: title: Title contains invalid words or characters: (2025) 
-        words = value.split()
-        invalid_words = [word for word in words if not word.isalpha()]
-        if invalid_words:
-            return False, f"{attribute_name} contains invalid words or characters: {', '.join(invalid_words)}"
-
-        return True, f"{attribute_name} contains only English words."
 
     def validate_all_attributes(self, metadata):
         """Check if all required attributes are valid."""
         errors = {}
-        # Validate attributes for English words
-        for attribute in ["name", "author", "title", "description", "publisher"]:
-            if attribute in metadata:
-                valid, message = self.validate_english_words(metadata[attribute], attribute.capitalize())
-                if not valid:
-                    errors[attribute] = message
 
         # Validate year
         if "year" in metadata:
