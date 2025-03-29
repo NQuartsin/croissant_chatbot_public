@@ -218,8 +218,6 @@ class MetadataManager:
                 self.final_metadata["tasks"] = task
             if modality:
                 self.final_metadata["modalitiy"] = modality
-            # self.final_metadata["task"] = self.metadata.get("task", "")
-            # self.final_metadata["modality"] = self.metadata.get("modality", "")
 
             # Save metadata to a file
             filepath, filename = self.save_metadata_to_file(self.final_metadata)
