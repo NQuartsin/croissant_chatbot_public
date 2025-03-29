@@ -117,11 +117,12 @@ def create_llm_response(prompt):
         "model": "mistralai/mistral-7b-instruct:free",
         "messages": [{"role": "user", "content": model_propmt}],
     }
-
-    response = requests.post(api_url, headers=headers, json=data)
-    if response.status_code == 200:
-        return response.json()["choices"][0]["message"]["content"]
-    else:
-        raise Exception(f"An error occured while trying to use the LLM model.\n {response.status_code}: {response.text}")
-
+    try:
+        response = requests.post(api_url, headers=headers, json=data)
+        if response.status_code == 200:
+            return response.json()["choices"][0]["message"]["content"]
+        else:
+            raise Exception(f"An error occured while trying to use the LLM model.\n {response.status_code}: {response.text}")
+    except Exception as e:
+        raise Exception(f"An error occured while trying to use the LLM model.\n {e}")
 

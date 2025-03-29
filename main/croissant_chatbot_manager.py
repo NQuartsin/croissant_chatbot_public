@@ -60,10 +60,11 @@ class CroissantChatbotManager:
             This will help the chatbot suggest more relevant metadata attributes for you. \n
             You can also provide the name of your dataset if it is from Hugging Face Datasets.
             The chatbot will try to fetch some metadata for you based on the dataset name.
-            You can only do these things at the start of the chat, if you want to do them later you must click the "Refresh" button to start over.\n
+            You can only do these things at the start of the chat, if you want to do them later
+            you must click the "Refresh Chat" button or type 'start new dataset' to to start over.\n
 
             To enter metadata attributes, select an attribute from the dropdown and enter the value in the chat box.
-            When you select the attribute name, the chatbot will provide guidance on what to enter using the attribute name as a prompt.
+            When you select the attribute, the chatbot will provide guidance on what to enter using the attribute name as a prompt.
             You must enter a value immediately after selecting the attribute name.\n
             After entering the value of an attribute, the chatbot will validate the value and suggest improvements if needed.
             If the value is valid, the chatbot will save the value and you can proceed to the next attribute.
@@ -71,7 +72,7 @@ class CroissantChatbotManager:
             If you want to confirm the value despite validation issues, type 'confirm' in the chat box.
             If you want to update an attribute, select an attribute name and enter the new value.\n
             If you are unsure about a value, you can skip the attribute by not entering anything or selecting an attribute.
-            The chatbot will only save attributes with meaningful values.
+            The chatbot will only save attributes with meaningful values (non-empty).
             You can always return to an attribute later to update it.\n
 
             If you want to see the current metadata stored in the chatbot, click the 'Display Metadata So Far' button.
@@ -84,8 +85,10 @@ class CroissantChatbotManager:
             This chatbot is not smart. It will not be able to process any input that is not a value for a metadata attribute
             or one of the expected commands when prompted for: 'confirm', 'complete', 'start new dataset', 'help', 'no'.
             When asked a question you must immediately answer it before the chatbot can proceed.
+            You cannot delete an attribute if you have already entered a value for it.
+            If you want to delete an attribute, you must click the 'Refresh Chat' button or type 'start new dataset' to start over.\n
             Please do not press any button or enter anything unexpected when the chatbot is waiting for a response, otherwise it may not work as expected.\n
-            The validation checks are basic and may not cover all possible issues with the metadata.
+            The validation and quality checks are basic and may not cover all possible issues with the metadata.
             They are meant to guide you in providing the best metadata possible.
             If you encounter any issues, you can refresh the chat by clicking the 'Refresh Chat' button.\n
 
@@ -105,7 +108,7 @@ class CroissantChatbotManager:
                 - If the value is already filled, you can update it if needed.
                 - If you want to see the current metadata stored in the chatbot, click the 'Display Metadata So Far' button.
                 - If you want to see a longer version of the instructions, click the 'See Instructions' button.
-                - If you make a mistake, specifically if you add an attribute you don't want to include, press the "Refresh" button to start over.
+                - If you make a mistake, specifically if you add an attribute you don't want to include, press the "Refresh Chat" button to start over.
                 - If you think you have entered all the metadata attributes, type **complete** in the chat box to finalise the metadata."""
         })
 

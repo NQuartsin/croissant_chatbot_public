@@ -103,41 +103,6 @@ class MetadataManager:
             return False, error_messages, issue_messages
         return True, "", ""
     
-    # def save_metadata_to_file(self, metadata):
-    #     """Save the metadata to a file in the annotations folder."""
-    #     directory = "annotations"  # Specify the folder where files should be saved
-    #     if not os.path.exists(directory):
-    #         os.makedirs(directory)  # Create the folder if it doesn't exist
-
-    #     # Generate the filename
-    #     filename = self.get_filename()
-    #     filepath = os.path.join(directory, filename)  # Save in the annotations folder
-
-    #     # Save the file
-    #     with open(filepath, "w") as file:
-    #         json.dump(metadata, file, indent=2, default=self.json_serial)
-
-    #     return filepath, filename 
-
-    # def save_metadata_to_file(self, metadata):
-    #     """Save the metadata to a file in the annotations folder inside croissant_chatbot."""
-    #     # Get the path to the croissant_chatbot directory
-    #     base_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    #     directory = os.path.join(base_directory, "annotations")  # Create the annotations folder in croissant_chatbot
-
-    #     # Ensure the directory exists
-    #     if not os.path.exists(directory):
-    #         os.makedirs(directory)
-
-    #     # Generate the filename
-    #     filename = self.get_filename()
-    #     filepath = os.path.join(directory, filename)
-
-    #     # Save the file
-    #     with open(filepath, "w") as file:
-    #         json.dump(metadata, file, indent=2, default=self.json_serial)
-
-    #     return filepath, filename
 
     def save_metadata_to_file(self, metadata):
         """Save the metadata to a file in the annotations folder."""
