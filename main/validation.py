@@ -1,4 +1,6 @@
 # validation.py
+
+# Necessary imports
 import re
 from datetime import datetime
 import langcodes 
@@ -8,9 +10,8 @@ from bibtexparser.customization import homogenize_latex_encoding
 import json
 from typing import Tuple, Dict
 
-
 class MetadataValidator():
-    """Validate metadata attributes and values for a dataset entry."""
+    """A class to validate metadata attributes and values for a dataset entry."""
 
     def validate_year(self, year: int) -> Tuple[bool, str]:
         """
