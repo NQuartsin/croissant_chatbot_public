@@ -8,8 +8,6 @@ load_dotenv()  # Load environment variables from .env file
 
 api_key = os.getenv("OPENROUTER_API_KEY")
 
-
-
 def get_metadata_info_for_prompt(metadata):
     metadata_info = f"""
         name: {metadata.get("name", "No name provided")},
@@ -37,7 +35,7 @@ def suggest_attribute_value(metadata, informal_description, attribute):
     prompt = f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
-    Additional information: {informal_description}
+    Additional information for the dataset is the following informal description (ignore if empty): {informal_description}
     
     The attribute '{attribute}' is missing or insufficient.
     Please provide 1-3 reasonable suggestions for this attribute only.
@@ -49,7 +47,7 @@ def suggest_description(metadata, informal_description):
     prompt = f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
-    Additional information: {informal_description}
+    Additional information for the dataset is the following informal description (ignore if empty): {informal_description}
 
     The attribute 'description' is missing or insufficient.
     Please provide 1-3 diverse, non-repetitive descriptions that are at least 2 sentences long.
@@ -62,7 +60,7 @@ def suggest_ways_to_fill_attribute(metadata, informal_description, attribute):
     prompt = f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
-    Additional information: {informal_description}
+    Additional information for the dataset is the following informal description (ignore if empty): {informal_description}
 
     The attribute '{attribute}' is missing or insufficient.
     Please suggest at most 5 ways for the user to figure out how to fill this attribute.
@@ -91,6 +89,7 @@ def ask_user_for_informal_description():
 
     return create_llm_response(prompt)
 
+
 def suggest_metadata(metadata, informal_description, attribute):
 
     if attribute == "cite_as":
@@ -101,20 +100,6 @@ def suggest_metadata(metadata, informal_description, attribute):
         prompt = suggest_description(metadata, informal_description)
     else:
         prompt = suggest_ways_to_fill_attribute(metadata, informal_description, attribute)
-
-    return create_llm_response(prompt)
-    
-def handle_conversation(metadata, user_prompt, history, informal_description):
-    """Handle a conversation with the user to suggest metadata attributes."""
-    prompt =f"""
-    The user is creating metadata for a dataset with the following information:
-    {get_metadata_info_for_prompt(metadata)}
-    Additional information: {informal_description}
-    The last thing said by the user was: {user_prompt}
-    The conversation history is: {history}
-
-    Please suggest the next step in the conversation to help the user fill in the missing metadata attributes.
-    """
 
     return create_llm_response(prompt)
 

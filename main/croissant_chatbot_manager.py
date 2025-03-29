@@ -168,6 +168,10 @@ class CroissantChatbotManager:
                 "content": """All metadata attributes have been filled."""
             })
             self.display_short_instructions()
+        
+        else:
+            self.append_to_history({"role": "assistant", "content": "You provided an unexpected input. This may cause issues."})
+            self.display_short_instructions()
 
         return self.history
 
@@ -182,8 +186,8 @@ class CroissantChatbotManager:
     def handle_informal_description_prompt(self, prompt):
         """Handle the user's response to the informal description prompt."""
         if prompt.lower() == "help":
-            ask = ask_user_for_informal_description()
-            self.append_to_history({"role": "assistant", "content": f"{ask}"})
+            chatbot_response = ask_user_for_informal_description()
+            self.append_to_history({"role": "assistant", "content": f"{chatbot_response}"})
             return self.history
         elif prompt.lower() == "no":
             self.waiting_for_informal_description = False
