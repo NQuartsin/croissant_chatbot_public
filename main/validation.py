@@ -21,7 +21,7 @@ class MetadataValidator():
             year: The year to validate.
 
         Returns:
-            A tuple containing a boolean indicating validity and a message.
+            A Tuple containing a boolean indicating validity and a message.
         """
         current_year = datetime.now().year
         if 1900 <= int(year) <= current_year:
@@ -36,7 +36,7 @@ class MetadataValidator():
             url: The URL to validate.
 
         Returns:
-            A tuple containing a boolean indicating validity and a message.
+            A Tuple containing a boolean indicating validity and a message.
 
         """
         try:
@@ -56,7 +56,7 @@ class MetadataValidator():
             license: The license identifier to validate.
         
         Returns:
-            A tuple containing a boolean indicating validity and a message.
+            A Tuple containing a boolean indicating validity and a message.
         """
         try:
             with open("licences.json") as json_file:
@@ -84,7 +84,7 @@ class MetadataValidator():
             attribute_name: The name of the attribute being validated.
         
         Returns:
-            A tuple containing a boolean indicating validity and a message.
+            A Tuple containing a boolean indicating validity and a message.
         """
         if isinstance(value, str) and value.strip():
             return True, "Value is a non-empty string."
@@ -98,7 +98,7 @@ class MetadataValidator():
             keywords: The keywords string to validate.
                 
         Returns:
-            A tuple containing a boolean indicating validity and a message.
+            A Tuple containing a boolean indicating validity and a message.
         """
         try:
             if isinstance(keywords, str) and all(keyword.strip() for keyword in keywords.split(",")):
@@ -116,7 +116,7 @@ class MetadataValidator():
             attribute_name: The name of the attribute being validated.
                
         Returns:
-            A tuple containing a boolean indicating validity and a message.
+            A Tuple containing a boolean indicating validity and a message.
         """
         try:
             datetime.strptime(date, "%Y-%m-%d")
@@ -132,7 +132,7 @@ class MetadataValidator():
             language: The language(s) string to validate.
                
         Returns:
-            A tuple containing a boolean indicating validity and a message.
+            A Tuple containing a boolean indicating validity and a message.
         """
         try:
             # Split the input into multiple languages if it's a comma-separated string
@@ -167,7 +167,7 @@ class MetadataValidator():
             cite_as: The BibTeX citation string to validate.
                 
         Returns:
-            A tuple containing a boolean indicating validity and a message.
+            A Tuple containing a boolean indicating validity and a message.
         """
         try:
             parser = BibTexParser()
@@ -185,10 +185,10 @@ class MetadataValidator():
         Check if all required attributes are valid.
 
         Args:
-            metadata: A dictionary containing metadata attributes to validate.
+            metadata: A Dictionary containing metadata attributes to validate.
                 
         Returns:
-            A dictionary of errors where keys are attribute names and values are error messages.
+            A Dictionary of errors where keys are attribute names and values are error messages.
         """
         try:
             errors = {}

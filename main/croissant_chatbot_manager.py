@@ -3,6 +3,8 @@ import json
 from constants import METADATA_ATTRIBUTES
 from llm import suggest_metadata, ask_user_for_informal_description
 from metadata_manager import MetadataManager
+from typing import Dict
+
 
 class CroissantChatbotManager:
     def __init__(self):
@@ -17,12 +19,22 @@ class CroissantChatbotManager:
         self.metadata_manager = MetadataManager()
 
     # Managing history
-    def append_to_history(self, message):
-        """Append a message to the chat history."""
+    def append_to_history(self, message: Dict[str, str]):
+        """
+        Append a message to the chat history.
+
+        Args:
+            message: A Dictionary containing the role and content of the message.
+        """
         self.history.append(message)
     
-    def reset_chat(self):
-        """Reset the chat."""
+    def reset_chat(self) -> list[Dict[str, str]]:
+        """
+        Reset the chat and metadata.
+
+        Returns:
+            The reset chat history as a list of messages.
+        """
         self.metadata_manager.reset_metadata()
         self.history = []
         self.waiting_for_greeting = True
@@ -34,8 +46,13 @@ class CroissantChatbotManager:
         return self.history
 
     # Handle button clicks
-    def handle_start_new_dataset(self):
-        """Reset metadata attributes for annotating a new dataset."""
+    def handle_start_new_dataset(self) -> list[Dict[str, str]]:
+        """
+        Reset metadata attributes and prepare for annotating a new dataset.
+
+        Returns:
+            The updated chat history.
+        """
         self.metadata_manager.reset_metadata()
         self.pending_attribute = None
         self.informal_description = ""
@@ -46,12 +63,16 @@ class CroissantChatbotManager:
         return self.history
     
     def handle_display_metadata(self):
-        """Display the dataset metadata."""
+        """
+        Display the current dataset metadata.
+        """
         json_metadata = self.json_to_code_block(self.metadata_manager.get_metadata())
         self.append_to_history({"role": "assistant", "content": f"Here is the current metadata for your dataset:\n{json_metadata}"})
     
     def handle_display_chatbot_instructions(self):
-        """Get the chatbot instructions."""
+        """
+        Display detailed instructions for using the chatbot.
+        """
         instructions = f"""
             This is a very simple chatbot that helps you create Croissant metadata for your dataset.
             When you start the chat, the chatbot will guide you through the process of entering metadata attributes.\n
@@ -99,7 +120,9 @@ class CroissantChatbotManager:
     
     # Display methods
     def display_short_instructions(self):
-        """Display short instructions for the chatbot."""
+        """
+        Display short instructions for the chatbot.
+        """
         self.append_to_history({
             "role": "assistant",
             "content": """Please follow the following instructions:
@@ -113,7 +136,9 @@ class CroissantChatbotManager:
         })
 
     def display_informal_description_prompt(self):
-        """Display the informal description prompt."""
+        """
+        Prompt the user to provide an informal description of the dataset.
+        """
         self.append_to_history({
             "role": "assistant",
             "content": """Would you like to provide an informal description of your dataset? 
@@ -126,7 +151,9 @@ class CroissantChatbotManager:
         })
     
     def display_hugging_face_name_prompt(self):
-        """Display the Hugging Face dataset name prompt."""
+        """
+        Prompt the user to provide the Hugging Face dataset name.
+        """
         self.append_to_history({
             "role": "assistant", 
             "content": """Is your dataset from Hugging Face Datasets?
@@ -137,8 +164,17 @@ class CroissantChatbotManager:
         })
 
     
-    def json_to_code_block(self, json_data, default_value=None):
-        """Convert JSON data to a formatted code block."""
+    def json_to_code_block(self, json_data: Dict[str,str], default_value=None) -> str:
+        """
+        Convert JSON data to a formatted code block.
+
+        Args:
+            json_data: The JSON data to format.
+            default_value: A default value to use for serialization if needed.
+
+        Returns:
+            A string containing the formatted JSON code block.
+        """
         try:
             return f"```json\n{json.dumps(json_data, indent=2, default=default_value)}\n```"
         except TypeError as e:
@@ -148,8 +184,16 @@ class CroissantChatbotManager:
 
     
     # Handle user input methods
-    def handle_user_input(self, prompt):
-        """Handle user input through chat."""
+    def handle_user_input(self, prompt: str) -> list[Dict[str, str]]:
+        """
+        Handle user input through chat.
+
+        Args:
+            prompt: The user's input message.
+
+        Returns:
+            The updated chat history.
+        """
         try:
             if not self.history:
                 self.history = []
@@ -189,16 +233,29 @@ class CroissantChatbotManager:
         
         return self.history
 
-    def handle_greeting(self):
-        """Handle the initial greeting."""
+    def handle_greeting(self) -> list[Dict[str, str]]:
+        """
+        Handle the initial greeting.
+
+        Returns:
+            The updated chat history.
+        """
         self.append_to_history({"role": "assistant", "content": "Hello! I'm the Croissant Metadata Assistant."})
         self.display_informal_description_prompt()
         self.waiting_for_greeting = False
         self.waiting_for_informal_description = True
         return self.history
 
-    def handle_informal_description_prompt(self, prompt):
-        """Handle the user's response to the informal description prompt."""
+    def handle_informal_description_prompt(self, prompt: str) -> list[Dict[str, str]]:
+        """
+        Handle the user's response to the informal description prompt.
+
+        Args:
+            prompt: The user's input for the informal description.
+
+        Returns:
+            The updated chat history.
+        """
         if prompt.lower() == "help":
             try:
                 chatbot_response = ask_user_for_informal_description()
@@ -217,8 +274,16 @@ class CroissantChatbotManager:
         self.waiting_for_HF_name = True
         return self.history
     
-    def handle_HF_name(self, prompt):
-        """Handle the user's response to the Hugging Face dataset name prompt."""
+    def handle_HF_name(self, prompt: str) -> list[Dict[str, str]]:
+        """
+        Handle the user's response to the Hugging Face dataset name prompt.
+
+        Args:
+            prompt: The user's input for the Hugging Face dataset name.
+
+        Returns:
+            The updated chat history.
+        """
         if prompt.lower() == "no":
             self.display_short_instructions()
             self.waiting_for_HF_name = False
@@ -240,8 +305,13 @@ class CroissantChatbotManager:
             self.display_short_instructions()
         return self.history
 
-    def handle_complete_command(self):
-        """Handle the 'complete' command."""
+    def handle_complete_command(self) -> list[Dict[str, str]]:
+        """
+        Handle the 'complete' command to finalize metadata.
+
+        Returns:
+            The updated chat history.
+        """
         is_valid, error_messages, issue_messages = self.metadata_manager.validate_and_check_quality_all_attributes()
         if not is_valid:
             if self.metadata_manager.get_confirmed_metadata():
@@ -265,8 +335,16 @@ class CroissantChatbotManager:
             self.append_to_history({"role": "assistant", "content": f"An error occurred: {final_metadata}"})
         return self.history
 
-    def handle_pending_attribute_input(self, prompt):
-        """Handle input for a pending attribute."""
+    def handle_pending_attribute_input(self, prompt: str) -> list[Dict[str, str]]:
+        """
+        Handle input for a pending metadata attribute.
+
+        Args:
+            prompt: The user's input for the pending attribute.
+
+        Returns:
+            The updated chat history.
+        """
         if prompt.lower() == "confirm" and self.pending_attribute:
             if self.pending_attribute in ["date_created", "date_modified", "date_published"]:
                 self.append_to_history({
@@ -299,10 +377,18 @@ class CroissantChatbotManager:
                 self.metadata_manager.set_metadata(self.pending_attribute, prompt.strip())
                 self.append_to_history({"role": "assistant", "content": f"Saved `{self.pending_attribute}` as: {prompt.strip()}."})
                 self.pending_attribute = None
-
         return self.history
     
-    def handle_selected_attribute(self, attribute):
+    def handle_selected_attribute(self, attribute: str) -> list[Dict[str, str]]:
+        """
+        Handle the selection of a metadata attribute.
+
+        Args:
+            attribute: The name of the selected metadata attribute.
+
+        Returns:
+            The updated chat history.
+        """
         self.pending_attribute = attribute
         self.append_to_history({"role": "user", "content": f"Selected attribute: `{attribute}`."})
 
@@ -343,11 +429,19 @@ class CroissantChatbotManager:
 
         return self.history
     
-    def handle_errors(self, error_message):
-        """Handle errors in the chatbot."""
+    def handle_errors(self, error_message: str) -> list[Dict[str, str]]:
+        """
+        Handle errors in the chatbot.
+
+        Args:
+            error_message: The error message to display.
+
+        Returns:
+            The updated chat history.
+        """
         self.append_to_history({"role": "assistant", "content": f"Error: {error_message}"})
         self.display_short_instructions()
         return self.history
-    
+
 
 

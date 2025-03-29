@@ -5,6 +5,8 @@ from math import e
 import requests
 from dotenv import load_dotenv
 import os
+from typing import Dict
+
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -16,12 +18,12 @@ if api_key is None:
 This module contains functions to interact with the OpenRouter API for generating metadata suggestions.
 """
 
-def get_metadata_info_for_prompt(metadata: dict[str, str]) -> str:
+def get_metadata_info_for_prompt(metadata: Dict[str, str]) -> str:
     """
     Generate a formatted string containing metadata information.
 
     Args:
-        metadata: A dictionary where keys are metadata attributes and values are their respective values.
+        metadata: A Dictionary where keys are metadata attributes and values are their respective values.
 
     Returns:
         metadata_info: A formatted string containing metadata information.
@@ -47,12 +49,12 @@ def get_metadata_info_for_prompt(metadata: dict[str, str]) -> str:
     """
     return metadata_info 
 
-def suggest_attribute_value(metadata: dict[str, str], informal_description: str, attribute: str) -> str:
+def suggest_attribute_value(metadata: Dict[str, str], informal_description: str, attribute: str) -> str:
     """
     Suggest reasonable values for a specific metadata attribute.
 
     Args:
-        metadata: A dictionary of metadata attributes and their values.
+        metadata: A Dictionary of metadata attributes and their values.
         informal_description: Additional informal description of the dataset.
         attribute: The metadata attribute for which suggestions are needed.
 
@@ -70,12 +72,12 @@ def suggest_attribute_value(metadata: dict[str, str], informal_description: str,
 
     return prompt
 
-def suggest_description(metadata: dict[str, str], informal_description: str) -> str:
+def suggest_description(metadata: Dict[str, str], informal_description: str) -> str:
     """
     Suggest diverse descriptions for the dataset.
 
     Args:
-        metadata: A dictionary of metadata attributes and their values.
+        metadata: A Dictionary of metadata attributes and their values.
         informal_description: Additional informal description of the dataset.
 
     Returns:
@@ -92,12 +94,12 @@ def suggest_description(metadata: dict[str, str], informal_description: str) -> 
 
     return prompt
 
-def suggest_ways_to_fill_attribute(metadata: dict[str, str], informal_description: str, attribute: str) -> str:
+def suggest_ways_to_fill_attribute(metadata: Dict[str, str], informal_description: str, attribute: str) -> str:
     """
     Suggest ways to fill a specific metadata attribute.
 
     Args:
-        metadata: A dictionary of metadata attributes and their values.
+        metadata: A Dictionary of metadata attributes and their values.
         informal_description: Additional informal description of the dataset.
         attribute: The metadata attribute for which suggestions are needed.
 
@@ -116,12 +118,12 @@ def suggest_ways_to_fill_attribute(metadata: dict[str, str], informal_descriptio
     return prompt
 
 
-def suggest_citation(metadata: dict[str, str]) -> str:
+def suggest_citation(metadata: Dict[str, str]) -> str:
     """
     Suggest a citation for the dataset in bibtex format.
 
     Args:
-        metadata: A dictionary of metadata attributes and their values.
+        metadata: A Dictionary of metadata attributes and their values.
 
     Returns:
         prompt: A prompt string to generate a citation for the dataset.
@@ -152,12 +154,12 @@ def ask_user_for_informal_description() -> str:
         raise Exception(f"An error occurred while trying to use the LLM model.\n {e}")
 
 
-def suggest_metadata(metadata: dict[str, str], informal_description: str, attribute: str) -> str:
+def suggest_metadata(metadata: Dict[str, str], informal_description: str, attribute: str) -> str:
     """
     Suggest metadata for a specific attribute based on existing metadata and informal description.
 
     Args:
-        metadata: A dictionary of metadata attributes and their values.
+        metadata: A Dictionary of metadata attributes and their values.
         informal_description: Additional informal description of the dataset.
         attribute: The metadata attribute for which suggestions are needed.
 

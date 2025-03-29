@@ -61,7 +61,6 @@ def display_instructions_wrapper(chatbot_instance):
     chatbot_instance.handle_display_chatbot_instructions()
     return chatbot_instance.history
 
-
 def create_control_buttons(chatbot_instance, chatbot_ui):
     """Create styled control buttons."""
     with gr.Row():
@@ -108,6 +107,7 @@ def create_download_metadata_button(chatbot_instance):
 """
     Main Gradio UI
 """
+
 with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.pink
 , secondary_hue=gr.themes.colors.cyan, neutral_hue=gr.themes.colors.indigo), css="""
     .gr-button { 
@@ -120,7 +120,7 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.pink
         border: 1px solid var(--secondary-700);
         color: white;
     }
-""") as demo:
+""") as demo: # Create a Gradio Blocks app with a custom theme
 
     gr.Markdown("# Croissant Metadata Creator")
 

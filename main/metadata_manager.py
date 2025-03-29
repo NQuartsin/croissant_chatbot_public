@@ -9,6 +9,8 @@ import mlcroissant as mlc
 import re
 import unicodedata
 from datetime import datetime
+from typing import Tuple, Dict
+
 
 
 class MetadataManager:
@@ -39,12 +41,12 @@ class MetadataManager:
         return all(attribute in self.metadata for attribute in METADATA_ATTRIBUTES)
 
     # Metadata Operations
-    def get_metadata(self) -> dict[str, str]:
+    def get_metadata(self) -> Dict[str, str]:
         """
         Return the current metadata.
 
         Returns:
-            The current metadata dictionary.
+            The current metadata Dictionary.
         """
         return self.metadata
 
@@ -60,12 +62,12 @@ class MetadataManager:
         """
         return self.metadata.get(attribute, "")
 
-    def update_metadata(self, updates: dict[str, str]):
+    def update_metadata(self, updates: Dict[str, str]):
         """
         Update metadata with new values.
 
         Args:
-            updates: A dictionary containing metadata attributes and their new values.
+            updates: A Dictionary containing metadata attributes and their new values.
         """
         self.metadata.update(updates)
 
@@ -92,12 +94,12 @@ class MetadataManager:
         """
         return self.temporary_metadata.get(attribute, "")
 
-    def update_temporary_metadata(self, updates: dict):
+    def update_temporary_metadata(self, updates: Dict[str, str]):
         """
         Update temporary metadata with new values.
 
         Args:
-            updates: A dictionary containing temporary metadata attributes and their new values.
+            updates: A Dictionary containing temporary metadata attributes and their new values.
         """
         self.temporary_metadata.update(updates)
 
@@ -108,12 +110,12 @@ class MetadataManager:
         self.temporary_metadata = {}
 
     # Confirmed Metadata Operations
-    def get_confirmed_metadata(self) -> dict[str, str]:
+    def get_confirmed_metadata(self) -> Dict[str, str]:
         """
         Return the confirmed metadata.
 
         Returns:
-            The confirmed metadata dictionary.
+            The confirmed metadata Dictionary.
         """
         return self.confirmed_metadata
 
@@ -135,7 +137,7 @@ class MetadataManager:
         self.metadata.update(self.confirmed_metadata)
         self.confirmed_metadata = {}
 
-    def validate_and_check_quality(self, attribute: str, value: str) -> tuple[bool, str, str]:
+    def validate_and_check_quality(self, attribute: str, value: str) -> Tuple[bool, str, str]:
         """
         Validate and check the quality of the attribute value.
 
@@ -144,7 +146,7 @@ class MetadataManager:
             value: The value to validate and check.
 
         Returns:
-            A tuple containing a boolean indicating success, error messages, and issue messages.
+            A Tuple containing a boolean indicating success, error messages, and issue messages.
         """
         # Validate the attribute value
         validator = MetadataValidator()
@@ -159,12 +161,12 @@ class MetadataManager:
         # If no errors or issues, return True
         return True, "", ""
 
-    def validate_and_check_quality_all_attributes(self) -> tuple[bool, str, str]:
+    def validate_and_check_quality_all_attributes(self) -> Tuple[bool, str, str]:
         """
         Validate and check the quality of all attributes.
 
         Returns:
-            A tuple containing a boolean indicating success, error messages, and issue messages.
+            A Tuple containing a boolean indicating success, error messages, and issue messages.
         """
         # Validate all attributes
         validator = MetadataValidator()
@@ -179,15 +181,15 @@ class MetadataManager:
         # If no errors or issues, return True
         return True, "", ""
 
-    def save_metadata_to_file(self, metadata: dict) -> tuple[str, str]:
+    def save_metadata_to_file(self, metadata: Dict[str, str]) -> Tuple[str, str]:
         """
         Save the metadata to a file in the annotations folder.
 
         Args:
-            metadata: The metadata dictionary to save.
+            metadata: The metadata Dictionary to save.
 
         Returns:
-            A tuple containing the file path and filename, or an error message if saving fails.
+            A Tuple containing the file path and filename, or an error message if saving fails.
         """
         try:
             # Get the path to the annotations folder
@@ -246,7 +248,7 @@ class MetadataManager:
         Get the filename for the metadata file.
 
         Returns:
-            The sanitized filename for the metadata file.
+            The sanitized filename for the metadata file or a default name.
         """
         if self.metadata.get("name"):
             # Remove emojis
@@ -256,12 +258,12 @@ class MetadataManager:
             return f"{sanitised_name.replace(' ', '_').lower()}_metadata.json"
         return "metadata.json"
 
-    def finalise_metadata(self) -> tuple[bool, dict]:
+    def finalise_metadata(self) -> Tuple[bool, Dict[str, str]]:
         """
         Finalise metadata in Croissant format.
 
         Returns:
-            A tuple containing a boolean indicating success and the final metadata or an error message.
+            A Tuple containing a boolean indicating success and the final metadata or an error message.
         """
         try:
             # Map your metadata fields to the expected Croissant Metadata fields
@@ -281,7 +283,7 @@ class MetadataManager:
                 "language": "in_language",
             }
 
-            # Dynamically build the metadata dictionary for the Croissant object
+            # Dynamically build the metadata Dictionary for the Croissant object
             filtered_metadata = {
                 croissant_field: self.metadata[original_field]
                 for original_field, croissant_field in metadata_mapping.items()
@@ -307,7 +309,7 @@ class MetadataManager:
         except Exception as e:
             return False, {'error': str(e)}
 
-    def find_dataset_info(self, dataset_id_to_find: str) -> tuple[dict[str, str], bool]:
+    def find_dataset_info(self, dataset_id_to_find: str) -> Tuple[Dict[str, str], bool]:
         """
         Fetch dataset details.
 
@@ -315,7 +317,7 @@ class MetadataManager:
             dataset_id_to_find: The ID of the dataset to fetch details for.
 
         Returns:
-            A dictionary containing the dataset metadata or an error message if fetching fails.
+            A Dictionary containing the dataset metadata or an error message if fetching fails.
         """
         try:
             # Fetch the dataset details using the Hugging Face Hub API
