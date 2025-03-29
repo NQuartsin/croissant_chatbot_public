@@ -1,14 +1,31 @@
 # llm.py
 
+# necessary imports
+from math import e
 import requests
 from dotenv import load_dotenv
 import os
 
 load_dotenv()  # Load environment variables from .env file
 
-api_key = os.getenv("OPENROUTER_API_KEY")
+api_key = os.getenv("OPENROUTER_API_KEY")  # Get API key from environment variable
+if api_key is None:
+    raise EnvironmentError("OPENROUTER_API_KEY is not set in the environment variables. Please set it in the .env file.")
 
-def get_metadata_info_for_prompt(metadata):
+"""
+This module contains functions to interact with the OpenRouter API for generating metadata suggestions.
+"""
+
+def get_metadata_info_for_prompt(metadata: dict[str, str]) -> str:
+    """
+    Generate a formatted string containing metadata information.
+
+    Args:
+        metadata: A dictionary where keys are metadata attributes and values are their respective values.
+
+    Returns:
+        metadata_info: A formatted string containing metadata information.
+    """
     metadata_info = f"""
         name: {metadata.get("name", "No name provided")},
         author: {metadata.get("author", "No author provided")},
@@ -30,8 +47,18 @@ def get_metadata_info_for_prompt(metadata):
     """
     return metadata_info 
 
-def suggest_attribute_value(metadata, informal_description, attribute):
-    # for the attributes: name, title, description, publisher, keywords, task, modality, license, language
+def suggest_attribute_value(metadata: dict[str, str], informal_description: str, attribute: str) -> str:
+    """
+    Suggest reasonable values for a specific metadata attribute.
+
+    Args:
+        metadata: A dictionary of metadata attributes and their values.
+        informal_description: Additional informal description of the dataset.
+        attribute: The metadata attribute for which suggestions are needed.
+
+    Returns:
+        prompt: A prompt string to generate suggestions for the specified attribute.
+    """
     prompt = f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
@@ -43,7 +70,17 @@ def suggest_attribute_value(metadata, informal_description, attribute):
 
     return prompt
 
-def suggest_description(metadata, informal_description):
+def suggest_description(metadata: dict[str, str], informal_description: str) -> str:
+    """
+    Suggest diverse descriptions for the dataset.
+
+    Args:
+        metadata: A dictionary of metadata attributes and their values.
+        informal_description: Additional informal description of the dataset.
+
+    Returns:
+        prompt: A prompt string to generate diverse descriptions for the dataset.
+    """
     prompt = f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
@@ -55,8 +92,18 @@ def suggest_description(metadata, informal_description):
 
     return prompt
 
-def suggest_ways_to_fill_attribute(metadata, informal_description, attribute):
-    # for the attributes: author, year, url, version, date_modified, date_created, date_published
+def suggest_ways_to_fill_attribute(metadata: dict[str, str], informal_description: str, attribute: str) -> str:
+    """
+    Suggest ways to fill a specific metadata attribute.
+
+    Args:
+        metadata: A dictionary of metadata attributes and their values.
+        informal_description: Additional informal description of the dataset.
+        attribute: The metadata attribute for which suggestions are needed.
+
+    Returns:
+        prompt: A prompt string to generate suggestions for filling the specified attribute.
+    """
     prompt = f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
@@ -69,8 +116,16 @@ def suggest_ways_to_fill_attribute(metadata, informal_description, attribute):
     return prompt
 
 
-def suggest_citation(metadata):
-    """Use OpenRouter's Llama 3.1 8B Instruct model to suggest a citation for a dataset."""
+def suggest_citation(metadata: dict[str, str]) -> str:
+    """
+    Suggest a citation for the dataset in bibtex format.
+
+    Args:
+        metadata: A dictionary of metadata attributes and their values.
+
+    Returns:
+        prompt: A prompt string to generate a citation for the dataset.
+    """
     prompt = f"""
     The user is creating metadata for a dataset with the following information:
     {get_metadata_info_for_prompt(metadata)}
@@ -79,33 +134,60 @@ def suggest_citation(metadata):
 
     return prompt
 
-def ask_user_for_informal_description():
-
-    prompt = f"""
-    The user is creating metadata for a dataset.
-    Please ask the user probing questions to get an informal description of the dataset.
-    Ask 1-5 questions.
+def ask_user_for_informal_description() -> str:
     """
+    Generate probing questions to gather an informal description of the dataset.
 
-    return create_llm_response(prompt)
+    Returns:
+        A string containing probing questions for the user.
+    """
+    try:
+        prompt = f"""
+        The user is creating metadata for a dataset.
+        Please ask the user probing questions to get an informal description of the dataset.
+        Ask 1-5 questions.
+        """
+        return create_llm_response(prompt)
+    except Exception as e:
+        raise Exception(f"An error occurred while trying to use the LLM model.\n {e}")
 
 
-def suggest_metadata(metadata, informal_description, attribute):
+def suggest_metadata(metadata: dict[str, str], informal_description: str, attribute: str) -> str:
+    """
+    Suggest metadata for a specific attribute based on existing metadata and informal description.
 
-    if attribute == "cite_as":
-        prompt = suggest_citation(metadata)
-    elif attribute in ["name", "title", "publisher", "keywords", "task", "modality", "license", "language"]:
-        prompt = suggest_attribute_value(metadata, informal_description, attribute)
-    elif attribute == "description":
-        prompt = suggest_description(metadata, informal_description)
-    else:
-        prompt = suggest_ways_to_fill_attribute(metadata, informal_description, attribute)
+    Args:
+        metadata: A dictionary of metadata attributes and their values.
+        informal_description: Additional informal description of the dataset.
+        attribute: The metadata attribute for which suggestions are needed.
 
-    return create_llm_response(prompt)
+    Returns:
+        A string containing suggestions for the specified attribute.
+    """
+    try:
+        if attribute == "cite_as":
+            prompt = suggest_citation(metadata)
+        elif attribute in ["name", "title", "publisher", "keywords", "task", "modality", "license", "language"]:
+            prompt = suggest_attribute_value(metadata, informal_description, attribute)
+        elif attribute == "description":
+            prompt = suggest_description(metadata, informal_description)
+        else:
+            prompt = suggest_ways_to_fill_attribute(metadata, informal_description, attribute)
 
-def create_llm_response(prompt):
-    """Use OpenRouter's Llama 3.1 8B Instruct model to suggest missing metadata attributes."""
+        return create_llm_response(prompt)
+    except Exception as e:
+        raise Exception(f"An error occurred while trying to use the LLM model.\n {e}")
 
+def create_llm_response(prompt: str) -> str:
+    """
+    Use OpenRouter's Llama 3.1 8B Instruct model to generate a response for the given prompt.
+
+    Args:
+        prompt: The input prompt string for the LLM model.
+
+    Returns:
+        The response generated by the LLM model.
+    """
     model_propmt = "You are helping a user create metadata for a dataset." + prompt
 
     api_url = "https://openrouter.ai/api/v1/chat/completions"
