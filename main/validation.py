@@ -185,7 +185,4 @@ class MetadataValidator():
             valid, message = self.validate_bibtex(metadata["cite_as"])
             if not valid:
                 errors["cite_as"] = message
-
-
-
         return errors
