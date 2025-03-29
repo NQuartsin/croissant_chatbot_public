@@ -6,7 +6,6 @@ import bibtexparser
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import homogenize_latex_encoding
 import json
-from constants import LICENSE_OPTIONS as LICENSES
 
 
 class MetadataValidator():
@@ -26,16 +25,21 @@ class MetadataValidator():
             return True, "URL is valid."
         return False, "Invalid URL format."
 
+
     def validate_license(self, license):
         """Validates a license identifier against the SPDX License List."""
         try:
             with open("licences.json") as json_file:
-                licesnces_list = json.load(json_file)
+                licenses_list = json.load(json_file)
 
-            licesnces_list = licesnces_list["licenses"]
+            licenses_list = licenses_list["licenses"]
 
-            for license_info in licesnces_list:
-                if license_info.get("licenseId", "") == license or license in LICENSES:
+            # Normalize the input license to lowercase
+            normalized_license = license.lower()
+
+            # Check if the normalized license matches any licenseId in the list
+            for license_info in licenses_list:
+                if license_info.get("licenseId", "").lower() == normalized_license:
                     return True, "License is valid."
             return False, "Invalid License"
         except Exception as e:

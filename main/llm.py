@@ -106,7 +106,7 @@ def suggest_metadata(metadata, informal_description, attribute):
 def create_llm_response(prompt):
     """Use OpenRouter's Llama 3.1 8B Instruct model to suggest missing metadata attributes."""
 
-    propmt = "You are helping a user create metadata for a dataset." + prompt
+    model_propmt = "You are helping a user create metadata for a dataset." + prompt
 
     api_url = "https://openrouter.ai/api/v1/chat/completions"
     headers = {
@@ -115,14 +115,13 @@ def create_llm_response(prompt):
     }
     data = {
         "model": "mistralai/mistral-7b-instruct:free",
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0.5
+        "messages": [{"role": "user", "content": model_propmt}],
     }
 
     response = requests.post(api_url, headers=headers, json=data)
     if response.status_code == 200:
         return response.json()["choices"][0]["message"]["content"]
     else:
-        raise Exception(f"Error {response.status_code}: {response.text}")
+        raise Exception(f"An error occured while trying to use the LLM model.\n {response.status_code}: {response.text}")
 
 
