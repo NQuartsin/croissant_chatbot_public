@@ -52,13 +52,13 @@ def create_metadata_attributes_dropdown(chatbot_instance):
         return dropdown
 
 def display_metadata_wrapper(chatbot_instance):
-    """Wrapper for the display_metadata method to work with Gradio."""
-    chatbot_instance.display_metadata()
+    """Wrapper for the handle_display_metadata method to work with Gradio."""
+    chatbot_instance.handle_display_metadata()
     return chatbot_instance.history
 
 def display_instructions_wrapper(chatbot_instance):
     """Wrapper for the display_chatbot_instructions method to work with Gradio."""
-    chatbot_instance.display_chatbot_instructions()
+    chatbot_instance.handle_display_chatbot_instructions()
     return chatbot_instance.history
 
 

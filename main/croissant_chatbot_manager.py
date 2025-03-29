@@ -16,13 +16,41 @@ class CroissantChatbotManager:
 
         self.metadata_manager = MetadataManager()
 
+    # Managing history
+    def append_to_history(self, message):
+        """Append a message to the chat history."""
+        self.history.append(message)
+    
+    def reset_chat(self):
+        """Reset the chat."""
+        self.metadata_manager.reset_metadata()
+        self.history = []
+        self.waiting_for_greeting = True
+        self.waiting_for_informal_description = False
+        self.pending_attribute = None
+        self.informal_description = ""
+        self.waiting_for_HF_name = False
 
-    def json_to_code_block(self, json_data, default_value=None):
-        """Convert JSON data to a formatted code block."""
-        return f"```json\n{json.dumps(json_data, indent=2, default=default_value)}\n```"
+        return self.history
 
-
-    def display_chatbot_instructions(self):
+    # Handle button clicks
+    def handle_start_new_dataset(self):
+        """Reset metadata attributes for annotating a new dataset."""
+        self.metadata_manager.reset_metadata()
+        self.pending_attribute = None
+        self.informal_description = ""
+        self.waiting_for_HF_name = False
+        self.append_to_history({"role": "assistant", "content": "You can now start annotating a new dataset."})
+        self.display_informal_description_prompt()
+        self.waiting_for_informal_description = True
+        return self.history
+    
+    def handle_display_metadata(self):
+        """Display the dataset metadata."""
+        json_metadata = self.json_to_code_block(self.metadata_manager.get_metadata())
+        self.append_to_history({"role": "assistant", "content": f"Here is the current metadata for your dataset:\n{json_metadata}"})
+    
+    def handle_display_chatbot_instructions(self):
         """Get the chatbot instructions."""
         instructions = f"""
             This is a very simple chatbot that helps you create Croissant metadata for your dataset.
@@ -65,7 +93,8 @@ class CroissantChatbotManager:
         """
         formatted_instructions = f"```text\n{instructions}\n```"
         self.append_to_history({"role": "assistant", "content": formatted_instructions})
-
+    
+    # Display methods
     def display_short_instructions(self):
         """Display short instructions for the chatbot."""
         self.append_to_history({
@@ -91,16 +120,24 @@ class CroissantChatbotManager:
                 - help (will provide guidance on providing an informal description) 
                 - no"""
         })
-
-    def append_to_history(self, message):
-        """Append a message to the chat history."""
-        self.history.append(message)
-
-    def display_metadata(self):
-        """Display the dataset metadata."""
-        json_metadata = self.json_to_code_block(self.metadata_manager.get_metadata())
-        self.append_to_history({"role": "assistant", "content": f"Here is the current metadata for your dataset:\n{json_metadata}"})
     
+    def display_hugging_face_name_prompt(self):
+        """Display the Hugging Face dataset name prompt."""
+        self.append_to_history({
+            "role": "assistant", 
+            "content": """Is your dataset from Hugging Face Datasets?
+                If so, please provide the name of the dataset so I can fetch some metadata for you. 
+                **Please type one of these options:**
+                -  &lt;dataset name&gt;
+                - no"""
+        })
+
+    
+    def json_to_code_block(self, json_data, default_value=None):
+        """Convert JSON data to a formatted code block."""
+        return f"```json\n{json.dumps(json_data, indent=2, default=default_value)}\n```"
+    
+    # Handle user input methods
     def handle_user_input(self, prompt):
         """Handle user input through chat."""
         if not self.history:
@@ -154,14 +191,7 @@ class CroissantChatbotManager:
             self.informal_description = prompt.strip()
             self.append_to_history({"role": "assistant", "content": f"Saved the 'informal description': {self.informal_description}"})
             self.waiting_for_informal_description = False
-        self.append_to_history({
-            "role": "assistant", 
-            "content": """Is your dataset from Hugging Face Datasets?
-                If so, please provide the name of the dataset so I can fetch some metadata for you. 
-                **Please type one of these options:**
-                -  &lt;dataset name&gt;
-                - no"""
-        })
+        self.display_hugging_face_name_prompt()
         self.waiting_for_HF_name = True
         return self.history
     
@@ -174,7 +204,7 @@ class CroissantChatbotManager:
             dataset_info = self.metadata_manager.find_dataset_info(prompt.strip())
             if dataset_info:
                 self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
-                self.display_metadata()
+                self.handle_display_metadata()
                 self.display_short_instructions()
             else:
                 self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name."})
@@ -268,33 +298,11 @@ class CroissantChatbotManager:
                 "role": "assistant",
                   "content": f"""You can do one of the following:
                   - Update the value by entering a new one.
-                  - Keep the current value by doing nothing.                  
+                  - Keep the current value by doing nothing.
                   """
             })
 
         return self.history
     
 
-    def reset_chat(self):
-        """Reset the chat."""
-        self.metadata_manager.reset_metadata()
-        self.history = []
-        self.waiting_for_greeting = True
-        self.waiting_for_informal_description = False
-        self.pending_attribute = None
-        self.informal_description = ""
-        self.waiting_for_HF_name = False
 
-        return self.history
-
-    
-    def handle_start_new_dataset(self):
-        """Reset metadata attributes for annotating a new dataset."""
-        self.metadata_manager.reset_metadata()
-        self.pending_attribute = None
-        self.informal_description = ""
-        self.waiting_for_HF_name = False
-        self.append_to_history({"role": "assistant", "content": "You can now start annotating a new dataset."})
-        self.display_informal_description_prompt()
-        self.waiting_for_informal_description = True
-        return self.history
