@@ -4,8 +4,6 @@ from constants import METADATA_ATTRIBUTES
 from llm import suggest_metadata, ask_user_for_informal_description
 from metadata_manager import MetadataManager
 
-
-
 class CroissantChatbotManager:
     def __init__(self):
 
@@ -81,6 +79,19 @@ class CroissantChatbotManager:
                 - If you think you have entered all the metadata attributes, type **complete** in the chat box to finalise the metadata."""
         })
 
+    def display_informal_description_prompt(self):
+        """Display the informal description prompt."""
+        self.append_to_history({
+            "role": "assistant",
+            "content": """Would you like to provide an informal description of your dataset? 
+                This is optional, but it will help me suggest more relevant metadata attributes for you.
+                It can be as little as a few words or as long as you want.
+                **Please type one of these options:**
+                - &lt;your informal description&gt;
+                - help (will provide guidance on providing an informal description) 
+                - no"""
+        })
+
     def append_to_history(self, message):
         """Append a message to the chat history."""
         self.history.append(message)
@@ -126,16 +137,7 @@ class CroissantChatbotManager:
     def handle_greeting(self):
         """Handle the initial greeting."""
         self.append_to_history({"role": "assistant", "content": "Hello! I'm the Croissant Metadata Assistant."})
-        self.append_to_history({
-            "role": "assistant",
-            "content": """Would you like to provide an informal description of your dataset? 
-                This is optional, but it will help me suggest more relevant metadata attributes for you.
-                It can be as little as a few words or as long as you want.
-                **Please type one of these options:**
-                - &lt;your informal description&gt;
-                - help (will provide guidance on providing an informal description) 
-                - no"""
-        })
+        self.display_informal_description_prompt()
         self.waiting_for_greeting = False
         self.waiting_for_informal_description = True
         return self.history
@@ -278,8 +280,8 @@ class CroissantChatbotManager:
         self.metadata_manager.reset_metadata()
         self.history = []
         self.waiting_for_greeting = True
-        self.pending_attribute = None
         self.waiting_for_informal_description = False
+        self.pending_attribute = None
         self.informal_description = ""
         self.waiting_for_HF_name = False
 
@@ -292,5 +294,7 @@ class CroissantChatbotManager:
         self.pending_attribute = None
         self.informal_description = ""
         self.waiting_for_HF_name = False
-        self.append_to_history({"role": "assistant", "content": "You can now start annotating a new dataset. Let's begin!"})
+        self.append_to_history({"role": "assistant", "content": "You can now start annotating a new dataset."})
+        self.display_informal_description_prompt()
+        self.waiting_for_informal_description = True
         return self.history
