@@ -1,5 +1,5 @@
 # croissant_chatbot_manager.py
-import json  
+import json
 from constants import METADATA_ATTRIBUTES
 from llm import suggest_metadata, ask_user_for_informal_description
 from metadata_manager import MetadataManager
@@ -139,44 +139,54 @@ class CroissantChatbotManager:
     
     def json_to_code_block(self, json_data, default_value=None):
         """Convert JSON data to a formatted code block."""
-        return f"```json\n{json.dumps(json_data, indent=2, default=default_value)}\n```"
+        try:
+            return f"```json\n{json.dumps(json_data, indent=2, default=default_value)}\n```"
+        except TypeError as e:
+            return f"```json\n{json.dumps(json_data, indent=2)}\n```"
+        except Exception as e:
+            return f"```json\n{{\"error\": \"{str(e)}\"}}\n```"
+
     
     # Handle user input methods
     def handle_user_input(self, prompt):
         """Handle user input through chat."""
-        if not self.history:
-            self.history = []
+        try:
+            if not self.history:
+                self.history = []
 
-        self.append_to_history({"role": "user", "content": prompt})
-        if prompt.lower() == "start new dataset":
-            self.handle_start_new_dataset()
+            self.append_to_history({"role": "user", "content": prompt})
+            if prompt.lower() == "start new dataset":
+                self.handle_start_new_dataset()
 
-        elif self.waiting_for_greeting:
-            self.handle_greeting()
+            elif self.waiting_for_greeting:
+                self.handle_greeting()
 
-        elif self.waiting_for_informal_description:
-            self.handle_informal_description_prompt(prompt)
+            elif self.waiting_for_informal_description:
+                self.handle_informal_description_prompt(prompt)
 
-        elif self.waiting_for_HF_name:
-            self.handle_HF_name(prompt)
+            elif self.waiting_for_HF_name:
+                self.handle_HF_name(prompt)
 
-        elif prompt.lower() == "complete":
-            self.handle_complete_command()
+            elif prompt.lower() == "complete":
+                self.handle_complete_command()
 
-        elif self.pending_attribute:
-            self.handle_pending_attribute_input(prompt)
+            elif self.pending_attribute:
+                self.handle_pending_attribute_input(prompt)
 
-        elif self.metadata_manager.is_all_attributes_filled():
-            self.append_to_history({
-                "role": "assistant", 
-                "content": """All metadata attributes have been filled."""
-            })
-            self.display_short_instructions()
+            elif self.metadata_manager.is_all_attributes_filled():
+                self.append_to_history({
+                    "role": "assistant", 
+                    "content": """All metadata attributes have been filled."""
+                })
+                self.display_short_instructions()
+            
+            else:
+                self.append_to_history({"role": "assistant", "content": "You provided an unexpected input. This may cause issues."})
+                self.display_short_instructions()
+
+        except Exception as e:
+            self.handle_errors(f"An unexpected error occurred while processing your input: {str(e)}")
         
-        else:
-            self.append_to_history({"role": "assistant", "content": "You provided an unexpected input. This may cause issues."})
-            self.display_short_instructions()
-
         return self.history
 
     def handle_greeting(self):
@@ -190,8 +200,12 @@ class CroissantChatbotManager:
     def handle_informal_description_prompt(self, prompt):
         """Handle the user's response to the informal description prompt."""
         if prompt.lower() == "help":
-            chatbot_response = ask_user_for_informal_description()
-            self.append_to_history({"role": "assistant", "content": f"{chatbot_response}"})
+            try:
+                chatbot_response = ask_user_for_informal_description()
+                self.append_to_history({"role": "assistant", "content": f"{chatbot_response}"})
+            except Exception as e:
+                # Handle errors from the llm module
+                self.handle_errors(f"An error occurred while fetching guidance for the informal description: {str(e)}")
             return self.history
         elif prompt.lower() == "no":
             self.waiting_for_informal_description = False
@@ -209,15 +223,21 @@ class CroissantChatbotManager:
             self.display_short_instructions()
             self.waiting_for_HF_name = False
         else:
-            dataset_info = self.metadata_manager.find_dataset_info(prompt.strip())
-            if dataset_info:
-                self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
-                self.handle_display_metadata()
-                self.display_short_instructions()
-            else:
-                self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name."})
-                self.display_short_instructions()
+            try:
+                dataset_info, sucess = self.metadata_manager.find_dataset_info(prompt.strip())
+                if sucess:
+                    self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
+                    self.handle_display_metadata()
+                elif dataset_info is None:
+                    self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name."})
+                elif "error" in dataset_info:
+                    self.append_to_history({"role": "assistant", "content": f"An error occurred while trying to fetch metadata information: {dataset_info['error']}"})
+                else:
+                    self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name."})
+            except Exception as e:
+                self.handle_errors(f"An unexpected error occurred while fetching dataset information: {str(e)}")
             self.waiting_for_HF_name = False
+            self.display_short_instructions()
         return self.history
 
     def handle_complete_command(self):
@@ -292,12 +312,23 @@ class CroissantChatbotManager:
         if not current_value:
             # Suggest a value for the attribute
             suggested_value = suggest_metadata(self.metadata_manager.get_metadata(), self.informal_description, attribute)
-            self.append_to_history({
-                "role": "assistant",
-                "content": f"""The attribute `{attribute}` is missing. This is: {attribute_description}
-                {suggested_value}
-                You can use one of these suggestions as the value or enter your own value."""
-            })
+            try:
+                if not self.informal_description:
+                    raise ValueError("Informal description is missing. Cannot suggest metadata.")
+                suggested_value = suggest_metadata(self.metadata_manager.get_metadata(), self.informal_description, attribute)
+                self.append_to_history({
+                    "role": "assistant",
+                    "content": f"The attribute `{attribute}` is missing. This is: {attribute_description}"})
+                self.append_to_history({"role": "assistant","content": {suggested_value}})
+                self.append_to_history({
+                    "role": "assistant",
+                    "content": f"""You can do one of the following: 
+                    - Enter a new value for `{attribute}`.
+                    - Use one of the suggestions provided."""
+                })               
+            except Exception as e:
+                # Handle errors from the llm module
+                self.handle_errors(f"An error occurred while suggesting metadata for `{attribute}`: {str(e)}")
         else:
             # Prompt the user to update the existing value
             self.append_to_history({"role": "assistant", "content": f"The attribute `{attribute}` already has a value: `{current_value}`"})
@@ -310,6 +341,12 @@ class CroissantChatbotManager:
                   """
             })
 
+        return self.history
+    
+    def handle_errors(self, error_message):
+        """Handle errors in the chatbot."""
+        self.append_to_history({"role": "assistant", "content": f"Error: {error_message}"})
+        self.display_short_instructions()
         return self.history
     
 

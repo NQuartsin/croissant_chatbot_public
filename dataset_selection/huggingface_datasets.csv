@@ -1,101 +1,101 @@
 Name,Link,Likes,Downloads,Dataset Tasks,Modality,Last Modified,Date Last Accessed
-nvidia/Llama-Nemotron-Post-Training-Dataset-v1,https://huggingface.co/datasets/nvidia/Llama-Nemotron-Post-Training-Dataset-v1,206,4338,Unknown,text,18/03/2025 00:00,25/03/2025 00:00
-glaiveai/reasoning-v1-20m,https://huggingface.co/datasets/glaiveai/reasoning-v1-20m,89,3241,text-generation,text,19/03/2025 00:00,25/03/2025 00:00
-nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim,https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim,74,14348,Unknown,Unknown,21/03/2025 00:00,25/03/2025 00:00
-FreedomIntelligence/medical-o1-reasoning-SFT,https://huggingface.co/datasets/FreedomIntelligence/medical-o1-reasoning-SFT,536,27363,"question-answering, text-generation",text,22/02/2025 00:00,25/03/2025 00:00
-Congliu/Chinese-DeepSeek-R1-Distill-data-110k,https://huggingface.co/datasets/Congliu/Chinese-DeepSeek-R1-Distill-data-110k,585,7860,"text-generation, text2text-generation, question-answering","tabular, text",21/02/2025 00:00,25/03/2025 00:00
-facebook/collaborative_agent_bench,https://huggingface.co/datasets/facebook/collaborative_agent_bench,37,35,Unknown,Unknown,20/03/2025 00:00,25/03/2025 00:00
-open-r1/codeforces-cots,https://huggingface.co/datasets/open-r1/codeforces-cots,102,5942,Unknown,"tabular, text",17/03/2025 00:00,25/03/2025 00:00
-BytedTsinghua-SIA/DAPO-Math-17k,https://huggingface.co/datasets/BytedTsinghua-SIA/DAPO-Math-17k,41,1901,text-generation,text,18/03/2025 00:00,25/03/2025 00:00
-facebook/natural_reasoning,https://huggingface.co/datasets/facebook/natural_reasoning,453,13783,text-generation,text,21/02/2025 00:00,25/03/2025 00:00
-manycore-research/SpatialLM-Testset,https://huggingface.co/datasets/manycore-research/SpatialLM-Testset,32,4034,Unknown,"3d, text",19/03/2025 00:00,25/03/2025 00:00
-Conard/fortune-telling,https://huggingface.co/datasets/Conard/fortune-telling,90,5549,Unknown,text,17/02/2025 00:00,25/03/2025 00:00
-MaziyarPanahi/Llama-Nemotron-Post-Training-Dataset-v1-ShareGPT,https://huggingface.co/datasets/MaziyarPanahi/Llama-Nemotron-Post-Training-Dataset-v1-ShareGPT,25,425,Unknown,text,23/03/2025 00:00,25/03/2025 00:00
-nvidia/HelpSteer3,https://huggingface.co/datasets/nvidia/HelpSteer3,24,518,Unknown,text,18/03/2025 00:00,25/03/2025 00:00
-PixelAI-Team/TalkBody4D,https://huggingface.co/datasets/PixelAI-Team/TalkBody4D,24,41,Unknown,"image, text",24/03/2025 00:00,25/03/2025 00:00
-HuggingFaceTB/stack-edu,https://huggingface.co/datasets/HuggingFaceTB/stack-edu,23,469,Unknown,"tabular, text",20/03/2025 00:00,25/03/2025 00:00
-HuggingFaceFW/fineweb,https://huggingface.co/datasets/HuggingFaceFW/fineweb,2057,248188,text-generation,"tabular, text",31/01/2025 00:00,25/03/2025 00:00
-yaak-ai/L2D,https://huggingface.co/datasets/yaak-ai/L2D,29,1364,robotics,"tabular, text, timeseries, video",10/03/2025 00:00,25/03/2025 00:00
-canopylabs/zac-sample-dataset,https://huggingface.co/datasets/canopylabs/zac-sample-dataset,16,510,Unknown,"audio, text",08/03/2025 00:00,25/03/2025 00:00
-openai/gsm8k,https://huggingface.co/datasets/openai/gsm8k,654,329958,text2text-generation,text,04/01/2024 00:00,25/03/2025 00:00
-CharlieDreemur/OpenManus-RL,https://huggingface.co/datasets/CharlieDreemur/OpenManus-RL,40,1434,text-generation,text,15/03/2025 00:00,25/03/2025 00:00
-open-r1/OpenR1-Math-220k,https://huggingface.co/datasets/open-r1/OpenR1-Math-220k,525,51790,Unknown,text,18/02/2025 00:00,25/03/2025 00:00
-fka/awesome-chatgpt-prompts,https://huggingface.co/datasets/fka/awesome-chatgpt-prompts,7640,12011,question-answering,text,06/01/2025 00:00,25/03/2025 00:00
-cfahlgren1/hub-stats,https://huggingface.co/datasets/cfahlgren1/hub-stats,40,7488,Unknown,"image, tabular, text",24/03/2025 00:00,25/03/2025 00:00
-DropletX/DropletVideo-10M,https://huggingface.co/datasets/DropletX/DropletVideo-10M,24,313,"image-to-video, text-to-video","tabular, text",19/03/2025 00:00,25/03/2025 00:00
-TIGER-Lab/VisualWebInstruct,https://huggingface.co/datasets/TIGER-Lab/VisualWebInstruct,25,962,"question-answering, visual-question-answering","image, tabular, text",24/03/2025 00:00,25/03/2025 00:00
-starvector/svg-stack,https://huggingface.co/datasets/starvector/svg-stack,12,476,Unknown,text,10/01/2025 00:00,25/03/2025 00:00
-simplescaling/s1K-1.1,https://huggingface.co/datasets/simplescaling/s1K-1.1,101,7036,Unknown,text,27/02/2025 00:00,25/03/2025 00:00
-Congliu/Chinese-DeepSeek-R1-Distill-data-110k-SFT,https://huggingface.co/datasets/Congliu/Chinese-DeepSeek-R1-Distill-data-110k-SFT,152,4919,"text-generation, text2text-generation, question-answering","tabular, text",19/02/2025 00:00,25/03/2025 00:00
-DropletX/DropletVideo-1M,https://huggingface.co/datasets/DropletX/DropletVideo-1M,20,196,"image-to-video, text-to-video",image,19/03/2025 00:00,25/03/2025 00:00
-gaia-benchmark/GAIA,https://huggingface.co/datasets/gaia-benchmark/GAIA,275,9706,Unknown,Unknown,13/02/2025 00:00,25/03/2025 00:00
-snuh/ClinicalQA,https://huggingface.co/datasets/snuh/ClinicalQA,10,204,Unknown,text,21/03/2025 00:00,25/03/2025 00:00
-Amod/mental_health_counseling_conversations,https://huggingface.co/datasets/Amod/mental_health_counseling_conversations,336,5071,"text-generation, question-answering",text,05/04/2024 00:00,25/03/2025 00:00
-mlabonne/FineTome-100k,https://huggingface.co/datasets/mlabonne/FineTome-100k,187,17358,Unknown,text,29/07/2024 00:00,25/03/2025 00:00
-Anthropic/EconomicIndex,https://huggingface.co/datasets/Anthropic/EconomicIndex,200,2831,Unknown,text,10/02/2025 00:00,25/03/2025 00:00
-Gen-Verse/WideRange4D,https://huggingface.co/datasets/Gen-Verse/WideRange4D,10,9888,image-to-video,video,25/03/2025 00:00,25/03/2025 00:00
-Armewer/Solara-Executor,https://huggingface.co/datasets/Armewer/Solara-Executor,9,0,text-classification,Unknown,24/03/2025 00:00,25/03/2025 00:00
-amphion/Emilia-Dataset,https://huggingface.co/datasets/amphion/Emilia-Dataset,277,128458,"text-to-speech, automatic-speech-recognition","audio, text",28/02/2025 00:00,25/03/2025 00:00
-ServiceNow-AI/R1-Distill-SFT,https://huggingface.co/datasets/ServiceNow-AI/R1-Distill-SFT,286,3816,Unknown,text,08/02/2025 00:00,25/03/2025 00:00
-open-thoughts/OpenThoughts-114k,https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k,662,40505,Unknown,text,20/02/2025 00:00,25/03/2025 00:00
-jmhb/microvqa,https://huggingface.co/datasets/jmhb/microvqa,11,798,"visual-question-answering, multiple-choice","image, text",18/03/2025 00:00,25/03/2025 00:00
-SmallDoge/SmallThoughts,https://huggingface.co/datasets/SmallDoge/SmallThoughts,44,4247,"question-answering, text-generation",text,14/03/2025 00:00,25/03/2025 00:00
-nvidia/PhysicalAI-SmartSpaces,https://huggingface.co/datasets/nvidia/PhysicalAI-SmartSpaces,8,1962,Unknown,Unknown,19/03/2025 00:00,25/03/2025 00:00
-HuggingFaceTB/issues-kaggle-notebooks,https://huggingface.co/datasets/HuggingFaceTB/issues-kaggle-notebooks,8,105,Unknown,text,19/03/2025 00:00,25/03/2025 00:00
-cais/mmlu,https://huggingface.co/datasets/cais/mmlu,425,144320,question-answering,text,08/03/2024 00:00,25/03/2025 00:00
-yahma/alpaca-cleaned,https://huggingface.co/datasets/yahma/alpaca-cleaned,663,23332,text-generation,text,10/04/2023 00:00,25/03/2025 00:00
-b3x0m/Chinese-H-Novels,https://huggingface.co/datasets/b3x0m/Chinese-H-Novels,200,2598,"text-classification, summarization, token-classification, text2text-generation, question-answering, text-generation, fill-mask, sentence-similarity",text,12/07/2024 00:00,25/03/2025 00:00
-mozilla-foundation/common_voice_17_0,https://huggingface.co/datasets/mozilla-foundation/common_voice_17_0,239,36256,Unknown,"audio, text",16/06/2024 00:00,25/03/2025 00:00
-lmg-anon/vntl-leaderboard,https://huggingface.co/datasets/lmg-anon/vntl-leaderboard,34,3297,translation,"tabular, text",02/01/2025 00:00,25/03/2025 00:00
-GeneralReasoning/GeneralThought-430K,https://huggingface.co/datasets/GeneralReasoning/GeneralThought-430K,21,1116,Unknown,"tabular, text",14/03/2025 00:00,25/03/2025 00:00
-Skylion007/openwebtext,https://huggingface.co/datasets/Skylion007/openwebtext,410,89474,"text-generation, fill-mask",Unknown,17/05/2024 00:00,25/03/2025 00:00
-allenai/c4,https://huggingface.co/datasets/allenai/c4,390,411910,"text-generation, fill-mask",text,09/01/2024 00:00,25/03/2025 00:00
-ccmusic-database/timbre_range,https://huggingface.co/datasets/ccmusic-database/timbre_range,9,857,audio-classification,"audio, image",16/02/2025 00:00,25/03/2025 00:00
-simon3000/genshin-voice,https://huggingface.co/datasets/simon3000/genshin-voice,89,5084,"audio-classification, automatic-speech-recognition, text-to-speech","audio, text",30/08/2024 00:00,25/03/2025 00:00
-unitreerobotics/LAFAN1_Retargeting_Dataset,https://huggingface.co/datasets/unitreerobotics/LAFAN1_Retargeting_Dataset,58,923,robotics,3d,08/02/2025 00:00,25/03/2025 00:00
-fibonacciai/Persian-llm-fibonacci-1-pro,https://huggingface.co/datasets/fibonacciai/Persian-llm-fibonacci-1-pro,15,55,Unknown,Unknown,28/01/2025 00:00,25/03/2025 00:00
-allenai/olmOCR-mix-0225,https://huggingface.co/datasets/allenai/olmOCR-mix-0225,98,5473,Unknown,text,25/02/2025 00:00,25/03/2025 00:00
-kyutai/Babillage,https://huggingface.co/datasets/kyutai/Babillage,6,76,visual-question-answering,"audio, text",21/03/2025 00:00,25/03/2025 00:00
-showlab/ImpossibleVideos,https://huggingface.co/datasets/showlab/ImpossibleVideos,6,292,"text-to-video, video-text-to-text",Unknown,21/03/2025 00:00,25/03/2025 00:00
-fibonacciai/fibonacci-2025,https://huggingface.co/datasets/fibonacciai/fibonacci-2025,6,9,text-classification,text,24/03/2025 00:00,25/03/2025 00:00
-fibonacciai/shahname,https://huggingface.co/datasets/fibonacciai/shahname,6,0,Unknown,"tabular, text",24/03/2025 00:00,25/03/2025 00:00
-fibonacciai/Persian-Wikipedia-QA,https://huggingface.co/datasets/fibonacciai/Persian-Wikipedia-QA,6,0,Unknown,text,24/03/2025 00:00,25/03/2025 00:00
-wikimedia/wikipedia,https://huggingface.co/datasets/wikimedia/wikipedia,765,83656,"text-generation, fill-mask",text,09/01/2024 00:00,25/03/2025 00:00
-ILSVRC/imagenet-1k,https://huggingface.co/datasets/ILSVRC/imagenet-1k,481,34238,image-classification,Unknown,16/07/2024 00:00,25/03/2025 00:00
-allenai/real-toxicity-prompts,https://huggingface.co/datasets/allenai/real-toxicity-prompts,77,3170,Unknown,"tabular, text",30/09/2022 00:00,25/03/2025 00:00
-Anthropic/hh-rlhf,https://huggingface.co/datasets/Anthropic/hh-rlhf,1298,13263,Unknown,text,26/05/2023 00:00,25/03/2025 00:00
-bigcode/starcoderdata,https://huggingface.co/datasets/bigcode/starcoderdata,425,5043,text-generation,text,16/05/2023 00:00,25/03/2025 00:00
-roneneldan/TinyStories,https://huggingface.co/datasets/roneneldan/TinyStories,635,23701,text-generation,text,12/08/2024 00:00,25/03/2025 00:00
-ticoAg/Chinese-medical-dialogue,https://huggingface.co/datasets/ticoAg/Chinese-medical-dialogue,47,566,Unknown,text,18/08/2023 00:00,25/03/2025 00:00
-princeton-nlp/SWE-bench,https://huggingface.co/datasets/princeton-nlp/SWE-bench,105,53602,Unknown,text,03/03/2025 00:00,25/03/2025 00:00
-THUDM/AgentInstruct,https://huggingface.co/datasets/THUDM/AgentInstruct,213,702,Unknown,text,23/10/2023 00:00,25/03/2025 00:00
-Idavidrein/gpqa,https://huggingface.co/datasets/Idavidrein/gpqa,150,63567,"question-answering, text-generation","tabular, text",28/03/2024 00:00,25/03/2025 00:00
-HuggingFaceM4/the_cauldron,https://huggingface.co/datasets/HuggingFaceM4/the_cauldron,386,761541,Unknown,"image, text",06/05/2024 00:00,25/03/2025 00:00
-philschmid/amazon-product-descriptions-vlm,https://huggingface.co/datasets/philschmid/amazon-product-descriptions-vlm,15,1227,image-to-text,"image, text",30/09/2024 00:00,25/03/2025 00:00
-HuggingFaceH4/MATH-500,https://huggingface.co/datasets/HuggingFaceH4/MATH-500,132,58150,text-generation,text,15/11/2024 00:00,25/03/2025 00:00
-Josephgflowers/Finance-Instruct-500k,https://huggingface.co/datasets/Josephgflowers/Finance-Instruct-500k,47,1154,Unknown,text,01/03/2025 00:00,25/03/2025 00:00
-SynthLabsAI/Big-Math-RL-Verified,https://huggingface.co/datasets/SynthLabsAI/Big-Math-RL-Verified,156,6840,"question-answering, text-generation",text,06/03/2025 00:00,25/03/2025 00:00
-a-m-team/AM-DeepSeek-R1-Distilled-1.4M,https://huggingface.co/datasets/a-m-team/AM-DeepSeek-R1-Distilled-1.4M,24,770,text-generation,Unknown,10/03/2025 00:00,25/03/2025 00:00
-nvidia/PhysicalAI-Robotics-Manipulation-Kitchen,https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-Manipulation-Kitchen,5,933,robotics,"tabular, timeseries, video",18/03/2025 00:00,25/03/2025 00:00
-nvidia/PhysicalAI-Robotics-Manipulation-SingleArm,https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-Manipulation-SingleArm,5,1205,Unknown,Unknown,18/03/2025 00:00,25/03/2025 00:00
-microsoft/ChatBench,https://huggingface.co/datasets/microsoft/ChatBench,5,30,Unknown,Unknown,21/03/2025 00:00,25/03/2025 00:00
-dair-ai/emotion,https://huggingface.co/datasets/dair-ai/emotion,334,14806,text-classification,text,08/08/2024 00:00,25/03/2025 00:00
-nyu-mll/glue,https://huggingface.co/datasets/nyu-mll/glue,403,190406,text-classification,"tabular, text",30/01/2024 00:00,25/03/2025 00:00
-google-research-datasets/go_emotions,https://huggingface.co/datasets/google-research-datasets/go_emotions,193,10142,text-classification,"tabular, text",04/01/2024 00:00,25/03/2025 00:00
-stanfordnlp/imdb,https://huggingface.co/datasets/stanfordnlp/imdb,291,114935,text-classification,text,04/01/2024 00:00,25/03/2025 00:00
-deepset/prompt-injections,https://huggingface.co/datasets/deepset/prompt-injections,57,1666,Unknown,text,30/07/2024 00:00,25/03/2025 00:00
-lmsys/chatbot_arena_conversations,https://huggingface.co/datasets/lmsys/chatbot_arena_conversations,374,1296,Unknown,"tabular, text",30/09/2023 00:00,25/03/2025 00:00
-lmsys/lmsys-chat-1m,https://huggingface.co/datasets/lmsys/lmsys-chat-1m,645,3591,Unknown,text,27/07/2024 00:00,25/03/2025 00:00
-a686d380/h-corpus-2023,https://huggingface.co/datasets/a686d380/h-corpus-2023,160,624,Unknown,Unknown,06/10/2023 00:00,25/03/2025 00:00
-AI4Math/MathVista,https://huggingface.co/datasets/AI4Math/MathVista,139,11663,"multiple-choice, question-answering, visual-question-answering, text-classification","image, text",11/02/2024 00:00,25/03/2025 00:00
-Gourieff/ReActor,https://huggingface.co/datasets/Gourieff/ReActor,97,128620,Unknown,Unknown,23/03/2025 00:00,25/03/2025 00:00
-jtatman/python-code-dataset-500k,https://huggingface.co/datasets/jtatman/python-code-dataset-500k,49,1401,text-generation,text,23/01/2024 00:00,25/03/2025 00:00
-gretelai/synthetic_text_to_sql,https://huggingface.co/datasets/gretelai/synthetic_text_to_sql,506,6573,"question-answering, table-question-answering, text-generation",text,10/05/2024 00:00,25/03/2025 00:00
-TIGER-Lab/MMLU-Pro,https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro,336,43225,question-answering,"tabular, text",27/11/2024 00:00,25/03/2025 00:00
-UCSC-VLAA/MedTrinity-25M,https://huggingface.co/datasets/UCSC-VLAA/MedTrinity-25M,133,2631,question-answering,"image, text",11/10/2024 00:00,25/03/2025 00:00
-nkp37/OpenVid-1M,https://huggingface.co/datasets/nkp37/OpenVid-1M,188,27124,text-to-video,"tabular, text, video",24/03/2025 00:00,25/03/2025 00:00
-joujiboi/japanese-anime-speech-v2,https://huggingface.co/datasets/joujiboi/japanese-anime-speech-v2,81,1632,automatic-speech-recognition,"audio, text",18/12/2024 00:00,25/03/2025 00:00
-Team-ACE/ToolACE,https://huggingface.co/datasets/Team-ACE/ToolACE,64,768,text-generation,text,04/09/2024 00:00,25/03/2025 00:00
-jackyhate/text-to-image-2M,https://huggingface.co/datasets/jackyhate/text-to-image-2M,87,17421,"text-to-image, image-to-text, image-classification","image, text",22/09/2024 00:00,25/03/2025 00:00
-OpenCoder-LLM/opc-fineweb-code-corpus,https://huggingface.co/datasets/OpenCoder-LLM/opc-fineweb-code-corpus,44,1807,Unknown,"tabular, text",24/11/2024 00:00,25/03/2025 00:00
-allenai/dolmino-mix-1124,https://huggingface.co/datasets/allenai/dolmino-mix-1124,44,30291,text-generation,text,17/12/2024 00:00,25/03/2025 00:00
+fka/awesome-chatgpt-prompts,https://huggingface.co/datasets/fka/awesome-chatgpt-prompts,7650,11835,question-answering,text,2025-01-06,2025-03-29
+HuggingFaceFW/fineweb,https://huggingface.co/datasets/HuggingFaceFW/fineweb,2074,226698,text-generation,"tabular, text",2025-01-31,2025-03-29
+Open-Orca/OpenOrca,https://huggingface.co/datasets/Open-Orca/OpenOrca,1383,10687,"text-classification, token-classification, table-question-answering, question-answering, zero-shot-classification, summarization, feature-extraction, text-generation, text2text-generation",text,2025-02-19,2025-03-29
+OpenAssistant/oasst1,https://huggingface.co/datasets/OpenAssistant/oasst1,1368,9163,Unknown,"tabular, text",2023-05-02,2025-03-29
+Anthropic/hh-rlhf,https://huggingface.co/datasets/Anthropic/hh-rlhf,1304,13391,Unknown,text,2023-05-26,2025-03-29
+gsdf/EasyNegative,https://huggingface.co/datasets/gsdf/EasyNegative,1140,57443,Unknown,image,2023-02-12,2025-03-29
+togethercomputer/RedPajama-Data-1T,https://huggingface.co/datasets/togethercomputer/RedPajama-Data-1T,1078,2306,text-generation,text,2024-06-17,2025-03-29
+Nerfgun3/bad_prompt,https://huggingface.co/datasets/Nerfgun3/bad_prompt,926,5643,Unknown,image,2022-11-19,2025-03-29
+allenai/dolma,https://huggingface.co/datasets/allenai/dolma,890,1114,text-generation,Unknown,2024-04-17,2025-03-29
+tiiuae/falcon-refinedweb,https://huggingface.co/datasets/tiiuae/falcon-refinedweb,842,40904,text-generation,text,2023-06-20,2025-03-29
+databricks/databricks-dolly-15k,https://huggingface.co/datasets/databricks/databricks-dolly-15k,800,13595,"question-answering, summarization",text,2023-06-30,2025-03-29
+bigcode/the-stack,https://huggingface.co/datasets/bigcode/the-stack,786,12835,text-generation,"tabular, text",2023-04-13,2025-03-29
+anon8231489123/ShareGPT_Vicuna_unfiltered,https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered,782,33300,Unknown,Unknown,2023-04-12,2025-03-29
+wikimedia/wikipedia,https://huggingface.co/datasets/wikimedia/wikipedia,769,81965,"text-generation, fill-mask",text,2024-01-09,2025-03-29
+tatsu-lab/alpaca,https://huggingface.co/datasets/tatsu-lab/alpaca,743,40489,text-generation,text,2023-05-22,2025-03-29
+QingyiSi/Alpaca-CoT,https://huggingface.co/datasets/QingyiSi/Alpaca-CoT,726,7826,Unknown,Unknown,2023-09-14,2025-03-29
+teknium/OpenHermes-2.5,https://huggingface.co/datasets/teknium/OpenHermes-2.5,722,1072,Unknown,text,2024-04-15,2025-03-29
+open-thoughts/OpenThoughts-114k,https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k,673,31457,Unknown,text,2025-02-20,2025-03-29
+yahma/alpaca-cleaned,https://huggingface.co/datasets/yahma/alpaca-cleaned,668,23661,text-generation,text,2023-04-10,2025-03-29
+openai/gsm8k,https://huggingface.co/datasets/openai/gsm8k,664,334027,text2text-generation,text,2024-01-04,2025-03-29
+HuggingFaceFW/fineweb-edu,https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu,655,354312,text-generation,"tabular, text",2025-01-31,2025-03-29
+lmsys/lmsys-chat-1m,https://huggingface.co/datasets/lmsys/lmsys-chat-1m,648,3890,Unknown,text,2024-07-27,2025-03-29
+roneneldan/TinyStories,https://huggingface.co/datasets/roneneldan/TinyStories,636,31385,text-generation,text,2024-08-12,2025-03-29
+m-a-p/COIG-CQIA,https://huggingface.co/datasets/m-a-p/COIG-CQIA,616,4484,"question-answering, text-classification, text-generation, text2text-generation",text,2024-04-18,2025-03-29
+BAAI/Infinity-Instruct,https://huggingface.co/datasets/BAAI/Infinity-Instruct,607,4969,text-generation,"tabular, text",2025-02-25,2025-03-29
+Congliu/Chinese-DeepSeek-R1-Distill-data-110k,https://huggingface.co/datasets/Congliu/Chinese-DeepSeek-R1-Distill-data-110k,602,6133,"text-generation, text2text-generation, question-answering","tabular, text",2025-02-21,2025-03-29
+HuggingFaceTB/cosmopedia,https://huggingface.co/datasets/HuggingFaceTB/cosmopedia,598,39959,Unknown,text,2024-08-12,2025-03-29
+legacy-datasets/wikipedia,https://huggingface.co/datasets/legacy-datasets/wikipedia,587,36950,"text-generation, fill-mask",Unknown,2024-03-11,2025-03-29
+FreedomIntelligence/medical-o1-reasoning-SFT,https://huggingface.co/datasets/FreedomIntelligence/medical-o1-reasoning-SFT,575,25483,"question-answering, text-generation",text,2025-02-22,2025-03-29
+proj-persona/PersonaHub,https://huggingface.co/datasets/proj-persona/PersonaHub,549,11256,"text-generation, text-classification, token-classification, fill-mask, table-question-answering, text2text-generation",text,2025-03-04,2025-03-29
+open-r1/OpenR1-Math-220k,https://huggingface.co/datasets/open-r1/OpenR1-Math-220k,530,49729,Unknown,text,2025-02-18,2025-03-29
+liwu/MNBVC,https://huggingface.co/datasets/liwu/MNBVC,529,11584,"text-generation, fill-mask",Unknown,2024-08-23,2025-03-29
+HuggingFaceH4/ultrachat_200k,https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k,524,19014,text-generation,text,2024-10-16,2025-03-29
+JosephusCheung/GuanacoDataset,https://huggingface.co/datasets/JosephusCheung/GuanacoDataset,514,46,"text-generation, question-answering",text,2024-04-15,2025-03-29
+gretelai/synthetic_text_to_sql,https://huggingface.co/datasets/gretelai/synthetic_text_to_sql,512,6803,"question-answering, table-question-answering, text-generation",text,2024-05-10,2025-03-29
+uonlp/CulturaX,https://huggingface.co/datasets/uonlp/CulturaX,500,24540,"text-generation, fill-mask",text,2024-12-16,2025-03-29
+liuhaotian/LLaVA-Instruct-150K,https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K,497,3044,"visual-question-answering, question-answering",Unknown,2024-01-03,2025-03-29
+poloclub/diffusiondb,https://huggingface.co/datasets/poloclub/diffusiondb,493,32453,"text-to-image, image-to-text",Unknown,2024-01-22,2025-03-29
+ILSVRC/imagenet-1k,https://huggingface.co/datasets/ILSVRC/imagenet-1k,484,36917,image-classification,Unknown,2024-07-16,2025-03-29
+HuggingFaceH4/no_robots,https://huggingface.co/datasets/HuggingFaceH4/no_robots,474,2582,text-generation,text,2024-04-18,2025-03-29
+openai/MMMLU,https://huggingface.co/datasets/openai/MMMLU,473,9978,question-answering,text,2024-10-16,2025-03-29
+Gustavosta/Stable-Diffusion-Prompts,https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts,471,7089,Unknown,text,2022-09-18,2025-03-29
+facebook/natural_reasoning,https://huggingface.co/datasets/facebook/natural_reasoning,466,13295,text-generation,text,2025-02-21,2025-03-29
+b-mc2/sql-create-context,https://huggingface.co/datasets/b-mc2/sql-create-context,460,6340,"text-generation, question-answering, table-question-answering",text,2024-01-25,2025-03-29
+cerebras/SlimPajama-627B,https://huggingface.co/datasets/cerebras/SlimPajama-627B,458,54236,text-generation,Unknown,2023-07-07,2025-03-29
+HuggingFaceFW/fineweb-2,https://huggingface.co/datasets/HuggingFaceFW/fineweb-2,450,59814,text-generation,"tabular, text",2025-01-08,2025-03-29
+microsoft/orca-math-word-problems-200k,https://huggingface.co/datasets/microsoft/orca-math-word-problems-200k,448,1873,question-answering,text,2024-03-04,2025-03-29
+BAAI/COIG,https://huggingface.co/datasets/BAAI/COIG,436,541,Unknown,text,2023-07-12,2025-03-29
+stingning/ultrachat,https://huggingface.co/datasets/stingning/ultrachat,436,2117,text-generation,text,2024-02-22,2025-03-29
+cais/mmlu,https://huggingface.co/datasets/cais/mmlu,435,149348,question-answering,text,2024-03-08,2025-03-29
+AI-MO/NuminaMath-CoT,https://huggingface.co/datasets/AI-MO/NuminaMath-CoT,435,6361,text-generation,text,2024-11-25,2025-03-29
+microsoft/orca-agentinstruct-1M-v1,https://huggingface.co/datasets/microsoft/orca-agentinstruct-1M-v1,433,14423,question-answering,text,2024-11-01,2025-03-29
+timdettmers/openassistant-guanaco,https://huggingface.co/datasets/timdettmers/openassistant-guanaco,430,7948,Unknown,text,2023-05-27,2025-03-29
+GAIR/lima,https://huggingface.co/datasets/GAIR/lima,430,1160,Unknown,text,2023-06-08,2025-03-29
+Salesforce/xlam-function-calling-60k,https://huggingface.co/datasets/Salesforce/xlam-function-calling-60k,430,3038,"question-answering, text-generation, reinforcement-learning",text,2025-01-24,2025-03-29
+bigcode/starcoderdata,https://huggingface.co/datasets/bigcode/starcoderdata,425,5585,text-generation,text,2023-05-16,2025-03-29
+Salesforce/wikitext,https://huggingface.co/datasets/Salesforce/wikitext,424,591843,"text-generation, fill-mask",text,2024-01-04,2025-03-29
+glaiveai/glaive-function-calling-v2,https://huggingface.co/datasets/glaiveai/glaive-function-calling-v2,420,1724,text-generation,text,2023-09-27,2025-03-29
+EleutherAI/pile,https://huggingface.co/datasets/EleutherAI/pile,416,1281,"text-generation, fill-mask",Unknown,2023-05-03,2025-03-29
+Skylion007/openwebtext,https://huggingface.co/datasets/Skylion007/openwebtext,411,95551,"text-generation, fill-mask",Unknown,2024-05-17,2025-03-29
+nvidia/HelpSteer2,https://huggingface.co/datasets/nvidia/HelpSteer2,411,3643,Unknown,"tabular, text",2024-12-18,2025-03-29
+cognitivecomputations/dolphin,https://huggingface.co/datasets/cognitivecomputations/dolphin,410,619,text-generation,text,2023-12-18,2025-03-29
+nyu-mll/glue,https://huggingface.co/datasets/nyu-mll/glue,404,200510,text-classification,"tabular, text",2024-01-30,2025-03-29
+argilla/FinePersonas-v0.1,https://huggingface.co/datasets/argilla/FinePersonas-v0.1,400,1503,text-generation,text,2024-12-11,2025-03-29
+allenai/c4,https://huggingface.co/datasets/allenai/c4,394,449512,"text-generation, fill-mask",text,2024-01-09,2025-03-29
+HuggingFaceM4/the_cauldron,https://huggingface.co/datasets/HuggingFaceM4/the_cauldron,392,928165,Unknown,"image, text",2024-05-06,2025-03-29
+garage-bAInd/Open-Platypus,https://huggingface.co/datasets/garage-bAInd/Open-Platypus,384,3110,Unknown,text,2024-01-24,2025-03-29
+meta-math/MetaMathQA,https://huggingface.co/datasets/meta-math/MetaMathQA,378,7888,Unknown,text,2023-12-21,2025-03-29
+lmsys/chatbot_arena_conversations,https://huggingface.co/datasets/lmsys/chatbot_arena_conversations,376,1594,Unknown,"tabular, text",2023-09-30,2025-03-29
+allenai/objaverse,https://huggingface.co/datasets/allenai/objaverse,375,382814,Unknown,Unknown,2023-03-31,2025-03-29
+shibing624/medical,https://huggingface.co/datasets/shibing624/medical,366,1580,text-generation,Unknown,2024-10-12,2025-03-29
+Skywork/SkyPile-150B,https://huggingface.co/datasets/Skywork/SkyPile-150B,365,3954,text-generation,text,2023-12-07,2025-03-29
+O1-OPEN/OpenO1-SFT,https://huggingface.co/datasets/O1-OPEN/OpenO1-SFT,363,840,question-answering,text,2024-12-17,2025-03-29
+neuralwork/arxiver,https://huggingface.co/datasets/neuralwork/arxiver,362,755,Unknown,text,2024-11-01,2025-03-29
+togethercomputer/RedPajama-Data-V2,https://huggingface.co/datasets/togethercomputer/RedPajama-Data-V2,359,3839,text-generation,Unknown,2024-11-21,2025-03-29
+openbmb/UltraFeedback,https://huggingface.co/datasets/openbmb/UltraFeedback,354,1767,text-generation,text,2023-12-29,2025-03-29
+HuggingFaceM4/WebSight,https://huggingface.co/datasets/HuggingFaceM4/WebSight,349,14691,Unknown,"image, text",2024-03-26,2025-03-29
+PleIAs/YouTube-Commons,https://huggingface.co/datasets/PleIAs/YouTube-Commons,346,935,text-generation,Unknown,2024-06-26,2025-03-29
+dair-ai/emotion,https://huggingface.co/datasets/dair-ai/emotion,345,16168,text-classification,text,2024-08-08,2025-03-29
+bigcode/the-stack-dedup,https://huggingface.co/datasets/bigcode/the-stack-dedup,345,12815,text-generation,"tabular, text",2023-08-17,2025-03-29
+bigcode/the-stack-v2,https://huggingface.co/datasets/bigcode/the-stack-v2,345,4360,text-generation,"tabular, text",2024-04-23,2025-03-29
+Amod/mental_health_counseling_conversations,https://huggingface.co/datasets/Amod/mental_health_counseling_conversations,340,5052,"text-generation, question-answering",text,2024-04-05,2025-03-29
+TIGER-Lab/MMLU-Pro,https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro,337,43454,question-answering,"tabular, text",2024-11-27,2025-03-29
+Samsung/samsum,https://huggingface.co/datasets/Samsung/samsum,331,20472,summarization,Unknown,2024-01-18,2025-03-29
+allenai/WildChat-1M,https://huggingface.co/datasets/allenai/WildChat-1M,327,2646,"text-generation, question-answering, text2text-generation",text,2024-10-17,2025-03-29
+RyokoAI/ShareGPT52K,https://huggingface.co/datasets/RyokoAI/ShareGPT52K,319,408,text-generation,Unknown,2023-04-02,2025-03-29
+codeparrot/github-code,https://huggingface.co/datasets/codeparrot/github-code,317,20846,text-generation,Unknown,2022-10-20,2025-03-29
+HuggingFaceTB/smollm-corpus,https://huggingface.co/datasets/HuggingFaceTB/smollm-corpus,317,12335,Unknown,"tabular, text",2024-09-06,2025-03-29
+HuggingFaceTB/smoltalk,https://huggingface.co/datasets/HuggingFaceTB/smoltalk,317,7926,Unknown,"tabular, text",2025-02-10,2025-03-29
+YeungNLP/firefly-train-1.1M,https://huggingface.co/datasets/YeungNLP/firefly-train-1.1M,313,1485,Unknown,text,2023-04-10,2025-03-29
+open-web-math/open-web-math,https://huggingface.co/datasets/open-web-math/open-web-math,306,17829,Unknown,text,2023-10-17,2025-03-29
+HuggingFaceFV/finevideo,https://huggingface.co/datasets/HuggingFaceFV/finevideo,304,7917,"visual-question-answering, video-text-to-text","text, video",2024-12-16,2025-03-29
+laion/OIG,https://huggingface.co/datasets/laion/OIG,303,5352,Unknown,text,2023-03-31,2025-03-29
+CohereForAI/aya_dataset,https://huggingface.co/datasets/CohereForAI/aya_dataset,303,2436,other,text,2024-06-28,2025-03-29
+stanfordnlp/SHP,https://huggingface.co/datasets/stanfordnlp/SHP,302,2120,"text-generation, question-answering","tabular, text",2023-10-10,2025-03-29
+bookcorpus/bookcorpus,https://huggingface.co/datasets/bookcorpus/bookcorpus,300,8679,"text-generation, fill-mask",Unknown,2024-05-03,2025-03-29
+Intel/orca_dpo_pairs,https://huggingface.co/datasets/Intel/orca_dpo_pairs,299,1635,Unknown,text,2023-11-29,2025-03-29
+bespokelabs/Bespoke-Stratos-17k,https://huggingface.co/datasets/bespokelabs/Bespoke-Stratos-17k,299,25993,Unknown,text,2025-01-31,2025-03-29
+rajpurkar/squad,https://huggingface.co/datasets/rajpurkar/squad,297,66399,question-answering,text,2024-03-04,2025-03-29
+HuggingFaceTB/finemath,https://huggingface.co/datasets/HuggingFaceTB/finemath,297,9407,Unknown,"tabular, text",2025-02-06,2025-03-29

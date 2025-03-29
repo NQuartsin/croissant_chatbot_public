@@ -178,9 +178,11 @@ def suggest_metadata(metadata: dict[str, str], informal_description: str, attrib
     except Exception as e:
         raise Exception(f"An error occurred while trying to use the LLM model.\n {e}")
 
+
 def create_llm_response(prompt: str) -> str:
     """
     Use OpenRouter's Llama 3.1 8B Instruct model to generate a response for the given prompt.
+    Source: https://openrouter.ai/mistralai/mistral-7b-instruct/api 
 
     Args:
         prompt: The input prompt string for the LLM model.

@@ -145,4 +145,4 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.pink
 
 
 if __name__ == "__main__":
-    demo.launch(share=True) 
+    demo.launch() 
