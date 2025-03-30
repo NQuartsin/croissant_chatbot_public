@@ -1,6 +1,6 @@
 # test_validation.py
-from multiprocessing import Value
-from tkinter import E
+
+# necessary imports
 from unittest.mock import patch, mock_open
 import pytest
 from main.validation import MetadataValidator

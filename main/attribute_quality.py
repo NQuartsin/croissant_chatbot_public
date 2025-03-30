@@ -4,6 +4,7 @@
 import spacy  
 from lexical_diversity import lex_div as ld 
 from typing import Tuple, Dict
+from .constants import METADATA_ATTRIBUTES
 
 
 nlp = spacy.load("en_core_web_sm")
@@ -16,27 +17,7 @@ class AttributeQualityChecker:
         self.lexical_diversity_threshold = 0.5  # Higher = More diverse
         self.keyword_similarity_threshold = 1 # 1 = All keywords must be unique
         self.sentence_variety_threshold = 2  # Minimum unique sentence structures
-        self.mattr_window = 20  # Window size for MATTR calculation
-
-    def check_attribute_quality(self, attribute_name: str, value: str) -> Tuple[bool, str]:
-        """
-        Check the quality of a given attribute's value.
-
-        Args:
-            attribute_name: The name of the attribute (e.g., 'description', 'keywords').
-            value: The value of the attribute to be checked.
-
-        Returns:
-            A Tuple containing a boolean indicating quality and a message.
-        """
-        # Check if the attribute is description or keywords
-        if attribute_name == "description":
-            return self.check_description(value)
-
-        if attribute_name == "keywords":
-            return self.check_keywords(value)
-
-        return True, "Attribute quality is acceptable."
+        self.mattr_window = 15  # Window size for MATTR calculation
 
     def check_description(self, value: str) -> Tuple[bool, str]:
         """
@@ -58,15 +39,20 @@ class AttributeQualityChecker:
             if sen_error:
                 return False, sen_error
             
+            valid = True
+            message ="Description quality is acceptable."
+            
             # Check lexical diversity and sentence variety against thresholds
             if lexical_diversity < self.lexical_diversity_threshold:
-                return False, "The description lacks lexical diversity and may be repetitive."
+                valid = False
+                message = "The description lacks lexical diversity and may be repetitive."
             if sentence_variety < self.sentence_variety_threshold:
-                return False, "The description has limited sentence variety and may be monotonous."
+                valid = False
+                message = message + "The description has limited sentence variety and may be monotonous."
 
-            return True, "Description quality is acceptable."
+            return valid, message
         except Exception as e:
-            return False, f"Error in description quality check: {str(e)}"
+            return False, f"Unexpected error in description quality check: {str(e)}"
     
     def calculate_lexical_diversity(self, value: str) -> Tuple[float, str | None]:
         """
@@ -84,11 +70,13 @@ class AttributeQualityChecker:
             # Calculate MATTR (Mean Type-Token Ratio) for lexical diversity
             if len(words) > self.mattr_window: 
                 mattr_score = ld.mattr(words, window_length=self.mattr_window)
+                print(f"Lexical diversity score: {mattr_score} , for text: {value}")
             else:
                 mattr_score = 0
+                print(f"Text too short for MATTR calculation: {value}")
             return mattr_score, None
         except Exception as e:
-            return 0, f"Error in lexical diversity calculation: {str(e)}"
+            return 0, f"Unexpected error in lexical diversity calculation: {str(e)}"
 
     def calculate_sentence_variety(self, value: str) -> Tuple[int, str | None]:
         """
@@ -112,7 +100,7 @@ class AttributeQualityChecker:
             unique_structures = len(set(sentence_structures))  # Count unique sentence structures
             return unique_structures, None  # No error
         except Exception as e:
-            return 0, f"Error in sentence variety calculation: {str(e)}"
+            return 0, f"Unexpected error in sentence variety calculation: {str(e)}"
  
     def get_sentence_structure(self, sentence) -> Tuple[str, str | None]:
         """
@@ -126,6 +114,7 @@ class AttributeQualityChecker:
             and the second element is an error message (None if no error).
         """
         try:
+            # Extract the part-of-speech tags for each token in the sentence
             return " ".join([token.pos_ for token in sentence]), None
         except Exception as e:
             return "", f"Error in extracting sentence structure: {str(e)}"
@@ -157,6 +146,29 @@ class AttributeQualityChecker:
         except Exception as e:
             return False, f"Error in keywords quality check: {str(e)}"
 
+    def check_attribute_quality(self, attribute_name: str, value: str) -> Tuple[bool, str]:
+        """
+        Check the quality of a given attribute's value.
+
+        Args:
+            attribute_name: The name of the attribute (e.g., 'description', 'keywords').
+            value: The value of the attribute to be checked.
+
+        Returns:
+            A Tuple containing a boolean indicating quality and a message.
+        """
+        # Check if the attribute is description or keywords
+        if attribute_name == "description":
+            return self.check_description(value)
+
+        if attribute_name == "keywords":
+            return self.check_keywords(value)
+        
+        if attribute_name not in METADATA_ATTRIBUTES.keys():
+            return False, f"Invalid attribute name: {attribute_name}"
+
+        return True, "Attribute quality is acceptable."
+    
     def check_quality_of_all_attributes(self, metadata: Dict[str, str]) -> Dict[str, str]:
         """
         Evaluate all metadata attributes and return quality issues.
