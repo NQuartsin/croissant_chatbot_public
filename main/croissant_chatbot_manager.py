@@ -1,8 +1,8 @@
 # croissant_chatbot_manager.py
 import json
-from constants import METADATA_ATTRIBUTES
-from llm import suggest_metadata, ask_user_for_informal_description
-from metadata_manager import MetadataManager
+from .constants import METADATA_ATTRIBUTES
+from .llm import suggest_metadata, ask_user_for_informal_description
+from .metadata_manager import MetadataManager
 from typing import Dict
 
 

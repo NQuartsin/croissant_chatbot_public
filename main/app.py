@@ -1,9 +1,9 @@
 # app.py
 import gradio as gr
-from constants import METADATA_ATTRIBUTES
+from .constants import METADATA_ATTRIBUTES
 import os
 import tempfile
-from croissant_chatbot_manager import CroissantChatbotManager
+from .croissant_chatbot_manager import CroissantChatbotManager
 
 
 """ 

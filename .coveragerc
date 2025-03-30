@@ -1,0 +1,5 @@
+; Coverage configuration file
+
+[run]
+branch = True
+omit = *__init__.py,main/app.py,main/croissant_chatbot_manager.py,main/constants.py

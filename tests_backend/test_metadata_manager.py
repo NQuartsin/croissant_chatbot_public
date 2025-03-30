@@ -387,36 +387,35 @@ def test_get_filename(metadata_manager):
     assert filename == "file-sample_dataset-_metadata.json"
 
 def test_finalise_metadata(metadata_manager):
-    """Test the finalise_metadata method."""
-    # Check initial state
+    """Test the finalise_metadata method without writing files."""
     metadata_manager.metadata["task"] = "sample task"
     metadata_manager.metadata["modality"] = "text"
     metadata_manager.final_metadata = {}
     assert metadata_manager.final_metadata == {}
-    # Finalise metadata
-    sucess, final_metadata = metadata_manager.finalise_metadata()
+    with patch.object(MetadataManager, 'save_metadata_to_file', return_value=("mock_path", "mock_file.json")):
+        success, final_metadata = metadata_manager.finalise_metadata()
     # Check if final metadata is updated correctly
-    assert sucess is True
+    assert success is True
     assert "name" in final_metadata
-    assert "Sample Dataset" in final_metadata["name"]
+    assert final_metadata["name"] == "Sample Dataset"
     assert "creator" in final_metadata
-    assert "John Doe" in final_metadata["creator"]
+    assert final_metadata["creator"] == "John Doe"
     assert "task" in final_metadata
-    assert "sample task" in final_metadata["task"]
+    assert final_metadata["task"] == "sample task"
     assert "modality" in final_metadata
-    assert "text" in final_metadata["modality"]
-
+    assert final_metadata["modality"] == "text"
 
 def test_finalise_metadata_with_empty_metadata(metadata_manager):
-    """Test the finalise_metadata method with empty metadata."""
-    # Check initial state   
+    """Test the finalise_metadata method with empty metadata (without writing files)."""
     metadata_manager.metadata = {}
     metadata_manager.final_metadata = {}
     assert metadata_manager.final_metadata == {}
-    # Finalise metadata
-    sucess, final_metadata = metadata_manager.finalise_metadata()
-    # Check if final metadata is updated correctly
-    assert sucess is True
+    with patch.object(MetadataManager, 'save_metadata_to_file', return_value=("mock_path", "mock_file.json")):
+        success, final_metadata = metadata_manager.finalise_metadata()
+    # Ensure final metadata is still valid
+    assert success is True
+    assert isinstance(final_metadata, dict)
+
 
 def test_finalise_metadata_unexpected_error(metadata_manager):
     """Test the finalise_metadata method with unexpected error."""
@@ -466,6 +465,58 @@ def test_find_dataset_info(metadata_manager):
         assert dataset_info["task"] == "classification"
         assert dataset_info["modality"] == "text"
         assert dataset_info["in_language"] == "en"
+
+def test_find_dataset_info_missing_tags(metadata_manager):
+    """Test the find_dataset_info method with missing tags."""
+    # Mock the HfApi.list_datasets method to simulate fetching dataset info
+    with patch("main.metadata_manager.HfApi.list_datasets", return_value=[
+        type("Dataset", (object,), {
+            "id": "sample_dataset_id",
+            "author": "John Doe",
+            "last_modified": datetime.datetime(2023, 1, 1),
+            "created_at": datetime.datetime(2023, 1, 1),
+            "description": "This is a sample dataset.",
+            "citation": "@article{sample2023}",
+            "tags": [
+                "license:MIT",
+                "task_categories:classification",
+            ]
+        })()
+    ]):
+        # Call the actual method
+        dataset_info, success = metadata_manager.find_dataset_info("sample_dataset_id")
+
+        # Check the returned values
+        assert success is True
+        assert dataset_info["name"] == "sample_dataset_id"
+        assert dataset_info["creators"] == "John Doe"
+        assert dataset_info["date_modified"] == "2023-01-01"
+        assert dataset_info["date_created"] == "2023-01-01"
+        assert dataset_info["description"] == "This is a sample dataset."
+        assert dataset_info["license"] == "MIT"
+        assert dataset_info["task"] == "classification"
+
+
+def test_find_dataset_info_id_returns_nothing(metadata_manager):
+    """Test the find_dataset_info method with an ID that returns nothing."""
+    # Mock the HfApi.list_datasets method to simulate fetching dataset info
+    metadata_manager.metadata = {}
+    with patch("main.metadata_manager.HfApi.list_datasets", return_value=[
+        type("Dataset", (object,), {
+            "id": "",
+            "author": "",
+            "description": "",
+            "citation": "",
+            "tags": []
+        })()
+    ]):
+        # Call the actual method
+        dataset_info, success = metadata_manager.find_dataset_info("sample_dataset_id")
+
+        # Check the returned values
+        assert success is True
+        assert "name" not in dataset_info
+        
 
 def test_find_dataset_info_with_invalid_id(metadata_manager):
     """Test the find_dataset_info method with an invalid dataset ID."""

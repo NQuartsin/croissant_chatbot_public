@@ -38,7 +38,6 @@ class MetadataManager:
         Returns:
             True if all attributes are filled, False otherwise.
         """
-        print(self.metadata)
         return all(attribute in self.metadata for attribute in METADATA_ATTRIBUTES)
 
     # Metadata Operations
@@ -270,30 +269,8 @@ class MetadataManager:
             A Tuple containing a boolean indicating success and the final metadata or an error message.
         """
         try:
-            # Map the metadata fields to the expected Croissant Metadata fields
-            metadata_mapping = {
-                "name": "name",
-                "creators": "creators",
-                "description": "description",
-                "license": "license",
-                "url": "url",
-                "publisher": "publisher",
-                "version": "version",
-                "keywords": "keywords",
-                "date_modified": "date_modified",
-                "date_created": "date_created",
-                "date_published": "date_published",
-                "cite_as": "cite_as",
-                "in_language": "in_language",
-            }
-
-            # Dynamically build the metadata Dictionary for the Croissant object
-            filtered_metadata = {
-                croissant_field: self.metadata[original_field]
-                for original_field, croissant_field in metadata_mapping.items()
-                if original_field in self.metadata and self.metadata[original_field]
-            }
-            print("Filtered Metadata:", filtered_metadata)
+            attributes_to_remove = ["task", "modality"]
+            filtered_metadata = {k:v for k, v in self.metadata.items() if k not in attributes_to_remove}
             # Create the Croissant metadata object
             croissant_metadata = mlc.Metadata(**filtered_metadata)
 
@@ -305,7 +282,6 @@ class MetadataManager:
                 self.final_metadata["task"] = task
             if modality:
                 self.final_metadata["modality"] = modality
-            print("Final Metadata:", self.final_metadata)
             # Save metadata to a file
             filepath, filename = self.save_metadata_to_file(self.final_metadata)
 
@@ -329,7 +305,6 @@ class MetadataManager:
             api = HfApi() # Hugging Face API
             found_dataset = list(api.list_datasets(dataset_name={dataset_id_to_find}, limit=1))
             if not found_dataset:
-                print("no dataset")
                 return None, False
             found_dataset = found_dataset[0] # Get the first dataset from the list
           
