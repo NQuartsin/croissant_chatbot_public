@@ -383,7 +383,7 @@ class CroissantChatbotManager:
                     self.append_to_history({"role": "assistant", "content": "Type **confirm** to save this value anyway, or use one of these suggestions as the value or enter your own idea for the value."})
                 else:
                     self.metadata_manager.clear_temporary_metadata()
-                    self.metadata_manager.set_metadata(self.pending_attribute, prompt.strip())
+                    self.metadata_manager.set_metadata_value(self.pending_attribute, prompt.strip())
                     self.append_to_history({"role": "assistant", "content": f"Saved `{self.pending_attribute}` as: {prompt.strip()}."})
                     self.pending_attribute = None
         except Exception as e:

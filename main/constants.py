@@ -18,7 +18,7 @@ METADATA_ATTRIBUTES = {
     "date_created": "the date the dataset was created (non-empty string) (YYYY-MM-DD).",
     "date_published":  "the date the dataset was published (non-empty string) (YYYY-MM-DD).",
     "cite_as": "the citation for the dataset (non-empty string) (BibTeX format).",
-    "in_language": "the language(s) of the dataset (comma-separated non-empty strings) (ISO 639-1 codes/Language names) (e.g. en, French).",
+    "language": "the language(s) of the dataset (comma-separated non-empty strings) (ISO 639-1 codes/Language names) (e.g. en, French).",
     "task": "the task(s) associated with the dataset (comma-separated non-empty strings) (e.g. text-generation, text2text-generation, question-answering).",
     "modality": "the modality(s) of the dataset (comma-separated non-empty strings) (e.g. tabular, text, timeseries, video)."
 }

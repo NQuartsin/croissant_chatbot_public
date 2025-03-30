@@ -206,7 +206,6 @@ class MetadataValidator():
         """
         try:
             errors = {}
-
             # Validate year
             if "year" in metadata:
                 try:

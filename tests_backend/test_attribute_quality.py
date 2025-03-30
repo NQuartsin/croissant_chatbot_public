@@ -4,15 +4,11 @@
 from unittest.mock import patch
 import pytest
 from main.attribute_quality import AttributeQualityChecker
-import warnings
 from lexical_diversity import lex_div as ld 
 import spacy  
 
 nlp = spacy.load("en_core_web_sm")
 
-
-# Suppress DeprecationWarning for pkg_resources
-warnings.filterwarnings("ignore", category=DeprecationWarning, module="lexical_diversity")
 """
 Test cases for the AttributeQualityChecker class.
 """

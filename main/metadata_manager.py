@@ -1,8 +1,10 @@
 # metadata_manager.py
+
+# necessary imports
 from huggingface_hub import HfApi
-from attribute_quality import AttributeQualityChecker
-from validation import MetadataValidator
-from constants import METADATA_ATTRIBUTES
+from .attribute_quality import AttributeQualityChecker
+from .validation import MetadataValidator
+from .constants import METADATA_ATTRIBUTES
 import json
 import os
 import mlcroissant as mlc
@@ -10,8 +12,6 @@ import re
 import unicodedata
 from datetime import datetime
 from typing import Tuple, Dict
-
-
 
 class MetadataManager:
     """A class to manage metadata attributes and values for a dataset entry."""
@@ -38,6 +38,7 @@ class MetadataManager:
         Returns:
             True if all attributes are filled, False otherwise.
         """
+        print(self.metadata)
         return all(attribute in self.metadata for attribute in METADATA_ATTRIBUTES)
 
     # Metadata Operations
@@ -71,7 +72,7 @@ class MetadataManager:
         """
         self.metadata.update(updates)
 
-    def set_metadata(self, attribute: str, value: str):
+    def set_metadata_value(self, attribute: str, value: str):
         """
         Set the value of a specific metadata attribute.
 
@@ -137,6 +138,7 @@ class MetadataManager:
         self.metadata.update(self.confirmed_metadata)
         self.confirmed_metadata = {}
 
+    # Metadata Validation and Quality Checks
     def validate_and_check_quality(self, attribute: str, value: str) -> Tuple[bool, str, str]:
         """
         Validate and check the quality of the attribute value.
@@ -181,6 +183,7 @@ class MetadataManager:
         # If no errors or issues, return True
         return True, "", ""
 
+    # Metadata File Operations
     def save_metadata_to_file(self, metadata: Dict[str, str]) -> Tuple[str, str]:
         """
         Save the metadata to a file in the annotations folder.
@@ -258,6 +261,7 @@ class MetadataManager:
             return f"{sanitised_name.replace(' ', '_').lower()}_metadata.json"
         return "metadata.json"
 
+    # Finalise Metadata
     def finalise_metadata(self) -> Tuple[bool, Dict[str, str]]:
         """
         Finalise metadata in Croissant format.
@@ -266,7 +270,7 @@ class MetadataManager:
             A Tuple containing a boolean indicating success and the final metadata or an error message.
         """
         try:
-            # Map your metadata fields to the expected Croissant Metadata fields
+            # Map the metadata fields to the expected Croissant Metadata fields
             metadata_mapping = {
                 "name": "name",
                 "author": "creators",
@@ -289,7 +293,7 @@ class MetadataManager:
                 for original_field, croissant_field in metadata_mapping.items()
                 if original_field in self.metadata and self.metadata[original_field]
             }
-
+            print("Filtered Metadata:", filtered_metadata)
             # Create the Croissant metadata object
             croissant_metadata = mlc.Metadata(**filtered_metadata)
 
@@ -298,10 +302,10 @@ class MetadataManager:
             task = self.metadata.get("task", "")
             modality = self.metadata.get("modality", "")
             if task:
-                self.final_metadata["tasks"] = task
+                self.final_metadata["task"] = task
             if modality:
-                self.final_metadata["modalitiy"] = modality
-
+                self.final_metadata["modality"] = modality
+            print("Final Metadata:", self.final_metadata)
             # Save metadata to a file
             filepath, filename = self.save_metadata_to_file(self.final_metadata)
 
@@ -309,6 +313,7 @@ class MetadataManager:
         except Exception as e:
             return False, {'error': str(e)}
 
+    # Fetch Dataset Info
     def find_dataset_info(self, dataset_id_to_find: str) -> Tuple[Dict[str, str], bool]:
         """
         Fetch dataset details.
