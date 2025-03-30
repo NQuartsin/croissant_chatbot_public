@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 import os
 from typing import Dict
 
-
 load_dotenv()  # Load environment variables from .env file
 
 api_key = os.getenv("OPENROUTER_API_KEY")  # Get API key from environment variable
@@ -49,7 +48,7 @@ def get_metadata_info_for_prompt(metadata: Dict[str, str]) -> str:
     """
     return metadata_info 
 
-def suggest_attribute_value(metadata: Dict[str, str], informal_description: str, attribute: str) -> str:
+def create_prompt_to_suggest_attribute_value(metadata: Dict[str, str], informal_description: str, attribute: str) -> str:
     """
     Suggest reasonable values for a specific metadata attribute.
 
@@ -72,7 +71,7 @@ def suggest_attribute_value(metadata: Dict[str, str], informal_description: str,
 
     return prompt
 
-def suggest_description(metadata: Dict[str, str], informal_description: str) -> str:
+def create_prompt_to_suggest_description(metadata: Dict[str, str], informal_description: str) -> str:
     """
     Suggest diverse descriptions for the dataset.
 
@@ -94,7 +93,7 @@ def suggest_description(metadata: Dict[str, str], informal_description: str) -> 
 
     return prompt
 
-def suggest_ways_to_fill_attribute(metadata: Dict[str, str], informal_description: str, attribute: str) -> str:
+def create_prompt_to_suggest_ways_to_fill_attribute(metadata: Dict[str, str], informal_description: str, attribute: str) -> str:
     """
     Suggest ways to fill a specific metadata attribute.
 
@@ -118,7 +117,7 @@ def suggest_ways_to_fill_attribute(metadata: Dict[str, str], informal_descriptio
     return prompt
 
 
-def suggest_citation(metadata: Dict[str, str]) -> str:
+def create_prompt_to_suggest_citation(metadata: Dict[str, str]) -> str:
     """
     Suggest a citation for the dataset in bibtex format.
 
@@ -168,13 +167,13 @@ def suggest_metadata(metadata: Dict[str, str], informal_description: str, attrib
     """
     try:
         if attribute == "cite_as":
-            prompt = suggest_citation(metadata)
+            prompt = create_prompt_to_suggest_citation(metadata)
         elif attribute in ["name", "title", "publisher", "keywords", "task", "modality", "license", "language"]:
-            prompt = suggest_attribute_value(metadata, informal_description, attribute)
+            prompt = create_prompt_to_suggest_attribute_value(metadata, informal_description, attribute)
         elif attribute == "description":
-            prompt = suggest_description(metadata, informal_description)
+            prompt = create_prompt_to_suggest_description(metadata, informal_description)
         else:
-            prompt = suggest_ways_to_fill_attribute(metadata, informal_description, attribute)
+            prompt = create_prompt_to_suggest_ways_to_fill_attribute(metadata, informal_description, attribute)
 
         return str(create_llm_response(prompt))
     except Exception as e:
