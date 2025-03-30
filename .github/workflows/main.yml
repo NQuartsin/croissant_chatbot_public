@@ -29,3 +29,5 @@ jobs:
       
     - name: Run tests with pytest
       run: pytest tests_backend
+      env: 
+        OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
