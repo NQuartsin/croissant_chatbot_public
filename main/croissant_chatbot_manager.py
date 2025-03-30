@@ -284,23 +284,28 @@ class CroissantChatbotManager:
         Returns:
             The updated chat history.
         """
-        if prompt.lower() == "no":
-            self.display_short_instructions()
-            self.waiting_for_HF_name = False
-        else:
-            try:
-                dataset_info, sucess = self.metadata_manager.find_dataset_info(prompt.strip())
-                if sucess:
-                    self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
-                    self.handle_display_metadata()
-                elif dataset_info is None:
-                    self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name."})
-                elif "error" in dataset_info:
-                    self.append_to_history({"role": "assistant", "content": f"An error occurred while trying to fetch metadata information: {dataset_info['error']}"})
-                else:
-                    self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name."})
-            except Exception as e:
-                self.handle_errors(f"An unexpected error occurred while fetching dataset information: {str(e)}")
+        try:
+            if prompt.lower() == "no":
+                self.display_short_instructions()
+                self.waiting_for_HF_name = False
+            else:
+                try:
+                    dataset_info, sucess = self.metadata_manager.find_dataset_info(prompt.strip())
+                    if sucess:
+                        self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
+                        self.handle_display_metadata()
+                    elif dataset_info is None:
+                        self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name."})
+                    elif "error" in dataset_info:
+                        self.append_to_history({"role": "assistant", "content": f"An error occurred while trying to fetch metadata information: {dataset_info['error']}"})
+                    else:
+                        self.append_to_history({"role": "assistant", "content": "I couldn't find any information for the provided dataset name."})
+                except Exception as e:
+                    self.handle_errors(f"An unexpected error occurred while fetching dataset information: {str(e)}")
+                self.waiting_for_HF_name = False
+                self.display_short_instructions()
+        except Exception as e:
+            self.handle_errors(f"An unexpected error occurred while fetching the dataset information: {str(e)}")
             self.waiting_for_HF_name = False
             self.display_short_instructions()
         return self.history
@@ -312,27 +317,30 @@ class CroissantChatbotManager:
         Returns:
             The updated chat history.
         """
-        is_valid, error_messages, issue_messages = self.metadata_manager.validate_and_check_quality_all_attributes()
-        if not is_valid:
-            if self.metadata_manager.get_confirmed_metadata():
-                confirmed_attributes = ",".join(self.metadata_manager.get_confirmed_metadata().keys())
-                self.append_to_history({"role": "assistant", "content": f"You have confirmed the values for these attributes '{confirmed_attributes}' despite validation issues. Finalising metadata with these values."})
-                self.metadata_manager.merge_confirmed_metadata()  # Merge confirmed metadata into main metadata
-            elif error_messages or issue_messages:
-                self.append_to_history({"role": "assistant", "content": f"Here are the issues with the metadata:\n{error_messages}\n{issue_messages}"})
-                self.append_to_history({"role": "assistant", "content": "Please resolve the issues before finalising the metadata."})
-                self.append_to_history({"role": "assistant", "content": "You can select any attribute from the dropdown to update them."})
-                self.append_to_history({"role": "assistant", "content": "If you want to confirm the values despite validation issues, type 'confirm' in the chat box after selecting each attribute."})
-                return self.history
-        success, final_metadata = self.metadata_manager.finalise_metadata()
-        if success:
-            self.append_to_history({"role": "assistant", "content": "Here is your final Croissant metadata:"})
-            self.append_to_history({"role": "assistant", "content": self.json_to_code_block(final_metadata, self.metadata_manager.json_serial)})
-            self.append_to_history({"role": "assistant", "content": "You can download the metadata file by clicking the 'Download Metadata File' button, then clicking the blue file size text."})
-            self.append_to_history({"role": "assistant", "content": "You can still update the metadata if needed by selecting an attribute from the dropdown."})
-            self.append_to_history({"role": "assistant", "content": "If you want to start annotating a new dataset, type **start new dataset** in the chat box."})
-        else:
-            self.append_to_history({"role": "assistant", "content": f"An error occurred: {final_metadata}"})
+        try:
+            is_valid, error_messages, issue_messages = self.metadata_manager.validate_and_check_quality_all_attributes()
+            if not is_valid:
+                if self.metadata_manager.get_confirmed_metadata():
+                    confirmed_attributes = ",".join(self.metadata_manager.get_confirmed_metadata().keys())
+                    self.append_to_history({"role": "assistant", "content": f"You have confirmed the values for these attributes '{confirmed_attributes}' despite validation issues. Finalising metadata with these values."})
+                    self.metadata_manager.merge_confirmed_metadata()  # Merge confirmed metadata into main metadata
+                elif error_messages or issue_messages:
+                    self.append_to_history({"role": "assistant", "content": f"Here are the issues with the metadata:\n{error_messages}\n{issue_messages}"})
+                    self.append_to_history({"role": "assistant", "content": "Please resolve the issues before finalising the metadata."})
+                    self.append_to_history({"role": "assistant", "content": "You can select any attribute from the dropdown to update them."})
+                    self.append_to_history({"role": "assistant", "content": "If you want to confirm the values despite validation issues, type 'confirm' in the chat box after selecting each attribute."})
+                    return self.history
+            success, final_metadata = self.metadata_manager.finalise_metadata()
+            if success:
+                self.append_to_history({"role": "assistant", "content": "Here is your final Croissant metadata:"})
+                self.append_to_history({"role": "assistant", "content": self.json_to_code_block(final_metadata, self.metadata_manager.json_serial)})
+                self.append_to_history({"role": "assistant", "content": "You can download the metadata file by clicking the 'Download Metadata File' button, then clicking the blue file size text."})
+                self.append_to_history({"role": "assistant", "content": "You can still update the metadata if needed by selecting an attribute from the dropdown."})
+                self.append_to_history({"role": "assistant", "content": "If you want to start annotating a new dataset, type **start new dataset** in the chat box."})
+            else:
+                self.append_to_history({"role": "assistant", "content": f"An error occurred: {final_metadata}"})
+        except Exception as e:
+            self.handle_errors(f"An unexpected error occurred while finalising the metadata: {str(e)}")
         return self.history
 
     def handle_pending_attribute_input(self, prompt: str) -> list[Dict[str, str]]:
@@ -345,38 +353,43 @@ class CroissantChatbotManager:
         Returns:
             The updated chat history.
         """
-        if prompt.lower() == "confirm" and self.pending_attribute:
-            if self.pending_attribute in ["date_created", "date_modified", "date_published"]:
-                self.append_to_history({
-                    "role": "assistant",
-                    "content": f"The `confirm` option is not available for the `{self.pending_attribute}` attribute. Please provide a valid date in the correct format (YYYY-MM-DD)."
-                })
+        try:
+            if prompt.lower() == "confirm" and self.pending_attribute:
+                if self.pending_attribute in ["date_created", "date_modified", "date_published"]:
+                    self.append_to_history({
+                        "role": "assistant",
+                        "content": f"The `confirm` option is not available for the `{self.pending_attribute}` attribute. Please provide a valid date in the correct format (YYYY-MM-DD)."
+                    })
+                    return self.history
+
+                # Confirm the attribute value
+                value = self.metadata_manager.get_temporary_metadata_value(self.pending_attribute)
+                self.metadata_manager.confirm_metadata_value(self.pending_attribute, value)
+                self.append_to_history({"role": "assistant", "content": f"Despite validation issues, the value for `{self.pending_attribute}` has been saved as: {value}"})
+                self.pending_attribute = None
                 return self.history
 
-            # Confirm the attribute value
-            value = self.metadata_manager.get_temporary_metadata_value(self.pending_attribute)
-            self.metadata_manager.confirm_metadata_value(self.pending_attribute, value)
-            self.append_to_history({"role": "assistant", "content": f"Despite validation issues, the value for `{self.pending_attribute}` has been saved as: {value}"})
+            elif self.pending_attribute:
+                # Update and validate the attribute value
+                self.metadata_manager.update_temporary_metadata({self.pending_attribute: prompt.strip()})
+                is_valid, error_messages, issue_messages = self.metadata_manager.validate_and_check_quality(self.pending_attribute, prompt.strip())
+
+                if not is_valid:
+                    # Handle validation errors
+                    self.append_to_history({"role": "assistant", "content": f"The value you provided for `{self.pending_attribute}` is invalid."})
+                    self.append_to_history({"role": "assistant", "content": f"Here are the issues with the value you provided:\n{error_messages}\n{issue_messages}"})
+                    suggested_value = suggest_metadata(self.metadata_manager.get_metadata(), self.informal_description, self.pending_attribute)
+                    self.append_to_history({"role": "assistant", "content": f"{suggested_value}"})
+                    self.append_to_history({"role": "assistant", "content": "Type **confirm** to save this value anyway, or use one of these suggestions as the value or enter your own idea for the value."})
+                else:
+                    self.metadata_manager.clear_temporary_metadata()
+                    self.metadata_manager.set_metadata(self.pending_attribute, prompt.strip())
+                    self.append_to_history({"role": "assistant", "content": f"Saved `{self.pending_attribute}` as: {prompt.strip()}."})
+                    self.pending_attribute = None
+        except Exception as e:
+            self.handle_errors(f"An unexpected error occurred while processing your input for `{self.pending_attribute}`: {str(e)}")
             self.pending_attribute = None
-            return self.history
-
-        elif self.pending_attribute:
-            # Update and validate the attribute value
-            self.metadata_manager.update_temporary_metadata({self.pending_attribute: prompt.strip()})
-            is_valid, error_messages, issue_messages = self.metadata_manager.validate_and_check_quality(self.pending_attribute, prompt.strip())
-
-            if not is_valid:
-                # Handle validation errors
-                self.append_to_history({"role": "assistant", "content": f"The value you provided for `{self.pending_attribute}` is invalid."})
-                self.append_to_history({"role": "assistant", "content": f"Here are the issues with the value you provided:\n{error_messages}\n{issue_messages}"})
-                suggested_value = suggest_metadata(self.metadata_manager.get_metadata(), self.informal_description, self.pending_attribute)
-                self.append_to_history({"role": "assistant", "content": f"{suggested_value}"})
-                self.append_to_history({"role": "assistant", "content": "Type **confirm** to save this value anyway, or use one of these suggestions as the value or enter your own idea for the value."})
-            else:
-                self.metadata_manager.clear_temporary_metadata()
-                self.metadata_manager.set_metadata(self.pending_attribute, prompt.strip())
-                self.append_to_history({"role": "assistant", "content": f"Saved `{self.pending_attribute}` as: {prompt.strip()}."})
-                self.pending_attribute = None
+            self.metadata_manager.clear_temporary_metadata()
         return self.history
     
     def handle_selected_attribute(self, attribute: str) -> list[Dict[str, str]]:
@@ -389,44 +402,45 @@ class CroissantChatbotManager:
         Returns:
             The updated chat history.
         """
-        self.pending_attribute = attribute
-        self.append_to_history({"role": "user", "content": f"Selected attribute: `{attribute}`."})
+        try:
+            self.pending_attribute = attribute
+            self.append_to_history({"role": "user", "content": f"Selected attribute: `{attribute}`."})
 
-        attribute_description = METADATA_ATTRIBUTES.get(attribute, "")
-        current_value = self.metadata_manager.get_metadata_value(attribute)
+            attribute_description = METADATA_ATTRIBUTES.get(attribute, "")
+            current_value = self.metadata_manager.get_metadata_value(attribute)
 
-        if not current_value:
-            # Suggest a value for the attribute
-            suggested_value = suggest_metadata(self.metadata_manager.get_metadata(), self.informal_description, attribute)
-            try:
-                if not self.informal_description:
-                    raise ValueError("Informal description is missing. Cannot suggest metadata.")
-                suggested_value = suggest_metadata(self.metadata_manager.get_metadata(), self.informal_description, attribute)
+            if not current_value:
+                # Suggest a value for the attribute
+                try:
+                    suggested_value = suggest_metadata(self.metadata_manager.get_metadata(), self.informal_description, attribute)
+                    self.append_to_history({
+                        "role": "assistant",
+                        "content": f"The attribute `{attribute}` is missing. This is: {attribute_description}"})
+                    self.append_to_history({"role": "assistant","content": f"{suggested_value}"})
+                    self.append_to_history({
+                        "role": "assistant",
+                        "content": f"""You can do one of the following: 
+                        - Enter a new value for `{attribute}`.
+                        - Use one of the suggestions provided."""
+                    })               
+                except Exception as e:
+                    # Handle errors from the llm module
+                    self.handle_errors(f"An error occurred while suggesting metadata for `{attribute}`: {str(e)}")
+            else:
+                # Prompt the user to update the existing value
+                self.append_to_history({"role": "assistant", "content": f"The attribute `{attribute}` already has a value: `{current_value}`"})
+                self.append_to_history({"role": "assistant", "content": f"This is: {attribute_description}"})
                 self.append_to_history({
                     "role": "assistant",
-                    "content": f"The attribute `{attribute}` is missing. This is: {attribute_description}"})
-                self.append_to_history({"role": "assistant","content": {suggested_value}})
-                self.append_to_history({
-                    "role": "assistant",
-                    "content": f"""You can do one of the following: 
-                    - Enter a new value for `{attribute}`.
-                    - Use one of the suggestions provided."""
-                })               
-            except Exception as e:
-                # Handle errors from the llm module
-                self.handle_errors(f"An error occurred while suggesting metadata for `{attribute}`: {str(e)}")
-        else:
-            # Prompt the user to update the existing value
-            self.append_to_history({"role": "assistant", "content": f"The attribute `{attribute}` already has a value: `{current_value}`"})
-            self.append_to_history({"role": "assistant", "content": f"This is: {attribute_description}"})
-            self.append_to_history({
-                "role": "assistant",
-                  "content": f"""You can do one of the following:
-                  - Update the value by entering a new one.
-                  - Keep the current value by doing nothing.
-                  """
-            })
-
+                    "content": f"""You can do one of the following:
+                    - Update the value by entering a new one.
+                    - Keep the current value by doing nothing.
+                    """
+                })
+        except Exception as e:
+            self.handle_errors(f"An unexpected error occurred while processing the selected attribute `{attribute}`: {str(e)}")
+            self.pending_attribute = None
+            self.metadata_manager.clear_temporary_metadata()
         return self.history
     
     def handle_errors(self, error_message: str) -> list[Dict[str, str]]:

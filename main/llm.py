@@ -149,7 +149,7 @@ def ask_user_for_informal_description() -> str:
         Please ask the user probing questions to get an informal description of the dataset.
         Ask 1-5 questions.
         """
-        return create_llm_response(prompt)
+        return str(create_llm_response(prompt))
     except Exception as e:
         raise Exception(f"An error occurred while trying to use the LLM model.\n {e}")
 
@@ -176,7 +176,7 @@ def suggest_metadata(metadata: Dict[str, str], informal_description: str, attrib
         else:
             prompt = suggest_ways_to_fill_attribute(metadata, informal_description, attribute)
 
-        return create_llm_response(prompt)
+        return str(create_llm_response(prompt))
     except Exception as e:
         raise Exception(f"An error occurred while trying to use the LLM model.\n {e}")
 

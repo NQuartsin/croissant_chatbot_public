@@ -24,9 +24,9 @@ class MetadataValidator():
             A Tuple containing a boolean indicating validity and a message.
         """
         current_year = datetime.now().year
-        if 1900 <= int(year) <= current_year:
+        if 1000 <= int(year) <= current_year:
             return True, "Year is valid."
-        return False, "Year must be between 1900 and the current year."
+        return False, "Year must be between 1000 and the current year."
 
     def validate_url(self, url: str) -> Tuple[bool, str]:
         """
@@ -59,7 +59,7 @@ class MetadataValidator():
             A Tuple containing a boolean indicating validity and a message.
         """
         try:
-            with open("licences.json") as json_file:
+            with open("main/licences.json") as json_file:
                 licenses_list = json.load(json_file)
 
             licenses_list = licenses_list["licenses"]
@@ -75,7 +75,7 @@ class MetadataValidator():
         except Exception as e:
             return False, f"Error validating license: {str(e)}"
 
-    def validate_non_empty_string(self, value: str, attribute_name: str) -> Tuple[bool, str]:
+    def check_non_empty_string(self, value: str, attribute_name: str) -> Tuple[bool, str]:
         """
         Ensure the value is a non-empty string.
 
@@ -100,12 +100,14 @@ class MetadataValidator():
         Returns:
             A Tuple containing a boolean indicating validity and a message.
         """
+
         try:
             if isinstance(keywords, str) and all(keyword.strip() for keyword in keywords.split(",")):
                 return True, "Keywords are valid."
-            return False, "Keywords must be a comma-separated list of non-empty strings."
+            return False, "Keywords must be a comma-separated string."
         except Exception as e:
             return False, f"Error validating keywords: {str(e)}"
+
 
     def validate_date(self, date: str, attribute_name: str) -> Tuple[bool, str]:
         """
@@ -140,26 +142,38 @@ class MetadataValidator():
 
             # Validate each language
             invalid_languages = []
+            valid_languages = []
             for lang in languages:
                 try:
-                    # Try creating a valid language object
-                    lang_obj = langcodes.Language.make(lang)
-                    # If it doesn't return a proper language code, mark as invalid
-                    if not lang_obj.language:
-                        invalid_languages.append(lang)
-                except ValueError:
-                    invalid_languages.append(lang)
+                    # First, try to validate as an ISO code using langcodes.Language.get
+                    lang_obj = langcodes.Language.get(lang)
+                    if lang_obj.is_valid():
+                        valid_languages.append(lang_obj.language)  # Add the normalized ISO code
+                        continue  # Skip to the next language if this is valid
 
-            # If there are invalid languages, return an error
+                except (langcodes.tag_parser.LanguageTagError, ValueError):
+                    # If langcodes.Language.get fails, fall back to langcodes.Language.find
+                    try:
+                        lang_obj = langcodes.Language.find(lang)
+                        if lang_obj:
+                            valid_languages.append(lang)  # Add the normalized ISO code
+
+                    except ValueError:
+                        # If langcodes.Language.find also fails, treat the language as invalid
+                        invalid_languages.append(lang)
+
             if invalid_languages:
                 return False, f"The following languages are invalid: {', '.join(invalid_languages)}"
 
-            # If all languages are valid, return success
-            return True, "All languages are valid."
-        except Exception:
+            if sorted(valid_languages) == sorted(languages):
+                return True, "All languages are valid."
+    
             return False, f"Language(s) '{language}' are not valid ISO language codes or names."
 
-    def validate_bibtex(self, cite_as: str) -> Tuple[bool, str]:
+        except Exception as e:
+            return False, f"Language(s) '{language}' are not valid ISO language codes or names. Error: {str(e)}"
+
+    def validate_cite_as(self, cite_as: str) -> Tuple[bool, str]:
         """
         Ensure the citation is in valid BibTeX format.
 
@@ -220,7 +234,7 @@ class MetadataValidator():
             # Validate non-empty string attributes
             for attribute in ["name", "author", "title", "description", "publisher", "version"]:
                 if attribute in metadata:
-                    valid, message = self.validate_non_empty_string(metadata[attribute], attribute.capitalize())
+                    valid, message = self.check_non_empty_string(metadata[attribute], attribute.capitalize())
                     if not valid:
                         errors[attribute] = message
 
@@ -246,13 +260,13 @@ class MetadataValidator():
             # Validate task and modality
             for attribute in ["task", "modality"]:
                 if attribute in metadata:
-                    valid, message = self.validate_non_empty_string(metadata[attribute], attribute.capitalize())
+                    valid, message = self.check_non_empty_string(metadata[attribute], attribute.capitalize())
                     if not valid:
                         errors[attribute] = message
 
             # Validate citation
             if "cite_as" in metadata:
-                valid, message = self.validate_bibtex(metadata["cite_as"])
+                valid, message = self.validate_cite_as(metadata["cite_as"])
                 if not valid:
                     errors["cite_as"] = message
             return errors
