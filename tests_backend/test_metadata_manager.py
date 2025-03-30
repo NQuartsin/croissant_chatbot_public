@@ -29,7 +29,7 @@ def sample_metadata():
     """Fixture to provide sample metadata."""
     return {
         "name": "Sample Dataset",
-        "author": "John Doe",
+        "creators": "John Doe",
     }
 
 @pytest.fixture
@@ -37,7 +37,7 @@ def sample_final_metadata():
     """Fixture to provide sample final metadata."""
     return {
         "name": "Sample Dataset",
-        "author": "John Doe",
+        "creators": "John Doe",
         "description": "This is a sample dataset.",
         "license": "MIT",
         "url": "https://example.com",
@@ -48,7 +48,7 @@ def sample_final_metadata():
         "date_created": "2023-01-01",
         "date_published": "2023-01-01",
         "cite_as": "@article{sample2023}",
-        "language": "en",
+        "in_language": "en",
         "task": "sample task",
         "modality": "text",
     }
@@ -96,7 +96,7 @@ def test_is_all_attributes_filled(metadata_manager_with_final_metadata):
 
     # Missing attributes
     incomplete_metadata = metadata_manager_with_final_metadata.get_metadata().copy()
-    incomplete_metadata.pop("author")
+    incomplete_metadata.pop("creators")
     metadata_manager_with_final_metadata.metadata = incomplete_metadata
     assert metadata_manager_with_final_metadata.is_all_attributes_filled() is False
 
@@ -109,7 +109,7 @@ def test_get_metadata_value(metadata_manager):
     """Test the get_metadata_value method."""
     # Check if the metadata value is returned correctly
     assert metadata_manager.get_metadata_value("name") == "Sample Dataset"
-    assert metadata_manager.get_metadata_value("author") == "John Doe"
+    assert metadata_manager.get_metadata_value("creators") == "John Doe"
 
     # Test with a non-existent key
     assert metadata_manager.get_metadata_value("non_existent_key") == ""
@@ -119,12 +119,12 @@ def test_update_metadata(metadata_manager):
     # Check initial state
     assert metadata_manager.metadata == {
         "name": "Sample Dataset",
-        "author": "John Doe",
+        "creators": "John Doe",
     }
     # Update metadata
     new_metadata = {
         "name": "Updated Dataset",
-        "author": "Jane Doe",
+        "creators": "Jane Doe",
     }
     metadata_manager.update_metadata(new_metadata)
     # Check if the metadata is updated correctly
@@ -202,7 +202,7 @@ def test_merge_confirmed_metadata(metadata_manager):
     # Check initial state
     assert metadata_manager.metadata == {
         "name": "Sample Dataset",
-        "author": "John Doe",
+        "creators": "John Doe",
     }
     assert metadata_manager.confirmed_metadata == {
         "description": "This is a sample dataset.",
@@ -458,14 +458,14 @@ def test_find_dataset_info(metadata_manager):
         # Check the returned values
         assert success is True
         assert dataset_info["name"] == "sample_dataset_id"
-        assert dataset_info["author"] == "John Doe"
+        assert dataset_info["creators"] == "John Doe"
         assert dataset_info["date_modified"] == "2023-01-01"
         assert dataset_info["date_created"] == "2023-01-01"
         assert dataset_info["description"] == "This is a sample dataset."
         assert dataset_info["license"] == "MIT"
         assert dataset_info["task"] == "classification"
         assert dataset_info["modality"] == "text"
-        assert dataset_info["language"] == "en"
+        assert dataset_info["in_language"] == "en"
 
 def test_find_dataset_info_with_invalid_id(metadata_manager):
     """Test the find_dataset_info method with an invalid dataset ID."""

@@ -111,19 +111,19 @@ class MetadataValidator():
         except ValueError:
             return False, f"{attribute_name} must be in the format YYYY-MM-DD."
 
-    def validate_language(self, language: str) -> Tuple[bool, str]:
+    def validate_language(self, in_language: str) -> Tuple[bool, str]:
         """
         Ensure the language(s) are valid by converting names to ISO codes and validating.
 
         Args:
-            language: The language(s) string to validate.
+            in_language: The language(s) string to validate.
                
         Returns:
             A Tuple containing a boolean indicating validity and a message.
         """
         try:
             # Split the input into multiple languages if it's a comma-separated string
-            languages = [lang.strip() for lang in language.split(",")]
+            languages = [lang.strip() for lang in in_language.split(",")]
 
             # Validate each language
             invalid_languages = []
@@ -153,10 +153,10 @@ class MetadataValidator():
             if sorted(valid_languages) == sorted(languages):
                 return True, "All languages are valid."
     
-            return False, f"Language(s) '{language}' are not valid ISO language codes or names."
+            return False, f"Language(s) '{in_language}' are not valid ISO language codes or names."
 
         except Exception as e:
-            return False, f"Language(s) '{language}' are not valid ISO language codes or names. Error: {str(e)}"
+            return False, f"Language(s) '{in_language}' are not valid ISO language codes or names. Error: {str(e)}"
 
     def validate_cite_as(self, cite_as: str) -> Tuple[bool, str]:
         """
@@ -205,7 +205,7 @@ class MetadataValidator():
                     errors["license"] = message
 
             # Validate non-empty string attributes
-            for attribute in ["name", "author", "description", "publisher", "version"]:
+            for attribute in ["name", "creators", "description", "publisher", "version"]:
                 if attribute in metadata:
                     valid, message = self.check_non_empty_string(metadata[attribute], attribute.capitalize())
                     if not valid:
@@ -225,10 +225,10 @@ class MetadataValidator():
                         errors[date_attribute] = message
 
             # Validate language
-            if "language" in metadata:
-                valid, message = self.validate_language(metadata["language"])
+            if "in_language" in metadata:
+                valid, message = self.validate_language(metadata["in_language"])
                 if not valid:
-                    errors["language"] = message
+                    errors["in_language"] = message
 
             # Validate task and modality
             for attribute in ["task", "modality"]:

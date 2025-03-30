@@ -138,7 +138,7 @@ def test_validate_all_attributes_no_errors(validator):
     """Test the validate_all_attributes method."""
     metadata = {
         "name": "Dataset Name",
-        "author": "Author Name",
+        "creators": "creators Name",
         "description": "Dataset Description",
         "url": "https://example.com",
         "publisher": "Publisher Name",
@@ -148,7 +148,7 @@ def test_validate_all_attributes_no_errors(validator):
         "date_created": "2023-01-01",
         "date_published": "2023-01-01",
         "cite_as": "@article{key, author = {Author}, title = {Title}}",
-        "language": "en, fr",
+        "in_language": "en, fr",
         "task": "task1, task2",
         "modality": "modality1, modality2"
     }
@@ -159,7 +159,7 @@ def test_validate_all_attributes_with_errors(validator):
     """Test the validate_all_attributes method with errors."""
     metadata = {
         "name": "",
-        "author": "",
+        "creators": "",
         "license": "invalid_license",
         "description": "",
         "url": "invalid-url",
@@ -170,7 +170,7 @@ def test_validate_all_attributes_with_errors(validator):
         "date_created": "",
         "date_published": "",
         "cite_as": "",
-        "language": "",
+        "in_language": "",
         "task": "",
         "modality": ""
     }
@@ -178,7 +178,7 @@ def test_validate_all_attributes_with_errors(validator):
     print(errors)
     assert len(errors) > 0
     assert "name" in errors
-    assert "author" in errors
+    assert "creators" in errors
     assert "description" in errors
     assert "license" in errors
     assert "url" in errors
@@ -189,7 +189,7 @@ def test_validate_all_attributes_with_errors(validator):
     assert "date_created" in errors
     assert "date_published" in errors
     assert "cite_as" in errors
-    assert "language" in errors
+    assert "in_language" in errors
     assert "task" in errors
     assert "modality" in errors
 

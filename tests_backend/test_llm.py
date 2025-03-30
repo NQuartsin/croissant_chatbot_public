@@ -19,14 +19,14 @@ def sample_metadata():
     """Fixture to provide sample metadata."""
     return {
         "name": "Sample Dataset",
-        "author": "John Doe",
+        "creators": "John Doe",
     }
 
 def test_get_metadata_info_for_prompt(sample_metadata):
     """Test the get_metadata_info_for_prompt function."""
     metadata_info = get_metadata_info_for_prompt(sample_metadata)
     assert "name: Sample Dataset" in metadata_info
-    assert "author: John Doe" in metadata_info
+    assert "creators: John Doe" in metadata_info
 
 
 def test_create_prompt_to_suggest_attribute_value(sample_metadata):
@@ -34,7 +34,7 @@ def test_create_prompt_to_suggest_attribute_value(sample_metadata):
     prompt = create_prompt_to_suggest_attribute_value(sample_metadata, "This is a test dataset.", "keywords")
     assert "The user is creating metadata for a dataset with the following information:" in prompt
     assert "name: Sample Dataset" in prompt
-    assert "author: John Doe" in prompt
+    assert "creators: John Doe" in prompt
     assert "This is a test dataset." in prompt
     assert "The attribute 'keywords' is missing or insufficient." in prompt
     assert "Please provide 1-3 reasonable suggestions for this attribute only." in prompt
@@ -44,7 +44,7 @@ def test_create_prompt_to_suggest_description(sample_metadata):
     prompt = create_prompt_to_suggest_description(sample_metadata, "This is a test dataset.")
     assert "The attribute 'description' is missing or insufficient." in prompt
     assert "name: Sample Dataset" in prompt
-    assert "author: John Doe" in prompt
+    assert "creators: John Doe" in prompt
     assert "This is a test dataset." in prompt
     assert "Please provide 1-3 diverse, non-repetitive descriptions that are at least 2 sentences long." in prompt
 
@@ -53,7 +53,7 @@ def test_create_prompt_to_suggest_ways_to_fill_attribute(sample_metadata):
     prompt = create_prompt_to_suggest_ways_to_fill_attribute(sample_metadata, "This is a test dataset.", "date_created")
     assert "The attribute 'date_created' is missing or insufficient." in prompt
     assert "name: Sample Dataset" in prompt
-    assert "author: John Doe" in prompt
+    assert "creators: John Doe" in prompt
     assert "This is a test dataset." in prompt
     assert "Please suggest at most 5 ways for the user to figure out how to fill this attribute." in prompt
 
@@ -62,7 +62,7 @@ def test_create_prompt_to_suggest_citation(sample_metadata):
     """Test the create_prompt_to_suggest_citation function."""
     prompt = create_prompt_to_suggest_citation(sample_metadata)
     assert "name: Sample Dataset" in prompt
-    assert "author: John Doe" in prompt
+    assert "creators: John Doe" in prompt
     assert "Please suggest a citation for this dataset in bibtex format." in prompt
 
 @patch("main.llm.create_llm_response")

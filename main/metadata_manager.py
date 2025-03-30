@@ -273,7 +273,7 @@ class MetadataManager:
             # Map the metadata fields to the expected Croissant Metadata fields
             metadata_mapping = {
                 "name": "name",
-                "author": "creators",
+                "creators": "creators",
                 "description": "description",
                 "license": "license",
                 "url": "url",
@@ -284,7 +284,7 @@ class MetadataManager:
                 "date_created": "date_created",
                 "date_published": "date_published",
                 "cite_as": "cite_as",
-                "language": "in_language",
+                "in_language": "in_language",
             }
 
             # Dynamically build the metadata Dictionary for the Croissant object
@@ -362,7 +362,7 @@ class MetadataManager:
             if dataset_id:
                 self.metadata["name"] = dataset_id
             if author:
-                self.metadata["author"] = author
+                self.metadata["creators"] = author
             if last_modified:
                 self.metadata["date_modified"] = last_modified.strftime("%Y-%m-%d")
             if created_at:
@@ -381,7 +381,7 @@ class MetadataManager:
             if modalities:
                 self.metadata["modality"] = ", ".join(modalities)
             if languages:
-                self.metadata["language"] = ", ".join(languages)
+                self.metadata["in_language"] = ", ".join(languages)
             if citation:
                 self.metadata["cite_as"] = citation
 
