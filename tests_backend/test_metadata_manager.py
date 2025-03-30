@@ -30,8 +30,6 @@ def sample_metadata():
     return {
         "name": "Sample Dataset",
         "author": "John Doe",
-        "year": "2023",
-        "title": "Sample Title",
     }
 
 @pytest.fixture
@@ -40,8 +38,6 @@ def sample_final_metadata():
     return {
         "name": "Sample Dataset",
         "author": "John Doe",
-        "year": 2023,
-        "title": "Sample Title",
         "description": "This is a sample dataset.",
         "license": "MIT",
         "url": "https://example.com",
@@ -114,8 +110,6 @@ def test_get_metadata_value(metadata_manager):
     # Check if the metadata value is returned correctly
     assert metadata_manager.get_metadata_value("name") == "Sample Dataset"
     assert metadata_manager.get_metadata_value("author") == "John Doe"
-    assert metadata_manager.get_metadata_value("year") == "2023"
-    assert metadata_manager.get_metadata_value("title") == "Sample Title"
 
     # Test with a non-existent key
     assert metadata_manager.get_metadata_value("non_existent_key") == ""
@@ -126,15 +120,11 @@ def test_update_metadata(metadata_manager):
     assert metadata_manager.metadata == {
         "name": "Sample Dataset",
         "author": "John Doe",
-        "year": "2023",
-        "title": "Sample Title",
     }
     # Update metadata
     new_metadata = {
         "name": "Updated Dataset",
         "author": "Jane Doe",
-        "year": "2024",
-        "title": "Updated Title",
     }
     metadata_manager.update_metadata(new_metadata)
     # Check if the metadata is updated correctly
@@ -213,8 +203,6 @@ def test_merge_confirmed_metadata(metadata_manager):
     assert metadata_manager.metadata == {
         "name": "Sample Dataset",
         "author": "John Doe",
-        "year": "2023",
-        "title": "Sample Title",
     }
     assert metadata_manager.confirmed_metadata == {
         "description": "This is a sample dataset.",

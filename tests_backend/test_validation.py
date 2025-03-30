@@ -14,21 +14,6 @@ def validator():
     """Fixture to create a MetadataValidator instance."""
     return MetadataValidator()
 
-def test_validate_year(validator):
-    """Test the validate_year method."""
-    valid, message = validator.validate_year(2023)
-    assert valid is True
-    assert message == "Year is valid."
-    valid, message = validator.validate_year(2000)
-    assert valid is True
-    assert message == "Year is valid."
-    valid, message = validator.validate_year(999)
-    assert valid is False
-    assert message == "Year must be between 1000 and the current year."
-    valid, message = validator.validate_year(3000)
-    assert valid is False
-    assert message == "Year must be between 1000 and the current year."
-
 def test_validate_url(validator):
     """Test the validate_url method."""
     valid, message = validator.validate_url("https://example.com")
@@ -154,8 +139,6 @@ def test_validate_all_attributes_no_errors(validator):
     metadata = {
         "name": "Dataset Name",
         "author": "Author Name",
-        "year": 2023,
-        "title": "Dataset Title",
         "description": "Dataset Description",
         "url": "https://example.com",
         "publisher": "Publisher Name",
@@ -177,8 +160,6 @@ def test_validate_all_attributes_with_errors(validator):
     metadata = {
         "name": "",
         "author": "",
-        "year": "invalid_year",
-        "title": "",
         "license": "invalid_license",
         "description": "",
         "url": "invalid-url",
@@ -198,8 +179,6 @@ def test_validate_all_attributes_with_errors(validator):
     assert len(errors) > 0
     assert "name" in errors
     assert "author" in errors
-    assert "year" in errors
-    assert "title" in errors
     assert "description" in errors
     assert "license" in errors
     assert "url" in errors
@@ -214,23 +193,10 @@ def test_validate_all_attributes_with_errors(validator):
     assert "task" in errors
     assert "modality" in errors
 
-def test_validate_all_attributes_year_exception(validator):
-    """Test the validate_all_attributes method when an exception occurs."""
-    metadata = {
-        "year": 2023,
-        "url": "https://example.com",
-    }
-
-    # Mock one of the validation methods to raise an exception
-    with patch.object(validator, "validate_year", side_effect=Exception("Mocked exception")):
-        errors = validator.validate_all_attributes(metadata)
-        assert "year" in errors
-        assert "Error validating year:" in errors['year']
 
 def test_validate_all_attributes_exception(validator):
     """Test the validate_all_attributes method when an exception occurs."""
     metadata = {
-        "year": 2023,
         "url": "https://example.com",
     }
 

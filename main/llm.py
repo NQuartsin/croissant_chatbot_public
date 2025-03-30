@@ -30,8 +30,6 @@ def get_metadata_info_for_prompt(metadata: Dict[str, str]) -> str:
     metadata_info = f"""
         name: {metadata.get("name", "No name provided")},
         author: {metadata.get("author", "No author provided")},
-        year: {metadata.get("year", "No year provided")},
-        title: {metadata.get("title", "No title provided")},
         description: {metadata.get("description", "No description provided")},
         license: {metadata.get("license", "No license provided")},
         url: {metadata.get("url", "No URL provided")},
@@ -168,7 +166,7 @@ def suggest_metadata(metadata: Dict[str, str], informal_description: str, attrib
     try:
         if attribute == "cite_as":
             prompt = create_prompt_to_suggest_citation(metadata)
-        elif attribute in ["name", "title", "publisher", "keywords", "task", "modality", "license", "language"]:
+        elif attribute in ["name", "publisher", "keywords", "task", "modality", "license", "language"]:
             prompt = create_prompt_to_suggest_attribute_value(metadata, informal_description, attribute)
         elif attribute == "description":
             prompt = create_prompt_to_suggest_description(metadata, informal_description)

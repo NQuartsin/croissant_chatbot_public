@@ -13,21 +13,6 @@ from typing import Tuple, Dict
 class MetadataValidator():
     """A class to validate metadata attributes and values for a dataset entry."""
 
-    def validate_year(self, year: int) -> Tuple[bool, str]:
-        """
-        Ensure the year is a four-digit number within a reasonable range.
-
-        Args:
-            year: The year to validate.
-
-        Returns:
-            A Tuple containing a boolean indicating validity and a message.
-        """
-        current_year = datetime.now().year
-        if 1000 <= int(year) <= current_year:
-            return True, "Year is valid."
-        return False, "Year must be between 1000 and the current year."
-
     def validate_url(self, url: str) -> Tuple[bool, str]:
         """
         Ensure the URL is valid.
@@ -206,17 +191,6 @@ class MetadataValidator():
         """
         try:
             errors = {}
-            # Validate year
-            if "year" in metadata:
-                try:
-                    year = int(metadata["year"])  # Convert to integer for validation
-                    valid, message = self.validate_year(year)
-                    if not valid:
-                        errors["year"] = message
-                except ValueError:
-                    errors["year"] = "Year must be a valid number."
-                except Exception as e:
-                    errors["year"] = f"Error validating year: {str(e)}"
 
             # Validate URL
             if "url" in metadata:
@@ -231,7 +205,7 @@ class MetadataValidator():
                     errors["license"] = message
 
             # Validate non-empty string attributes
-            for attribute in ["name", "author", "title", "description", "publisher", "version"]:
+            for attribute in ["name", "author", "description", "publisher", "version"]:
                 if attribute in metadata:
                     valid, message = self.check_non_empty_string(metadata[attribute], attribute.capitalize())
                     if not valid:

@@ -6,8 +6,6 @@
 METADATA_ATTRIBUTES = {
     "name": "the name of the dataset (non-empty string).",
     "author": "the author(s) of the dataset/publication that describes the dataset (comma-separated non-empty strings) (e.g. John Doe, Jane Doe).",
-    "year": "the publication year of the dataset (non-empty string) (YYYY).",
-    "title": "the title of the dataset/publication that describes the dataset (non-empty string).",
     "description": "a description of the dataset (non-empty string) (2+ descriptive sentences).",
     "license": "the license of the dataset (non-empty string) (expected to be a lisence from the SPDX License List).",
     "url": "the URL of the dataset (non-empty string) (valid URL format).",

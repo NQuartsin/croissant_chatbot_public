@@ -364,7 +364,6 @@ class MetadataManager:
             if author:
                 self.metadata["author"] = author
             if last_modified:
-                self.metadata["year"] = last_modified.year
                 self.metadata["date_modified"] = last_modified.strftime("%Y-%m-%d")
             if created_at:
                 self.metadata["date_created"] = created_at.strftime("%Y-%m-%d")
