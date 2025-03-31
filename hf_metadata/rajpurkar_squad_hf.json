@@ -1,0 +1,17 @@
+{
+  "name": "rajpurkar/squad",
+  "creators": "rajpurkar",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tDataset Card for SQuAD\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset Summary\n\t\n\nStanford Question Answering Dataset (SQuAD) is a reading comprehension dataset, consisting of questions posed by crowdworkers on a set of Wikipedia articles, where the answer to every question is a segment of text, or span, from the corresponding reading passage, or the question might be unanswerable.\nSQuAD 1.1 contains 100,000+ question-answer pairs on 500+ articles.\n\n\t\n\t\t\n\t\n\t\n\t\tSupported Tasks and Leaderboards\n\t\n\nQuestion\u2026 See the full description on the dataset page: https://huggingface.co/datasets/rajpurkar/squad.",
+  "license": "cc-by-sa-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "extractive-qa",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@inproceedings{rajpurkar-etal-2016-squad, \n    title = '{SQ}u{AD}: 100,000+ Questions for Machine Comprehension of Text', \n    author = 'Rajpurkar, Pranav  and \n      Zhang, Jian  and \n      Lopyrev, Konstantin  and \n      Liang, Percy', \n    editor = 'Su, Jian  and \n      Duh, Kevin  and \n      Carreras, Xavier', \n    booktitle = 'Proceedings of the 2016 Conference on Empirical Methods in Natural Language Processing', \n    month = nov, \n    year = '2016', \n    address = 'Austin, Texas', \n    publisher = 'Association for Computational Linguistics', \n    url = 'https://aclanthology.org/D16-1264', \n    doi = '10.18653/v1/D16-1264', \n    pages = '2383--2392', \n    eprint={1606.05250}, \n    archivePrefix={arXiv}, \n    primaryClass={cs.CL}, \n}",
+  "task": "question-answering",
+  "modality": "text",
+  "in_language": "en"
+}

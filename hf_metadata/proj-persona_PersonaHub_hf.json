@@ -1,0 +1,17 @@
+{
+  "name": "proj-persona/PersonaHub",
+  "creators": "proj-persona",
+  "description": "\n\t\n\t\t\n\t\tScaling Synthetic Data Creation with 1,000,000,000 Personas\n\t\n\nThis repo releases data introduced in our paper Scaling Synthetic Data Creation with 1,000,000,000 Personas:\nWe propose a novel persona-driven data synthesis methodology that leverages various perspectives within a large language model (LLM) to create diverse synthetic data. To fully exploit this methodology at scale, we introduce PERSONA HUB \u2013 a collection of 1 billion diverse personas automatically curated from web data.\u2026 See the full description on the dataset page: https://huggingface.co/datasets/proj-persona/PersonaHub.",
+  "license": "cc-by-nc-sa-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "Synthetic, text, math, reasoning, instruction, tool",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "text-generation, text-classification, token-classification, fill-mask, table-question-answering, text2text-generation",
+  "modality": "text",
+  "in_language": "en, zh"
+}

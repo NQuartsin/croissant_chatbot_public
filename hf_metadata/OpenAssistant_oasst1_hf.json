@@ -1,0 +1,17 @@
+{
+  "name": "OpenAssistant/oasst1",
+  "creators": "OpenAssistant",
+  "description": "\n\t\n\t\t\n\t\tOpenAssistant Conversations Dataset (OASST1)\n\t\n\n\n\t\n\t\t\n\t\tDataset Summary\n\t\n\nIn an effort to democratize research on large-scale alignment, we release OpenAssistant \nConversations (OASST1), a human-generated, human-annotated assistant-style conversation \ncorpus consisting of 161,443 messages in 35 different languages, annotated with 461,292 \nquality ratings, resulting in over 10,000 fully annotated conversation trees. The corpus \nis a product of a worldwide crowd-sourcing effort\u2026 See the full description on the dataset page: https://huggingface.co/datasets/OpenAssistant/oasst1.",
+  "license": "apache-2.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "human-feedback",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "",
+  "modality": "tabular, text",
+  "in_language": "en, es, ru, de, pl, th, vi, sv, bn, da, he, it, fa, sk, id, nb, el, nl, hu, eu, zh, eo, ja, ca, cs, bg, fi, pt, tr, ro, ar, uk, gl, fr, ko"
+}

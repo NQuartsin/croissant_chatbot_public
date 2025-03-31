@@ -1,0 +1,17 @@
+{
+  "name": "HuggingFaceM4/the_cauldron",
+  "creators": "HuggingFaceM4",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tDataset Card for The Cauldron\n\t\n\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset description\n\t\n\nThe Cauldron is part of the Idefics2 release.\nIt is a massive collection of 50 vision-language datasets (training sets only) that were used for the fine-tuning of the vision-language model Idefics2.\n\n\t\n\t\t\n\t\n\t\n\t\tLoad the dataset\n\t\n\nTo load the dataset, install the library datasets with pip install datasets. Then,\nfrom datasets import load_dataset\nds = load_dataset(\"HuggingFaceM4/the_cauldron\", \"ai2d\")\n\nto download\u2026 See the full description on the dataset page: https://huggingface.co/datasets/HuggingFaceM4/the_cauldron.",
+  "license": "",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{laurençon2024matters, \n      title={What matters when building vision-language models?},  \n      author={Hugo Laurençon and Léo Tronchon and Matthieu Cord and Victor Sanh}, \n      year={2024}, \n      eprint={2405.02246}, \n      archivePrefix={arXiv}, \n      primaryClass={cs.CV} \n}",
+  "task": "",
+  "modality": "image, text",
+  "in_language": ""
+}

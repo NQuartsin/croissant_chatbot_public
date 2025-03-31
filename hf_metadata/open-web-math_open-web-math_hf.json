@@ -1,0 +1,17 @@
+{
+  "name": "open-web-math/open-web-math",
+  "creators": "open-web-math",
+  "description": "\n\nKeiran Paster*, Marco Dos Santos*, Zhangir Azerbayev, Jimmy Ba\nGitHub  | ArXiv\n| PDF\nOpenWebMath is a dataset containing the majority of the high-quality, mathematical text from the internet. It is filtered and extracted from over 200B HTML files on Common Crawl down to a set of 6.3 million documents containing a total of 14.7B tokens. OpenWebMath is intended for use in pretraining and finetuning large language models.\nYou can download the dataset using Hugging Face:\nfrom datasets import\u2026 See the full description on the dataset page: https://huggingface.co/datasets/open-web-math/open-web-math.",
+  "license": "",
+  "url": "",
+  "publisher": "",
+  "version": "ODC-By 1.0",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{paster2023openwebmath, \n      title={OpenWebMath: An Open Dataset of High-Quality Mathematical Web Text},  \n      author={Keiran Paster and Marco Dos Santos and Zhangir Azerbayev and Jimmy Ba}, \n      year={2023}, \n      eprint={2310.06786}, \n      archivePrefix={arXiv}, \n      primaryClass={cs.AI} \n}",
+  "task": "",
+  "modality": "text",
+  "in_language": ""
+}

@@ -1,0 +1,17 @@
+{
+  "name": "tiiuae/falcon-refinedweb",
+  "creators": "tiiuae",
+  "description": "\n\t\n\t\t\n\t\t\ud83d\udcc0 Falcon RefinedWeb\n\t\n\nFalcon RefinedWeb is a massive English web dataset built by TII and released under an ODC-By 1.0 license.\nSee the \ud83d\udcd3 paper on arXiv for more details. \nRefinedWeb is built through stringent filtering and large-scale deduplication of CommonCrawl; we found models trained on RefinedWeb to achieve performance in-line or better than models trained on curated datasets, while only relying on web data. \nRefinedWeb is also \"multimodal-friendly\": it contains links and alt\u2026 See the full description on the dataset page: https://huggingface.co/datasets/tiiuae/falcon-refinedweb.",
+  "license": "odc-by",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@article{refinedweb, \n  title={The {R}efined{W}eb dataset for {F}alcon {LLM}: outperforming curated corpora with web data, and web data only}, \n   author={Guilherme Penedo and Quentin Malartic and Daniel Hesslow and Ruxandra Cojocaru and Alessandro Cappelli and Hamza Alobeidli and Baptiste Pannier and Ebtesam Almazrouei and Julien Launay}, \n  journal={arXiv preprint arXiv:2306.01116}, \n  eprint={2306.01116}, \n  eprinttype = {arXiv}, \n  url={https://arxiv.org/abs/2306.01116}, \n  year={2023} \n}",
+  "task": "text-generation",
+  "modality": "text",
+  "in_language": "en"
+}

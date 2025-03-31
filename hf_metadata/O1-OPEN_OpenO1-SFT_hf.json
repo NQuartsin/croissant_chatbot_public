@@ -1,0 +1,17 @@
+{
+  "name": "O1-OPEN/OpenO1-SFT",
+  "creators": "O1-OPEN",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tSFT Data for CoT Activation\n\t\n\n\ud83c\udf89\ud83c\udf89\ud83c\udf89This repository contains the dataset used for fine-tuning a language model using SFT for Chain-of-Thought Activation. \n\ud83c\udf08\ud83c\udf08\ud83c\udf08The dataset is designed to enhance the model's ability to generate coherent and logical reasoning sequences. \n\u2604\u2604\u2604By using this dataset, the model can learn to produce detailed and structured reasoning steps, enhancing its performance on complex reasoning tasks.\n\n\t\n\t\t\n\t\n\t\n\t\tStatistics\n\t\n\n1\ufe0f\u20e3Total Records: 77,685\u2026 See the full description on the dataset page: https://huggingface.co/datasets/O1-OPEN/OpenO1-SFT.",
+  "license": "apache-2.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "question-answering",
+  "modality": "text",
+  "in_language": "en, zh"
+}

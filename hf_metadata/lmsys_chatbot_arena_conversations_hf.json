@@ -1,0 +1,17 @@
+{
+  "name": "lmsys/chatbot_arena_conversations",
+  "creators": "lmsys",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tChatbot Arena Conversations Dataset\n\t\n\nThis dataset contains 33K cleaned conversations with pairwise human preferences.\nIt is collected from 13K unique IP addresses on the Chatbot Arena from April to June 2023.\nEach sample includes a question ID, two model names, their full conversation text in OpenAI API JSON format, the user vote, the anonymized user ID, the detected language tag, the OpenAI moderation API tag, the additional toxic tag, and the timestamp.\nTo ensure the safe\u2026 See the full description on the dataset page: https://huggingface.co/datasets/lmsys/chatbot_arena_conversations.",
+  "license": "cc",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "conversational",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{zheng2023judging, \n      title={Judging LLM-as-a-judge with MT-Bench and Chatbot Arena},  \n      author={Lianmin Zheng and Wei-Lin Chiang and Ying Sheng and Siyuan Zhuang and Zhanghao Wu and Yonghao Zhuang and Zi Lin and Zhuohan Li and Dacheng Li and Eric. P Xing and Hao Zhang and Joseph E. Gonzalez and Ion Stoica}, \n      year={2023}, \n      eprint={2306.05685}, \n      archivePrefix={arXiv}, \n      primaryClass={cs.CL} \n}",
+  "task": "",
+  "modality": "tabular, text",
+  "in_language": ""
+}

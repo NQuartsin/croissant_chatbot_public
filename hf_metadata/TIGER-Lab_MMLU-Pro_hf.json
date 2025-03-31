@@ -1,0 +1,17 @@
+{
+  "name": "TIGER-Lab/MMLU-Pro",
+  "creators": "TIGER-Lab",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tMMLU-Pro Dataset\n\t\n\nMMLU-Pro dataset is a more robust and challenging massive multi-task understanding dataset tailored to more rigorously benchmark large language models' capabilities. This dataset contains 12K complex questions across various disciplines. \n|Github | \ud83c\udfc6Leaderboard | \ud83d\udcd6Paper |\n\n\t\n\t\t\n\t\n\t\n\t\t\ud83d\ude80 What's New\n\t\n\n\n[2024.10.16] We have added Gemini-1.5-Flash-002, Gemini-1.5-Pro-002, Jamba-1.5-Large, Llama-3.1-Nemotron-70B-Instruct-HF and Ministral-8B-Instruct-2410 to our\u2026 See the full description on the dataset page: https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro.",
+  "license": "mit",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "evaluation",
+  "date_modified": "2024.10.16",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "question-answering",
+  "modality": "tabular, text",
+  "in_language": "en"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "stingning/ultrachat",
+  "creators": "stingning",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tDataset Card for Dataset Name\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset Description\n\t\n\nAn open-source, large-scale, and multi-round dialogue data powered by Turbo APIs. In consideration of factors such as safeguarding privacy, we do not directly use any data available on the Internet as prompts.\nTo ensure generation quality, two separate ChatGPT Turbo APIs are adopted in generation, where one plays the role of the user to generate queries and the other generates the response. \nWe instruct the user\u2026 See the full description on the dataset page: https://huggingface.co/datasets/stingning/ultrachat.",
+  "license": "mit",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "conversational",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@article{ding2023enhancing, \n  title={Enhancing Chat Language Models by Scaling High-quality Instructional Conversations},\n  author={Ding, Ning and Chen, Yulin and Xu, Bokai and Qin, Yujia and Zheng, Zhi and Hu, Shengding and Liu, Zhiyuan and Sun, Maosong and Zhou, Bowen},\n  journal={arXiv preprint arXiv:2305.14233},\n  year={2023}\n}",
+  "task": "text-generation",
+  "modality": "text",
+  "in_language": "en"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "allenai/WildChat-1M",
+  "creators": "allenai",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tDataset Card for WildChat\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset Description\n\t\n\n\nPaper: https://arxiv.org/abs/2405.01470\n\nInteractive Search Tool: https://wildvisualizer.com (paper)\n\nLicense: ODC-BY\n\nLanguage(s) (NLP): multi-lingual\n\nPoint of Contact: Yuntian Deng\n\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset Summary\n\t\n\nWildChat is a collection of 1 million conversations between human users and ChatGPT, alongside demographic data, including state, country, hashed IP addresses, and request headers. We collected WildChat\u2026 See the full description on the dataset page: https://huggingface.co/datasets/allenai/WildChat-1M.",
+  "license": "odc-by",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "instruction-finetuning",
+  "date_modified": "2024-10-17",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@inproceedings{ \n  zhao2024wildchat, \n  title={WildChat: 1M Chat{GPT} Interaction Logs in the Wild}, \n  author={Wenting Zhao and Xiang Ren and Jack Hessel and Claire Cardie and Yejin Choi and Yuntian Deng}, \n  booktitle={The Twelfth International Conference on Learning Representations}, \nyear={2024}, \n  url={https://openreview.net/forum?id=Bl8u7ZRlbM} \n}",
+  "task": "text-generation, question-answering, text2text-generation",
+  "modality": "text",
+  "in_language": ""
+}

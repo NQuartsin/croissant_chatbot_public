@@ -1,0 +1,17 @@
+{
+  "name": "neuralwork/arxiver",
+  "creators": "neuralwork",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tArxiver Dataset\n\t\n\nArxiver consists of 63,357 arXiv papers converted to multi-markdown (.mmd) format. Our dataset includes original arXiv article IDs, titles, abstracts, authors, publication dates, URLs and corresponding markdown files published between January 2023 and October 2023.\nWe hope our dataset will be useful for various applications such as semantic search, domain specific language modeling, question answering and summarization.\n\n\t\n\t\t\n\t\n\t\n\t\tCuration\n\t\n\nThe Arxiver dataset\u2026 See the full description on the dataset page: https://huggingface.co/datasets/neuralwork/arxiver.",
+  "license": "cc-by-nc-sa-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{acar_arxiver2024, \n  author = {Alican Acar, Alara Dirik, Muhammet Hatipoglu}, \n  title = {ArXiver}, \n  year = {2024}, \n  publisher = {Hugging Face}, \n  url = {{https://huggingface.co/datasets/neuralwork/arxiver}} \n}",
+  "task": "",
+  "modality": "text",
+  "in_language": ""
+}

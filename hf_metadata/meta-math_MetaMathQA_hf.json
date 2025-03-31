@@ -1,0 +1,17 @@
+{
+  "name": "meta-math/MetaMathQA",
+  "creators": "meta-math",
+  "description": "View the project page:\nhttps://meta-math.github.io/\nsee our paper at https://arxiv.org/abs/2309.12284\n\n\t\n\t\t\n\t\n\t\n\t\tNote\n\t\n\nAll MetaMathQA data are augmented from the training sets of GSM8K and MATH. \nNone of the augmented data is from the testing set.\nYou can check the original_question in meta-math/MetaMathQA, each item is from the GSM8K or MATH train set.\n\n\t\n\t\t\n\t\n\t\n\t\tModel Details\n\t\n\nMetaMath-Mistral-7B is fully fine-tuned on the MetaMathQA datasets and based on the powerful Mistral-7B model.\u2026 See the full description on the dataset page: https://huggingface.co/datasets/meta-math/MetaMathQA.",
+  "license": "mit",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "math, math-qa",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@article{yu2023metamath, \n  title={MetaMath: Bootstrap Your Own Mathematical Questions for Large Language Models},  \n  author={Yu, Longhui and Jiang, Weisen and Shi, Han and Yu, Jincheng and Liu, Zhengying and Zhang, Yu and Kwok, James T and Li, Zhenguo and Weller, Adrian and Liu, Weiyang},  \n  journal={arXiv preprint arXiv:2309.12284},  \n  year={2023} \n}",
+  "task": "",
+  "modality": "text",
+  "in_language": ""
+}

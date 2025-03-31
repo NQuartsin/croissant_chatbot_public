@@ -1,0 +1,17 @@
+{
+  "name": "RyokoAI/ShareGPT52K",
+  "creators": "RyokoAI",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tDataset Card for ShareGPT52K90K\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset Summary\n\t\n\nThis dataset is a collection of approximately 52,00090,000 conversations scraped via the ShareGPT API before it was shut down.\nThese conversations include both user prompts and responses from OpenAI's ChatGPT.\nThis repository now contains the new 90K conversations version. The previous 52K may\nbe found in the old/ directory.\n\n\t\n\t\t\n\t\n\t\n\t\tSupported Tasks and Leaderboards\n\t\n\n\ntext-generation\n\n\n\t\n\t\t\n\t\n\t\n\t\tLanguages\u2026 See the full description on the dataset page: https://huggingface.co/datasets/RyokoAI/ShareGPT52K.",
+  "license": "cc0-1.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "conversation, rlhf, chatgpt, gpt-3.5",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "text-generation",
+  "modality": "",
+  "in_language": "en, es, de, multilingual"
+}

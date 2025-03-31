@@ -1,0 +1,17 @@
+{
+  "name": "liuhaotian/LLaVA-Instruct-150K",
+  "creators": "liuhaotian",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tLLaVA Visual Instruct 150K Dataset Card\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset details\n\t\n\nDataset type:\nLLaVA Visual Instruct 150K is a set of GPT-generated multimodal instruction-following data.\nIt is constructed for visual instruction tuning and for building large multimodal towards GPT-4 vision/language capability.\nDataset date:\nLLaVA Visual Instruct 150K was collected in April 2023, by prompting GPT-4-0314 API.\nPaper or resources for more information:\nhttps://llava-vl.github.io/\nLicense:\u2026 See the full description on the dataset page: https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K.",
+  "license": "cc-by-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "visual-question-answering, question-answering",
+  "modality": "",
+  "in_language": "en"
+}

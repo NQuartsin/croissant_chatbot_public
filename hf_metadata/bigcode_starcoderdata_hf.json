@@ -1,0 +1,17 @@
+{
+  "name": "bigcode/starcoderdata",
+  "creators": "bigcode",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tStarCoder Training Dataset\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset description\n\t\n\nThis is the dataset used for training StarCoder and StarCoderBase. It contains 783GB of code in 86 programming languages, and includes 54GB GitHub Issues + 13GB Jupyter notebooks in scripts and text-code pairs,\nand 32GB of GitHub commits, which is approximately 250 Billion tokens.\n\n\t\n\t\t\n\t\n\t\n\t\tDataset creation\n\t\n\nThe creation and filtering of The Stack is explained in the original dataset, we additionally decontaminate\u2026 See the full description on the dataset page: https://huggingface.co/datasets/bigcode/starcoderdata.",
+  "license": "other",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "text-generation",
+  "modality": "text",
+  "in_language": "code"
+}

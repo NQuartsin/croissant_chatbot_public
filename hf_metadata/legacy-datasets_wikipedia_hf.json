@@ -1,0 +1,17 @@
+{
+  "name": "legacy-datasets/wikipedia",
+  "creators": "legacy-datasets",
+  "description": "Wikipedia dataset containing cleaned articles of all languages.\nThe datasets are built from the Wikipedia dump\n(https://dumps.wikimedia.org/) with one split per language. Each example\ncontains the content of one full Wikipedia article with cleaning to strip\nmarkdown and unwanted sections (references, etc.).",
+  "license": "cc-by-sa-3.0, gfdl",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "language-modeling, masked-language-modeling",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@ONLINE {wikidump,\n    author = {Wikimedia Foundation},\n    title  = {Wikimedia Downloads},\n    url    = {https://dumps.wikimedia.org}\n}",
+  "task": "text-generation, fill-mask",
+  "modality": "",
+  "in_language": "aa, ab, ace, af, ak, als, am, an, ang, ar, arc, arz, as, ast, atj, av, ay, az, azb, ba, bar, bcl, be, bg, bh, bi, bjn, bm, bn, bo, bpy, br, bs, bug, bxr, ca, cbk, cdo, ce, ceb, ch, cho, chr, chy, ckb, co, cr, crh, cs, csb, cu, cv, cy, da, de, din, diq, dsb, dty, dv, dz, ee, el, eml, en, eo, es, et, eu, ext, fa, ff, fi, fj, fo, fr, frp, frr, fur, fy, ga, gag, gan, gd, gl, glk, gn, gom, gor, got, gu, gv, ha, hak, haw, he, hi, hif, ho, hr, hsb, ht, hu, hy, ia, id, ie, ig, ii, ik, ilo, inh, io, is, it, iu, ja, jam, jbo, jv, ka, kaa, kab, kbd, kbp, kg, ki, kj, kk, kl, km, kn, ko, koi, krc, ks, ksh, ku, kv, kw, ky, la, lad, lb, lbe, lez, lfn, lg, li, lij, lmo, ln, lo, lrc, lt, ltg, lv, lzh, mai, mdf, mg, mh, mhr, mi, min, mk, ml, mn, mr, mrj, ms, mt, mus, mwl, my, myv, mzn, na, nah, nan, nap, nds, ne, new, ng, nl, nn, no, nov, nrf, nso, nv, ny, oc, olo, om, or, os, pa, pag, pam, pap, pcd, pdc, pfl, pi, pih, pl, pms, pnb, pnt, ps, pt, qu, rm, rmy, rn, ro, ru, rue, rup, rw, sa, sah, sat, sc, scn, sco, sd, se, sg, sgs, sh, si, sk, sl, sm, sn, so, sq, sr, srn, ss, st, stq, su, sv, sw, szl, ta, tcy, tdt, te, tg, th, ti, tk, tl, tn, to, tpi, tr, ts, tt, tum, tw, ty, tyv, udm, ug, uk, ur, uz, ve, vec, vep, vi, vls, vo, vro, wa, war, wo, wuu, xal, xh, xmf, yi, yo, yue, za, zea, zh, zu"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "codeparrot/github-code",
+  "creators": "codeparrot",
+  "description": "The GitHub Code dataest consists of 115M code files from GitHub in 32 programming languages with 60 extensions totalling in 1TB of text data. The dataset was created from the GitHub dataset on BiqQuery.",
+  "license": "other",
+  "url": "",
+  "publisher": "",
+  "version": "v1.1",
+  "keywords": "language-modeling",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "text-generation",
+  "modality": "",
+  "in_language": "code"
+}

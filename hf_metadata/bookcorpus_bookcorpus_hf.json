@@ -1,0 +1,17 @@
+{
+  "name": "bookcorpus/bookcorpus",
+  "creators": "bookcorpus",
+  "description": "Books are a rich source of both fine-grained information, how a character, an object or a scene looks like, as well as high-level semantics, what someone is thinking, feeling and how these states evolve through a story.This work aims to align books to their movie releases in order to providerich descriptive explanations for visual content that go semantically farbeyond the captions available in current datasets. \\",
+  "license": "unknown",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "language-modeling, masked-language-modeling",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@InProceedings{Zhu_2015_ICCV,\n    title = {Aligning Books and Movies: Towards Story-Like Visual Explanations by Watching Movies and Reading Books},\n    author = {Zhu, Yukun and Kiros, Ryan and Zemel, Rich and Salakhutdinov, Ruslan and Urtasun, Raquel and Torralba, Antonio and Fidler, Sanja},\n    booktitle = {The IEEE International Conference on Computer Vision (ICCV)},\n    month = {December},\n    year = {2015}\n}",
+  "task": "text-generation, fill-mask",
+  "modality": "",
+  "in_language": "en"
+}

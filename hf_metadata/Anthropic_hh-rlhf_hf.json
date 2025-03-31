@@ -1,0 +1,17 @@
+{
+  "name": "Anthropic/hh-rlhf",
+  "creators": "Anthropic",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tDataset Card for HH-RLHF\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset Summary\n\t\n\nThis repository provides access to two different kinds of data:\n\nHuman preference data about helpfulness and harmlessness from Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback. These data are meant to train preference (or reward) models for subsequent RLHF training. These data are not meant for supervised training of dialogue agents. Training dialogue agents on these data is likely\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Anthropic/hh-rlhf.",
+  "license": "mit",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "human-feedback",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "",
+  "modality": "text",
+  "in_language": ""
+} 

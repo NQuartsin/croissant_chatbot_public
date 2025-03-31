@@ -1,0 +1,17 @@
+{
+  "name": "BAAI/Infinity-Instruct",
+  "creators": "BAAI",
+  "description": "\n\t\n\t\t\n\t\tInfinity Instruct\n\t\n\n\n\n\n\nBeijing Academy of Artificial Intelligence (BAAI)\n[Paper][Code][\ud83e\udd17] (would be released soon)\n\n\nThe quality and scale of instruction data are crucial for model performance. Recently, open-source models have increasingly relied on fine-tuning datasets comprising millions of instances, necessitating both high quality and large scale. However, the open-source community has long been constrained by the high costs associated with building such extensive and\u2026 See the full description on the dataset page: https://huggingface.co/datasets/BAAI/Infinity-Instruct.",
+  "license": "cc-by-sa-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "2025/01/06",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{zhang2024inifinitymath, \n      title={InfinityMATH: A Scalable Instruction Tuning Dataset in Programmatic Mathematical Reasoning},  \n      author={Bo-Wen Zhang and Yan Yan and Lin Li and Guang Liu}, \n      year={2024}, \n      eprint={2408.07089}, \n      archivePrefix={arXiv}, \n      primaryClass={cs.LG}, \n      url={https://arxiv.org/abs/2408.07089},  \n}",
+  "task": "text-generation",
+  "modality": "tabular, text",
+  "in_language": "en, zh"
+}

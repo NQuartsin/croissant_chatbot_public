@@ -1,0 +1,17 @@
+{
+  "name": "cerebras/SlimPajama-627B",
+  "creators": "cerebras",
+  "description": "The dataset consists of 59166 jsonl files and is ~895GB compressed. It is a cleaned and deduplicated version of Together's RedPajama. \nCheck out our blog post explaining our methods, our code on GitHub, and join the discussion on the Cerebras Discord.\n\n\t\n\t\t\n\t\n\t\n\t\tGetting Started\n\t\n\nYou can download the dataset using Hugging Face datasets:\nfrom datasets import load_dataset\nds = load_dataset(\"cerebras/SlimPajama-627B\")\n\n\n\t\n\t\n\t\n\t\tBackground\n\t\n\nToday we are releasing SlimPajama \u2013 the largest\u2026 See the full description on the dataset page: https://huggingface.co/datasets/cerebras/SlimPajama-627B.",
+  "license": "Common Crawl Foundation Terms of Use, C4 license, GitHub was limited to MIT, BSD, or Apache licenses only, Books: the_pile_books3 license and pg19 license, ArXiv Terms of Use, Wikipedia License, StackExchange license on the Internet Archive",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{cerebras2023slimpajama, \n  author = {Soboleva, Daria and Al-Khateeb, Faisal and Myers, Robert and Steeves, Jacob R and Hestness, Joel and Dey, Nolan},  \n  title = {{SlimPajama: A 627B token cleaned and deduplicated version of RedPajama}}, \n  month = June, \n  year = 2023, \n  url = {{https://www.cerebras.net/blog/slimpajama-a-627b-token-cleaned-and-deduplicated-version-of-redpajama}},  \n  url = {https://huggingface.co/datasets/cerebras/SlimPajama-627B},  \n}",
+  "task": "text-generation",
+  "modality": "",
+  "in_language": "en"
+}   

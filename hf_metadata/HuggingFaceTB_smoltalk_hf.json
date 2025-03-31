@@ -1,0 +1,17 @@
+{
+  "name": "HuggingFaceTB/smoltalk",
+  "creators": "HuggingFaceTB",
+  "description": "\n\t\n\t\t\n\t\tSmolTalk\n\t\n\n\n\n\t\n\t\t\n\t\tDataset description\n\t\n\nThis is a synthetic dataset designed for supervised finetuning (SFT) of LLMs. It was used to build SmolLM2-Instruct family of models and contains 1M samples. More details in our paper https://arxiv.org/abs/2502.02737\nDuring the development of SmolLM2, we observed that models finetuned on public SFT datasets underperformed compared to other models with proprietary instruction datasets. To address this gap, we created new synthetic datasets\u2026 See the full description on the dataset page: https://huggingface.co/datasets/HuggingFaceTB/smoltalk.",
+  "license": "Apache 2.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "Synthetic",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{allal2025smollm2smolgoesbig, \n       title={SmolLM2: When Smol Goes Big -- Data-Centric Training of a Small Language Model},  \n       author={Loubna Ben Allal and Anton Lozhkov and Elie Bakouch and Gabriel Martín Blázquez and Guilherme Penedo and Lewis Tunstall and Andrés Marafioti and Hynek Kydlíček and Agustín Piqueres Lajarín and Vaibhav Srivastav and Joshua Lochner and Caleb Fahlgren and Xuan-Son Nguyen and Clémentine Fourrier and Ben Burtenshaw and Hugo Larcher and Haojun Zhao and Cyril Zakka and Mathieu Morlon and Colin Raffel and Leandro von Werra and Thomas Wolf},  \n       year={2025}, \n       eprint={2502.02737}, \n       archivePrefix={arXiv}, \n       primaryClass={cs.CL}, \n       url={https://arxiv.org/abs/2502.02737},  \n }",
+  "task": "",
+  "modality": "tabular, text",
+  "in_language": "en"
+}

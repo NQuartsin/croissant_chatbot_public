@@ -1,0 +1,17 @@
+{
+  "name": "HuggingFaceM4/WebSight",
+  "creators": "HuggingFaceM4",
+  "description": "\n\t\n\t\t\n\t\tDataset Card for WebSight\n\t\n\n\n\t\n\t\t\n\t\tDataset Description\n\t\n\nWebSight is a large synthetic dataset containing HTML/CSS codes representing synthetically generated English websites, each accompanied by a corresponding screenshot.\nThis dataset serves as a valuable resource for tasks such as generating UI codes from a screenshot.\nIt comes in two versions:\n\nv0.1: Websites are coded with HTML + CSS. They do not include real images.\nv0.2: Websites are coded with HTML + Tailwind CSS. They do\u2026 See the full description on the dataset page: https://huggingface.co/datasets/HuggingFaceM4/WebSight.",
+  "license": "cc-by-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "code, Synthetic",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{laurençon2024unlocking,\n       title={Unlocking the conversion of Web Screenshots into HTML Code with the WebSight Dataset}, \n      author={Hugo Laurençon and Léo Tronchon and Victor Sanh},\n      year={2024}, \n      eprint={2403.09029}, \n      archivePrefix={arXiv}, \n      primaryClass={cs.HC} }",
+  "task": "",
+  "modality": "image, text",
+  "in_language": "en"
+}

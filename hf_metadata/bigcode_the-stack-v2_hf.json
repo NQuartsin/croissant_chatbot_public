@@ -1,0 +1,17 @@
+{
+  "name": "bigcode/the-stack-v2",
+  "creators": "bigcode",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tThe Stack v2\n\t\n\n\n    \n\n\nThe dataset consists of 4 versions:\n\nbigcode/the-stack-v2: the full \"The Stack v2\" dataset <-- you are here\nbigcode/the-stack-v2-dedup: based on the bigcode/the-stack-v2 but further near-deduplicated\nbigcode/the-stack-v2-train-full-ids: based on the bigcode/the-stack-v2-dedup dataset but further filtered with heuristics and spanning 600+ programming languages. The data is grouped into repositories.\nbigcode/the-stack-v2-train-smol-ids: based on the\u2026 See the full description on the dataset page: https://huggingface.co/datasets/bigcode/the-stack-v2.",
+  "license": "other",
+  "url": "",
+  "publisher": "",
+  "version": "v2.1.0",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{lozhkov2024starcoder, \n       title={StarCoder 2 and The Stack v2: The Next Generation},  \n      author={Anton Lozhkov and Raymond Li and Loubna Ben Allal and Federico Cassano and Joel Lamy-Poirier and Nouamane Tazi and Ao Tang and Dmytro Pykhtar and Jiawei Liu and Yuxiang Wei and Tianyang Liu and Max Tian and Denis Kocetkov and Arthur Zucker and Younes Belkada and Zijian Wang and Qian Liu and Dmitry Abulkhanov and Indraneil Paul and Zhuang Li and Wen-Ding Li and Megan Risdal and Jia Li and Jian Zhu and Terry Yue Zhuo and Evgenii Zheltonozhskii and Nii Osae Osae Dade and Wenhao Yu and Lucas Krauß and Naman Jain and Yixuan Su and Xuanli He and Manan Dey and Edoardo Abati and Yekun Chai and Niklas Muennighoff and Xiangru Tang and Muhtasham Oblokulov and Christopher Akiki and Marc Marone and Chenghao Mou and Mayank Mishra and Alex Gu and Binyuan Hui and Tri Dao and Armel Zebaze and Olivier Dehaene and Nicolas Patry and Canwen Xu and Julian McAuley and Han Hu and Torsten Scholak and Sebastien Paquet and Jennifer Robinson and Carolyn Jane Anderson and Nicolas Chapados and Mostofa Patwary and Nima Tajbakhsh and Yacine Jernite and Carlos Muñoz Ferrandis and Lingming Zhang and Sean Hughes and Thomas Wolf and Arjun Guha and Leandro von Werra and Harm de Vries},  \n      year={2024}, \n      eprint={2402.19173}, \n      archivePrefix={arXiv}, \n      primaryClass={cs.SE} \n}",
+  "task": "text-generation",
+  "modality": "tabular, text",
+  "in_language": "code"
+}

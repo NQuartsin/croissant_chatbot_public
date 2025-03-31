@@ -1,0 +1,17 @@
+{
+  "name": "glaiveai/glaive-function-calling-v2",
+  "creators": "glaiveai",
+  "description": "",
+  "license": "apache-2.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "text-generation",
+  "modality": "text",
+  "in_language": "en"
+}

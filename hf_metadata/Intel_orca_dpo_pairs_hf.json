@@ -1,0 +1,17 @@
+{
+  "name": "Intel/orca_dpo_pairs",
+  "creators": "Intel",
+  "description": "The dataset contains 12k examples from Orca style dataset Open-Orca/OpenOrca.\n",
+  "license": "apache-2.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "",
+  "modality": "text",
+  "in_language": ""
+}

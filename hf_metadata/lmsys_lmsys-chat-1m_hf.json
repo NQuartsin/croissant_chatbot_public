@@ -1,0 +1,17 @@
+{
+  "name": "lmsys/lmsys-chat-1m",
+  "creators": "lmsys",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tLMSYS-Chat-1M: A Large-Scale Real-World LLM Conversation Dataset\n\t\n\nThis dataset contains one million real-world conversations with 25 state-of-the-art LLMs.\nIt is collected from 210K unique IP addresses in the wild on the Vicuna demo and Chatbot Arena website from April to August 2023.\nEach sample includes a conversation ID, model name, conversation text in OpenAI API JSON format, detected language tag, and OpenAI moderation API tag.\nUser consent is obtained through the \"Terms of\u2026 See the full description on the dataset page: https://huggingface.co/datasets/lmsys/lmsys-chat-1m.",
+  "license": "",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{zheng2023lmsyschat1m, \n      title={LMSYS-Chat-1M: A Large-Scale Real-World LLM Conversation Dataset}, \n      author={Lianmin Zheng and Wei-Lin Chiang and Ying Sheng and Tianle Li and Siyuan Zhuang and Zhanghao Wu and Yonghao Zhuang and Zhuohan Li and Zi Lin and Eric. P Xing and Joseph E. Gonzalez and Ion Stoica and Hao Zhang}, \n      year={2023}, \n      eprint={2309.11998}, \n      archivePrefix={arXiv}, \n      primaryClass={cs.CL} \n}",
+  "task": "conversational",
+  "modality": "text",
+  "in_language": ""
+}

@@ -1,0 +1,17 @@
+{
+  "name": "togethercomputer/RedPajama-Data-V2",
+  "creators": "togethercomputer",
+  "description": "RedPajama V2: an Open Dataset for Training Large Language Models",
+  "license": "",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@software{together2023redpajama, \n  author = {Together Computer}, \n   title = {RedPajama: an Open Dataset for Training Large Language Models}, \n  month = October, \n  year = 2023, \n  url = {https://github.com/togethercomputer/RedPajama-Data} \n}",
+  "task": "text-generation",
+  "modality": "",
+  "in_language": "en, de, fr, es, it"
+}

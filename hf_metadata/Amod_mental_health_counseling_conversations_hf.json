@@ -1,0 +1,17 @@
+{
+  "name": "Amod/mental_health_counseling_conversations",
+  "creators": "Amod",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tAmod/mental_health_counseling_conversations\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset Summary\n\t\n\nThis dataset is a collection of questions and answers sourced from two online counseling and therapy platforms. The questions cover a wide range of mental health topics, and the answers are provided by qualified psychologists. The dataset is intended to be used for fine-tuning language models to improve their ability to provide mental health advice.\n\n\t\n\t\t\n\t\n\t\n\t\tSupported Tasks and Leaderboards\n\t\n\nThe\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Amod/mental_health_counseling_conversations.",
+  "license": "openrail",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "medical",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "text-generation, question-answering",
+  "modality": "text",
+  "in_language": "en"
+}

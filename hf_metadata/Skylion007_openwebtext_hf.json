@@ -1,0 +1,17 @@
+{
+  "name": "Skylion007/openwebtext",
+  "creators": "Skylion007",
+  "description": "An open-source replication of the WebText dataset from OpenAI.",
+  "license": "cc0-1.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "language-modeling, masked-language-modeling",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{Gokaslan2019OpenWeb,\n  title={OpenWebText Corpus},\n  author={Aaron Gokaslan*, Vanya Cohen*, Ellie Pavlick, Stefanie Tellex},\n  howpublished{\\\\url{http://Skylion007.github.io/OpenWebTextCorpus}},\n  year={2019}\n}",
+  "task": "text-generation, fill-mask",
+  "modality": "",
+  "in_language": "en"
+}

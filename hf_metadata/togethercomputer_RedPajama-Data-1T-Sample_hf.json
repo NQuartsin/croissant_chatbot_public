@@ -1,0 +1,17 @@
+{
+  "name": "togethercomputer/RedPajama-Data-1T-Sample",
+  "creators": "togethercomputer",
+  "description": "RedPajama is a clean-room, fully open-source implementation of the LLaMa dataset. This is a 1B-token sample of the full dataset.",
+  "license": "Common Crawl Foundation Terms of Use, C4 license, GitHub was limited to MIT, BSD, or Apache licenses only, ArXiv Terms of Use, Wikipedia License, StackExchange license on the Internet Archive",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@software{together2023redpajama,author = {Together Computer}, \n    title = {RedPajama: An Open Source Recipe to Reproduce LLaMA training dataset}, \n    month = April, \n    year = 2023, \n    url = {https://github.com/togethercomputer/RedPajama-Data}}",
+  "task": "text-generation",
+  "modality": "text",
+  "in_language": "en"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "cais/mmlu",
+  "creators": "cais",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tDataset Card for MMLU\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset Summary\n\t\n\nMeasuring Massive Multitask Language Understanding by Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, and Jacob Steinhardt (ICLR 2021).\nThis is a massive multitask test consisting of multiple-choice questions from various branches of knowledge. The test spans subjects in the humanities, social sciences, hard sciences, and other areas that are important for some people to learn. This covers 57\u2026 See the full description on the dataset page: https://huggingface.co/datasets/cais/mmlu.",
+  "license": "mit",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "    @article{hendryckstest2021, \n      title={Measuring Massive Multitask Language Understanding}, \n      author={Dan Hendrycks and Collin Burns and Steven Basart and Andy Zou and Mantas Mazeika and Dawn Song and Jacob Steinhardt}, \n      journal={Proceedings of the International Conference on Learning Representations (ICLR)}, \n      year={2021} \n    }",
+  "task": "question-answering",
+  "modality": "text",
+  "in_language": "en"
+}

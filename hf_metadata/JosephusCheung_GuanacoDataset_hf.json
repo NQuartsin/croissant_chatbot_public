@@ -1,0 +1,17 @@
+{
+  "name": "JosephusCheung/GuanacoDataset",
+  "creators": "JosephusCheung",
+  "description": "Sorry, it's no longer available on Hugging Face. Please reach out to those who have already downloaded it. If you have a copy, please refrain from re-uploading it to Hugging Face. The people here don't deserve it. See also: https://twitter.com/RealJosephus/status/1779913520529707387\n\n\t\n\t\t\n\t\n\t\n\t\tGuanacoDataset\n\t\n\nNews: We're heading towards multimodal VQA, with blip2-flan-t5-xxl Alignment to Guannaco 7B LLM.\nStill under construction: GuanacoVQA weight & GuanacoVQA Dataset \nNotice: Effective\u2026 See the full description on the dataset page: https://huggingface.co/datasets/JosephusCheung/GuanacoDataset.",
+  "license": "gpl-3.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "alpaca, llama, guanaco",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "text-generation, question-answering, conversational",
+  "modality": "text",
+  "in_language": "zh, en, ja, de"
+}

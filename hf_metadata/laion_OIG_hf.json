@@ -1,0 +1,17 @@
+{
+  "name": "laion/OIG",
+  "creators": "laion",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tThis is the Open Instruction Generalist Dataset\n\t\n\nThis is our attempt to create a large instruction dataset of medium quality along with a smaller high quality instruciton dataset (OIG-small-chip2).\nThe data is in the form of jsonl objects, with at least a 'text' field. Some datasets may also include a 'metadata' field. The 'text' field contains a string of the form of one or more of:\n\n<human>: instruction\\n<bot>: response\n<human>: instruction\\n<bot>: response .. <human>:\u2026 See the full description on the dataset page: https://huggingface.co/datasets/laion/OIG.",
+  "license": "apache-2.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "March 20, 2023",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "",
+  "modality": "text",
+  "in_language": ""
+}

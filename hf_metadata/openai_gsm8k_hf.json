@@ -1,0 +1,17 @@
+{
+  "name": "openai/gsm8k",
+  "creators": "openai",
+  "description": "\n\t\n\t\t\n\t\tDataset Card for GSM8K\n\t\n\n\n\t\n\t\t\n\t\tDataset Summary\n\t\n\nGSM8K (Grade School Math 8K) is a dataset of 8.5K high quality linguistically diverse grade school math word problems. The dataset was created to support the task of question answering on basic mathematical problems that require multi-step reasoning.\n\nThese problems take between 2 and 8 steps to solve.\nSolutions primarily involve performing a sequence of elementary calculations using basic arithmetic operations (+ \u2212 \u00d7\u00f7) to reach the\u2026 See the full description on the dataset page: https://huggingface.co/datasets/openai/gsm8k.",
+  "license": "mit",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "math-word-problems",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@article{cobbe2021gsm8k, \n  title={Training Verifiers to Solve Math Word Problems}, \n  author={Cobbe, Karl and Kosaraju, Vineet and Bavarian, Mohammad and Chen, Mark and Jun, Heewoo and Kaiser, Lukasz and Plappert, Matthias and Tworek, Jerry and Hilton, Jacob and Nakano, Reiichiro and Hesse, Christopher and Schulman, John}, \n  journal={arXiv preprint arXiv:2110.14168}, \n  year={2021} \n}",
+  "task": "text2text-generation",
+  "modality": "text",
+  "in_language": "en"
+}

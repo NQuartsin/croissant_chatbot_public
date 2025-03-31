@@ -1,0 +1,17 @@
+{
+  "name": "HuggingFaceFV/finevideo",
+  "creators": "HuggingFaceFV",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tFineVideo\n\t\n\n\n  \n\n\n\nFineVideo\nDescription\nDataset Explorer\nRevisions\nDataset Distribution\n\n\nHow to download and use FineVideo\nUsing datasets\nUsing huggingface_hub\nLoad a subset of the dataset\n\n\nDataset Structure\nData Instances\nData Fields\n\n\nDataset Creation\nLicense CC-By\nConsiderations for Using the Data\nSocial Impact of Dataset\nDiscussion of Biases\n\n\nAdditional Information\nCredits\nFuture Work\nOpting out of FineVideo\nCitation Information\n\n\nTerms of use for FineVideo\u2026 See the full description on the dataset page: https://huggingface.co/datasets/HuggingFaceFV/finevideo.",
+  "license": "CC-By",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "video",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": " @misc{Farré2024FineVideo, \n   title={FineVideo}, \n  author={Farré, Miquel and Marafioti, Andi and Tunstall, Lewis and Von Werra, Leandro and Wolf, Thomas},  \n  year={2024}, \n  url={{https://huggingface.co/datasets/HuggingFaceFV/finevideo}}, \n}",
+  "task": "visual-question-answering, video-text-to-text",
+  "modality": "text, video",
+  "in_language": "en"
+} 

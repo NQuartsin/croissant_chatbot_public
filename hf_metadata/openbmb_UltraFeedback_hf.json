@@ -1,0 +1,17 @@
+{
+  "name": "openbmb/UltraFeedback",
+  "creators": "openbmb",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tIntroduction\n\t\n\n\nGitHub Repo\nUltraRM-13b\nUltraCM-13b\n\nUltraFeedback is a large-scale, fine-grained, diverse preference dataset, used for training powerful reward models and critic models. We collect about 64k prompts from diverse resources (including UltraChat, ShareGPT, Evol-Instruct, TruthfulQA, FalseQA, and FLAN). We then use these prompts to query multiple LLMs (see Table for model lists) and generate 4 different responses for each prompt, resulting in a total of 256k samples.\u2026 See the full description on the dataset page: https://huggingface.co/datasets/openbmb/UltraFeedback.",
+  "license": "mit",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{cui2023ultrafeedback, \n      title={UltraFeedback: Boosting Language Models with High-quality Feedback},  \n      author={Ganqu Cui and Lifan Yuan and Ning Ding and Guanming Yao and Wei Zhu and Yuan Ni and Guotong Xie and Zhiyuan Liu and Maosong Sun}, \n      year={2023}, \n      eprint={2310.01377}, \n      archivePrefix={arXiv}, \n      primaryClass={cs.CL} \n}",
+  "task": "text-generation",
+  "modality": "text",
+  "in_language": "en"
+}

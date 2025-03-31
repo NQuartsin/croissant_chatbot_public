@@ -1,0 +1,17 @@
+{
+  "name": "bigcode/the-stack-dedup",
+  "creators": "bigcode",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tDataset Card for The Stack\n\t\n\n\n\n\t\n\t\t\n\t\n\t\n\t\tChangelog\n\t\n\n\n\t\n\t\t\nRelease\nDescription\n\n\n\t\t\nv1.0\nInitial release of the Stack. Included 30 programming languages and 18 permissive licenses. Note: Three included licenses (MPL/EPL/LGPL) are considered weak copyleft licenses. The resulting near-deduplicated dataset is 1.5TB in size.\n\n\nv1.1\nThe three copyleft licenses ((MPL/EPL/LGPL) were excluded and the list of permissive licenses extended to 193 licenses in total. The list of programming\u2026 See the full description on the dataset page: https://huggingface.co/datasets/bigcode/the-stack-dedup.",
+  "license": "other",
+  "url": "",
+  "publisher": "",
+  "version": "v1.2",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@article{Kocetkov2022TheStack, \n  title={The Stack: 3 TB of permissively licensed source code}, \n  author={Kocetkov, Denis and Li, Raymond and Ben Allal, Loubna and Li, Jia and Mou,Chenghao and Muñoz Ferrandis, Carlos and Jernite, Yacine and Mitchell, Margaret and Hughes, Sean and Wolf, Thomas and Bahdanau, Dzmitry and von Werra, Leandro and de Vries, Harm}, \n  journal={Preprint}, \n  year={2022} \n}",
+  "task": "text-generation",
+  "modality": "tabular, text",
+  "in_language": "code"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "bespokelabs/Bespoke-Stratos-17k",
+  "creators": "bespokelabs",
+  "description": "\n    \n\n\n\n\t\n\t\t\n\t\tBespoke-Stratos-17k\n\t\n\nWe replicated and improved the Berkeley Sky-T1 data pipeline using SFT distillation data \nfrom DeepSeek-R1 to create Bespoke-Stratos-17k -- a reasoning dataset of questions, reasoning traces, and answers. \nThis data was used to train:\n\nBespoke-Stratos-32B, a 32B reasoning model which is a fine-tune of Qwen-2.5-32B-Instruct\nBespoke-Stratos-7B, a 7B reasoning model which is a fine-tune of Qwen-2.5-7B-Instruct.\n\n\n \n\n\n\n\t\n\t\t\n\t\tMetrics for Bespoke-Stratos-32B\u2026 See the full description on the dataset page: https://huggingface.co/datasets/bespokelabs/Bespoke-Stratos-17k.",
+  "license": "apache-2.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "curator, Synthetic",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{bespoke_stratos, \n     author = {Bespoke Labs},  \n    title = {Bespoke-Stratos: The unreasonable effectiveness of reasoning distillation},   \n    howpublished = {https://www.bespokelabs.ai/blog/bespoke-stratos-the-unreasonable-effectiveness-of-reasoning-distillation},   \n    note = {Accessed: 2025-01-22},   \n    year = {2025} \n}",
+  "task": "",
+  "modality": "text",
+  "in_language": "en"
+}

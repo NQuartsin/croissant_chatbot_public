@@ -1,0 +1,17 @@
+{
+  "name": "Samsung/samsum",
+  "creators": "Samsung",
+  "description": "SAMSum Corpus contains over 16k chat dialogues with manually annotated\nsummaries.\nThere are two features:\n  - dialogue: text of dialogue.\n  - summary: human written summary of the dialogue.\n  - id: id of a example.",
+  "license": "cc-by-nc-nd-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "conversations-summarization",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@article{gliwa2019samsum,\n  title={SAMSum Corpus: A Human-annotated Dialogue Dataset for Abstractive Summarization},\n  author={Gliwa, Bogdan and Mochol, Iwona and Biesek, Maciej and Wawer, Aleksander},\n  journal={arXiv preprint arXiv:1911.12237},\n  year={2019}\n}",
+  "task": "summarization",
+  "modality": "",
+  "in_language": "en"
+}

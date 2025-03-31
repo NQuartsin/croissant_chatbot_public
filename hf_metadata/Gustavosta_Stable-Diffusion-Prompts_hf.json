@@ -1,0 +1,17 @@
+{
+  "name": "Gustavosta/Stable-Diffusion-Prompts",
+  "creators": "Gustavosta",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tStable Diffusion Dataset\n\t\n\nThis is a set of about 80,000 prompts filtered and extracted from the image finder for Stable Diffusion: \"Lexica.art\". It was a little difficult to extract the data, since the search engine still doesn't have a public API without being protected by cloudflare.\nIf you want to test the model with a demo, you can go to: \"spaces/Gustavosta/MagicPrompt-Stable-Diffusion\".\nIf you want to see the model, go to: \"Gustavosta/MagicPrompt-Stable-Diffusion\".\n",
+  "license": "unknown",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "",
+  "modality": "text",
+  "in_language": "en"
+}

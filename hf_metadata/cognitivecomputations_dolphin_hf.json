@@ -1,0 +1,17 @@
+{
+  "name": "cognitivecomputations/dolphin",
+  "creators": "cognitivecomputations",
+  "description": "Dolphin \ud83d\udc2c\nhttps://erichartford.com/dolphin\n\n\t\n\t\t\n\t\n\t\n\t\tDataset details\n\t\n\nThis dataset is an attempt to replicate the results of Microsoft's Orca\nOur dataset consists of:\n\n~1 million of FLANv2 augmented with GPT-4 completions (flan1m-alpaca-uncensored.jsonl)\n~3.5 million of FLANv2 augmented with GPT-3.5 completions (flan5m-alpaca-uncensored.jsonl)\n\nWe followed the submix and system prompt distribution outlined in the Orca paper. With a few exceptions. We included all 75k of CoT in the FLAN-1m\u2026 See the full description on the dataset page: https://huggingface.co/datasets/cognitivecomputations/dolphin.",
+  "license": "apache-2.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "text-generation",
+  "modality": "text",
+  "in_language": "en"
+}

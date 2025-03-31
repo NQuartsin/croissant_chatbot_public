@@ -1,0 +1,17 @@
+{
+  "name": "Salesforce/xlam-function-calling-60k",
+  "creators": "Salesforce",
+  "description": "\n\t\n\t\t\n\t\tAPIGen Function-Calling Datasets\n\t\n\nPaper | Website | Models\nThis repo contains 60,000 data collected by APIGen, an automated data generation pipeline designed to produce verifiable high-quality datasets for function-calling applications. Each data in our dataset is verified through three hierarchical stages: format checking, actual function executions, and semantic verification, ensuring its reliability and correctness. \nWe conducted human evaluation over 600 sampled data points, and\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Salesforce/xlam-function-calling-60k.",
+  "license": "cc-by-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "function-calling, LLM Agent, code, Synthetic",
+  "date_modified": "July 2024",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@article{liu2024apigen, \n  title={APIGen: Automated Pipeline for Generating Verifiable and Diverse Function-Calling Datasets}, \n  author={Liu, Zuxin and Hoang, Thai and Zhang, Jianguo and Zhu, Ming and Lan, Tian and Kokane, Shirley and Tan, Juntao and Yao, Weiran and Liu, Zhiwei and Feng, Yihao and others}, \n  journal={arXiv preprint arXiv:2406.18518}, \nyear={2024} \n}",
+  "task": "question-answering, text-generation, reinforcement-learning",
+  "modality": "text",
+  "in_language": "en"
+}

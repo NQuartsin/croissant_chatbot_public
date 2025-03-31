@@ -1,0 +1,17 @@
+{
+  "name": "Open-Orca/OpenOrca",
+  "creators": "Open-Orca",
+  "description": "\ud83d\udc0b The OpenOrca Dataset! \ud83d\udc0b\n\n\n\nWe are thrilled to announce the release of the OpenOrca dataset!\nThis rich collection of augmented FLAN data aligns, as best as possible, with the distributions outlined in the Orca paper.\nIt has been instrumental in generating high-performing model checkpoints and serves as a valuable resource for all NLP researchers and developers!\n\n\t\n\t\t\n\t\n\t\n\t\tOfficial Models\n\t\n\n\n\t\n\t\n\t\n\t\tMistral-7B-OpenOrca\n\t\n\nOur latest model, the first 7B to score better overall than all\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Open-Orca/OpenOrca.",
+  "license": "mit",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{OpenOrca,title = {OpenOrca: An Open Dataset of GPT Augmented FLAN Reasoning Traces}, \n    author = {Wing Lian and Bleys Goodson and Eugene Pentland and Austin Cook and Chanvichet Vong and 'Teknium'}, \n    year = {2023},publisher = {HuggingFace}, \n    journal = {HuggingFace repository}, \n    url = {{https://https://huggingface.co/datasets/Open-Orca/OpenOrca}},}",
+  "task": "text-classification, token-classification, table-question-answering, question-answering, zero-shot-classification, summarization, feature-extraction, text-generation, text2text-generation, conversational",
+  "modality": "text",
+  "in_language": "en"
+}

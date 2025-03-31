@@ -1,0 +1,17 @@
+{
+  "name": "b-mc2/sql-create-context",
+  "creators": "b-mc2",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tOverview\n\t\n\nThis dataset builds from WikiSQL and Spider.\nThere are 78,577 examples of natural language queries, SQL CREATE TABLE statements, and SQL Query answering the question using the CREATE statement as context. This dataset was built with text-to-sql LLMs in mind, intending to prevent hallucination of column and table names often seen when trained on text-to-sql datasets. The CREATE TABLE statement can often be copy and pasted from different DBMS and provides table names\u2026 See the full description on the dataset page: https://huggingface.co/datasets/b-mc2/sql-create-context.",
+  "license": "cc-by-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "SQL, code, NLP, text-to-sql, context-sql, spider, wikisql, sqlglot",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{b-mc2_2023_sql-create-context, \n title = {sql-create-context Dataset}, \n  author = {b-mc2}, \n  year = {2023}, \n  url = {https://huggingface.co/datasets/b-mc2/sql-create-context}, \n  note = {This dataset was created by modifying data from the following sources: cite{zhongSeq2SQL2017, yu2018spider}.},\n}",
+  "task": "text-generation, question-answering, table-question-answering",
+  "modality": "text",
+  "in_language": "en"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "allenai/objaverse-xl",
+  "creators": "allenai",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tObjaverse-XL\n\t\n\n\n    \n\n\nObjaverse-XL is an open dataset of over 10 million 3D objects!\nWith it, we train Zero123-XL, a foundation model for 3D, observing incredible 3D generalization abilities: \ud83e\uddf5\ud83d\udc47\n\n\n\n\n\t\n\t\t\n\t\n\t\n\t\tScale Comparison\n\t\n\nObjaverse 1.0 was released back in December. It was a step in the right direction, but still relatively small with 800K objects.\nObjaverse-XL is over an order of magnitude larger and much more diverse!\n\n\n\n\t\n\t\t\n\t\n\t\n\t\tUnlocking Generalization\n\t\n\nCompared\u2026 See the full description on the dataset page: https://huggingface.co/datasets/allenai/objaverse-xl.",
+  "license": "odc-by",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@article{objaverse, \n  title={Objaverse: A Universe of Annotated 3D Objects},  \n  author={Matt Deitke and Dustin Schwenk and Jordi Salvador and Luca Weihs and \n          Oscar Michel and Eli VanderBilt and Ludwig Schmidt and \n          Kiana Ehsani and Aniruddha Kembhavi and Ali Farhadi}, \n  journal={arXiv preprint arXiv:2212.08051}, \n  year={2022} \n}",
+  "task": "",
+  "modality": "",
+  "in_language": "en"
+}

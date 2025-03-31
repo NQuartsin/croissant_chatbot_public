@@ -1,0 +1,17 @@
+{
+  "name": "QingyiSi/Alpaca-CoT",
+  "creators": "QingyiSi",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tInstruction-Finetuning Dataset Collection (Alpaca-CoT)\n\t\n\nThis repository will continuously collect various instruction tuning datasets. And we standardize different datasets into the same format, which can be directly loaded by the code of Alpaca model.\nWe also have conducted empirical study on various instruction-tuning datasets based on the Alpaca model, as shown in https://github.com/PhoebusSi/alpaca-CoT.  \nIf you think this dataset collection is helpful to you, please like\u2026 See the full description on the dataset page: https://huggingface.co/datasets/QingyiSi/Alpaca-CoT.",
+  "license": "apache-2.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "Instruction, Cot",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{alpaca-cot, \n  author = {Qingyi Si, Zheng Lin }, \n  school = {Institute of Information Engineering, Chinese Academy of Sciences, Beijing, China}, \n  title = {Alpaca-CoT: An Instruction Fine-Tuning Platform with Instruction Data Collection and Unified Large Language Models Interface}, \n  year = {2023}, \n  publisher = {GitHub}, \n  journal = {GitHub repository}, \n  url = {{https://github.com/PhoebusSi/alpaca-CoT}}, \n}",
+  "task": "",
+  "modality": "",
+  "in_language": "en, zh, ml"
+}

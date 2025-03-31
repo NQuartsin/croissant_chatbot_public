@@ -1,0 +1,17 @@
+{
+  "name": "nyu-mll/glue",
+  "creators": "nyu-mll",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tDataset Card for GLUE\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset Summary\n\t\n\nGLUE, the General Language Understanding Evaluation benchmark (https://gluebenchmark.com/) is a collection of resources for training, evaluating, and analyzing natural language understanding systems.\n\n\t\n\t\t\n\t\n\t\n\t\tSupported Tasks and Leaderboards\n\t\n\nThe leaderboard for the GLUE benchmark can be found at this address. It comprises the following tasks:\n\n\t\n\t\t\n\t\n\t\n\t\tax\n\t\n\nA manually-curated evaluation dataset for fine-grained\u2026 See the full description on the dataset page: https://huggingface.co/datasets/nyu-mll/glue.",
+  "license": "other",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "acceptability-classification, natural-language-inference, semantic-similarity-scoring, sentiment-classification, text-scoring qa-nli, coreference-nli, paraphrase-identification",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@inproceedings{wang2019glue, \n  title={{GLUE}: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding},  \n  author={Wang, Alex and Singh, Amanpreet and Michael, Julian and Hill, Felix and Levy, Omer and Bowman, Samuel R.}, \n  note={In the Proceedings of ICLR.}, \n  year={2019} \n}",
+  "task": "text-classification",
+  "modality": "tabular, text",
+  "in_language": "en"
+}

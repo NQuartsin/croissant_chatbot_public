@@ -1,0 +1,17 @@
+{
+  "name": "open-thoughts/OpenThoughts-114k",
+  "creators": "open-thoughts",
+  "description": "\n    \n\n\n\n \n\n\n\n\t\n\t\t\n\t\tOpen-Thoughts-114k\n\t\n\nOpen synthetic reasoning dataset with 114k high-quality examples covering math, science, code, and puzzles!\nInspect the content with rich formatting with Curator Viewer.\n\n\t\n\t\t\n\t\tAvailable Subsets\n\t\n\ndefault subset containing ready-to-train data used to finetune the OpenThinker-7B and OpenThinker-32B models:\nds = load_dataset(\"open-thoughts/OpenThoughts-114k\", split=\"train\")\n\nmetadata subset containing extra columns used in dataset construction:\u2026 See the full description on the dataset page: https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k.",
+  "license": "apache-2.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "curator, Synthetic",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{openthoughts, \n  author = {Team, OpenThoughts}, \n  month = jan, \n  title = {{Open Thoughts}}, \n  howpublished = {https://open-thoughts.ai}, \n  year = {2025} \n}",
+  "task": "",
+  "modality": "text",
+  "in_language": ""
+}

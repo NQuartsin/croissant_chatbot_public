@@ -1,0 +1,17 @@
+{
+  "name": "microsoft/orca-math-word-problems-200k",
+  "creators": "microsoft",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tDataset Card\n\t\n\n\n\nThis dataset contains ~200K grade school math word problems. All the answers in this dataset is generated using Azure GPT4-Turbo. Please refer to Orca-Math: Unlocking the potential of\nSLMs in Grade School Math for details about the dataset construction. \n\n\t\n\t\t\n\t\n\t\n\t\tDataset Sources\n\t\n\n\n\n\nRepository: microsoft/orca-math-word-problems-200k\nPaper: Orca-Math: Unlocking the potential of\nSLMs in Grade School Math\n\n\n\t\n\t\t\n\t\n\t\n\t\tDirect Use\n\t\n\n\n\nThis dataset has been\u2026 See the full description on the dataset page: https://huggingface.co/datasets/microsoft/orca-math-word-problems-200k.",
+  "license": "mit",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "math",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{mitra2024orcamath, \n      title={Orca-Math: Unlocking the potential of SLMs in Grade School Math},  \n      author={Arindam Mitra and Hamed Khanpour and Corby Rosset and Ahmed Awadallah}, \n      year={2024}, \n      eprint={2402.14830}, \n      archivePrefix={arXiv}, \n      primaryClass={cs.CL} \n}",
+  "task": "question-answering",
+  "modality": "text",
+  "in_language": "en"
+}

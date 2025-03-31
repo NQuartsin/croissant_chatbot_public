@@ -1,0 +1,17 @@
+{
+  "name": "BAAI/COIG",
+  "creators": "BAAI",
+  "description": "We propose the Chinese Open Instruction Generalist (COIG) project to maintain a harmless, helpful, and diverse set of Chinese instruction corpora. We welcome all researchers in the community to contribute to the corpus set and collaborate with us. We only release the first chip of COIG to help the Chinese LLMs' development in the exploration stage and appeal to more researchers joining us in building COIG. We introduce a manually verified translated general instruction corpus, a manually annotated exam instruction corpus, a human value alignment instruction corpus, a multi-round counterfactual correction chat corpus, and a leetcode instruction corpus. We provide these new instruction corpora to assist the community with instruction tuning on Chinese LLMs. These instruction corpora are also template workflows for how new Chinese instruction corpora can be built and expanded effectively.",
+  "license": "apache-2.0",
+  "url": "",
+  "publisher": "",
+  "version": "v03",
+  "keywords": "",
+  "date_modified": "May 27, 2023",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{zhang2023chinese,\n      title={Chinese Open Instruction Generalist: A Preliminary Release}, \n      author={Ge Zhang and Yemin Shi and Ruibo Liu and Ruibin Yuan and Yizhi Li and Siwei Dong and Yu Shu and Zhaoqun Li and Zekun Wang and Chenghua Lin and Wenhao Huang and Jie Fu},\n      year={2023},\n      eprint={2304.07987},\n      archivePrefix={arXiv},\n      primaryClass={cs.CL}\n}",
+  "task": "",
+  "modality": "text",
+  "in_language": "zh"
+}

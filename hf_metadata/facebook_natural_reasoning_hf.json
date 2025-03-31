@@ -1,0 +1,17 @@
+{
+  "name": "facebook/natural_reasoning",
+  "creators": "facebook",
+  "description": "NaturalReasoning is a large-scale dataset for general reasoning tasks. It consists of high-quality challenging reasoning questions backtranslated from pretraining corpora DCLM and FineMath. The questions have been deduplicated and decontaminated from popular reasoning benchmarks including MATH, GPQA, MMLU-Pro, MMLU-STEM. For each question, we extract the reference final answer from the original document from the pretraining corpora if possible. We also provide a model-generated response from\u2026 See the full description on the dataset page: https://huggingface.co/datasets/facebook/natural_reasoning.",
+  "license": "cc-by-nc-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{yuan2025naturalreasoningreasoningwild28m, \n      title={NaturalReasoning: Reasoning in the Wild with 2.8M Challenging Questions},  \n      author={Weizhe Yuan and Jane Yu and Song Jiang and Karthik Padthe and Yang Li and Dong Wang and Ilia Kulikov and Kyunghyun Cho and Yuandong Tian and Jason E Weston and Xian Li}, \n      year={2025}, \n eprint={2502.13124}, \n      archivePrefix={arXiv}, \n      primaryClass={cs.CL}, \n      url={https://arxiv.org/abs/2502.13124},  \n}",
+  "task": "text-generation",
+  "modality": "text",
+  "in_language": "en"
+}

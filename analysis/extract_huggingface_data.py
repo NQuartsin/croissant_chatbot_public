@@ -1,7 +1,8 @@
 import os
 import json
 import pandas as pd
-from huggingface_hub import HfApi, dataset_info
+from huggingface_hub import HfApi
+from typing import Tuple, Dict
 
 # Define the Hugging Face API
 api = HfApi()
@@ -11,39 +12,71 @@ OUTPUT_FOLDER = "hf_metadata"
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 
-def fetch_hf_metadata(dataset_id):
-    """Fetch metadata for a Hugging Face dataset."""
-    try:
-        info = dataset_info(dataset_id)
-        
-        metadata = {
-            "name": info.id,
-            "creator": ", ".join(info.cardData.get("creator", ["Unknown"])),
-            "description": info.cardData.get("description", "No description available."),
-            "license": info.cardData.get("license", "Unknown"),
-            "url": f"https://huggingface.co/datasets/{info.id}",
-            "publisher": info.cardData.get("publisher", "Unknown"),
-            "version": info.cardData.get("version", "Unknown"),
-            "keywords": ", ".join(info.cardData.get("keywords", ["Unknown"])),
-            "date_modified": info.last_modified.strftime("%Y-%m-%d") if info.last_modified else "Unknown",
-            "date_created": info.cardData.get("dataset_info", {}).get("config_name", "Unknown"),  # No direct creation date in HF
-            "date_published": info.cardData.get("date_published", "Unknown"),
-            "cite_as": info.cardData.get("citation", "Unknown"),
-            "in_language": ", ".join(info.cardData.get("languages", ["Unknown"])),
-            "task": ", ".join(info.cardData.get("task_categories", ["Unknown"])),
-            "modality": ", ".join(info.cardData.get("modality", ["Unknown"]))
-        }
+def fetch_hf_metadata(dataset_id_to_find: str) -> Tuple[Dict[str, str], bool]:
+    """
+    Fetch Hugging Face dataset metadata.
 
-        return metadata
+    Args:
+        dataset_id_to_find: The ID of the dataset to fetch details for.
+
+    Returns:
+        A Dictionary containing the dataset metadata or an error message if fetching fails.
+    """
+    try:
+        # Fetch the dataset details using the Hugging Face Hub API
+        api = HfApi() # Hugging Face API
+        found_dataset = list(api.list_datasets(dataset_name={dataset_id_to_find}, limit=1))
+        if not found_dataset:
+            return None, False
+        found_dataset = found_dataset[0] # Get the first dataset from the list
+
+        hf_data = {} # dictionary to store data
+        # Extract relevant metadata fields
+        # Initialize empty lists for tasks, modalities, and languages and a variable for license
+        lisence = ""
+        tasks = []
+        modalities = []
+        languages = [] 
+        # Extract tags and populate the lists and variable
+        for tag in found_dataset.tags:
+            if tag.startswith("license:"):
+                lisence = tag.split(":", 1)[1]
+            elif tag.startswith("task_categories:"):
+                tasks.append(tag.split(":", 1)[1])
+            elif tag.startswith("modality:"):
+                modalities.append(tag.split(":", 1)[1])
+            elif tag.startswith("language:"):
+                languages.append(tag.split(":", 1)[1])
+
+        # Use getattr() for all fields to handle missing attributes gracefully
+        dataset_id = getattr(found_dataset, "id", None)
+
+        hf_data["name"] = getattr(found_dataset, "id", "")
+        hf_data["creators"] = getattr(found_dataset, "author", "")
+        hf_data["description"] = getattr(found_dataset, "description", "")
+        hf_data["license"] = lisence if lisence else ""
+        hf_data["url"] = "" # No URL information available on the datacard
+        hf_data["publisher"] = "" # No publisher information available on the datacard
+        hf_data["version"] = ""  # No way to fetch version
+        hf_data["keywords"] = "" # No way to fetch keywords
+        hf_data["date_modified"] = "" # No date modified information available on the datacard
+        hf_data["date_created"] = "" # No date created information available on the datacard
+        hf_data["date_published"] = "" # No date published information available on the datacard
+        hf_data["cite_as"] = getattr(found_dataset, "citation", "")
+        hf_data["task"] = ", ".join(tasks) if tasks else ""
+        hf_data["modality"] = ", ".join(modalities) if modalities else ""
+        hf_data["in_language"] = ", ".join(languages) if languages else ""
+
+        return hf_data, True
 
     except Exception as e:
-        print(f"Error fetching metadata for {dataset_id}: {e}")
-        return None
+        return {'error': str(e)}, False
+
 
 def save_metadata(metadata):
     """Save metadata to a JSON file."""
     dataset_name = metadata["name"].replace("/", "_")
-    file_path = os.path.join(OUTPUT_FOLDER, f"{dataset_name}.json")
+    file_path = os.path.join(OUTPUT_FOLDER, f"{dataset_name}_hf.json")
     
     with open(file_path, "w", encoding="utf-8") as f:
         json.dump(metadata, f, indent=2)
@@ -79,11 +112,11 @@ def process_csv(csv_path):
         print("Error: No dataset names found in CSV.")
         return
     
-    first_dataset = dataset_names[0]  # Take only the first dataset
-    print(f"Processing first dataset: {first_dataset}")
+    first_dataset = dataset_names[99]  # Take only the first dataset
+    print(f"Processing dataset: {first_dataset}")
 
-    metadata = fetch_hf_metadata(first_dataset)
-    if metadata:
+    metadata, sucess = fetch_hf_metadata(first_dataset)
+    if sucess:
         save_metadata(metadata)
 
 # Run the script with your CSV file

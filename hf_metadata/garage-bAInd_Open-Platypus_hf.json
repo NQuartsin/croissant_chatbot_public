@@ -1,0 +1,17 @@
+{
+  "name": "garage-bAInd/Open-Platypus",
+  "creators": "garage-bAInd",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tOpen-Platypus\n\t\n\nThis dataset is focused on improving LLM logical reasoning skills and was used to train the Platypus2 models. It is comprised of the following datasets, which were filtered using keyword search and then Sentence Transformers to remove questions with a similarity above 80%:\n\n\t\n\t\t\nDataset Name\nLicense Type\n\n\n\t\t\nPRM800K\nMIT\n\n\nMATH\nMIT\n\n\nScienceQA\nCreative Commons Attribution-NonCommercial-ShareAlike 4.0 International\n\n\nSciBench\nMIT\n\n\nReClor\nNon-commercial\n\n\nTheoremQA\u2026 See the full description on the dataset page: https://huggingface.co/datasets/garage-bAInd/Open-Platypus.",
+  "license": "",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@article{platypus2023, \n   title={Platypus: Quick, Cheap, and Powerful Refinement of LLMs}, \n    author={Ariel N. Lee and Cole J. Hunter and Nataniel Ruiz}, \n    booktitle={arXiv preprint arxiv:2308.07317}, \n    year={2023} \n}",
+  "task": "",
+  "modality": "text",
+  "in_language": "en"
+}

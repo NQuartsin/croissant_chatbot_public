@@ -1,0 +1,17 @@
+{
+  "name": "stanfordnlp/SHP",
+  "creators": "stanfordnlp",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\t\ud83d\udea2  Stanford Human Preferences Dataset (SHP)\n\t\n\nIf you mention this dataset in a paper, please cite the paper: Understanding Dataset Difficulty with V-Usable Information (ICML 2022).\n\n\t\n\t\t\n\t\n\t\n\t\tSummary\n\t\n\nSHP is a dataset of 385K collective human preferences over responses to questions/instructions in 18 different subject areas, from cooking to legal advice.\nThe preferences are meant to reflect the helpfulness of one response over another, and are intended to be used for training\u2026 See the full description on the dataset page: https://huggingface.co/datasets/stanfordnlp/SHP.",
+  "license": "",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "human feedback, rlhf, preferences, reddit, preference model, RL, NLG, evaluation",
+  "date_modified": "03/01/2023",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "text-generation, question-answering",
+  "modality": "tabular, text",
+  "in_language": "en"
+}

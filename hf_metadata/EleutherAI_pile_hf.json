@@ -1,0 +1,17 @@
+{
+  "name": "EleutherAI/pile",
+  "creators": "EleutherAI",
+  "description": "The Pile is a 825 GiB diverse, open source language modelling data set that consists of 22 smaller, high-quality\ndatasets combined together.",
+  "license": "other",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "language-modeling, masked-language-modeling",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{gao2020pile,\n      title={The Pile: An 800GB Dataset of Diverse Text for Language Modeling},\n      author={Leo Gao and Stella Biderman and Sid Black and Laurence Golding and Travis Hoppe and Charles Foster and Jason Phang and Horace He and Anish Thite and Noa Nabeshima and Shawn Presser and Connor Leahy},\n      year={2020},\n      eprint={2101.00027},\n      archivePrefix={arXiv},\n      primaryClass={cs.CL}\n}",
+  "task": "text-generation, fill-mask",
+  "modality": "",
+  "in_language": "en"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "liwu/MNBVC",
+  "creators": "liwu",
+  "description": "MNBVC: Massive Never-ending BT Vast Chinese corpus",
+  "license": "mit",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "language-modeling, masked-language-modeling",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{mnbvc, \n  author = {{MOP-LIWU Community} and {MNBVC Team}}, \n  title = {MNBVC: Massive Never-ending BT Vast Chinese corpus}, \n  year = {2023}, \n  publisher = {GitHub}, \n  journal = {GitHub repository}, \n  url = {{https://github.com/esbatmop/MNBVC}}, \n}",
+  "task": "text-generation, fill-mask",
+  "modality": "",
+  "in_language": "zh"
+}

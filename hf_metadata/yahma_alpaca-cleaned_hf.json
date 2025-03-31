@@ -1,0 +1,17 @@
+{
+  "name": "yahma/alpaca-cleaned",
+  "creators": "yahma",
+  "description": "\n\t\n\t\t\n\t\tDataset Card for Alpaca-Cleaned\n\t\n\n\nRepository: https://github.com/gururise/AlpacaDataCleaned\n\n\n\t\n\t\t\n\t\tDataset Description\n\t\n\nThis is a cleaned version of the original Alpaca Dataset released by Stanford. The following issues have been identified in the original release and fixed in this dataset:\n\nHallucinations: Many instructions in the original dataset had instructions referencing data on the internet, which just caused GPT3 to hallucinate an answer.\n\n\"instruction\":\"Summarize the\u2026 See the full description on the dataset page: https://huggingface.co/datasets/yahma/alpaca-cleaned.",
+  "license": "cc-by-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "instruction-finetuning",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{alpaca, \n  author = {Rohan Taori and Ishaan Gulrajani and Tianyi Zhang and Yann Dubois and Xuechen Li and Carlos Guestrin and Percy Liang and Tatsunori B. Hashimoto }, \n  title = {Stanford Alpaca: An Instruction-following LLaMA model}, \n  year = {2023}, \n  publisher = {GitHub},\n  journal = {GitHub repository}, \n  url = {{https://github.com/tatsu-lab/stanford_alpaca}}, \n}",
+  "task": "text-generation",
+  "modality": "text",
+  "in_language": "en"
+}

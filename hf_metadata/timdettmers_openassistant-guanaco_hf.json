@@ -1,0 +1,17 @@
+{
+  "name": "timdettmers/openassistant-guanaco",
+  "creators": "timdettmers",
+  "description": "This dataset is a subset of the Open Assistant dataset, which you can find here: https://huggingface.co/datasets/OpenAssistant/oasst1/tree/main\nThis subset of the data only contains the highest-rated paths in the conversation tree, with a total of 9,846 samples.\nThis dataset was used to train Guanaco with QLoRA.\nFor further information, please see the original dataset.\nLicense: Apache 2.0\n",
+  "license": "Apache 2.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "",
+  "modality": "text",
+  "in_language": ""
+}

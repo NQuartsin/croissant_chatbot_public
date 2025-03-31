@@ -1,0 +1,17 @@
+{
+  "name": "openai/MMMLU",
+  "creators": "openai",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tMultilingual Massive Multitask Language Understanding (MMMLU)\n\t\n\nThe MMLU is a widely recognized benchmark of general knowledge attained by AI models. It covers a broad range of topics from 57 different categories, covering elementary-level knowledge up to advanced professional subjects like law, physics, history, and computer science.\nWe translated the MMLU\u2019s test set into 14 languages using professional human translators. Relying on human translators for this evaluation increases\u2026 See the full description on the dataset page: https://huggingface.co/datasets/openai/MMMLU.",
+  "license": "mit",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "question-answering",
+  "modality": "text",
+  "in_language": "ar, bn, de, es, fr, hi, id, it, ja, ko, pt, sw, yo, zh"
+}

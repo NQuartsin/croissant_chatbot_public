@@ -1,0 +1,17 @@
+{
+  "name": "Nerfgun3/bad_prompt",
+  "creators": "Nerfgun3",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tNegative Embedding / Textual Inversion\n\t\n\n\n\n\n\t\n\t\t\n\t\n\t\n\t\tIdea\n\t\n\nThe idea behind this embedding was to somehow train the negative prompt as an embedding, thus unifying the basis of the negative prompt into one word or embedding. \nSide note: Embedding has proven to be very helpful for the generation of hands! :)\n\n\t\n\t\t\n\t\n\t\n\t\tUsage\n\t\n\nTo use this embedding you have to download the file aswell as drop it into the \"\\stable-diffusion-webui\\embeddings\" folder.\nPlease put the embedding in\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Nerfgun3/bad_prompt.",
+  "license": "creativeml-openrail-m",
+  "url": "",
+  "publisher": "",
+  "version": "Version 2",
+  "keywords": "stable-diffusion, text-to-image image-to-image",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "",
+  "modality": "image",
+  "in_language": "en"
+}

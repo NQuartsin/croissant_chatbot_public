@@ -1,0 +1,17 @@
+{
+  "name": "fka/awesome-chatgpt-prompts",
+  "creators": "fka",
+  "description": "\ud83e\udde0 Awesome ChatGPT Prompts [CSV dataset]\n\nThis is a Dataset Repository of Awesome ChatGPT Prompts\nView All Prompts on GitHub\n\n\t\n\t\t\n\t\tLicense\n\t\n\nCC-0\n",
+  "license": "cc0-1.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "ChatGPT",
+  "date_modified": "",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "",
+  "task": "question-answering",
+  "modality": "text",
+  "in_language": ""
+}

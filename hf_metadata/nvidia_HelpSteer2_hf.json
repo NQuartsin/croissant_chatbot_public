@@ -1,0 +1,17 @@
+{
+  "name": "nvidia/HelpSteer2",
+  "creators": "nvidia",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tHelpSteer2: Open-source dataset for training top-performing reward models\n\t\n\nHelpSteer2 is an open-source Helpfulness Dataset (CC-BY-4.0) that supports aligning models to become more helpful, factually correct and coherent, while being adjustable in terms of the complexity and verbosity of its responses.\nThis dataset has been created in partnership with Scale  AI. \nWhen used to tune a Llama 3.1 70B Instruct Model, we achieve 94.1% on RewardBench, which makes it the best Reward\u2026 See the full description on the dataset page: https://huggingface.co/datasets/nvidia/HelpSteer2.",
+  "license": "cc-by-4.0",
+  "url": "",
+  "publisher": "",
+  "version": "",
+  "keywords": "huamn-feedback",
+  "date_modified": "1 Oct 2024",
+  "date_created": "",
+  "date_published": "",
+  "cite_as": "@misc{wang2024helpsteer2, \n      title={HelpSteer2: Open-source dataset for training top-performing reward models},  \n      author={Zhilin Wang and Yi Dong and Olivier Delalleau and Jiaqi Zeng and Gerald Shen and Daniel Egert and Jimmy J. Zhang and Makesh Narsimhan Sreedhar and Oleksii Kuchaiev}, \n       year={2024}, \n      eprint={2406.08673}, \n      archivePrefix={arXiv}, \n      primaryClass={id='cs.CL' full_name='Computation and Language' is_active=True alt_name='cmp-lg' in_archive='cs' is_general=False description='Covers natural language processing. Roughly includes material in ACM Subject Class I.2.7. Note that work on artificial languages (programming languages, logics, formal systems) that does not explicitly address natural-language issues broadly construed (natural-language processing, computational linguistics, speech, text retrieval, etc.) is not appropriate for this area.'} \n}",
+  "task": "",
+  "modality": "tabular, text",
+  "in_language": "en"
+}
