@@ -212,7 +212,7 @@ def test_merge_confirmed_metadata(metadata_manager):
     # Check if the confirmed metadata is merged correctly
     assert metadata_manager.metadata["description"] == "This is a sample dataset."
 
-def test_validate_and_check_quality_sucess(metadata_manager):
+def test_validate_and_check_quality_success(metadata_manager):
     """Test the validate_and_check_quality method."""
     # Mock the MetadataValidator and AttributeQualityChecker classes
     with patch.object(MetadataValidator, 'validate_all_attributes') as mock_validate_metadata, \
@@ -273,7 +273,7 @@ def test_validate_and_check_quality_with_errors(metadata_manager):
         assert errors == ""
         assert issues == "keywords: keywords should not have any repeated words."
 
-def test_validate_and_check_quality_all_attributes_sucess(metadata_manager):
+def test_validate_and_check_quality_all_attributes_success(metadata_manager):
     """Test the validate_and_check_quality_all_attributes method for success cases."""
     # Mock the MetadataValidator and AttributeQualityChecker classes
     with patch.object(MetadataValidator, 'validate_all_attributes') as mock_validate_metadata, \

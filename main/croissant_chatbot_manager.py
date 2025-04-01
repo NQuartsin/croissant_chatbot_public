@@ -290,8 +290,8 @@ class CroissantChatbotManager:
                 self.waiting_for_HF_name = False
             else:
                 try:
-                    dataset_info, sucess = self.metadata_manager.find_dataset_info(prompt.strip())
-                    if sucess:
+                    dataset_info, success = self.metadata_manager.find_dataset_info(prompt.strip())
+                    if success:
                         self.append_to_history({"role": "assistant", "content": "I fetched the following metadata for your dataset:"})
                         self.handle_display_metadata()
                     elif dataset_info is None:

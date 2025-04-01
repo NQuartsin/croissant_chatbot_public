@@ -83,23 +83,8 @@ def save_metadata(metadata):
     
     print(f"Saved metadata: {file_path}")
 
-# def process_csv(csv_path):
-#     """Read CSV, fetch metadata, and save JSON."""
-#     df = pd.read_csv(csv_path)
-    
-#     if "Name" not in df.columns:
-#         print("Error: 'Name' column not found in CSV.")
-#         return
-    
-#     dataset_names = df["Name"].dropna().unique()
-    
-#     for dataset_name in dataset_names:
-#         metadata = fetch_hf_metadata(dataset_name)
-#         if metadata:
-#             save_metadata(metadata)
-
 def process_csv(csv_path):
-    """Read CSV, fetch metadata for only the first dataset, and save JSON."""
+    """Read CSV, fetch metadata, and save JSON."""
     df = pd.read_csv(csv_path)
     
     if "Name" not in df.columns:
@@ -107,17 +92,11 @@ def process_csv(csv_path):
         return
     
     dataset_names = df["Name"].dropna().unique()
-
-    if len(dataset_names) == 0:
-        print("Error: No dataset names found in CSV.")
-        return
     
-    first_dataset = dataset_names[99]  # Take only the first dataset
-    print(f"Processing dataset: {first_dataset}")
-
-    metadata, sucess = fetch_hf_metadata(first_dataset)
-    if sucess:
-        save_metadata(metadata)
+    for dataset_name in dataset_names:
+        metadata, success = fetch_hf_metadata(dataset_name)
+        if success:
+            save_metadata(metadata)
 
 # Run the script with your CSV file
 csv_file_path = "dataset_selection/huggingface_datasets.csv"
