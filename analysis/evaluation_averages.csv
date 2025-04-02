@@ -1,0 +1,8 @@
+Metric,HF Average (%),Chatbot Average (%),Comparison Average (%)
+Task Quality,1.82,3.6,N/A
+Modality Quality,119.59,121.65,N/A
+Keyword Quality,9.13,33.17,N/A
+Description Quality,47.38,55.09,N/A
+Completeness (HF),N/A,N/A,56.18
+Completeness (Chatbot),N/A,N/A,100.0
+Value Match,N/A,N/A,35.66
