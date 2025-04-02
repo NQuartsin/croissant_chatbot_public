@@ -56,42 +56,9 @@ class MetadataValidator():
             for license_info in licenses_list:
                 if license_info.get("licenseId", "").lower() == normalized_license:
                     return True, "License is valid."
-            return False, "Invalid License: liecence must be from the SPDX License List"
+            return False, "Invalid License: licence must be from the SPDX License List"
         except Exception as e:
             return False, f"Error validating license: {str(e)}"
-
-    def check_non_empty_string(self, value: str, attribute_name: str) -> Tuple[bool, str]:
-        """
-        Ensure the value is a non-empty string.
-
-        Args:
-            value: The string value to validate.
-            attribute_name: The name of the attribute being validated.
-        
-        Returns:
-            A Tuple containing a boolean indicating validity and a message.
-        """
-        if isinstance(value, str) and value.strip():
-            return True, "Value is a non-empty string."
-        return False, f"{attribute_name} must be a non-empty string."
-
-    def validate_keywords(self, keywords: str) -> Tuple[bool, str]:
-        """
-        Ensure keywords are a comma-separated list of non-empty strings.
-
-        Args:
-            keywords: The keywords string to validate.
-                
-        Returns:
-            A Tuple containing a boolean indicating validity and a message.
-        """
-
-        try:
-            if isinstance(keywords, str) and all(keyword.strip() for keyword in keywords.split(",")):
-                return True, "Keywords are valid."
-            return False, "Keywords must be a comma-separated string."
-        except Exception as e:
-            return False, f"Error validating keywords: {str(e)}"
 
 
     def validate_date(self, date: str, attribute_name: str) -> Tuple[bool, str]:
@@ -178,7 +145,44 @@ class MetadataValidator():
         except Exception as e:
             return False, f"Citation must be in valid BibTeX format. Error: {str(e)}"
 
+    def check_non_empty_string(self, value: str, attribute_name: str) -> Tuple[bool, str]:
+        """
+        Ensure the value is a non-empty string.
 
+        Args:
+            value: The string value to validate.
+            attribute_name: The name of the attribute being validated.
+        
+        Returns:
+            A Tuple containing a boolean indicating validity and a message.
+        """
+        if isinstance(value, str) and value.strip():
+            return True, "Value is a non-empty string."
+        return False, f"{attribute_name} must be a non-empty string."
+
+    def validate_comma_separated_strings(self, value: str, attribute_name: str) -> Tuple[bool, str]:
+        """
+        Validate that a string is a comma-separated list of non-empty values.
+
+        Args:
+            value: The string to validate.
+            attribute_name: The name of the attribute being validated.
+
+        Returns:
+            A Tuple containing a boolean indicating validity and a message.
+        """
+        try:
+            if isinstance(value, str):
+                # Split the string by commas and strip whitespace
+                items = [item.strip() for item in value.split(",")]
+                # Check if all items are non-empty
+                if all(items):
+                    return True, f"{attribute_name} is valid."
+                return False, f"{attribute_name} must be a comma-separated list of non-empty values."
+            return False, f"{attribute_name} must be a string."
+        except Exception as e:
+            return False, f"Error validating {attribute_name}: {str(e)}"
+        
     def validate_all_attributes(self, metadata: Dict[str, str]) -> Dict[str, str]:
         """
         Check if all required attributes are valid.
@@ -204,19 +208,6 @@ class MetadataValidator():
                 if not valid:
                     errors["license"] = message
 
-            # Validate non-empty string attributes
-            for attribute in ["name", "creators", "description", "publisher", "version"]:
-                if attribute in metadata:
-                    valid, message = self.check_non_empty_string(metadata[attribute], attribute.capitalize())
-                    if not valid:
-                        errors[attribute] = message
-
-            # Validate keywords
-            if "keywords" in metadata:
-                valid, message = self.validate_keywords(metadata["keywords"])
-                if not valid:
-                    errors["keywords"] = message
-
             # Validate dates
             for date_attribute in ["date_modified", "date_created", "date_published"]:
                 if date_attribute in metadata:
@@ -230,18 +221,26 @@ class MetadataValidator():
                 if not valid:
                     errors["in_language"] = message
 
-            # Validate task and modality
-            for attribute in ["task", "modality"]:
-                if attribute in metadata:
-                    valid, message = self.check_non_empty_string(metadata[attribute], attribute.capitalize())
-                    if not valid:
-                        errors[attribute] = message
-
             # Validate citation
             if "cite_as" in metadata:
                 valid, message = self.validate_cite_as(metadata["cite_as"])
                 if not valid:
                     errors["cite_as"] = message
+            
+            # Validate comma-separated attributes
+            for attribute in ["creators", "keywords", "task", "modality"]:
+                if attribute in metadata:
+                    valid, message = self.validate_comma_separated_strings(metadata[attribute], attribute.capitalize())
+                    if not valid:
+                        errors[attribute] = message
+
+            # Validate non-empty string attributes
+            for attribute in ["name", "description", "publisher", "version", "url", "license", "date_modified", "date_created", "date_published", "cite_as"]:
+                if attribute in metadata and attribute not in errors:  # Skip if there's already an error
+                    valid, message = self.check_non_empty_string(metadata[attribute], attribute.capitalize())
+                    if not valid:
+                        errors[attribute] = message
+
             return errors
         except Exception as e:
             return {"error": f"An error occurred during validation: {str(e)}"}

@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "glaiveai/glaive-function-calling-v2",
+  "description": "The glaiveai/glaive-function-calling-v2 dataset is a significant contribution to the machine learning community, focusing on Text Generation and NLP tasks. Developed by glaiveai, this dataset provides a rich collection of text samples, published on Hugging Face. It is a valuable resource for researchers and practitioners, offering a unique opportunity to train and evaluate models for various text generation applications, with the aim of advancing the field of NLP.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{glaiveai_glaive-function-calling-v2,   title={glaiveai/glaive-function-calling-v2},   author={glaiveai},   year={2023},   url={https://huggingface.co/datasets/glaiveai/glaive-function-calling-v2} }",
+  "creator": "glaiveai",
+  "dateCreated": "2023-08-15",
+  "dateModified": "2023-09-27",
+  "datePublished": "2023-08-15",
+  "inLanguage": "en",
+  "keywords": "Text Generation, NLP, Machine Learning",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/glaiveai/glaive-function-calling-v2",
+  "task": "text-generation",
+  "modality": "text"
+}

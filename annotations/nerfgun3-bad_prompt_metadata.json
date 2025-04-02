@@ -1,0 +1,63 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "Nerfgun3/bad_prompt",
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tNegative Embedding / Textual Inversion\n\t\n\n\n\n\n\t\n\t\t\n\t\n\t\n\t\tIdea\n\t\n\nThe idea behind this embedding was to somehow train the negative prompt as an embedding, thus unifying the basis of the negative prompt into one word or embedding. \nSide note: Embedding has proven to be very helpful for the generation of hands! :)\n\n\t\n\t\t\n\t\n\t\n\t\tUsage\n\t\n\nTo use this embedding you have to download the file aswell as drop it into the \"\\stable-diffusion-webui\\embeddings\" folder.\nPlease put the embedding in\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Nerfgun3/bad_prompt.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{Nerfgun3_bad_prompt,   title={Nerfgun3/bad_prompt},   author={Nerfgun3},   url={https://huggingface.co/datasets/Nerfgun3/bad_prompt},   version={2},   year={2022},   month={11},   date={17},   license={creativeml-openrail-m},   keywords={stable-diffusion, text-to-image, image-to-image},   in_language={en},   modality={image} }",
+  "creator": "Nerfgun3",
+  "dateCreated": "2022-11-17",
+  "dateModified": "2022-11-19",
+  "datePublished": "2022-11-17",
+  "inLanguage": "en",
+  "keywords": "stable-diffusion, text-to-image, image-to-image",
+  "license": "creativeml-openrail-m",
+  "url": "https://huggingface.co/datasets/Nerfgun3/bad_prompt",
+  "version": "Version 2",
+  "task": "Text-to-Image Generation with Negative Prompt Embedding",
+  "modality": "image"
+}

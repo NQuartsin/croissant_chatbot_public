@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "tiiuae/falcon-refinedweb",
+  "description": "Falcon RefinedWeb is a comprehensive English web dataset, meticulously crafted by the Technology Innovation Institute. It is built through rigorous filtering and extensive deduplication of CommonCrawl, resulting in a dataset that offers performance comparable to or surpassing models trained on curated datasets, all while relying solely on web data. This dataset is not only valuable for Natural Language Processing (NLP) tasks but also for those requiring multimodal data, as it contains links and alt text. For more details, refer to the associated paper on arXiv.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{refinedweb,   title={The {R}efined{W}eb dataset for {F}alcon {LLM}: outperforming curated corpora with web data, and web data only},   author={Guilherme Penedo and Quentin Malartic and Daniel Hesslow and Ruxandra Cojocaru and Alessandro Cappelli and Hamza Alobeidli and Baptiste Pannier and Ebtesam Almazrouei and Julien Launay},   journal={arXiv preprint arXiv:2306.01116},   eprint={2306.01116},   eprinttype = {arXiv},   url={https://arxiv.org/abs/2306.01116},   year={2023} }",
+  "creator": "Technology Innovation Institute",
+  "dateCreated": "2023-05-07",
+  "dateModified": "2023-06-20",
+  "datePublished": "2023-05-07",
+  "inLanguage": "en",
+  "keywords": "Web scraping, NLP, CommonCrawl",
+  "license": "ODC-By-1.0",
+  "url": "https://huggingface.co/datasets/tiiuae/falcon-refinedweb",
+  "task": "text-generation",
+  "modality": "text"
+}

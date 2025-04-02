@@ -1,0 +1,60 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "lmsys/lmsys-chat-1m",
+  "description": "LMSYS-Chat-1M is a dataset of one million real-world conversations with 25 state-of-the-art LLMs, collected from the Vicuna demo and Chatbot Arena website between April and August 2023. Each sample includes a conversation ID, model name, conversation text, language tag, and moderation API tag, making it a rich resource for researchers and developers in the field of natural language processing. This dataset provides a valuable insight into the interactions between humans and advanced language model systems.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{zheng2023lmsyschat1m,       title={LMSYS-Chat-1M: A Large-Scale Real-World LLM Conversation Dataset},        author={Lianmin Zheng and Wei-Lin Chiang and Ying Sheng and Tianle Li and Siyuan Zhuang and Zhanghao Wu and Yonghao Zhuang and Zhuohan Li and Zi Lin and Eric. P Xing and Joseph E. Gonzalez and Ion Stoica and Hao Zhang},       year={2023},       eprint={2309.11998},       archivePrefix={arXiv},       primaryClass={cs.CL} }",
+  "creator": "lmsys",
+  "dateCreated": "2023-09-20",
+  "dateModified": "2024-07-27",
+  "datePublished": "2023-09-20",
+  "keywords": "Large-scale conversation dataset, LLM, JSON",
+  "url": "https://huggingface.co/datasets/lmsys/lmsys-chat-1m",
+  "task": "conversational",
+  "modality": "text"
+}

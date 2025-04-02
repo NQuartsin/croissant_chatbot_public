@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "QingyiSi/Alpaca-CoT",
+  "description": "The QingyiSi/Alpaca-CoT dataset is a dynamic collection of various instruction tuning datasets, designed to facilitate the standardization and unification of different datasets for seamless integration with the Alpaca model. This repository aims to provide a platform for continuous data collection, standardization, and open-source model checkpoints, fostering advancements in language model fine-tuning.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{alpaca-cot,   author = {Qingyi Si, Zheng Lin },   school = {Institute of Information Engineering, Chinese Academy of Sciences, Beijing, China},   title = {Alpaca-CoT: An Instruction Fine-Tuning Platform with Instruction Data Collection and Unified Large Language Models Interface},   year = {2023},   publisher = {GitHub},   journal = {GitHub repository},   howpublished = {\\url{https://github.com/PhoebusSi/alpaca-CoT}}, }",
+  "creator": "QingyiSi",
+  "dateCreated": "2023-03-25",
+  "dateModified": "2023-09-14",
+  "datePublished": "2023-03-25",
+  "inLanguage": "en, zh, ml",
+  "keywords": "Instruction, Cot, Language Model Fine-Tuning",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/QingyiSi/Alpaca-CoT",
+  "task": "Language Model Fine-Tuning"
+}

@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "bigcode/starcoderdata",
+  "description": "The StarCoder Training Dataset is a monumental resource for the NLP community, offering a diverse and extensive collection of code-related data. Comprising 783GB of code in 86 programming languages, 54GB of GitHub Issues, 13GB of Jupyter notebooks, and 32GB of GitHub commits, this dataset provides a rich environment for training and developing NLP models. With approximately 250 Billion tokens, the dataset forms the basis for StarCoder and StarCoderBase, two innovative tools designed to understand and generate code, pushing the boundaries of what is possible in the field of NLP.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{bigcode_starcoderdata,   title={StarCoder Training Dataset},   author={bigcode},     year={2023},   url={https://huggingface.co/datasets/bigcode/starcoderdata},   version={1.0.0},   publisher={Hugging Face},   note={A dataset containing 783GB of code in 86 programming languages, including 54GB GitHub Issues, 13GB Jupyter notebooks, and 32GB of GitHub commits, approximately 250 Billion tokens. The dataset was created and filtered for training StarCoder and StarCoderBase. The creation and filtering method is explained in the original dataset.}, }",
+  "creator": "bigcode",
+  "dateCreated": "2023-03-30",
+  "dateModified": "2023-05-16",
+  "datePublished": "2023-03-30",
+  "inLanguage": "code",
+  "keywords": "Programming Languages, Code Repositories, NLP",
+  "license": "other",
+  "url": "https://huggingface.co/datasets/bigcode/starcoderdata",
+  "task": "text-generation",
+  "modality": "text"
+}

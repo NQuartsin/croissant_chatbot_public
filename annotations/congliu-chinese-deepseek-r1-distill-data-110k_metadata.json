@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "Congliu/Chinese-DeepSeek-R1-Distill-data-110k",
+  "description": "The Chinese-DeepSeek-R1-Distill-data-110k is a comprehensive dataset distilled from the DeepSeek-R1 model, specifically designed for Chinese language tasks. This dataset, consisting of 110,000 samples, includes a variety of data types such as math, exam, STEM, and more. It is an essential resource for researchers and developers working on Chinese language models, particularly those interested in deep distillation.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{Chinese-Data-Distill-From-R1,   author = {Cong Liu, Zhong Wang, ShengYu Shen, Jialiang Peng, Xiaoli Zhang, ZhenDong Du, YaFang Wang},   title = {The Chinese dataset distilled from DeepSeek-R1-671b},   year = {2025},   publisher = {HuggingFace},   howpublished = {\\url{https://huggingface.co/datasets/Congliu/Chinese-DeepSeek-R1-Distill-data-110k}}, }",
+  "creator": "Congliu",
+  "dateCreated": "2025-02-17",
+  "dateModified": "2025-02-21",
+  "datePublished": "2025-02-17",
+  "inLanguage": "zh",
+  "keywords": "Chinese Language Data, DeepSeek-R1 Distillation, Textual Data for Machine Learning",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/Congliu/Chinese-DeepSeek-R1-Distill-data-110k",
+  "task": "text-generation, text2text-generation, question-answering",
+  "modality": "tabular, text"
+}

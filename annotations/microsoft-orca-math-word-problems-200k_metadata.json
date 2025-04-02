@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "microsoft/orca-math-word-problems-200k",
+  "description": "The microsoft/orca-math-word-problems-200k dataset is a significant contribution to the field of grade school math education. This dataset, generated using Azure GPT4-Turbo, contains approximately 200,000 math word problems designed to challenge and engage students at various levels. The dataset is a valuable resource for researchers, educators, and developers, offering a unique opportunity to explore the potential of large language models in enhancing math education. For more information, refer to the paper \"Orca-Math: Unlocking the potential of SLMs in Grade School Math.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{mitra2024orcamath,       title={Orca-Math: Unlocking the potential of SLMs in Grade School Math},        author={Arindam Mitra and Hamed Khanpour and Corby Rosset and Ahmed Awadallah},       year={2024},       eprint={2402.14830},       archivePrefix={arXiv},       primaryClass={cs.CL} }",
+  "creator": "microsoft",
+  "dateCreated": "2024-03-01",
+  "dateModified": "2024-03-04",
+  "datePublished": "2024-03-01",
+  "inLanguage": "en",
+  "keywords": "Grade School Math Word Problems, Azure GPT4-Turbo, Orca-Math",
+  "license": "mit",
+  "url": "https://huggingface.co/datasets/microsoft/orca-math-word-problems-200k",
+  "task": "question-answering",
+  "modality": "text"
+}

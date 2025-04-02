@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "JosephusCheung/GuanacoDataset",
+  "description": "The GuanacoDataset, developed by JosephusCheung, is a comprehensive collection of text-based data designed to advance multilingual capabilities and tackle various linguistic tasks. It expands upon the Alpaca model by offering rewrites of seed tasks in multiple languages and adding new tasks focused on English grammar analysis, natural language understanding, cross-lingual self-awareness, and explicit content recognition. With a total of 534,530 entries, this dataset was generated at a low cost of $6K, paving the way for the development of more sophisticated multimodal Vision-Language Models.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{Cheung2023, title={GuanacoDataset}, author={Cheung, Josephus}, year={2023}, url={https://huggingface.co/datasets/JosephusCheung/GuanacoDataset}, publisher={Hugging Face}, license={GPL-3.0}, keywords={alpaca, llama, guanaco, Multilingual Language Model, Multimodal Vision-Language Modeling}, language={zh, en, ja, de}, date_created={2023-03-16}, date_modified={2024-04-15}, date_published={2023-03-16}, modality={text} }",
+  "creator": "JosephusCheung",
+  "dateCreated": "2023-03-16",
+  "dateModified": "2024-04-15",
+  "datePublished": "2023-03-16",
+  "inLanguage": "zh, en, ja, de",
+  "keywords": "alpaca, llama, guanaco, Multilingual Language Model, Multimodal Vision-Language Modeling",
+  "license": "gpl-3.0",
+  "url": "https://huggingface.co/datasets/JosephusCheung/GuanacoDataset",
+  "task": "conversational, text-generation, question-answering",
+  "modality": "text"
+}

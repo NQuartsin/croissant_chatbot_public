@@ -1,0 +1,59 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "anon8231489123/ShareGPT_Vicuna_unfiltered",
+  "description": "The \"anon8231489123/ShareGPT_Vicuna_unfiltered\" dataset is a rich resource of English language text samples, specifically curated for the training of an unfiltered Vicuna model. The dataset has been refined through a thorough cleaning process to ensure its integrity and usability for model training. Users are invited to scrutinize the dataset to confirm that no significant data was omitted during the cleaning phase. A viable method for training the model is outlined in the discussion thread at https://huggingface.co/AlekseyKorshuk/vicuna-7b/discussions/4#64346c08ef6d5abefe42c12c.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "creator": "anon8231489123",
+  "dateCreated": "2023-04-02",
+  "dateModified": "2023-04-12",
+  "datePublished": "2023-04-02",
+  "inLanguage": "en",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered",
+  "task": "Text Generation"
+}

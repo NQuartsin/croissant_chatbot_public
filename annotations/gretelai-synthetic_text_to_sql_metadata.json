@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "gretelai/synthetic_text_to_sql",
+  "description": "The gretelai/synthetic_text_to_sql dataset is a rich and extensive collection of synthetic Text-to-SQL samples, designed and generated using Gretel Navigator. This dataset, released under the Apache 2.0 license, contains 105,851 records, partitioned into 100,000 training and 5,851 test records. With approximately 23 million total tokens, including over 12 million SQL tokens, this dataset provides a comprehensive resource for training language models to convert natural language into SQL queries. It is a valuable asset for researchers and developers working on text-to-SQL applications.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@software{gretel-synthetic-text-to-sql-2024,   author = {Meyer, Yev and Emadi, Marjan and Nathawani, Dhruv and Ramaswamy, Lipika and Boyd, Kendrick and Van Segbroeck, Maarten and Grossman, Matthew and Mlocek, Piotr and Newberry, Drew},   title = {{Synthetic-Text-To-SQL}: A synthetic dataset for training language models to generate SQL queries from natural language prompts},   month = {April},   year = {2024},   url = {https://huggingface.co/datasets/gretelai/synthetic-text-to-sql} }",
+  "creator": "gretelai",
+  "dateCreated": "2024-03-21",
+  "dateModified": "2024-05-10",
+  "datePublished": "2024-03-21",
+  "inLanguage": "en",
+  "keywords": "Synthetic Data, SQL, text-to-SQL, code",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/gretelai/synthetic_text_to_sql",
+  "task": "question-answering, table-question-answering, text-generation",
+  "modality": "text"
+}

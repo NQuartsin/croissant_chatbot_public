@@ -44,7 +44,7 @@ def test_validate_license(mock_file, validator):
     assert message == "License is valid."
     valid, message = validator.validate_license("Invalid License")
     assert valid is False
-    assert message == "Invalid License: liecence must be from the SPDX License List"
+    assert message == "Invalid License: licence must be from the SPDX License List"
 
     with patch("builtins.open", side_effect=FileNotFoundError):
         valid, message = validator.validate_license("BSD Zero Clause License")
@@ -61,26 +61,30 @@ def test_check_non_empty_string(validator):
     assert valid is False
     assert message == "test_attribute must be a non-empty string."
 
-def test_validate_keywords(validator):
-    """Test the validate_keywords method."""
-    valid, message = validator.validate_keywords("keyword1")
+def test_validate_comma_separated_strings(validator):
+    """Test the validate_comma_separated_strings method."""
+    attribute_name = "test_attribute"
+    valid, message = validator.validate_comma_separated_strings("keyword1", attribute_name)
     assert valid is True
-    assert message == "Keywords are valid."
-    valid, message = validator.validate_keywords("keyword1, keyword2")
+    assert message == "test_attribute is valid."
+    valid, message = validator.validate_comma_separated_strings("author1, author2", attribute_name)
     assert valid is True
-    assert message == "Keywords are valid."
-    valid, message = validator.validate_keywords([])
+    assert message == "test_attribute is valid."
+    valid, message = validator.validate_comma_separated_strings([], attribute_name)
     assert valid is False
-    assert message == "Keywords must be a comma-separated string."
-    valid, message = validator.validate_keywords(["keyword1", "keyword2"])
+    assert message == "test_attribute must be a string."
+    valid, message = validator.validate_comma_separated_strings("task1,, task2", attribute_name)
     assert valid is False
-    assert message == "Keywords must be a comma-separated string."
+    assert message == "test_attribute must be a comma-separated list of non-empty values."
+    valid, message = validator.validate_comma_separated_strings("modality1,", attribute_name)
+    assert valid is False
+    assert message == "test_attribute must be a comma-separated list of non-empty values."
 
     # Mock the all function to raise an exception
     with patch("builtins.all", side_effect=Exception("Mocked exception")):
-        valid, message = validator.validate_keywords("keyword1, keyword2")
+        valid, message = validator.validate_comma_separated_strings("modality1, modality2", attribute_name)
         assert valid is False
-        assert "Error validating keywords" in message
+        assert "Error validating test_attribute" in message
         assert "Mocked exception" in message
 
 def test_validate_date(validator):
@@ -175,7 +179,6 @@ def test_validate_all_attributes_with_errors(validator):
         "modality": ""
     }
     errors = validator.validate_all_attributes(metadata)
-    print(errors)
     assert len(errors) > 0
     assert "name" in errors
     assert "creators" in errors

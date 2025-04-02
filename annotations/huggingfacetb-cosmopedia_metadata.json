@@ -1,0 +1,63 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "HuggingFaceTB/cosmopedia",
+  "description": "Cosmopedia v0.1 is an extensive dataset of synthetic textual content, comprising textbooks, blog posts, stories, and WikiHow articles. Developed by Hugging Face Smol Models Research, it was generated using the powerful Mixtral-8x7B-Instruct-v0.1 language model. With a size of over 30 million files and 25 billion tokens, it is the largest open synthetic dataset to date, covering a wide variety of topics. This dataset is a valuable resource for researchers and developers, offering a unique opportunity to explore and advance the field of synthetic data.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@software{benallal2024cosmopedia,   author = {Ben Allal, Loubna and Lozhkov, Anton and Penedo, Guilherme and Wolf, Thomas and von Werra, Leandro},   title = {Cosmopedia},   month = February,   year = 2024,   url = {https://huggingface.co/datasets/HuggingFaceTB/cosmopedia} }",
+  "creator": "Hugging Face Smol Models Research",
+  "dateCreated": "2024-02-18",
+  "dateModified": "2024-08-12",
+  "datePublished": "2024-02-18",
+  "inLanguage": "en",
+  "keywords": "Synthetic Data, WikiHow Article, Mixtral-8x7B-Instruct-v0.1",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/HuggingFaceTB/cosmopedia",
+  "version": "v0.1",
+  "task": "Text Generation",
+  "modality": "text"
+}

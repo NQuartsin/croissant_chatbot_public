@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "stingning/ultrachat",
+  "description": "The \"stingning/ultrachat\" dataset is a comprehensive, open-source collection of multi-round dialogue data, powered by Turbo APIs. It is designed with privacy in mind, as it does not use internet data as prompts. The dataset employs two separate ChatGPT Turbo APIs to generate queries and responses, ensuring a high level of quality in the generated dialogue. This dataset is a valuable resource for researchers and developers working on chatbot training and large-scale dialogue model enhancement.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{ding2023enhancing,   title={Enhancing Chat Language Models by Scaling High-quality Instructional Conversations},   author={Ding, Ning and Chen, Yulin and Xu, Bokai and Qin, Yujia and Zheng, Zhi and Hu, Shengding and Liu, Zhiyuan and Sun, Maosong and Zhou, Bowen},   journal={arXiv preprint arXiv:2305.14233},   year={2023} }",
+  "creator": "Ning Ding",
+  "dateCreated": "2023-04-20",
+  "dateModified": "2024-02-22",
+  "datePublished": "2023-04-20",
+  "inLanguage": "en",
+  "keywords": "Large-scale dialogue data, Multi-round dialogue, Chatbot training data",
+  "license": "mit",
+  "url": "https://huggingface.co/datasets/stingning/ultrachat",
+  "task": "conversational, text-generation",
+  "modality": "text"
+}

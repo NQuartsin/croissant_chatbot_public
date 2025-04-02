@@ -1,0 +1,63 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "yahma/alpaca-cleaned",
+  "description": "The Alpaca-Cleaned dataset is a revised edition of the original Alpaca Dataset, which was released by Stanford. This dataset has been thoroughly cleaned to eliminate instructions that led to models hallucinating answers due to internet data references. The Alpaca-Cleaned dataset offers a more trustworthy and accurate resource for those working on instruction-finetuning tasks, as it eliminates the potential for inaccurate responses caused by problematic instructions.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{alpaca,   author = {Rohan Taori and Ishaan Gulrajani and Tianyi Zhang and Yann Dubois and Xuechen Li and Carlos Guestrin and Percy Liang and Tatsunori B. Hashimoto },   title = {Stanford Alpaca: An Instruction-following LLaMA model},   year = {2023},   publisher = {GitHub},   journal = {GitHub repository},   howpublished = {\\url{https://github.com/tatsu-lab/stanford_alpaca}}, }",
+  "creator": "yahma",
+  "dateCreated": "2023-03-24",
+  "dateModified": "2023-04-10",
+  "datePublished": "2023-03-24",
+  "inLanguage": "en",
+  "keywords": "instruction-finetuning, Data Cleaning, Alpaca Dataset",
+  "license": "cc-by-4.0",
+  "publisher": "GitHub",
+  "url": "https://huggingface.co/datasets/yahma/alpaca-cleaned",
+  "task": "text-generation",
+  "modality": "text"
+}

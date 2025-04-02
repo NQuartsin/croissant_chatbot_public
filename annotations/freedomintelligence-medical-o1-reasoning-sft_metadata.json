@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "FreedomIntelligence/medical-o1-reasoning-SFT",
+  "description": "The FreedomIntelligence/medical-o1-reasoning-SFT dataset is a groundbreaking resource for the AI community, particularly for those interested in medical reasoning. It was created by FreedomIntelligence and is based on medical verifiable problems. This dataset, which was open-sourced in 2024, is designed to fine-tune HuatuoGPT-o1, a cutting-edge medical Language Learning Model (LLM). The dataset, built using GPT-4o, is unique in its ability to search for solutions to complex medical problems and validate them through a medical verifier, making it an invaluable tool for advanced medical reasoning tasks.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{chen2024huatuogpto1medicalcomplexreasoning,       title={HuatuoGPT-o1, Towards Medical Complex Reasoning with LLMs},        author={Junying Chen and Zhenyang Cai and Ke Ji and Xidong Wang and Wanlong Liu and Rongsheng Wang and Jianye Hou and Benyou Wang},       year={2024},       eprint={2412.18925},       archivePrefix={arXiv},       primaryClass={cs.CL},       url={https://arxiv.org/abs/2412.18925},  }",
+  "creator": "FreedomIntelligence",
+  "dateCreated": "2024-12-28",
+  "dateModified": "2025-02-22",
+  "datePublished": "2024-12-28",
+  "inLanguage": "en, zh",
+  "keywords": "medical, biology, LLM Fine-tuning",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/FreedomIntelligence/medical-o1-reasoning-SFT",
+  "task": "question-answering, text-generation",
+  "modality": "text"
+}

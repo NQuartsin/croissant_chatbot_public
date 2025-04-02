@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "wikimedia/wikipedia",
+  "description": "The Wikimedia Wikipedia dataset is a unique collection of cleaned articles from over 300 languages, extracted from the Wikipedia dumps (https://dumps.wikimedia.org/). Each language subset within the dataset contains a single train split, with each example representing the content of a full Wikipedia article that has been processed to remove markdown and unwanted sections such as references. This dataset is an essential tool for researchers and developers working on natural language processing tasks, as it offers a diverse and multilingual text corpus that can be used for a wide range of applications, including language modeling, machine translation, and sentiment analysis.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@ONLINE{wikidump,     author = \"Wikimedia Foundation\",     title  = \"Wikimedia Downloads\",     url    = \"https://dumps.wikimedia.org\" }",
+  "creator": "wikimedia",
+  "dateCreated": "2022-03-02",
+  "dateModified": "2024-01-09",
+  "datePublished": "2022-03-02",
+  "inLanguage": "ab, ace, ady, af, alt, am, ami, an, ang, anp, ar, arc, ary, arz, as, ast, atj, av, avk, awa, ay, az, azb, ba, ban, bar, bbc, bcl, be, bg, bh, bi, bjn, blk, bm, bn, bo, bpy, br, bs, bug, bxr, ca, cbk, cdo, ce, ceb, ch, chr, chy, ckb, co, cr, crh, cs, csb, cu, cv, cy, da, dag, de, dga, din, diq, dsb, dty, dv, dz, ee, el, eml, en, eo, es, et, eu, ext, fa, fat, ff, fi, fj, fo, fon, fr, frp, frr, fur, fy, ga, gag, gan, gcr, gd, gl, glk, gn, gom, gor, got, gpe, gsw, gu, guc, gur, guw, gv, ha, hak, haw, hbs, he, hi, hif, hr, hsb, ht, hu, hy, hyw, ia, id, ie, ig, ik, ilo, inh, io, is, it, iu, ja, jam, jbo, jv, ka, kaa, kab, kbd, kbp, kcg, kg, ki, kk, kl, km, kn, ko, koi, krc, ks, ksh, ku, kv, kw, ky, la, lad, lb, lbe, lez, lfn, lg, li, lij, lld, lmo, ln, lo, lt, ltg, lv, lzh, mad, mai, map, mdf, mg, mhr, mi, min, mk, ml, mn, mni, mnw, mr, mrj, ms, mt, mwl, my, myv, mzn, nah, nan, nap, nds, ne, new, nia, nl, nn, no, nov, nqo, nrf, nso, nv, ny, oc, olo, om, or, os, pa, pag, pam, pap, pcd, pcm, pdc, pfl, pi, pih, pl, pms, pnb, pnt, ps, pt, pwn, qu, rm, rmy, rn, ro, ru, rue, rup, rw, sa, sah, sat, sc, scn, sco, sd, se, sg, sgs, shi, shn, si, sk, skr, sl, sm, smn, sn, so, sq, sr, srn, ss, st, stq, su, sv, sw, szl, szy, ta, tay, tcy, te, tet, tg, th, ti, tk, tl, tly, tn, to, tpi, tr, trv, ts, tt, tum, tw, ty, tyv, udm, ug, uk, ur, uz, ve, vec, vep, vi, vls, vo, vro, wa, war, wo, wuu, xal, xh, xmf, yi, yo, yue, za, zea, zgh, zh, zu",
+  "keywords": "language-modeling, masked-language-modeling, Multilingual Text Data",
+  "license": "cc-by-sa-3.0",
+  "url": "https://huggingface.co/datasets/wikimedia/wikipedia",
+  "task": "text-generation, fill-mask",
+  "modality": "text"
+}

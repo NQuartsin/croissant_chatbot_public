@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "open-thoughts/OpenThoughts-114k",
+  "description": "The Open-Thoughts-114k dataset is a comprehensive collection of 114,000 synthetic reasoning examples, covering a wide range of topics such as math, science, code, and puzzles. This dataset is designed to provide high-quality training data for machine learning models, particularly those focused on synthetic reasoning tasks. With rich formatting available through the Curator Viewer, users can easily inspect and analyze the dataset's content.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{openthoughts,   author = {Team, OpenThoughts},   month = jan,   title = {{Open Thoughts}},   howpublished = {https://open-thoughts.ai},   year = {2025} }",
+  "creator": "open-thoughts",
+  "dateCreated": "2025-01-27",
+  "dateModified": "2025-02-20",
+  "datePublished": "2025-01-27",
+  "keywords": "curator, Synthetic Reasoning, Math, Science",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/open-thoughts/OpenThoughts-114k",
+  "task": "Text-based Reasoning",
+  "modality": "text"
+}

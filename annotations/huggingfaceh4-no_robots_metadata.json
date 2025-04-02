@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "HuggingFaceH4/no_robots",
+  "description": "No Robots is a unique and high-quality dataset of 10,000 human-annotated instructions and demonstrations, designed to help language models follow instructions more accurately. This dataset, modeled after the instruction dataset described in OpenAI's InstructGPT paper, is an essential resource for supervised fine-tuning (SFT), a technique used to improve the performance of language models.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{no_robots,   author = {Nazneen Rajani and Lewis Tunstall and Edward Beeching and Nathan Lambert and Alexander M. Rush and Thomas Wolf},   title = {No Robots},   year = {2023},   publisher = {Hugging Face},   journal = {Hugging Face repository},   howpublished = {\\url{https://huggingface.co/datasets/HuggingFaceH4/no_robots}} }",
+  "creator": "HuggingFaceH4",
+  "dateCreated": "2023-11-10",
+  "dateModified": "2024-04-18",
+  "datePublished": "2023-11-10",
+  "inLanguage": "en",
+  "keywords": "Instruction Dataset, Supervised Fine-Tuning, Human-Annotated Data",
+  "license": "cc-by-nc-4.0",
+  "url": "https://huggingface.co/datasets/HuggingFaceH4/no_robots",
+  "task": "text-generation",
+  "modality": "text"
+}

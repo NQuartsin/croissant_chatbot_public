@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "AI-MO/NuminaMath-CoT",
+  "description": "The NuminaMath-CoT dataset is a significant contribution to the field of AI and mathematics education. With over 860k math problems sourced from various origins, this dataset offers a unique opportunity to study and develop AI models that can solve math problems using a Chain of Thought (CoT) approach. The problems range from high school exercises to those from international mathematics olympiads, making it a valuable resource for researchers and educators alike. The dataset was primarily collected from online exam paper PDFs and mathematics discussion forums, and its processing steps include OCR and segmentation.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{numina_math_datasets,   author = {Jia LI and Edward Beeching and Lewis Tunstall and Ben Lipkin and Roman Soletskyi and Shengyi Costa Huang and Kashif Rasul and Longhui Yu and Albert Jiang and Ziju Shen and Zihan Qin and Bin Dong and Li Zhou and Yann Fleureau and Guillaume Lample and Stanislas Polu},   title = {NuminaMath},   year = {2024},   publisher = {Numina},   journal = {Hugging Face repository},   howpublished = {\\url{[https://huggingface.co/AI-MO/NuminaMath-CoT](https://github.com/project-numina/aimo-progress-prize/blob/main/report/numina_dataset.pdf)}} }",
+  "creator": "Project-Numina",
+  "dateCreated": "2024-07-15",
+  "dateModified": "2024-11-25",
+  "datePublished": "2024-07-15",
+  "inLanguage": "en",
+  "keywords": "aimo, math, Mathematics Problems, Chain of Thought (CoT), Math Education or Math Learning",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/AI-MO/NuminaMath-CoT",
+  "task": "text-generation",
+  "modality": "text"
+}

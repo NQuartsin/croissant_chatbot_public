@@ -310,14 +310,14 @@ class MetadataManager:
           
             # Extract relevant metadata fields
             # Initialize empty lists for tasks, modalities, and languages and a variable for license
-            lisence = ""
+            license = ""
             tasks = []
             modalities = []
             languages = []
             # Extract tags and populate the lists and variable
             for tag in found_dataset.tags:
                 if tag.startswith("license:"):
-                    lisence = tag.split(":", 1)[1]
+                    license = tag.split(":", 1)[1]
                 elif tag.startswith("task_categories:"):
                     tasks.append(tag.split(":", 1)[1])
                 elif tag.startswith("modality:"):
@@ -345,12 +345,10 @@ class MetadataManager:
                 self.metadata["date_published"] = created_at.strftime("%Y-%m-%d") # Assuming published date is same as created date
             if description:
                 self.metadata["description"] = description
-            if lisence:
-                self.metadata["license"] = lisence
+            if license:
+                self.metadata["license"] = license
             if dataset_id:
                 self.metadata["url"] = f"https://huggingface.co/datasets/{dataset_id}"
-            if author:
-                self.metadata["publisher"] = author
             if tasks:
                 self.metadata["task"] = ", ".join(tasks)
             if modalities:
@@ -364,3 +362,6 @@ class MetadataManager:
 
         except Exception as e:
             return {'error': str(e)}, False
+        finally:
+            if hasattr(api, "session") and api.session:
+                api.session.close()  # Close the session explicitly

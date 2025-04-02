@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "microsoft/orca-agentinstruct-1M-v1",
+  "description": "This dataset is a fully synthetic set of instruction pairs where both the prompts and the responses have been synthetically generated, using the AgentInstruct framework. AgentInstruct is an extensible agentic framework for synthetic data generation.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{ title={ AgentInstruct: Toward Generative Teaching with Agentic Flows}, author={Arindam Mitra, Luciano Del Corro, Guoqing Zheng, Shweti Mahajan, Dany Rouhana, Andres Codas, Yadong Lu, Wei-ge Chen, Olga Vrousgos, Corby Rosset, Fillipe Silva, Hamed Khanpour, Yash Lara, Ahmed Awadallah}, year={2024}, eprint={ 2407.03502}, archivePrefix={arXiv}, primaryClass={cs.CL} }",
+  "creator": "microsoft",
+  "dateCreated": "2024-10-25",
+  "dateModified": "2024-11-01",
+  "datePublished": "2024-10-25",
+  "inLanguage": "en",
+  "keywords": "Synthetic Data, AgentInstruct Framework, Text-to-Text Generation",
+  "license": "cdla-permissive-2.0",
+  "url": "https://huggingface.co/datasets/microsoft/orca-agentinstruct-1M-v1",
+  "task": "question-answering",
+  "modality": "text"
+}

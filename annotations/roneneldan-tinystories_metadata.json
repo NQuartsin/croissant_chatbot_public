@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "roneneldan/TinyStories",
+  "description": "Dataset containing synthetically generated (by GPT-3.5 and GPT-4) short stories that only use a small vocabulary.\nDescribed in the following paper: https://arxiv.org/abs/2305.07759. \nThe models referred to in the paper were trained on TinyStories-train.txt  (the file tinystories-valid.txt can be used for validation loss). These models can be found on Huggingface, at roneneldan/TinyStories-1M/3M/8M/28M/33M/1Layer-21M.\nAdditional resources:\ntinystories_all_data.tar.gz - contains a superset of\u2026 See the full description on the dataset page: https://huggingface.co/datasets/roneneldan/TinyStories.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{roneneldan_tiny_stories,   author = {roneneldan},   title = {TinyStories},  year = {2023},   month = may,   note = {Synthetically generated short stories using GPT-3.5 and GPT-4. The models were trained on TinyStories-train.txt and can be found on Huggingface. The dataset page provides additional resources and is licensed under CDLA-Sharing-1.0.},   paper = {https://arxiv.org/abs/2305.07759}, url = {https://huggingface.co/datasets/roneneldan/TinyStories} }",
+  "creator": "roneneldan",
+  "dateCreated": "2023-05-12",
+  "dateModified": "2024-08-12",
+  "datePublished": "2023-05-12",
+  "inLanguage": "en",
+  "keywords": "GPT-3.5, GPT-4, Synthetically generated stories",
+  "license": "cdla-sharing-1.0",
+  "url": "https://huggingface.co/datasets/roneneldan/TinyStories",
+  "task": "text-generation",
+  "modality": "text"
+}

@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "fka/awesome-chatgpt-prompts",
+  "description": "The fka/awesome-chatgpt-prompts dataset is a comprehensive collection of text-based conversation starters designed for interaction with the ChatGPT model. This dataset serves as a valuable resource for users seeking to engage in a wide range of discussions, from general topics to specific use cases, fostering engaging and informative text-based conversations",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{akin_fka_awesome_chatgpt_prompts,   author = {Fatih Kadir Ak\u0131n},   title = {fka/awesome-chatgpt-prompts},   year = {2022},   month = dec,   date = {2022-12-13},   description = {The fka/awesome-chatgpt-prompts dataset is a comprehensive collection of text-based conversation starters designed for interaction with the ChatGPT model. This dataset serves as a valuable resource for users seeking to engage in a wide range of discussions, from general topics to specific use cases, fostering engaging and informative text-based conversations.},   keywords = {ChatGPT, ChatGPT prompts, Text-based conversation starters},   language = {English},   license = {cc0-1.0},   url = {https://huggingface.co/datasets/fka/awesome-chatgpt-prompts},   note = {Last modified on 2025-01-06} }",
+  "creator": "Fatih Kadir Ak\u0131n",
+  "dateCreated": "2022-12-13",
+  "dateModified": "2025-01-06",
+  "datePublished": "2022-12-13",
+  "inLanguage": "en",
+  "keywords": "ChatGPT, ChatGPT prompts, Text-based conversation starters",
+  "license": "cc0-1.0",
+  "url": "https://huggingface.co/datasets/fka/awesome-chatgpt-prompts",
+  "task": "question-answering",
+  "modality": "text"
+}

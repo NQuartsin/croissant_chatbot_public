@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "timdettmers/openassistant-guanaco",
+  "description": "The timdettmers/openassistant-guanaco dataset is a focused subset of the Open Assistant dataset, a large-scale, human-generated dataset for conversational AI research. This dataset, which contains 9,846 samples, was created by selecting only the highest-rated paths in the conversation tree and was used to train the Guanaco model using QLoRA. The dataset is accessible on Hugging Face and is licensed under the Apache 2.0 license.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{openassistant-guanaco,   title={timdettmers/openassistant-guanaco},   author={timdettmers},    year={2023},   month={May},   day={27},   url={https://huggingface.co/datasets/timdettmers/openassistant-guanaco},   license={Apache-2.0} }",
+  "creator": "timdettmers",
+  "dateCreated": "2023-05-27",
+  "dateModified": "2023-05-27",
+  "datePublished": "2023-05-27",
+  "keywords": "Open Assistant dataset, Guanaco, QLoRA",
+  "license": "Apache-2.0",
+  "url": "https://huggingface.co/datasets/timdettmers/openassistant-guanaco",
+  "task": "Question Answering",
+  "modality": "text"
+}

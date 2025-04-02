@@ -84,35 +84,47 @@ class CroissantChatbotManager:
             You can only do these things at the start of the chat, if you want to do them later
             you must click the "Refresh Chat" button or type 'start new dataset' to to start over.\n
 
-            To enter metadata attributes, select an attribute from the dropdown and enter the value in the chat box.
-            When you select the attribute, the chatbot will provide guidance on what to enter using the attribute name as a prompt.
+            To enter metadata attributes, select an attribute from the dropdown and enter the value in the 'Chat Message' box.
+            When you select the attribute, the chatbot will provide guidance on what to enter using the attribute name and other information you have provided as a prompt.
             You must enter a value immediately after selecting the attribute name.\n
-            After entering the value of an attribute, the chatbot will validate the value and suggest improvements if needed.
+            After entering the value of an attribute, the chatbot will check the validity and quality of the value and suggest improvements if needed.
             If the value is valid, the chatbot will save the value and you can proceed to the next attribute.
             If the value is invalid, the chatbot will ask you to provide a new value.
-            If you want to confirm the value despite validation issues, type 'confirm' in the chat box.
-            If you want to update an attribute, select an attribute name and enter the new value.\n
-            If you are unsure about a value, you can skip the attribute by not entering anything or selecting an attribute.
-            The chatbot will only save attributes with meaningful values (non-empty).
-            You can always return to an attribute later to update it.\n
+            If you want to confirm the value despite validation issues, type 'confirm' in the 'Chat Message' box.
+            If you want to update an attribute, select the attribute name and enter the new value.
+            If you are unsure about a value, you can skip the attribute by not entering anything or selecting an attribute.\n
 
             If you want to see the current metadata stored in the chatbot, click the 'Display Metadata So Far' button.
-            If you think you have entered all the metadata attributes, type 'complete' in the chat box to finalise the metadata.
+            If you think you have entered all the metadata attributes, type 'complete' in the 'Chat Message' box to finalise the metadata.
             After finalising the metadata, the chatbot will display the metadata in JSON format and save it to a file, if all the fields are valid or confirmed.
             Once the metadata is finalised, you can download the metadata file by clicking the 'Download Metadata File' button, 
             and the file will appear next to the button for download when you click the blue file size text.\n
-            If you want to start annotating a new dataset, type 'start new dataset' in the chat box.\n
+            If you want to start annotating a new dataset, type 'start new dataset' in the 'Chat Message' box.\n
 
             This chatbot is not smart. It will not be able to process any input that is not a value for a metadata attribute
             or one of the expected commands when prompted for: 'confirm', 'complete', 'start new dataset', 'help', 'no'.
             When asked a question you must immediately answer it before the chatbot can proceed.
             You cannot delete an attribute if you have already entered a value for it.
-            If you want to delete an attribute, you must click the 'Refresh Chat' button or type 'start new dataset' to start over.\n
+            If you want to delete an attribute, you must click the 'Refresh Chat' button or type 'start new dataset' to start over.
             Please do not press any button or enter anything unexpected when the chatbot is waiting for a response, otherwise it may not work as expected.\n
-            The validation and quality checks are basic and may not cover all possible issues with the metadata.
-            They are meant to guide you in providing the best metadata possible.
-            If you encounter any issues, you can refresh the chat by clicking the 'Refresh Chat' button.\n
 
+            The validation and quality checks are basic and may not cover all possible issues that could be wrong with the metadata.
+            The validation checks do the following:
+            - Check if the url is in the correct format of http(s)://...
+            - Check if the license is from the SPDX License List.
+            - Check if the date (date_published, date_created, date_modified) is in the correct format of YYYY-MM-DD.
+            - Check if the language is a comma-separated list of of ISO 639-1 codes or language names.
+            - Check if cite_as is in valid BibTeX format.
+            - Check if creators, keywords, task, modality are a comma-separated list of non-empty strings.
+            - Check if name, description, publisher, version, url, license, date_modified, date_created, date_published, cite_as are non-empty strings.
+
+            The quality checks do the following:
+            - Check if the description has high lexical diversity and sentence variety
+            - Check if the keywords are at least 3 and are not repeated values
+
+            These checks are meant to guide you in providing the best metadata possible. \n
+
+            If you encounter any issues, you can refresh the chat by clicking the 'Refresh Chat' button.
             If you want to see these instructions again at any time, press the 'See Instructions' button.\n
         """
         formatted_instructions = f"```text\n{instructions}\n```"
@@ -127,12 +139,12 @@ class CroissantChatbotManager:
             "role": "assistant",
             "content": """Please follow the following instructions:
                 - Select any attribute from the dropdown to enter/update its value. 
-                - If the value is empty, the chatbot will provide guidance on what to enter using the informal description.
+                - If the value is empty, I will provide guidance on what to enter using the informal description.
                 - If the value is already filled, you can update it if needed.
-                - If you want to see the current metadata stored in the chatbot, click the 'Display Metadata So Far' button.
+                - If you want to see the current metadata I know about your dataset, click the 'Display Metadata So Far' button.
                 - If you want to see a longer version of the instructions, click the 'See Instructions' button.
                 - If you make a mistake, specifically if you add an attribute you don't want to include, press the "Refresh Chat" button to start over.
-                - If you think you have entered all the metadata attributes, type **complete** in the chat box to finalise the metadata."""
+                - If you think you have entered all the metadata attributes, type **complete** in the 'Chat Message' box to finalise the metadata."""
         })
 
     def display_informal_description_prompt(self):
@@ -240,7 +252,7 @@ class CroissantChatbotManager:
         Returns:
             The updated chat history.
         """
-        self.append_to_history({"role": "assistant", "content": "Hello! I'm the Croissant Metadata Assistant."})
+        self.append_to_history({"role": "assistant", "content": "Hello! I am a Chatbot designed to help you create Croissant metadata for your dataset."})
         self.display_informal_description_prompt()
         self.waiting_for_greeting = False
         self.waiting_for_informal_description = True
@@ -328,7 +340,7 @@ class CroissantChatbotManager:
                     self.append_to_history({"role": "assistant", "content": f"Here are the issues with the metadata:\n{error_messages}\n{issue_messages}"})
                     self.append_to_history({"role": "assistant", "content": "Please resolve the issues before finalising the metadata."})
                     self.append_to_history({"role": "assistant", "content": "You can select any attribute from the dropdown to update them."})
-                    self.append_to_history({"role": "assistant", "content": "If you want to confirm the values despite validation issues, type 'confirm' in the chat box after selecting each attribute."})
+                    self.append_to_history({"role": "assistant", "content": "If you want to confirm the values despite validation issues, type **confirm** in the 'Chat Message' box after selecting each attribute."})
                     return self.history
             success, final_metadata = self.metadata_manager.finalise_metadata()
             if success:
@@ -336,7 +348,7 @@ class CroissantChatbotManager:
                 self.append_to_history({"role": "assistant", "content": self.json_to_code_block(final_metadata, self.metadata_manager.json_serial)})
                 self.append_to_history({"role": "assistant", "content": "You can download the metadata file by clicking the 'Download Metadata File' button, then clicking the blue file size text."})
                 self.append_to_history({"role": "assistant", "content": "You can still update the metadata if needed by selecting an attribute from the dropdown."})
-                self.append_to_history({"role": "assistant", "content": "If you want to start annotating a new dataset, type **start new dataset** in the chat box."})
+                self.append_to_history({"role": "assistant", "content": "If you want to start annotating a new dataset, type **start new dataset** in the 'Chat Message' box."})
             else:
                 self.append_to_history({"role": "assistant", "content": f"An error occurred: {final_metadata}"})
         except Exception as e:
@@ -358,7 +370,7 @@ class CroissantChatbotManager:
                 if self.pending_attribute in ["date_created", "date_modified", "date_published"]:
                     self.append_to_history({
                         "role": "assistant",
-                        "content": f"The `confirm` option is not available for the `{self.pending_attribute}` attribute. Please provide a valid date in the correct format (YYYY-MM-DD)."
+                        "content": f"The **confirm** option is not available for the `{self.pending_attribute}` attribute. Please provide a valid date in the correct format (YYYY-MM-DD)."
                     })
                     return self.history
 
@@ -380,7 +392,13 @@ class CroissantChatbotManager:
                     self.append_to_history({"role": "assistant", "content": f"Here are the issues with the value you provided:\n{error_messages}\n{issue_messages}"})
                     suggested_value = suggest_metadata(self.metadata_manager.get_metadata(), self.informal_description, self.pending_attribute)
                     self.append_to_history({"role": "assistant", "content": f"{suggested_value}"})
-                    self.append_to_history({"role": "assistant", "content": "Type **confirm** to save this value anyway, or use one of these suggestions as the value or enter your own idea for the value."})
+                    self.append_to_history({
+                        "role": "assistant", 
+                        "content": f"""**Please type one of these options:**
+                            - &lt;a new value for this attribute&gt;
+                            - &lt;one of the suggestions for this attribute&gt;
+                            - **confirm** (to confirm the value despite validation issues)
+                    """})
                 else:
                     self.metadata_manager.clear_temporary_metadata()
                     self.metadata_manager.set_metadata_value(self.pending_attribute, prompt.strip())
@@ -415,7 +433,7 @@ class CroissantChatbotManager:
                     suggested_value = suggest_metadata(self.metadata_manager.get_metadata(), self.informal_description, attribute)
                     self.append_to_history({
                         "role": "assistant",
-                        "content": f"The attribute `{attribute}` is missing. This is: {attribute_description}"})
+                        "content": f"The attribute `{attribute}` is missing. This attribute should be: {attribute_description}"})
                     self.append_to_history({"role": "assistant","content": f"{suggested_value}"})
                     self.append_to_history({
                         "role": "assistant",
@@ -429,7 +447,7 @@ class CroissantChatbotManager:
             else:
                 # Prompt the user to update the existing value
                 self.append_to_history({"role": "assistant", "content": f"The attribute `{attribute}` already has a value: `{current_value}`"})
-                self.append_to_history({"role": "assistant", "content": f"This is: {attribute_description}"})
+                self.append_to_history({"role": "assistant", "content": f"This attribute should be: {attribute_description}"})
                 self.append_to_history({
                     "role": "assistant",
                     "content": f"""You can do one of the following:

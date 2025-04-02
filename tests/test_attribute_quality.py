@@ -183,7 +183,7 @@ def test_check_quality_of_all_attributes(checker):
     }
     result = checker.check_quality_of_all_attributes(metadata)
     assert result == {
-        "description": "The description lacks lexical diversity and may be repetitive.The description has limited sentence variety and may be monotonous.",
+        "description": "The description lacks lexical diversity and may be repetitive. The description has limited sentence variety and may be monotonous.",
         "keywords": "Please provide at least 3 keywords."
     }
 

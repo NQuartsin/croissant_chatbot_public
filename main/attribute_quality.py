@@ -40,15 +40,18 @@ class AttributeQualityChecker:
                 return False, sen_error
             
             valid = True
-            message ="Description quality is acceptable."
+            message = ""
             
             # Check lexical diversity and sentence variety against thresholds
             if lexical_diversity < self.lexical_diversity_threshold:
                 valid = False
-                message = "The description lacks lexical diversity and may be repetitive."
+                message = "The description lacks lexical diversity and may be repetitive. "
             if sentence_variety < self.sentence_variety_threshold:
                 valid = False
                 message = message + "The description has limited sentence variety and may be monotonous."
+            
+            if valid:
+                message = "Description quality is acceptable."
 
             return valid, message
         except Exception as e:
@@ -70,10 +73,8 @@ class AttributeQualityChecker:
             # Calculate MATTR (Mean Type-Token Ratio) for lexical diversity
             if len(words) > self.mattr_window: 
                 mattr_score = ld.mattr(words, window_length=self.mattr_window)
-                print(f"Lexical diversity score: {mattr_score} , for text: {value}")
             else:
                 mattr_score = 0
-                print(f"Text too short for MATTR calculation: {value}")
             return mattr_score, None
         except Exception as e:
             return 0, f"Unexpected error in lexical diversity calculation: {str(e)}"

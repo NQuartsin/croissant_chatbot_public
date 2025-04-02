@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "Salesforce/wikitext",
+  "description": "The WikiText dataset, a collection of over 100 million tokens from Wikipedia's verified Good and Featured articles, offers a unique opportunity for natural language processing research. Not only is it over twice the size of the preprocessed version of the Penn Treebank (PTB) for WikiText-2, but it is also over 110 times larger for WikiText-103. This dataset, available under the Creative Commons Attribution-ShareAlike License, is a valuable resource for tasks such as language modeling and masked language modeling, providing a diverse and extensive corpus of text data.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{merity2016pointer,       title={Pointer Sentinel Mixture Models},       author={Stephen Merity and Caiming Xiong and James Bradbury and Richard Socher},       year={2016},       eprint={1609.07843},       archivePrefix={arXiv},       primaryClass={cs.CL} }",
+  "creator": "Salesforce",
+  "dateCreated": "2022-03-02",
+  "dateModified": "2024-01-04",
+  "datePublished": "2022-03-02",
+  "inLanguage": "en",
+  "keywords": "language-modeling, masked-language-modeling, wikipedia",
+  "license": "cc-by-sa-3.0",
+  "url": "https://huggingface.co/datasets/Salesforce/wikitext",
+  "task": "text-generation, fill-mask",
+  "modality": "text"
+}

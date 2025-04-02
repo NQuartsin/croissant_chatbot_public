@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "Anthropic/hh-rlhf",
+  "description": "The Anthropic/hh-rlhf dataset offers two distinct types of text data: human preference data for helpfulness and harmlessness, which are utilized to train preference (or reward) models for Reinforcement Learning from Human Feedback (RLHF). These data are not intended for supervised training of dialogue agents, as it may lead to harmful models. Additionally, the dataset includes human-generated and annotated red teaming dialogues from the study \"Red Teaming Language Models to Reduce Harms\". These dialogues help understand how crowdworkers red team models and the success or failure of various red team attacks. The data consists of entire transcripts of conversations derived from the harmlessness preference modeling data, with annotations indicating the overall dialogue's level of harm.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{anthropic_hh_rlhf,   title={Anthropic/hh-rlhf},   author={Anthropic},   howpublished={\\url{https://huggingface.co/datasets/Anthropic/hh-rlhf}},   year={2022},   month={Dec},   date={2022-12-08},  keywords={human-feedback, Reinforcement Learning from Human Feedback, Red teaming language models},   url={https://huggingface.co/datasets/Anthropic/hh-rlhf} }",
+  "creator": "Anthropic",
+  "dateCreated": "2022-12-08",
+  "dateModified": "2023-05-26",
+  "datePublished": "2022-12-08",
+  "inLanguage": "en",
+  "keywords": "human-feedback, Reinforcement Learning from Human Feedback, Red teaming language models",
+  "license": "mit",
+  "url": "https://huggingface.co/datasets/Anthropic/hh-rlhf",
+  "task": "Red Team Analysis",
+  "modality": "text"
+}

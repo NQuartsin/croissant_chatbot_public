@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "Gustavosta/Stable-Diffusion-Prompts",
+  "description": "The Stable Diffusion Dataset, created by Gustavosta, is a comprehensive collection of 80,000 image prompts sourced from the Lexica.art image finder. The dataset was compiled despite the challenges of working with a search engine that does not have a public API without Cloudflare protection. To test the dataset, visit spaces/Gustavosta/MagicPrompt-Stable-Diffusion, and to view the model, go to Gustavosta/MagicPrompt-Stable-Diffusion. This dataset is an essential resource for researchers and developers working with the Stable Diffusion model for image generation.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{Gustavosta_Stable-Diffusion-Prompts,   title={Stable Diffusion Dataset},   author={Gustavosta},   year={2022},   month={Sep},   day={18},   url={https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts}, }",
+  "creator": "Gustavosta",
+  "dateCreated": "2022-09-18",
+  "dateModified": "2022-09-18",
+  "datePublished": "2022-09-18",
+  "inLanguage": "en",
+  "keywords": "Stable Diffusion, image, image prompts",
+  "license": "unknown",
+  "url": "https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts",
+  "modality": "text"
+}

@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "proj-persona/PersonaHub",
+  "description": "The PersonaHub dataset, introduced in the paper 'Scaling Synthetic Data Creation with 1,000,000,000 Personas', presents a groundbreaking persona-driven data synthesis methodology. This methodology utilizes a large language model (LLM) to create diverse synthetic data by leveraging multiple perspectives. The dataset, known as PERSONA HUB, contains 1 billion diverse personas automatically curated from web data, representing a significant portion of the world's population. These personas serve as carriers of world knowledge, enabling the creation of a vast array of synthetic data for various scenarios, including mathematical and logical reasoning problems, user prompts, knowledge-rich texts, game NPCs, and tools.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{projpersona_personahub,   title={PersonaHub},   author={proj-persona},   year={2024},   month={06},   day={28},   url={https://huggingface.co/datasets/proj-persona/PersonaHub},   license={CC-BY-NC-SA-4.0},   note={The PersonaHub dataset: A groundbreaking persona-driven data synthesis methodology presented in the paper 'Scaling Synthetic Data Creation with 1,000,000,000 Personas' by proj-persona} }",
+  "creator": "proj-persona",
+  "dateCreated": "2024-06-28",
+  "dateModified": "2025-03-04",
+  "datePublished": "2024-06-28",
+  "inLanguage": "en, zh",
+  "keywords": "Synthetic Data, text, math, reasoning, instruction, tool, LLM",
+  "license": "cc-by-nc-sa-4.0",
+  "url": "https://huggingface.co/datasets/proj-persona/PersonaHub",
+  "task": "text-generation, text-classification, token-classification, fill-mask, table-question-answering, text2text-generation",
+  "modality": "text"
+}

@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "openai/MMMLU",
+  "description": "The Multilingual Massive Multitask Language Understanding (MMMLU) dataset is a groundbreaking resource for AI researchers and developers. It provides a multilingual test set for evaluating the general knowledge attained by AI models, spanning 57 different categories and 14 languages. Translated by professional human translators, the MMMLU dataset offers a unique opportunity to assess the cross-lingual capabilities of AI models, making it an essential tool for advancing the field of language understanding. Developed by OpenAI, the MMMLU dataset is a valuable addition to the growing body of resources available for AI research and development.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{openai_mmmlu,   title={Multilingual Massive Multitask Language Understanding (MMMLU)},   author={openai},   journal={Hugging Face Datasets},   year={2024},   url={https://huggingface.co/datasets/openai/MMMLU}, }",
+  "creator": "openai",
+  "dateCreated": "2024-09-13",
+  "dateModified": "2024-10-16",
+  "datePublished": "2024-09-13",
+  "inLanguage": "ar, bn, de, es, fr, hi, id, it, ja, ko, pt, sw, yo, zh",
+  "keywords": "Multilingual Language Understanding, AI Model Evaluation, General Knowledge Benchmark",
+  "license": "mit",
+  "url": "https://huggingface.co/datasets/openai/MMMLU",
+  "task": "question-answering",
+  "modality": "text"
+}

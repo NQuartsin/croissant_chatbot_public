@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "b-mc2/sql-create-context",
+  "description": "The sql-create-context dataset is a valuable addition to the text-to-SQL community. It contains 78,577 examples of natural language queries, SQL CREATE TABLE statements, and SQL Query answering the question using the CREATE statement as context. This dataset was designed to address the issue of hallucination of column and table names often seen when training on text-to-SQL datasets. The CREATE TABLE statements can be copied and pasted from different DBMS, providing a diverse range of table structures that can be used for training and evaluating text-to-SQL models.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{b-mc2_2023_sql-create-context,   title   = {sql-create-context Dataset},   author  = {b-mc2},    year    = {2023},   url     = {https://huggingface.co/datasets/b-mc2/sql-create-context},   note    = {This dataset was created by modifying data from the following sources: \\cite{zhongSeq2SQL2017, yu2018spider}.}, }",
+  "creator": "brianm",
+  "dateCreated": "2023-04-21",
+  "dateModified": "2024-01-25",
+  "datePublished": "2023-04-21",
+  "inLanguage": "en",
+  "keywords": "SQL, code, NLP, text-to-sql, context-sql, spider, wikisql, sqlglot",
+  "license": "cc-by-4.0",
+  "url": "https://huggingface.co/datasets/b-mc2/sql-create-context",
+  "task": "text-generation, question-answering, table-question-answering",
+  "modality": "text"
+}

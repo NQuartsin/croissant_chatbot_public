@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "legacy-datasets/wikipedia",
+  "description": "Wikipedia dataset containing cleaned articles of all languages.\nThe datasets are built from the Wikipedia dump\n(https://dumps.wikimedia.org/) with one split per language. Each example\ncontains the content of one full Wikipedia article with cleaning to strip\nmarkdown and unwanted sections (references, etc.).",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@ONLINE{wikidump,     author = \"Wikimedia Foundation\",     title  = \"Wikimedia Downloads\",     url    = \"https://dumps.wikimedia.org\" }",
+  "creator": "legacy-datasets",
+  "dateCreated": "2022-03-02",
+  "dateModified": "2024-03-11",
+  "datePublished": "2022-03-02",
+  "inLanguage": "aa, ab, ace, af, ak, als, am, an, ang, ar, arc, arz, as, ast, atj, av, ay, az, azb, ba, bar, bcl, be, bg, bh, bi, bjn, bm, bn, bo, bpy, br, bs, bug, bxr, ca, cbk, cdo, ce, ceb, ch, cho, chr, chy, ckb, co, cr, crh, cs, csb, cu, cv, cy, da, de, din, diq, dsb, dty, dv, dz, ee, el, eml, en, eo, es, et, eu, ext, fa, ff, fi, fj, fo, fr, frp, frr, fur, fy, ga, gag, gan, gd, gl, glk, gn, gom, gor, got, gu, gv, ha, hak, haw, he, hi, hif, ho, hr, hsb, ht, hu, hy, ia, id, ie, ig, ii, ik, ilo, inh, io, is, it, iu, ja, jam, jbo, jv, ka, kaa, kab, kbd, kbp, kg, ki, kj, kk, kl, km, kn, ko, koi, krc, ks, ksh, ku, kv, kw, ky, la, lad, lb, lbe, lez, lfn, lg, li, lij, lmo, ln, lo, lrc, lt, ltg, lv, lzh, mai, mdf, mg, mh, mhr, mi, min, mk, ml, mn, mr, mrj, ms, mt, mus, mwl, my, myv, mzn, na, nah, nan, nap, nds, ne, new, ng, nl, nn, no, nov, nrf, nso, nv, ny, oc, olo, om, or, os, pa, pag, pam, pap, pcd, pdc, pfl, pi, pih, pl, pms, pnb, pnt, ps, pt, qu, rm, rmy, rn, ro, ru, rue, rup, rw, sa, sah, sat, sc, scn, sco, sd, se, sg, sgs, sh, si, sk, sl, sm, sn, so, sq, sr, srn, ss, st, stq, su, sv, sw, szl, ta, tcy, tdt, te, tg, th, ti, tk, tl, tn, to, tpi, tr, ts, tt, tum, tw, ty, tyv, udm, ug, uk, ur, uz, ve, vec, vep, vi, vls, vo, vro, wa, war, wo, wuu, xal, xh, xmf, yi, yo, yue, za, zea, zh, zu",
+  "keywords": "language-modeling, masked-language-modeling, Wikipedia Articles",
+  "license": "cc-by-sa-3.0",
+  "url": "https://huggingface.co/datasets/legacy-datasets/wikipedia",
+  "task": "text-generation, fill-mask"
+}

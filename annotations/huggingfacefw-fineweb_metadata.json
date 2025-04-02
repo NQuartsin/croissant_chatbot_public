@@ -1,0 +1,63 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "HuggingFaceFW/fineweb",
+  "description": "The HuggingFaceFW/fineweb dataset is a colossal collection of 15 trillion English tokens scraped from the web, meticulously cleaned and deduplicated to optimize its utility for large language models (LLMs). This data was processed using the datatrove library, a powerful tool for large-scale data processing, making it an invaluable resource for natural language processing tasks.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@inproceedings{   penedo2024the,   title={The FineWeb Datasets: Decanting the Web for the Finest Text Data at Scale},   author={Guilherme Penedo and Hynek Kydl{\\'\\i}{\\v{c}}ek and Loubna Ben allal and Anton Lozhkov and Margaret Mitchell and Colin Raffel and Leandro Von Werra and Thomas Wolf},   booktitle={The Thirty-eight Conference on Neural Information Processing Systems Datasets and Benchmarks Track},   year={2024},   url={https://openreview.net/forum?id=n6SCkn2QaG} }",
+  "creator": "HuggingFaceFW",
+  "dateCreated": "2024-04-18",
+  "dateModified": "2025-01-31",
+  "datePublished": "2024-04-18",
+  "inLanguage": "en",
+  "keywords": "Web scraped data, Large Language Models (LLMs), Datatrove (data processing library)",
+  "license": "ODC-By-1.0",
+  "url": "https://huggingface.co/datasets/HuggingFaceFW/fineweb",
+  "version": "v1.3.0",
+  "task": "text-generation",
+  "modality": "tabular, text"
+}

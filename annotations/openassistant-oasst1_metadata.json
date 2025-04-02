@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "OpenAssistant/oasst1",
+  "description": "OpenAssistant Conversations Dataset (OASST1) is a comprehensive, human-generated and human-annotated collection of assistant-style conversations, totaling 161,443 messages across 35 languages. This dataset, a result of a global crowd-sourcing initiative with over 13,500 volunteers, includes 461,292 quality ratings and over 10,000 fully annotated conversation trees. It aims to facilitate research on large-scale alignment and foster innovation in the field.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{OpenAssistant_OASST1,   title={OpenAssistant Conversations Dataset (OASST1)},   author={OpenAssistant},   year={2023},   url={https://huggingface.co/datasets/OpenAssistant/oasst1},   license={Apache-2.0},   note={A comprehensive, human-generated and human-annotated collection of assistant-style conversations, totaling 161,443 messages across 35 languages. This dataset, a result of a global crowd-sourcing initiative with over 13,500 volunteers, includes 461,292 quality ratings and over 10,000 fully annotated conversation trees. It aims to facilitate research on large-scale alignment and foster innovation in the field.}, }",
+  "creator": "OpenAssistant",
+  "dateCreated": "2023-04-13",
+  "dateModified": "2023-05-02",
+  "datePublished": "2023-04-13",
+  "inLanguage": "en, es, ru, de, pl, th, vi, sv, bn, da, he, it, fa, sk, id, nb, el, nl, hu, eu, zh, eo, ja, ca, cs, bg, fi, pt, tr, ro, ar, uk, gl, fr, ko",
+  "keywords": "human-feedback, Assistant-style conversations, Crowd-sourced",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/OpenAssistant/oasst1",
+  "task": "Multilingual Dialogue Analysis",
+  "modality": "tabular, text"
+}

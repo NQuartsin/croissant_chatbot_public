@@ -17,7 +17,11 @@ def create_chatbot_ui():
 
 def create_prompt_input(chatbot_instance, chatbot_ui):
     """Create the prompt input box."""
-    prompt = gr.Textbox(max_lines=1, label="Chat Message", value="Type a greeting to start the chatbot...")
+    prompt = gr.Textbox(
+        max_lines=1,
+        label="Chat Message",
+        value="Type a greeting to start the chatbot...",
+    )
     prompt.submit(chatbot_instance.handle_user_input, [prompt], [chatbot_ui])
     prompt.submit(lambda: "", None, [prompt])  # Clear the input box after submission
     return prompt
@@ -28,7 +32,7 @@ def create_metadata_attributes_dropdown(chatbot_instance):
     with gr.Row():
         dropdown = gr.Dropdown(
             choices=list(METADATA_ATTRIBUTES.keys()),  
-            label="Select Metadata Attribute",
+            label="Select a Metadata Attribute",
             multiselect=False,
             value=None,  # No default value
             filterable=True,  # Allow user to search for attributes
@@ -120,9 +124,13 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.pink
         border: 1px solid var(--secondary-700);
         color: white;
     }
+    .gr-chatbot .clear-btn {
+        display: none !important;
+        visibility: hidden !important;
+    }
 """) as demo: # Create a Gradio Blocks app with a custom theme
 
-    gr.Markdown("# Croissant Metadata Creator")
+    gr.Markdown("# Croissant Chatbot")
 
     chatbot_instance = CroissantChatbotManager()
 

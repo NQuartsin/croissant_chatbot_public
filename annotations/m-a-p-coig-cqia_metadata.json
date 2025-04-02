@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "m-a-p/COIG-CQIA",
+  "description": "The COIG-CQIA dataset is a high-quality, open-source collection of instruction fine-tuning data specifically designed for the Chinese NLP community. It is constructed from a variety of sources on the Chinese internet, including Q&A and articles, and has undergone a rigorous process of deep cleaning, restructuring, and manual review to ensure its quality, diversity, and relevance. The dataset is inspired by studies like LIMA: Less Is More for Alignment, aiming to help large language models learn human-like interaction behavior with minimal data.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{bai2024coig,     title={COIG-CQIA: Quality is All You Need for Chinese Instruction Fine-tuning},      author={Bai, Yuelin and Du, Xinrun and Liang, Yiming and Jin, Yonggang and Liu, Ziqiang and Zhou, Junting and Zheng, Tianyu and Zhang, Xincheng and Ma, Nuo and Wang, Zekun and others},     year={2024},     eprint={2403.18058},     archivePrefix={arXiv},     primaryClass={cs.CL}   }",
+  "creator": "Multimodal Art Projection",
+  "dateCreated": "2023-12-04",
+  "dateModified": "2024-04-18",
+  "datePublished": "2023-12-04",
+  "inLanguage": "zh",
+  "keywords": "NLP, Chinese Instruction Fine-tuning, Question Answering",
+  "url": "https://huggingface.co/datasets/m-a-p/COIG-CQIA",
+  "task": "question-answering, text-classification, text-generation, text2text-generation",
+  "modality": "text"
+}
