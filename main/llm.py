@@ -197,8 +197,8 @@ def create_llm_response(prompt: str) -> str:
         "Content-Type": "application/json"
     }
     data = {
-        # "model": "mistralai/mistral-7b-instruct:free",
-        "model": "mistralai/mistral-7b-instruct",
+        # "model": "mistralai/mistral-7b-instruct",
+        "model": "mistralai/mistral-7b-instruct:free",
         "messages": [{"role": "user", "content": model_propmt}],
     }
     try:
@@ -208,7 +208,6 @@ def create_llm_response(prompt: str) -> str:
             if "choices" in response_json and response_json["choices"]:
                 return response_json["choices"][0]["message"]["content"]
         else:
-            # Log the raw response for debugging
             raise Exception(f"An error occurred while trying to use the LLM model.\n {response.status_code}: {response.text}")
     except Exception as e:
         # Provide a fallback response

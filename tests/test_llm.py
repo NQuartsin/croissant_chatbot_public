@@ -1,6 +1,7 @@
 # test_llm.py
 
 #necessary imports
+from urllib import response
 import pytest
 from unittest.mock import patch
 from main.llm import (
@@ -141,6 +142,7 @@ def test_create_llm_response_error(mock_post):
     mock_post.return_value.text = "Bad Request"
 
     prompt = "Test prompt"
-    with pytest.raises(Exception, match="An error occured while trying to use the LLM model"):
-        create_llm_response(prompt)
-        
+    response = create_llm_response(prompt)
+    assert "Unexpected error occured:" in response 
+    mock_post.assert_called_once()
+
