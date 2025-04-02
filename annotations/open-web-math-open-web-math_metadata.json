@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "open-web-math/open-web-math",
+  "description": "OpenWebMath represents an unprecedented achievement in data collection, offering a comprehensive dataset with a high concentration of mathematical text. With the dataset comprising 6.3 million documents containing 14.7 billion tokens, and sourced from over 200 billion HTML files on Common Crawl, OpenWebMath stands as a testament to the potential of what can be achieved by harnessing the wealth of information available on the internet. This dataset is particularly useful for pre-training and fine-tuning large language models, serving as an essential tool for those working in Natural Language Processing aimed at better understanding and modeling mathematical concepts and language.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{paster2023openwebmath,       title={OpenWebMath: An Open Dataset of High-Quality Mathematical Web Text},       author={Keiran Paster and Marco Dos Santos and Zhangir Azerbayev and Jimmy Ba},       year={2023},       eprint={2310.06786},       archivePrefix={arXiv},       primaryClass={cs.AI} }",
+  "creator": "open-web-math",
+  "dateCreated": "2023-09-06",
+  "dateModified": "2023-10-17",
+  "datePublished": "2023-09-06",
+  "inLanguage": "en",
+  "keywords": "Web text data, math, NLP, Common Crawl",
+  "license": "ODC-By-1.0",
+  "url": "https://huggingface.co/datasets/open-web-math/open-web-math",
+  "task": "Text classification (mathematical text)",
+  "modality": "text"
+}

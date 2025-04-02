@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "Intel/orca_dpo_pairs",
+  "description": "The Intel/orca_dpo_pairs dataset, drawn from the Open-Orca/OpenOrca dataset, offers a collection of 12,000 examples that are fundamental for the growth of the NLP field, particularly in the area of Progressive Learning. This dataset, as presented in the research paper \"Orca: Progressive Learning from Complex Explanation Traces of GPT-4\" by Mukherjee et al., 2023, serves as a significant resource for researchers, enabling them to enhance NLP models through rigorous training and testing.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{mukherjee2023orcaprogressivelearningcomplex,       title={Orca: Progressive Learning from Complex Explanation Traces of GPT-4},        author={Subhabrata Mukherjee and Arindam Mitra and Ganesh Jawahar and Sahaj Agarwal and Hamid Palangi and Ahmed Awadallah},       year={2023},       eprint={2306.02707},       archivePrefix={arXiv},       primaryClass={cs.CL},       url={https://arxiv.org/abs/2306.02707},  }",
+  "creator": "Intel",
+  "dateCreated": "2023-09-21",
+  "dateModified": "2023-11-29",
+  "datePublished": "2023-09-21",
+  "keywords": "NLP, Open-Orca, Progressive Learning",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/Intel/orca_dpo_pairs",
+  "task": "Text Classification",
+  "modality": "text"
+}

@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "HuggingFaceTB/finemath",
+  "description": "FineMath, a comprehensive dataset from HuggingFaceTB, is built upon mathematical content mined from CommonCrawl. With two variations boasting 34B and 54B tokens, respectively, the dataset is focussed on clear and detailed explanations in mathematical education through the application of a dedicated mathematical content classifier. This dataset is an essential resource for individuals seeking to learn mathematics progressively and understand concepts through step-by-step problem-solving.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{allal2025smollm2smolgoesbig,       title={SmolLM2: When Smol Goes Big -- Data-Centric Training of a Small Language Model},        author={Loubna Ben Allal and Anton Lozhkov and Elie Bakouch and Gabriel Mart\u00edn Bl\u00e1zquez and Guilherme Penedo and Lewis Tunstall and Andr\u00e9s Marafioti and Hynek Kydl\u00ed\u010dek and Agust\u00edn Piqueres Lajar\u00edn and Vaibhav Srivastav and Joshua Lochner and Caleb Fahlgren and Xuan-Son Nguyen and Cl\u00e9mentine Fourrier and Ben Burtenshaw and Hugo Larcher and Haojun Zhao and Cyril Zakka and Mathieu Morlon and Colin Raffel and Leandro von Werra and Thomas Wolf},       year={2025},       eprint={2502.02737},       archivePrefix={arXiv},       primaryClass={cs.CL},       url={https://arxiv.org/abs/2502.02737},  }",
+  "creator": "HuggingFaceTB",
+  "dateCreated": "2024-11-25",
+  "dateModified": "2025-02-06",
+  "datePublished": "2024-11-25",
+  "keywords": "Text Mining, Mathematical Education, CommonCrawl, Mathematical Content Classification",
+  "license": "ODC-By-1.0",
+  "url": "https://huggingface.co/datasets/HuggingFaceTB/finemath",
+  "task": "Question Answering (Math QA)",
+  "modality": "tabular, text"
+}

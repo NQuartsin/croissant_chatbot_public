@@ -197,15 +197,20 @@ def create_llm_response(prompt: str) -> str:
         "Content-Type": "application/json"
     }
     data = {
-        "model": "mistralai/mistral-7b-instruct:free",
+        # "model": "mistralai/mistral-7b-instruct:free",
+        "model": "mistralai/mistral-7b-instruct",
         "messages": [{"role": "user", "content": model_propmt}],
     }
     try:
         response = requests.post(api_url, headers=headers, json=data)
         if response.status_code == 200:
-            return response.json()["choices"][0]["message"]["content"]
+            response_json = response.json()
+            if "choices" in response_json and response_json["choices"]:
+                return response_json["choices"][0]["message"]["content"]
         else:
-            raise Exception(f"An error occured while trying to use the LLM model.\n {response.status_code}: {response.text}")
+            # Log the raw response for debugging
+            raise Exception(f"An error occurred while trying to use the LLM model.\n {response.status_code}: {response.text}")
     except Exception as e:
-        raise Exception(f"An error occured while trying to use the LLM model.\n {e}")
+        # Provide a fallback response
+        return f"Unexpected error occured: {e} \nI'm sorry, I couldn't process your request at the moment. Please try again later."
 

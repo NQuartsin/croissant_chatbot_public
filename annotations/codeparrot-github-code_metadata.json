@@ -1,0 +1,63 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "codeparrot/github-code",
+  "description": "The codeparrot/github-code dataset is a massive collection of 115 million code files, encompassing 32 programming languages and 60 file extensions. With a total size of 1 terabyte, this dataset provides a rich and diverse resource for researchers, developers, and data scientists. This dataset, sourced from BigQuery, offers a comprehensive view of the coding landscape on GitHub, making it an essential tool for language modeling, machine learning, and other research purposes.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{codeparrot_github_code,   title={codeparrot/github-code},   author={codeparrot},     year={2022},   version={v1.1},   month={Mar},   date={02},   note={The GitHub Code dataset consists of 115M code files from GitHub in 32 programming languages with 60 extensions totalling in 1TB of text data. The dataset was created from the GitHub dataset on BigQuery.},   keywords={language-modeling, Code Files, licenses, Multi-language},   url={https://huggingface.co/datasets/codeparrot/github-code} }",
+  "creator": "codeparrot",
+  "dateCreated": "2022-03-02",
+  "dateModified": "2022-10-20",
+  "datePublished": "2022-03-02",
+  "inLanguage": "code",
+  "keywords": "language-modeling, Code Files, licenses, Multi-language",
+  "license": "other",
+  "url": "https://huggingface.co/datasets/codeparrot/github-code",
+  "version": "v1.1",
+  "task": "text-generation",
+  "modality": "text"
+}

@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "lmsys/chatbot_arena_conversations",
+  "description": "The Chatbot Arena Conversations Dataset is a valuable resource for those interested in the field of chatbot evaluation and human-chatbot interaction. Comprising 33,000 cleaned conversations, the dataset was collected from the Chatbot Arena platform between April and June 2023. Each sample includes a variety of metadata, such as question ID, model names, conversation text, user vote, anonymized user ID, language tag, moderation API tag, toxic tag, and timestamp, offering a rich dataset for researchers and developers to analyze and improve chatbot performance.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{zheng2023judging,       title={Judging LLM-as-a-judge with MT-Bench and Chatbot Arena},        author={Lianmin Zheng and Wei-Lin Chiang and Ying Sheng and Siyuan Zhuang and Zhanghao Wu and Yonghao Zhuang and Zi Lin and Zhuohan Li and Dacheng Li and Eric. P Xing and Hao Zhang and Joseph E. Gonzalez and Ion Stoica},       year={2023},       eprint={2306.05685},       archivePrefix={arXiv},       primaryClass={cs.CL} }",
+  "creator": "lmsys",
+  "dateCreated": "2023-07-18",
+  "dateModified": "2023-09-30",
+  "datePublished": "2023-07-18",
+  "keywords": "Chatbot Evaluation, Human-Chatbot Interaction, Multi-modal Data",
+  "license": "cc",
+  "url": "https://huggingface.co/datasets/lmsys/chatbot_arena_conversations",
+  "task": "Conversational Analysis, Chatbot Evaluation, Toxicity Detection",
+  "modality": "tabular, text"
+}

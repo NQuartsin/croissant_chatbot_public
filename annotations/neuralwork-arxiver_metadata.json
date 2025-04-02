@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "neuralwork/arxiver",
+  "description": "The Arxiver dataset is a substantial collection of 63,357 arXiv papers, transformed into multi-markdown (.mmd) format. This dataset offers a wealth of information, including original arXiv article IDs, titles, abstracts, authors, publication dates, URLs, and corresponding markdown files. It encompasses a wide variety of topics published between January 2023 and October 2023, making it a valuable resource for numerous applications such as semantic search, domain-specific language modeling, question answering, and summarization.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{acar_arxiver2024,   author = {Alican Acar, Alara Dirik, Muhammet Hatipoglu},   title = {ArXiver},   year = {2024},   publisher = {Hugging Face},   howpublished = {\\url{https://huggingface.co/datasets/neuralwork/arxiver}} }",
+  "creator": "neuralwork",
+  "dateCreated": "2024-10-14",
+  "dateModified": "2024-11-01",
+  "datePublished": "2024-10-14",
+  "keywords": "Semantic Search, Language Modeling, Question Answering, Summarization",
+  "license": "cc-by-nc-sa-4.0",
+  "url": "https://huggingface.co/datasets/neuralwork/arxiver",
+  "task": "Text Classification, Information Extraction, Question Answering",
+  "modality": "text"
+}

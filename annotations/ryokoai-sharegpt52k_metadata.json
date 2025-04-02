@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "RyokoAI/ShareGPT52K",
+  "description": "The ShareGPT52K90K dataset is a treasure trove of data for natural language processing (NLP) researchers and developers. With over 90,000 conversations, this dataset provides a rich source of data for training and evaluating text-generation models. The dataset's multilingual nature also makes it a valuable resource for studying the challenges and opportunities of building AI models that can handle multiple languages effectively.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{ShareGPT52K,   title={ShareGPT52K},   author={RyokoAI},   year={2023},   url = {https://huggingface.co/datasets/RyokoAI/ShareGPT52K},    }",
+  "creator": "RyokoAI",
+  "dateCreated": "2023-04-01",
+  "dateModified": "2023-04-02",
+  "datePublished": "2023-04-01",
+  "inLanguage": "en, es, de, multilingual",
+  "keywords": "conversation AI, rlhf, chatgpt, gpt-3.5, Text-generation",
+  "license": "cc0-1.0",
+  "url": "https://huggingface.co/datasets/RyokoAI/ShareGPT52K",
+  "task": "text-generation",
+  "modality": "text"
+}

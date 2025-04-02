@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "openbmb/UltraFeedback",
+  "description": "UltraFeedback is a significant dataset created by openbmb, containing about 64,000 prompts sourced from various resources. These prompts are used to query multiple large language models (LLMs), generating 4 different responses for each prompt, resulting in a total of 256k samples. This dataset is a valuable resource for researchers and developers working on training powerful reward models and critic models, as it offers a diverse and extensive dataset for improving the performance of AI in natural language processing.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{cui2023ultrafeedback,       title={UltraFeedback: Boosting Language Models with High-quality Feedback},        author={Ganqu Cui and Lifan Yuan and Ning Ding and Guanming Yao and Wei Zhu and Yuan Ni and Guotong Xie and Zhiyuan Liu and Maosong Sun},       year={2023},       eprint={2310.01377},       archivePrefix={arXiv},       primaryClass={cs.CL} }",
+  "creator": "openbmb",
+  "dateCreated": "2023-09-23",
+  "dateModified": "2023-12-29",
+  "datePublished": "2023-09-23",
+  "inLanguage": "en",
+  "keywords": "Preference Data, Large-scale, Fine-grained, Reward Models, Critic Models Training",
+  "license": "mit",
+  "url": "https://huggingface.co/datasets/openbmb/UltraFeedback",
+  "task": "text-generation",
+  "modality": "text"
+}

@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "allenai/c4",
+  "description": "The AllenAI/C4 dataset is a massive, processed version of the Common Crawl dataset, available at https://commoncrawl.org. It consists of five variants: en, en.noclean, en.noblocklist, realnewslike, and multilingual (mC4). The en variant is 305GB, en.noclean is 2.3TB, en.noblocklist is 380GB, realnewslike is 15GB, and mC4 is 9.7TB with 108 subsets. This dataset is a valuable resource for researchers and developers working on language modeling, text classification, and other natural language processing tasks, as it provides a diverse and extensive collection of web-crawled data in multiple languages.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "creator": "allenai",
+  "dateCreated": "2022-03-02",
+  "dateModified": "2024-01-09",
+  "datePublished": "2022-03-02",
+  "inLanguage": "af, am, ar, az, be, bg, bn, ca, ceb, co, cs, cy, da, de, el, en, eo, es, et, eu, fa, fi, fil, fr, fy, ga, gd, gl, gu, ha, haw, he, hi, hmn, ht, hu, hy, id, ig, is, it, iw, ja, jv, ka, kk, km, kn, ko, ku, ky, la, lb, lo, lt, lv, mg, mi, mk, ml, mn, mr, ms, mt, my, ne, nl, no, ny, pa, pl, ps, pt, ro, ru, sd, si, sk, sl, sm, sn, so, sq, sr, st, su, sv, sw, ta, te, tg, th, tr, uk, und, ur, uz, vi, xh, yi, yo, zh, zu",
+  "keywords": "language-modeling, masked-language-modeling, Web Crawl Data, Text Corpus, NLP",
+  "license": "ODC-By-1.0",
+  "url": "https://huggingface.co/datasets/allenai/c4",
+  "task": "text-generation, fill-mask",
+  "modality": "text"
+}

@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "cognitivecomputations/dolphin",
+  "description": "The Dolphin dataset, developed by cognitivecomputations, is a valuable tool for researchers and practitioners in the field of NLP and Machine Learning. It offers a collection of approximately 1 million and 3.5 million text samples, each enhanced with GPT-4 and GPT-3.5 completions, respectively, based on the FLANv2 model. This dataset is a replication attempt of Microsoft's Orca, following its submix and system prompt distribution, with some variations, such as the inclusion of all 75k of CoT in the FLAN-1m. The dataset can be accessed on Hugging Face at https://huggingface.co/datasets/cognitivecomputations/dolphin.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{cognitivecomputations_dolphin,   title={Dolphin: A Dataset for Large Language Model Evaluation},   author={cognitivecomputations},    year={2023},   url={https://huggingface.co/datasets/cognitivecomputations/dolphin},      note={This dataset is an attempt to replicate the results of Microsoft's Orca. It consists of ~1 million of FLANv2 augmented with GPT-4 completions and ~3.5 million of FLANv2 augmented with GPT-3.5 completions. The dataset follows the submix and system prompt distribution outlined in the Orca paper, with a few exceptions. It includes all 75k of CoT in the FLAN-1m. For more details, please refer to the dataset page: https://huggingface.co/datasets/cognitivecomputations/dolphin.}, }",
+  "creator": "cognitivecomputations",
+  "dateCreated": "2023-07-01",
+  "dateModified": "2023-12-18",
+  "datePublished": "2023-07-01",
+  "inLanguage": "en",
+  "keywords": "Language Model Evaluation, NLP, Machine Learning",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/cognitivecomputations/dolphin",
+  "task": "text-generation",
+  "modality": "text"
+}

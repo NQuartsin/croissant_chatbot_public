@@ -1,0 +1,59 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "allenai/objaverse",
+  "description": "Objaverse, a dataset of over 800,000 annotated 3D objects, offers a unique and extensive resource for the AI community. With its diverse range of objects, licensed under the ODC-By v1.0, this dataset provides an opportunity for researchers, developers, and enthusiasts to advance the field of 3D object understanding. Whether you're working on computer vision, robotics, or AI, Objaverse offers a wealth of data to help drive innovation and discovery.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{objaverse,   title={Objaverse: A Universe of Annotated 3D Objects},   author={Matt Deitke and Dustin Schwenk and Jordi Salvador and Luca Weihs and           Oscar Michel and Eli VanderBilt and Ludwig Schmidt and           Kiana Ehsani and Aniruddha Kembhavi and Ali Farhadi},   journal={arXiv preprint arXiv:2212.08051},   year={2022} }",
+  "creator": "allenai",
+  "dateCreated": "2022-12-12",
+  "dateModified": "2023-03-31",
+  "datePublished": "2022-12-12",
+  "inLanguage": "en",
+  "license": "ODC-BY-1.0",
+  "url": "https://huggingface.co/datasets/allenai/objaverse"
+}

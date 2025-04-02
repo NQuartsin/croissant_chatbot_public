@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "meta-math/MetaMathQA",
+  "description": "MetaMathQA is a dataset of mathematical question-answering data, created by augmenting the training sets of GSM8K and MATH. This dataset is not derived from the testing sets of either source dataset, ensuring that it provides a challenging and diverse set of questions for large language models (LLMs) to answer. The dataset is fully fine-tuned on the MetaMathQA datasets using the Mistral-7B model, a powerful language model that has been fine-tuned on a wide range of tasks. MetaMathQA is an important resource for researchers and developers working on mathematical QA tasks, as it provides a large and diverse dataset for training and evaluating LLMs, and it can help improve the performance of LLMs on mathematical QA tasks.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{yu2023metamath,   title={MetaMath: Bootstrap Your Own Mathematical Questions for Large Language Models},   author={Yu, Longhui and Jiang, Weisen and Shi, Han and Yu, Jincheng and Liu, Zhengying and Zhang, Yu and Kwok, James T and Li, Zhenguo and Weller, Adrian and Liu, Weiyang},   journal={arXiv preprint arXiv:2309.12284},   year={2023} }",
+  "creator": "meta-math",
+  "dateCreated": "2023-09-21",
+  "dateModified": "2023-12-21",
+  "datePublished": "2023-09-21",
+  "keywords": "math, math-qa, LLM",
+  "license": "mit",
+  "url": "https://huggingface.co/datasets/meta-math/MetaMathQA",
+  "task": "Question Answering (Mathematics)",
+  "modality": "text"
+}

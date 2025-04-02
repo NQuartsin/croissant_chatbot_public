@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "Skywork/SkyPile-150B",
+  "description": "SkyPile-150B is a comprehensive and high-quality Chinese dataset, specifically created for the pre-training of large language models. It is a product of data scraped from a broad array of publicly accessible Chinese web pages, undergoing rigorous filtering, extensive deduplication, and thorough sensitive data filtering to maintain its quality. The dataset employs advanced tools like fastText and BERT to filter out low-quality content, making it an ideal resource for the development and training of large language models.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{wei2023skywork,       title={Skywork: A More Open Bilingual Foundation Model},        author={Tianwen Wei and Liang Zhao and Lichang Zhang and Bo Zhu and Lijie Wang and Haihua Yang and Biye Li and Cheng Cheng and Weiwei L\u00fc and Rui Hu and Chenxia Li and Liu Yang and Xilin Luo and Xuejie Wu and Lunan Liu and Wenjun Cheng and Peng Cheng and Jianhao Zhang and Xiaoyu Zhang and Lei Lin and Xiaokun Wang and Yutuan Ma and Chuanhai Dong and Yanqi Sun and Yifu Chen and Yongyi Peng and Xiaojuan Liang and Shuicheng Yan and Han Fang and Yahui Zhou},       year={2023},       eprint={2310.19341},       archivePrefix={arXiv},       primaryClass={cs.CL} }",
+  "creator": "Skywork",
+  "dateCreated": "2023-10-23",
+  "dateModified": "2023-12-07",
+  "datePublished": "2023-10-23",
+  "inLanguage": "zh",
+  "keywords": "llm, casual-lm, language-modeling, Chinese Language Model Pre-training, Web Scraped Dataset",
+  "license": "Skywork Community License",
+  "url": "https://huggingface.co/datasets/Skywork/SkyPile-150B",
+  "task": "text-generation",
+  "modality": "text"
+}

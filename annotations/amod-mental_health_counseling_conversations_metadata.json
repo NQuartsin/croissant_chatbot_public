@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "Amod/mental_health_counseling_conversations",
+  "description": "The Amod/mental_health_counseling_conversations dataset offers a unique opportunity to explore the intersection of mental health and artificial intelligence. By providing a large collection of questions and answers from qualified psychologists, this dataset can help in the development of AI models that can assist individuals in managing their mental health. The dataset is particularly useful for those interested in natural language processing and its applications in healthcare.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{Amod_mental_health_counseling_conversations,   title={Amod/mental_health_counseling_conversations},   author={Amod},     year={2023},   month={June},   day={22},    keywords={medical, Mental Health, Counseling Conversations, Psychology Questions and Answers},   url={https://huggingface.co/datasets/Amod/mental_health_counseling_conversations},   license={openrail},   language={en},   date_modified={2024-04-05},   date_created={2023-06-22},   date_published={2023-06-22},   modality={text} }",
+  "creator": "Amod",
+  "dateCreated": "2023-06-22",
+  "dateModified": "2024-04-05",
+  "datePublished": "2023-06-22",
+  "inLanguage": "en",
+  "keywords": "medical, Mental Health, Counseling Conversations, Psychology Questions and Answers",
+  "license": "openrail",
+  "url": "https://huggingface.co/datasets/Amod/mental_health_counseling_conversations",
+  "task": "text-generation, question-answering",
+  "modality": "text"
+}

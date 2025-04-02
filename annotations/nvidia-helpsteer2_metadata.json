@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "nvidia/HelpSteer2",
+  "description": "HelpSteer2 is an open-source dataset developed by NVIDIA in partnership with Scale AI, designed to train reward models that produce helpful, factually correct, and coherent responses. This dataset is particularly useful for adjusting the complexity and verbosity of model responses, making it a valuable resource for improving the quality of AI-generated text. When used to fine-tune the Llama 3.1 70B Instruct Model, HelpSteer2 achieved a remarkable 94.1% on RewardBench, making it the best reward dataset available.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{wang2024helpsteer2,       title={HelpSteer2: Open-source dataset for training top-performing reward models},        author={Zhilin Wang and Yi Dong and Olivier Delalleau and Jiaqi Zeng and Gerald Shen and Daniel Egert and Jimmy J. Zhang and Makesh Narsimhan Sreedhar and Oleksii Kuchaiev},       year={2024},       eprint={2406.08673},       archivePrefix={arXiv},       primaryClass={id='cs.CL' full_name='Computation and Language' is_active=True alt_name='cmp-lg' in_archive='cs' is_general=False description='Covers natural language processing. Roughly includes material in ACM Subject Class I.2.7. Note that work on artificial languages (programming languages, logics, formal systems) that does not explicitly address natural-language issues broadly construed (natural-language processing, computational linguistics, speech, text retrieval, etc.) is not appropriate for this area.'} }",
+  "creator": "nvidia",
+  "dateCreated": "2024-06-02",
+  "dateModified": "2024-12-18",
+  "datePublished": "2024-06-02",
+  "inLanguage": "en",
+  "keywords": "human-feedback, Reward Model Training, Factually Correct Responses",
+  "license": "cc-by-4.0",
+  "url": "https://huggingface.co/datasets/nvidia/HelpSteer2",
+  "task": "Text Generation, Text Classification",
+  "modality": "tabular, text"
+}

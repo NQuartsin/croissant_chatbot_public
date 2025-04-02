@@ -1,0 +1,60 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "YeungNLP/firefly-train-1.1M",
+  "description": "This dataset is a large-scale, high-quality, and diverse collection of 1.1 million Chinese language model training examples. Created by YeungNLP for the Firefly (\u6d41\u8424) project, it serves as a vital resource for developing dialogue-style language models. The data is carefully curated, containing 23 datasets across various tasks, ensuring a rich and engaging training experience.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{YeungNLP_firefly_2023,   title={YeungNLP/firefly-train-1.1M: A Large-Scale Chinese Language Model Training Dataset for Dialogue-style Models},   author={YeungNLP},    year={2023},      url={https://huggingface.co/datasets/YeungNLP/firefly-train-1.1M},   note={This dataset, containing 1.1M examples, was collected for the Firefly (\u6d41\u8424) project, a large-scale Chinese dialogue-style language model. The data comprises high-quality and diverse samples for various tasks, consisting of 23 datasets in total. Each data instance comes with a task type, input, and target output.}, }",
+  "creator": "YeungNLP",
+  "dateCreated": "2023-04-03",
+  "dateModified": "2023-04-10",
+  "datePublished": "2023-04-03",
+  "inLanguage": "chinese",
+  "keywords": "Chinese, Language Model, Training Data",
+  "url": "https://huggingface.co/datasets/YeungNLP/firefly-train-1.1M",
+  "modality": "text"
+}

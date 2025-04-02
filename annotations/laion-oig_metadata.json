@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "laion/OIG",
+  "description": "The Open Instruction Generalist Dataset (OIG) is our attempt to compile a large dataset of medium-quality instructions, along with a smaller high-quality instruction subset (OIG-small-chip2), all in jsonl format. Each dataset entry contains at least a 'text' field, and some may also include a 'metadata' field. The 'text' field is composed of 'human': instruction\\n'bot': response sequences, with the full details available on the dataset page: https://huggingface.co/datasets/laion/OIG. This dataset aims to advance Instruction Following, Natural Language Understanding (NLU), Dialogue Generation, and related tasks.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{laion-OIG,   author    = {LAION},   title     = {Open Instruction Generalist Dataset (OIG)},    year      = {2023},   url       = {https://huggingface.co/datasets/laion/OIG},    }",
+  "creator": "laion",
+  "dateCreated": "2023-03-05",
+  "dateModified": "2023-03-31",
+  "datePublished": "2023-03-05",
+  "keywords": "Instruction following, Natural Language Understanding (NLU), Dialogue Generation",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/laion/OIG",
+  "task": "Dialogue Generation",
+  "modality": "text"
+}

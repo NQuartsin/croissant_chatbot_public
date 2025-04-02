@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "HuggingFaceM4/the_cauldron",
+  "description": "The Cauldron, a dataset from HuggingFaceM4, is a collection of 50 vision-language training sets that were used to fine-tune the Idefics2 model. Released as part of the Idefics2 release on the 11th of April, 2024, this dataset is a crucial tool for those working on vision-language models, offering a vast amount of data for training purposes.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{lauren\u00e7on2024matters,       title={What matters when building vision-language models?},        author={Hugo Lauren\u00e7on and L\u00e9o Tronchon and Matthieu Cord and Victor Sanh},       year={2024},       eprint={2405.02246},       archivePrefix={arXiv},       primaryClass={cs.CV} }",
+  "creator": "HuggingFaceM4",
+  "dateCreated": "2024-04-11",
+  "dateModified": "2024-05-06",
+  "datePublished": "2024-04-11",
+  "keywords": "Vision-Language Models, Fine-tuning, Idefics2 Model",
+  "license": "CC-BY-4.0",
+  "url": "https://huggingface.co/datasets/HuggingFaceM4/the_cauldron",
+  "task": "Vision-Language Understanding",
+  "modality": "image, text"
+}

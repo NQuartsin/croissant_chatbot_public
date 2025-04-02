@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "rajpurkar/squad",
+  "description": "The Stanford Question Answering Dataset (SQuAD) is a reading comprehension dataset that consists of questions posed by crowdworkers on a set of Wikipedia articles. The answer to every question is a segment of text, or span, from the corresponding reading passage. In some cases, the question might be unanswerable. SQuAD 1.1 contains over 100,000 question-answer pairs on more than 500 articles.          SQuAD 1.1 is a valuable resource for training and evaluating machine comprehension systems. It can help us understand how well machines can interpret and use text in a question-and-answer format.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@inproceedings{rajpurkar-etal-2016-squad,     title = \"{SQ}u{AD}: 100,000+ Questions for Machine Comprehension of Text\",     author = \"Rajpurkar, Pranav  and       Zhang, Jian  and       Lopyrev, Konstantin  and       Liang, Percy\",     editor = \"Su, Jian  and       Duh, Kevin  and       Carreras, Xavier\",     booktitle = \"Proceedings of the 2016 Conference on Empirical Methods in Natural Language Processing\",     month = nov,     year = \"2016\",     address = \"Austin, Texas\",     publisher = \"Association for Computational Linguistics\",     url = \"https://aclanthology.org/D16-1264\",     doi = \"10.18653/v1/D16-1264\",     pages = \"2383--2392\",     eprint={1606.05250},     archivePrefix={arXiv},     primaryClass={cs.CL}, }",
+  "creator": "rajpurkar",
+  "dateCreated": "2022-03-02",
+  "dateModified": "2024-03-04",
+  "datePublished": "2022-03-02",
+  "inLanguage": "en",
+  "keywords": "extractive-qa, Reading Comprehension, Machine Comprehension, Question Answering",
+  "license": "cc-by-sa-4.0",
+  "url": "https://huggingface.co/datasets/rajpurkar/squad",
+  "task": "question-answering",
+  "modality": "text"
+}

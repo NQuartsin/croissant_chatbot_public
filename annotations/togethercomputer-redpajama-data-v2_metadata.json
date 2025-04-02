@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "togethercomputer/RedPajama-Data-V2",
+  "description": "RedPajama V2 is an open dataset specifically designed for training large language models. Developed by Together Computer, this dataset offers a rich collection of text data in five languages (English, German, French, Spanish, and Italian). The dataset is available on the Hugging Face platform and can be used by researchers, developers, and enthusiasts to improve the performance of their LLMs. By using RedPajama V2, users can contribute to the development of more sophisticated NLP models and help drive innovation in the field.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@software{together2023redpajama,   author = {Together Computer},   title = {RedPajama: an Open Dataset for Training Large Language Models},   month = October,   year = 2023,   url = {https://github.com/togethercomputer/RedPajama-Data} }",
+  "creator": "togethercomputer",
+  "dateCreated": "2023-10-26",
+  "dateModified": "2024-11-21",
+  "datePublished": "2023-10-26",
+  "inLanguage": "en, de, fr, es, it",
+  "keywords": "NLP, LLM, text",
+  "url": "https://huggingface.co/datasets/togethercomputer/RedPajama-Data-V2",
+  "task": "text-generation",
+  "modality": "text"
+}

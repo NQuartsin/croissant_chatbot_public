@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "garage-bAInd/Open-Platypus",
+  "description": "The Open-Platypus dataset is a valuable tool for anyone interested in advancing the capabilities of large language models. It is a collection of five datasets: PRM800K, MATH, ScienceQA, SciBench, ReClor, and TheoremQA, each with its own licensing terms. The datasets were filtered to remove questions with a high degree of similarity, ensuring a diverse and original set of questions. This dataset was used in the training of the Platypus2 models, showcasing its potential in improving the logical reasoning skills of these models.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{platypus2023,     title={Platypus: Quick, Cheap, and Powerful Refinement of LLMs},      author={Ariel N. Lee and Cole J. Hunter and Nataniel Ruiz},     booktitle={arXiv preprint arxiv:2308.07317},     year={2023} }",
+  "creator": "garage-bAInd",
+  "dateCreated": "2023-08-03",
+  "dateModified": "2024-01-24",
+  "datePublished": "2023-08-03",
+  "inLanguage": "en",
+  "keywords": "Logical Reasoning, Machine Learning Models, Question Answering Datasets",
+  "url": "https://huggingface.co/datasets/garage-bAInd/Open-Platypus",
+  "task": "Question Answering",
+  "modality": "text"
+}

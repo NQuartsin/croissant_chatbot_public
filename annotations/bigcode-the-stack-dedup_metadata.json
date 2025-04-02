@@ -1,0 +1,63 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "bigcode/the-stack-dedup",
+  "description": "The 'bigcode/the-stack-dedup' dataset is a valuable resource for the machine learning community. It consists of 30 programming languages, totaling 1.5TB in size, with 18 permissive licenses. In version 1.1, the dataset was updated to exclude the three copyleft licenses (MPL/EPL/LGPL) and extend the list of permissive licenses to 193. This dataset is particularly useful for tasks like code completion, large language model (LLM) training, and other applications that require a large and diverse collection of source code.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@article{Kocetkov2022TheStack,   title={The Stack: 3 TB of permissively licensed source code},   author={Kocetkov, Denis and Li, Raymond and Ben Allal, Loubna and Li, Jia and Mou,Chenghao and Mu\u00f1oz Ferrandis, Carlos and Jernite, Yacine and Mitchell, Margaret and Hughes, Sean and Wolf, Thomas and Bahdanau, Dzmitry and von Werra, Leandro and de Vries, Harm},   journal={Preprint},   year={2022} }",
+  "creator": "bigcode",
+  "dateCreated": "2022-10-06",
+  "dateModified": "2023-08-17",
+  "datePublished": "2022-10-06",
+  "inLanguage": "EN, ZH, FR, PT, ES, RU, DE, KO, JA, UZ, IT, ID, RO, AR, FA, CA, HU, ML, NL, TR, TE, EL, EO, BN, LV, GL, PL, GU, CEB, IA, KN, SH, MK, UR, SV, LA, JKA, MY, SU, CS, MN",
+  "keywords": "licenses, LLM, code completion",
+  "license": "other",
+  "url": "https://huggingface.co/datasets/bigcode/the-stack-dedup",
+  "version": "v1.2",
+  "task": "text-generation",
+  "modality": "tabular, text"
+}

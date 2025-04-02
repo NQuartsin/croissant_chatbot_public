@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "allenai/WildChat-1M",
+  "description": "WildChat, a dataset of 1 million human-ChatGPT conversations, offers a valuable resource for studying the nuances of human-AI interaction. Alongside the conversations, the dataset includes demographic data, providing insights into the geographical distribution and language preferences of the users. This dataset, collected by AllenAI, can be used for various NLP tasks, particularly those involving conversational data and multi-lingual chat logs.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{deng2024wildvisopensourcevisualizer,   title={WildVis: Open Source Visualizer for Million-Scale Chat Logs in the Wild},    author={Yuntian Deng and Wenting Zhao and Jack Hessel and Xiang Ren and Claire Cardie and Yejin Choi},   year={2024},   eprint={2409.03753},   archivePrefix={arXiv},   primaryClass={cs.CL},   url={https://arxiv.org/abs/2409.03753},  }",
+  "creator": "allenai",
+  "dateCreated": "2024-05-03",
+  "dateModified": "2024-10-17",
+  "datePublished": "2024-05-03",
+  "inLanguage": "multi-lingual",
+  "keywords": "instruction-finetuning, NLP, Chat Logs, Multi-lingual Chat Data, Conversational Data",
+  "license": "ODC-By-1.0",
+  "url": "https://huggingface.co/datasets/allenai/WildChat-1M",
+  "task": "text-generation, question-answering, text2text-generation",
+  "modality": "text"
+}

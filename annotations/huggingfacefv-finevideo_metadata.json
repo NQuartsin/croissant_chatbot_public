@@ -1,0 +1,63 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "HuggingFaceFV/finevideo",
+  "description": "FineVideo is a comprehensive text-video dataset designed for fine-grained video recognition tasks. It provides a rich resource for researchers in the field of video analysis, particularly those interested in achieving more accurate and nuanced understanding of video content. The dataset has been meticulously curated by the HuggingFaceFV team to reflect diversity in various aspects, making it an invaluable tool for advancing the state-of-the-art in fine-grained video recognition.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{Farr\u00e92024FineVideo,   title={FineVideo},   author={Farr\u00e9, Miquel and Marafioti, Andi and Tunstall, Lewis and Von Werra, Leandro and Wolf, Thomas},   year={2024},   howpublished={\\url{https://huggingface.co/datasets/HuggingFaceFV/finevideo}}, }",
+  "creator": "HuggingFaceFV",
+  "dateCreated": "2024-09-09",
+  "dateModified": "2024-12-16",
+  "datePublished": "2024-09-09",
+  "inLanguage": "en",
+  "keywords": "Video Analysis, Fine-grained Video Recognition, Text-Video Datasets",
+  "license": "CC-By",
+  "publisher": "Hugging Face",
+  "url": "https://huggingface.co/datasets/HuggingFaceFV/finevideo",
+  "task": "visual-question-answering, video-text-to-text",
+  "modality": "text, video"
+}

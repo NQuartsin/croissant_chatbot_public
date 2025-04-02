@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "bespokelabs/Bespoke-Stratos-17k",
+  "description": "Bespoke-Stratos-17k is a cutting-edge reasoning dataset meticulously crafted by replicating and refining the Berkeley Sky-T1 data pipeline with SFT distillation data from DeepSeek-R1. Comprising questions, reasoning traces, and answers, this dataset is invaluable for training high-capacity reasoning models. Some notable examples include the Bespoke-Stratos-32B and Bespoke-Stratos-7B, both fine-tuned from the Qwen-2.5 family of models.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{bespoke_stratos,       author = {Bespoke Labs},       title = {Bespoke-Stratos: The unreasonable effectiveness of reasoning distillation},       howpublished = {https://www.bespokelabs.ai/blog/bespoke-stratos-the-unreasonable-effectiveness-of-reasoning-distillation},       note = {Accessed: 2025-01-22},       year = {2025} }",
+  "creator": "bespokelabs",
+  "dateCreated": "2025-01-21",
+  "dateModified": "2025-01-31",
+  "datePublished": "2025-01-21",
+  "inLanguage": "en",
+  "keywords": "curator, Synthetic, Reasoning, Deep learning model training data",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/bespokelabs/Bespoke-Stratos-17k",
+  "task": "Reasoning Model Fine-tuning",
+  "modality": "text"
+}

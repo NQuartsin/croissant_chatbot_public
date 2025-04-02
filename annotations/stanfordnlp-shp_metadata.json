@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "stanfordnlp/SHP",
+  "description": "The Stanford Human Preferences (SHP) dataset is a unique resource for researchers seeking to understand collective human preferences. The dataset consists of 385K preferences over responses to questions and instructions in 18 different subject areas, ranging from cooking and entertainment to legal advice and education. The preferences indicate the perceived usefulness of responses, offering valuable insights into human judgment and decision-making that can inform the development of more effective AI models.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@InProceedings{pmlr-v162-ethayarajh22a,   title = \t {Understanding Dataset Difficulty with $\\mathcal{V}$-Usable Information},   author =       {Ethayarajh, Kawin and Choi, Yejin and Swayamdipta, Swabha},   booktitle = \t {Proceedings of the 39th International Conference on Machine Learning},   pages = \t {5988--6008},   year = \t {2022},   editor = \t {Chaudhuri, Kamalika and Jegelka, Stefanie and Song, Le and Szepesvari, Csaba and Niu, Gang and Sabato, Sivan},   volume = \t {162},   series = \t {Proceedings of Machine Learning Research},   month = \t {17--23 Jul},   publisher = {PMLR}, }",
+  "creator": "stanfordnlp",
+  "dateCreated": "2023-02-18",
+  "dateModified": "2023-10-10",
+  "datePublished": "2023-02-18",
+  "inLanguage": "en",
+  "keywords": "human feedback, rlhf, preferences, reddit, preference model, RL, NLG, evaluation",
+  "url": "https://huggingface.co/datasets/stanfordnlp/SHP",
+  "task": "text-generation, question-answering",
+  "modality": "tabular, text"
+}

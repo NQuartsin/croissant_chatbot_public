@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "bookcorpus/bookcorpus",
+  "description": "The Bookcorpus dataset represents a major leap forward in the field of natural language processing and computer vision. By combining a vast collection of books with their corresponding movie adaptations, this dataset offers an opportunity to analyze and generate rich descriptive explanations for visual content that surpass the limitations of existing datasets. This dataset is particularly useful for developing language models with a deep understanding of literature, storytelling, and the complex relations between text and visual media. It serves as a unique platform for researchers to create more intelligent and engaging visual content.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@InProceedings{Zhu_2015_ICCV,\n    title = {Aligning Books and Movies: Towards Story-Like Visual Explanations by Watching Movies and Reading Books},\n    author = {Zhu, Yukun and Kiros, Ryan and Zemel, Rich and Salakhutdinov, Ruslan and Urtasun, Raquel and Torralba, Antonio and Fidler, Sanja},\n    booktitle = {The IEEE International Conference on Computer Vision (ICCV)},\n    month = {December},\n    year = {2015}\n}",
+  "creator": "bookcorpus",
+  "dateCreated": "2022-03-02",
+  "dateModified": "2024-05-03",
+  "datePublished": "2022-03-02",
+  "inLanguage": "en",
+  "keywords": "language-modeling, masked-language-modeling, Storytelling, Literature",
+  "license": "unkown",
+  "url": "https://huggingface.co/datasets/bookcorpus/bookcorpus",
+  "task": "text-generation, fill-mask",
+  "modality": "text"
+}

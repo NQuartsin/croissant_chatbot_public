@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "EleutherAI/pile",
+  "description": "The Pile, developed by EleutherAI, is a colossal, 825 GiB dataset designed for language modeling. It is a unique amalgamation of 22 smaller, top-tier datasets, making it a comprehensive and diverse text dataset. This dataset is a boon for the NLP community, offering a wealth of data for tasks such as language modeling, masked language modeling, and more.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{gao2020pile,\n      title={The Pile: An 800GB Dataset of Diverse Text for Language Modeling},\n      author={Leo Gao and Stella Biderman and Sid Black and Laurence Golding and Travis Hoppe and Charles Foster and Jason Phang and Horace He and Anish Thite and Noa Nabeshima and Shawn Presser and Connor Leahy},\n      year={2020},\n      eprint={2101.00027},\n      archivePrefix={arXiv},\n      primaryClass={cs.CL}\n}",
+  "creator": "EleutherAI",
+  "dateCreated": "2022-03-02",
+  "dateModified": "2023-05-03",
+  "datePublished": "2022-03-02",
+  "inLanguage": "en",
+  "keywords": "language-modeling, masked-language-modeling, Diverse Text Datasets, NLP",
+  "license": "other",
+  "url": "https://huggingface.co/datasets/EleutherAI/pile",
+  "task": "text-generation, fill-mask",
+  "modality": "text"
+}

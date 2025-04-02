@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "O1-OPEN/OpenO1-SFT",
+  "description": "The O1-OPEN/OpenO1-SFT dataset is a groundbreaking collection of data that aims to revolutionize the way language models approach complex reasoning tasks. By employing SFT for Chain-of-Thought Activation, this dataset allows models to generate coherent and logical reasoning sequences, improving their ability to provide detailed and structured responses. With over 77,000 records, this dataset offers a wealth of data for researchers and developers to fine-tune their models and push the boundaries of AI capabilities in the realm of complex reasoning.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{O1OPEN_OpenO1-SFT,   title={O1-OPEN/OpenO1-SFT: A Dataset for Fine-tuning Language Models using SFT for Chain-of-Thought Activation},   author={O1-OPEN},    year={2024},   url={https://huggingface.co/datasets/O1-OPEN/OpenO1-SFT}, }",
+  "creator": "O1-OPEN",
+  "dateCreated": "2024-11-21",
+  "dateModified": "2024-12-17",
+  "datePublished": "2024-11-21",
+  "inLanguage": "en, zh",
+  "keywords": "Chain-of-Thought Activation, SFT Data, Language Model Fine-tuning",
+  "license": "apache-2.0",
+  "url": "https://huggingface.co/datasets/O1-OPEN/OpenO1-SFT",
+  "task": "question-answering",
+  "modality": "text"
+}

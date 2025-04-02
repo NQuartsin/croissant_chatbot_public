@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "HuggingFaceTB/smollm-corpus",
+  "description": "The SmolLM-Corpus, a dataset developed by HuggingFaceTB, presents a unique opportunity for those interested in training small language models. Built on the premise of pairing curated educational materials with synthetically generated content, it allows model developers to build high-quality models suitable for a variety of applications. A standout feature of this dataset is its Cosmopedia v2 subset, an enhanced version of the largest pre-training dataset, consisting of over 39 million texts, including textbooks, blog posts, and stories. By utilizing this dataset, users can create models that can effectively navigate the complexities of real-world language tasks.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@software{benallal2024smollmcorpus,   author = {Ben Allal, Loubna and Lozhkov, Anton and Penedo, Guilherme and Wolf, Thomas and von Werra, Leandro},   title = {SmolLM-Corpus},   month = July,   year = 2024,   url = {https://huggingface.co/datasets/HuggingFaceTB/smollm-corpus} }",
+  "creator": "HuggingFaceTB",
+  "dateCreated": "2024-07-15",
+  "dateModified": "2024-09-06",
+  "datePublished": "2024-07-15",
+  "inLanguage": "en",
+  "keywords": "educational data, small language models, synthetic data",
+  "license": "odc-by",
+  "url": "https://huggingface.co/datasets/HuggingFaceTB/smollm-corpus",
+  "task": "Text generation",
+  "modality": "tabular, text"
+}

@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "nyu-mll/glue",
+  "description": "The GLUE (General Language Understanding Evaluation) benchmark is a comprehensive resource for evaluating and analyzing the performance of natural language understanding systems. It consists of a variety of tasks such as sentiment analysis, question answering, and textual entailment, among others. The dataset is designed to test a model's ability to understand and reason about human language in a wide range of contexts, making it an essential tool for researchers and developers in the field of natural language processing.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@inproceedings{wang2019glue,   title={{GLUE}: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding},   author={Wang, Alex and Singh, Amanpreet and Michael, Julian and Hill, Felix and Levy, Omer and Bowman, Samuel R.},   note={In the Proceedings of ICLR.},   year={2019} }",
+  "creator": "nyu-mll",
+  "dateCreated": "2022-03-02",
+  "dateModified": "2024-01-30",
+  "datePublished": "2022-03-02",
+  "inLanguage": "en",
+  "keywords": "acceptability-classification, natural-language-inference, semantic-similarity-scoring, sentiment-classification, text-scoring, qa-nli, coreference-nli, paraphrase-identification, NLP",
+  "license": "other",
+  "url": "https://huggingface.co/datasets/nyu-mll/glue",
+  "task": "text-classification",
+  "modality": "tabular, text"
+}

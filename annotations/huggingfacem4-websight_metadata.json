@@ -1,0 +1,63 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "HuggingFaceM4/WebSight",
+  "description": "The WebSight dataset is a comprehensive resource for those interested in automating web design processes. It consists of a collection of synthetically generated English websites, each with corresponding screenshots, available in two versions: v0.1 with HTML and CSS, and v0.2 with HTML and Tailwind CSS. This dataset is an essential tool for tasks such as UI code generation and screenshot-to-code conversion, making it a valuable asset for researchers and developers alike.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "@misc{lauren\u00e7on2024unlocking,       title={Unlocking the conversion of Web Screenshots into HTML Code with the WebSight Dataset},        author={Hugo Lauren\u00e7on and L\u00e9o Tronchon and Victor Sanh},       year={2024},       eprint={2403.09029},       archivePrefix={arXiv},       primaryClass={cs.HC} }",
+  "creator": "HuggingFaceM4",
+  "dateCreated": "2024-01-04",
+  "dateModified": "2024-03-26",
+  "datePublished": "2024-01-04",
+  "inLanguage": "en",
+  "keywords": "Synthetic Web Design, UI Code Generation, Screenshot-to-Code Conversion",
+  "license": "cc-by-4.0",
+  "url": "https://huggingface.co/datasets/HuggingFaceM4/WebSight",
+  "version": "v02, v01",
+  "task": "Image-to-Code Conversion",
+  "modality": "image, text"
+}
