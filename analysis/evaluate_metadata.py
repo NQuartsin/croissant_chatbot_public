@@ -1,3 +1,6 @@
+# evaluate_metadata.py
+
+# necessary imports
 import json
 import os
 from textblob import TextBlob
@@ -7,8 +10,18 @@ import csv
 # Load the English NLP model
 nlp = spacy.load("en_core_web_md")
 
-# Mapping of attributes from Hugging Face metadata to chatbot metadata
+"""
+    This script evaluates the metadata quality of datasets from Hugging Face and chatbot-generated metadata.
+    It compares the metadata from both sources and provides insights into their quality.
+    The evaluation includes:
+        - Completeness of attributes
+        - Value match between Hugging Face and chatbot metadata
+        - Quality of task, modality, description, and keywords
+"""
+
+
 def get_attribute_mapping():
+    """Get the mapping of attributes between Hugging Face and chatbot metadata."""
     return {
         "name": "name",
         "creators": "creators",
@@ -38,18 +51,11 @@ def clean_metadata(metadata):
     return {key: value for key, value in metadata.items() if key not in keys_to_remove}
 
 def match_metadata_files(hf_metadata_folder, chatbot_metadata_folder):
-    """
-    Match Hugging Face metadata files with chatbot metadata files based on the 'name' key in the JSON.
-    
-    Args:
-        hf_metadata_folder (str): Folder containing Hugging Face metadata files.
-        chatbot_metadata_folder (str): Folder containing chatbot-generated metadata files.
-        
-    Returns:
-        dict: A dictionary mapping Hugging Face metadata filenames to chatbot metadata filenames.
-    """
+    """Match Hugging Face metadata files with chatbot metadata files based on the 'name' key in the JSON."""
+    # Initialize dictionaries to store metadata files
     hf_files = {}
     chatbot_files = {}
+
     # Load Hugging Face files and store them by their 'name' key
     for filename in os.listdir(hf_metadata_folder):
         if filename.endswith('_hf.json'):
@@ -76,6 +82,7 @@ def match_metadata_files(hf_metadata_folder, chatbot_metadata_folder):
         if name in chatbot_files:
             matched_files[hf_file] = chatbot_files[name]
     
+    # Return the matched files
     return matched_files
 
 
@@ -86,9 +93,8 @@ def get_char_length(text):
 def get_word_count(text):
     """Returns the number of meaningful words in the text."""
     doc = nlp(text)
-    words = [token.text for token in doc if token.is_alpha]  # Ignore punctuation, count words
+    words = [token.text for token in doc if token.is_alpha]  
     return len(words)
-
 
 def evaluate_description_subjectivity(description):
     """Evaluate description subjectivity using TextBlob."""
@@ -106,9 +112,9 @@ def evaluate_task_quality(task):
     
     doc = nlp(task)
 
-    # Extract action verbs (more verbs indicate more actionability)
+    # Extract action verbs 
     action_verbs = [token for token in doc if token.pos_ == "VERB"]
-    # Extract named entities (more entities indicate more specificity)
+    # Extract named entities 
     entities = [ent.text for ent in doc.ents]
     
     # Get total number of words (tokens) in the task description
@@ -140,10 +146,13 @@ def evaluate_keyword_similarity(keywords):
     return round(avg_similarity, 2)
 
 def evaluate_metadata_quality(hf_metadata, chatbot_metadata):
+    """Evaluate the quality of metadata for task, modality, description, and keywords."""
+
+    # Initialize dictionaries to store quality results
     hf_quality_results = {}
     chatbot_quality_results = {}
 
-    # Task Quality Evaluation
+    # Task Quality Evaluation: length of task in characters, actionability score, specificity score, and count of tasks
     hf_task = hf_metadata.get("task", "")
     chatbot_task = chatbot_metadata.get("task", "")
     hf_actionability_score, hf_specificity_score = evaluate_task_quality(hf_task)
@@ -153,45 +162,45 @@ def evaluate_metadata_quality(hf_metadata, chatbot_metadata):
         "task_length": get_char_length(hf_task),
         "task_actionability_score": hf_actionability_score,
         "task_specificity_score": hf_specificity_score,
-        "task_count": len(hf_task.split(',')),  # Number of tasks listed
+        "task_count": len(hf_task.split(',')),  
     }
     
     chatbot_quality_results["task_quality"] = {
         "task_length": get_char_length(chatbot_task),
         "task_actionability_score": chatbot_actionability_score,
         "task_specificity_score": chatbot_specificity_score,
-        "task_count": len(chatbot_task.split(',')),  # Number of tasks listed
+        "task_count": len(chatbot_task.split(',')),  
     }
 
-    # Modality Quality Evaluation
+    # Modality Quality Evaluation: count of modalities
     hf_modality = hf_metadata.get("modality", "")
     chatbot_modality = chatbot_metadata.get("modality", "")
 
     hf_quality_results["modality_quality"] = {
-        "modality_count": len(hf_modality.split(',')),  # Number of modalities listed
+        "modality_count": len(hf_modality.split(',')),  
     }
     
     chatbot_quality_results["modality_quality"] = {
-        "modality_count": len(chatbot_modality.split(',')),  # Number of modalities listed
+        "modality_count": len(chatbot_modality.split(',')), 
     }
 
-    # Keyword Quality Evaluation
+    # Keyword Quality Evaluation: length of keywords in characters, similarity score, and count of keywords
     hf_keywords = hf_metadata.get("keywords", "")
     chatbot_keywords = chatbot_metadata.get("keywords", "")
 
     hf_quality_results["keyword_quality"] = {
         "keywords_length": get_char_length(hf_keywords),
         "keyword_similarity_score": evaluate_keyword_similarity(hf_keywords),
-        "keywords_count": len(hf_keywords.split(',')), # Number of keywords listed
+        "keywords_count": len(hf_keywords.split(',')), 
     }
     
     chatbot_quality_results["keyword_quality"] = {
         "keywords_length": get_char_length(chatbot_keywords),
         "keyword_similarity_score": evaluate_keyword_similarity(chatbot_keywords),
-        "keywords_count": len(chatbot_keywords.split(',')), # Number of keywords listed
+        "keywords_count": len(chatbot_keywords.split(',')), 
     }
 
-    # Description Quality Evaluation
+    # Description Quality Evaluation: word count of description and subjectivity score
     hf_description = hf_metadata.get("description", "")
     chatbot_description = chatbot_metadata.get("description", "")
 
@@ -207,23 +216,30 @@ def evaluate_metadata_quality(hf_metadata, chatbot_metadata):
 
     return hf_quality_results, chatbot_quality_results
 
-def compare_metadata(hf_metadata, chatbot_metadata):
 
+def compare_metadata(hf_metadata, chatbot_metadata):
+    """Compare metadata from Hugging Face and chatbot, focusing on completeness and value match."""
+
+    # Initialize comparison results
     comparison_results = {
         "dataset_name": hf_metadata.get('name'),
-        "completeness": {"hf": 0, "chatbot": 0},  # Track which source has more filled attributes
+        "completeness": {"hf": 0, "chatbot": 0},  
         "value_match": 0,
         "total_attributes": 0
     }
+    # Get the attribute mapping
     attribute_mapping = get_attribute_mapping()
 
+    # Iterate through the Hugging Face metadata attributes
     for hf_attribute, hf_value in hf_metadata.items():
         
         # Use the mapping to find the equivalent chatbot attribute
         chatbot_attribute = attribute_mapping.get(hf_attribute)
 
+        # Check if the attribute exists in the chatbot metadata
         if chatbot_attribute and chatbot_attribute in chatbot_metadata:
             chatbot_value = chatbot_metadata[chatbot_attribute]
+            # increment the total attributes count
             comparison_results["total_attributes"] += 1
 
             # Check completeness for both Hugging Face and chatbot
@@ -244,11 +260,15 @@ def compare_metadata(hf_metadata, chatbot_metadata):
     
     return comparison_results
 
-# Function to evaluate datasets
-def evaluate_datasets(hf_metadata_folder, chatbot_metadata_folder):
 
+def evaluate_datasets(hf_metadata_folder, chatbot_metadata_folder):
+    """Evaluate datasets by comparing metadata from Hugging Face and chatbot."""
+
+    # Match metadata files from Hugging Face and chatbot
     matched_files = match_metadata_files(hf_metadata_folder, chatbot_metadata_folder)
-    evaluation_results = []
+    evaluation_results = [] # List to store evaluation results
+
+    # Iterate through matched files
     for hf_file, chatbot_file in matched_files.items():
 
         # Load and compare the first matched dataset
@@ -258,6 +278,7 @@ def evaluate_datasets(hf_metadata_folder, chatbot_metadata_folder):
         # Clean the chatbot metadata to remove unwanted fields
         cleaned_chatbot_metadata = clean_metadata(chatbot_metadata)
         
+        # Compare metadata from Hugging Face and chatbot
         comparison_result = compare_metadata(hf_metadata, cleaned_chatbot_metadata)
         
         # Evaluate quality metrics for task, modality, description, and keywords
@@ -269,9 +290,10 @@ def evaluate_datasets(hf_metadata_folder, chatbot_metadata_folder):
             "hf_quality": hf_quality,
             "chatbot_quality": chatbot_quality
         }
+        # Append the result to the evaluation results list
         evaluation_results.append(result)
     
-
+    # Return the evaluation results
     return evaluation_results
 
 hf_metadata_folder = "hf_metadata"

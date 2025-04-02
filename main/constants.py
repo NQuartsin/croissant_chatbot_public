@@ -2,7 +2,7 @@
 
 """Contains constant values for the project"""
 
-# a Dictionary of metadata attributes and their descriptions
+# A Dictionary of metadata attributes and their descriptions
 METADATA_ATTRIBUTES = {
     "name": "the name of the dataset (non-empty string).",
     "creators": "the author(s) of the dataset/publication that describes the dataset (comma-separated non-empty strings) (e.g. John Doe, Jane Doe).",

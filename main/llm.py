@@ -10,11 +10,12 @@ from typing import Dict
 load_dotenv()  # Load environment variables from .env file
 
 api_key = os.getenv("OPENROUTER_API_KEY")  # Get API key from environment variable
+
 if api_key is None:
     raise EnvironmentError("OPENROUTER_API_KEY is not set in the environment variables. Please set it in the .env file.")
 
 """
-This module contains functions to interact with the OpenRouter API for generating metadata suggestions.
+    This module contains functions to interact with the OpenRouter API for generating metadata suggestions.
 """
 
 def get_metadata_info_for_prompt(metadata: Dict[str, str]) -> str:
@@ -48,7 +49,7 @@ def get_metadata_info_for_prompt(metadata: Dict[str, str]) -> str:
 
 def create_prompt_to_suggest_attribute_value(metadata: Dict[str, str], informal_description: str, attribute: str) -> str:
     """
-    Suggest reasonable values for a specific metadata attribute.
+    Create a prompt to suggest reasonable values for a specific metadata attribute.
 
     Args:
         metadata: A Dictionary of metadata attributes and their values.
@@ -71,7 +72,7 @@ def create_prompt_to_suggest_attribute_value(metadata: Dict[str, str], informal_
 
 def create_prompt_to_suggest_description(metadata: Dict[str, str], informal_description: str) -> str:
     """
-    Suggest diverse descriptions for the dataset.
+    Create a prompt to suggest diverse descriptions for the dataset.
 
     Args:
         metadata: A Dictionary of metadata attributes and their values.
@@ -93,7 +94,7 @@ def create_prompt_to_suggest_description(metadata: Dict[str, str], informal_desc
 
 def create_prompt_to_suggest_ways_to_fill_attribute(metadata: Dict[str, str], informal_description: str, attribute: str) -> str:
     """
-    Suggest ways to fill a specific metadata attribute.
+    Create a prompt to suggest ways to fill a specific metadata attribute.
 
     Args:
         metadata: A Dictionary of metadata attributes and their values.
@@ -117,7 +118,7 @@ def create_prompt_to_suggest_ways_to_fill_attribute(metadata: Dict[str, str], in
 
 def create_prompt_to_suggest_citation(metadata: Dict[str, str]) -> str:
     """
-    Suggest a citation for the dataset in bibtex format.
+    Create a prompt to suggest a citation for the dataset in bibtex format.
 
     Args:
         metadata: A Dictionary of metadata attributes and their values.
@@ -180,7 +181,7 @@ def suggest_metadata(metadata: Dict[str, str], informal_description: str, attrib
 
 def create_llm_response(prompt: str) -> str:
     """
-    Use OpenRouter's Llama 3.1 8B Instruct model to generate a response for the given prompt.
+    Use OpenRouter's Mistral 7B Instruct model to generate a response based on the provided prompt.
     Source: https://openrouter.ai/mistralai/mistral-7b-instruct/api 
 
     Args:
@@ -197,8 +198,7 @@ def create_llm_response(prompt: str) -> str:
         "Content-Type": "application/json"
     }
     data = {
-        # "model": "mistralai/mistral-7b-instruct",
-        "model": "mistralai/mistral-7b-instruct:free",
+        "model": "mistralai/mistral-7b-instruct:free", # can replace this line with the following if free tokens run out: "model": "mistralai/mistral-7b-instruct"
         "messages": [{"role": "user", "content": model_propmt}],
     }
     try:
@@ -210,6 +210,6 @@ def create_llm_response(prompt: str) -> str:
         else:
             raise Exception(f"An error occurred while trying to use the LLM model.\n {response.status_code}: {response.text}")
     except Exception as e:
-        # Provide a fallback response
+        # Handle any exceptions that occur during the request
         return f"Unexpected error occured: {e} \nI'm sorry, I couldn't process your request at the moment. Please try again later."
 

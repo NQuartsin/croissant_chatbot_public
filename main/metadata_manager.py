@@ -325,7 +325,7 @@ class MetadataManager:
                 elif tag.startswith("language:"):
                     languages.append(tag.split(":", 1)[1])
 
-            # Use getattr() for all fields to handle missing attributes gracefully
+            # Use getattr() for all fields to handle missing attributes 
             dataset_id = getattr(found_dataset, "id", None)
             author = getattr(found_dataset, "author", None)
             last_modified = getattr(found_dataset, "last_modified", None)
@@ -333,7 +333,7 @@ class MetadataManager:
             description = getattr(found_dataset, "description", None)
             citation = getattr(found_dataset, "citation", None)
 
-            # Only add attributes to metadata if they have a meaningful value
+            # Only add attributes to metadata if they have a value
             if dataset_id:
                 self.metadata["name"] = dataset_id
             if author:

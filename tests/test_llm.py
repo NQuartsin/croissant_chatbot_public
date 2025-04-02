@@ -1,7 +1,6 @@
 # test_llm.py
 
 #necessary imports
-from urllib import response
 import pytest
 from unittest.mock import patch
 from main.llm import (
@@ -14,6 +13,10 @@ from main.llm import (
     suggest_metadata,
     create_llm_response,
 )
+
+"""
+    Test cases for the LLM functions.
+"""
 
 @pytest.fixture
 def sample_metadata():

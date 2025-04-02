@@ -1,4 +1,6 @@
 # app.py
+
+# necessary imports
 import gradio as gr
 from .constants import METADATA_ATTRIBUTES
 import os
@@ -7,25 +9,25 @@ from .croissant_chatbot_manager import CroissantChatbotManager
 
 
 """ 
-    Gradio UI functions
+    This module contains functions to create the Gradio UI for the Croissant Chatbot.
     All emojis used come from: https://emojidb.org/gradio-emojis
 """
+
+
 def create_chatbot_ui():
     """Create the chatbot UI."""
     return gr.Chatbot(type="messages")
-
 
 def create_prompt_input(chatbot_instance, chatbot_ui):
     """Create the prompt input box."""
     prompt = gr.Textbox(
         max_lines=1,
         label="Chat Message",
-        value="Type a greeting to start the chatbot...",
+        value="Type a greeting to start the chatbot...", # Initial value
     )
     prompt.submit(chatbot_instance.handle_user_input, [prompt], [chatbot_ui])
     prompt.submit(lambda: "", None, [prompt])  # Clear the input box after submission
     return prompt
-
 
 def create_metadata_attributes_dropdown(chatbot_instance):
     """Create a dropdown for metadata attributes."""
@@ -68,12 +70,15 @@ def display_instructions_wrapper(chatbot_instance):
 def create_control_buttons(chatbot_instance, chatbot_ui):
     """Create styled control buttons."""
     with gr.Row():
+        # Button to display metadata
         display_btn = gr.Button("📋 Display Metadata So Far", scale=1, elem_classes="control-btn")
         display_btn.click(lambda: display_metadata_wrapper(chatbot_instance), inputs=[], outputs=[chatbot_ui])
 
+        # Button to display instructions
         see_instructions_btn = gr.Button("📃 See Instructions", scale=1, elem_classes="control-btn")
         see_instructions_btn.click(lambda: display_instructions_wrapper(chatbot_instance), inputs=[], outputs=[chatbot_ui])
 
+        # Button to refresh the chat
         refresh_btn = gr.Button("🔄 Refresh Chat", scale=1, elem_classes="control-btn")
         refresh_btn.click(lambda: chatbot_instance.reset_chat(), inputs=[], outputs=[chatbot_ui])
 
@@ -87,20 +92,24 @@ def create_download_metadata_button(chatbot_instance):
             output_file = gr.File(label="Metadata File", interactive=False)  # File component for download
 
         def save_and_show():
-            # Save the metadata to the annotations folder
-            filepath, filename = chatbot_instance.metadata_manager.save_metadata_to_file(chatbot_instance.metadata_manager.final_metadata)
+            try:
+                # Save the metadata to the annotations folder
+                filepath, filename = chatbot_instance.metadata_manager.save_metadata_to_file(chatbot_instance.metadata_manager.final_metadata)
 
-            # Copy the file to the system's temporary directory
-            temp_dir = tempfile.gettempdir()
-            temp_filepath = os.path.join(temp_dir, filename)  
+                # Copy the file to the system's temporary directory
+                temp_dir = tempfile.gettempdir()
+                temp_filepath = os.path.join(temp_dir, filename)  
 
-            # Copy the file to the temporary directory
-            with open(filepath, "r") as src, open(temp_filepath, "w") as dest:
-                dest.write(src.read())
+                # Copy the file to the temporary directory
+                with open(filepath, "r") as src, open(temp_filepath, "w") as dest:
+                    dest.write(src.read())
 
-            # Return the temporary file path for Gradio to serve
-            return gr.update(visible=True), temp_filepath
-
+                # Return the temporary file path for Gradio to serve
+                return gr.update(visible=True), temp_filepath
+            
+            except Exception as e:
+                print(f"Error saving metadata file: {e}")
+                return gr.update(visible=False), None
 
         download_btn.click(
             save_and_show,
@@ -130,9 +139,10 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.pink
     }
 """) as demo: # Create a Gradio Blocks app with a custom theme
 
-    gr.Markdown("# Croissant Chatbot")
+    gr.Markdown("# Croissant Chatbot") # Title of the app
 
-    chatbot_instance = CroissantChatbotManager()
+    # Create a CroissantChatbotManager instance
+    chatbot_instance = CroissantChatbotManager() 
 
     # Chatbot UI
     chatbot_ui = create_chatbot_ui()
@@ -140,6 +150,7 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.pink
     # Prompt Input
     prompt = create_prompt_input(chatbot_instance, chatbot_ui)
 
+    # Tabs for different functionalities
     with gr.Tab("Metadata Dropdown"):
         create_metadata_attributes_dropdown(chatbot_instance)
 
@@ -149,8 +160,6 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue=gr.themes.colors.pink
 
         # Download Metadata Button
         create_download_metadata_button(chatbot_instance)
-
-
 
 if __name__ == "__main__":
     demo.launch() 

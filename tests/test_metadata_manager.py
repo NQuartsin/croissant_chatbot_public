@@ -18,7 +18,7 @@ Test cases for the MetadataManager class.
 def metadata_manager(sample_metadata, sample_final_metadata, sample_confirmed_metadata, sample_temporary_metadata):
     """Fixture to create a MetadataManager instance with sample metadata."""
     manager = MetadataManager()
-    manager.metadata = sample_metadata  # Assign sample_metadata to self.metadata
+    manager.metadata = sample_metadata  
     manager.final_metadata = sample_final_metadata
     manager.confirmed_metadata = sample_confirmed_metadata
     manager.temporary_metadata = sample_temporary_metadata
@@ -34,7 +34,7 @@ def sample_metadata():
 
 @pytest.fixture
 def sample_final_metadata():
-    """Fixture to provide sample final metadata."""
+    """Fixture to provide sample final_metadata."""
     return {
         "name": "Sample Dataset",
         "creators": "John Doe",
@@ -55,14 +55,14 @@ def sample_final_metadata():
 
 @pytest.fixture
 def sample_confirmed_metadata():
-    """Fixture to provide sample confirmed metadata."""
+    """Fixture to provide sample_confirmed_metadata."""
     return {
         "description": "This is a sample dataset.",
     }
 
 @pytest.fixture
 def sample_temporary_metadata():
-    """Fixture to provide sample temporary metadata."""
+    """Fixture to provide sample_temporary_metadata."""
     return {
         "description": "This is a sample dataset.",
     }
@@ -76,7 +76,7 @@ def metadata_manager_with_final_metadata(sample_final_metadata):
 
 def test_reset_metadata(metadata_manager):
     """Test the reset_metadata method."""
-    # Check initial state
+    # Check initial state: metadata should not be empty
     assert metadata_manager.metadata != {}
     assert metadata_manager.final_metadata != {}
     assert metadata_manager.confirmed_metadata != {}

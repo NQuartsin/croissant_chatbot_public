@@ -4,7 +4,6 @@
 from unittest.mock import patch
 import pytest
 from main.attribute_quality import AttributeQualityChecker
-from lexical_diversity import lex_div as ld 
 import spacy  
 
 nlp = spacy.load("en_core_web_sm")
@@ -20,20 +19,20 @@ def checker():
 
 def test_check_description(checker):
     """Test the check_description method."""
-    # description too short
+    # description too short to calculate lexical diversity and sentence variety
     valid, message = checker.check_description("This is an invalid description with insufficient detail.")
     assert valid is False
     assert "The description lacks lexical diversity and may be repetitive." in message
     assert "The description has limited sentence variety and may be monotonous." in message
 
-    # description long enough to calculate lexical diversity
+    # description long enough to calculate lexical diversity and sentence variety
     valid, message = checker.check_description("The unique strategy boosts productivity. The unique method boosts productivity. The unique method boosts productivity. The unique method boosts productivity.")
     assert valid is False
     assert "The description lacks lexical diversity and may be repetitive." in message
     assert "The description has limited sentence variety and may be monotonous." in message
 
     # good description
-    valid, message = checker.check_description("The innovative model enhances efficiency, while researchers explore new optimization techniques. By leveraging cutting-edge technology, the system adapts dynamically to changing conditions. As a result, overall productivity sees a significant boost.")
+    valid, message = checker.check_description("The innovative model enhances efficiency, while researchers explore new optimisation techniques. By leveraging cutting-edge technology, the system adapts dynamically to changing conditions. As a result, overall productivity sees a significant boost.")
     assert valid is True
     assert "Description quality is acceptable." in message
     assert "The description lacks lexical diversity and may be repetitive." not in message

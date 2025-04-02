@@ -2,7 +2,6 @@ import os
 import json
 import pandas as pd
 from huggingface_hub import HfApi
-from typing import Tuple, Dict
 
 # Define the Hugging Face API
 api = HfApi()
@@ -12,21 +11,17 @@ OUTPUT_FOLDER = "hf_metadata"
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 
-def fetch_hf_metadata(dataset_id_to_find: str) -> Tuple[Dict[str, str], bool]:
-    """
-    Fetch Hugging Face dataset metadata.
+def fetch_hf_metadata(dataset_id_to_find):
+    """Fetch metadata from Hugging Face Hub for a given dataset ID."""
 
-    Args:
-        dataset_id_to_find: The ID of the dataset to fetch details for.
-
-    Returns:
-        A Dictionary containing the dataset metadata or an error message if fetching fails.
-    """
     try:
         # Fetch the dataset details using the Hugging Face Hub API
         api = HfApi() # Hugging Face API
-        found_dataset = list(api.list_datasets(dataset_name={dataset_id_to_find}, limit=1))
+        found_dataset = list(api.list_datasets(dataset_name={dataset_id_to_find}, limit=1)) # Search for the dataset by ID
+        # Check if the dataset was found
         if not found_dataset:
+            # If no dataset is found, return None and False indicating failure
+            print(f"Dataset '{dataset_id_to_find}' not found.")
             return None, False
         found_dataset = found_dataset[0] # Get the first dataset from the list
 
@@ -48,9 +43,7 @@ def fetch_hf_metadata(dataset_id_to_find: str) -> Tuple[Dict[str, str], bool]:
             elif tag.startswith("language:"):
                 languages.append(tag.split(":", 1)[1])
 
-        # Use getattr() for all fields to handle missing attributes gracefully
-        dataset_id = getattr(found_dataset, "id", None)
-
+        # Populate the hf_data dictionary with metadata
         hf_data["name"] = getattr(found_dataset, "id", "")
         hf_data["creators"] = getattr(found_dataset, "author", "")
         hf_data["description"] = getattr(found_dataset, "description", "")
@@ -67,9 +60,11 @@ def fetch_hf_metadata(dataset_id_to_find: str) -> Tuple[Dict[str, str], bool]:
         hf_data["modality"] = ", ".join(modalities) if modalities else ""
         hf_data["in_language"] = ", ".join(languages) if languages else ""
 
+        # Return the metadata dictionary and True indicating success
         return hf_data, True
 
     except Exception as e:
+        # If an error occurs, print the error message and return None and False indicating failure
         return {'error': str(e)}, False
 
 
@@ -98,6 +93,6 @@ def process_csv(csv_path):
         if success:
             save_metadata(metadata)
 
-# Run the script with your CSV file
+# Runs the script
 csv_file_path = "dataset_selection/huggingface_datasets.csv"
 process_csv(csv_file_path)

@@ -2,6 +2,19 @@ from datetime import datetime
 import pandas as pd 
 from huggingface_hub import HfApi
 
+""""
+    This script extracts the top 100 liked datasets from Hugging Face and saves their information to a CSV file.
+    The information includes:
+        - Dataset Name
+        - Link to the dataset
+        - Number of Likes
+        - Number of Downloads
+        - Dataset Tasks
+        - Modality
+        - Last Modified date
+        - Date Last Accessed
+"""
+
 api = HfApi() # Hugging Face API
 # Extract top 100 liked datasers
 top_100_liked_datasets = list(api.list_datasets(sort="likes", direction=-1, limit=100))
@@ -9,6 +22,7 @@ dataset_info = []
 
 try:
     for dataset in top_100_liked_datasets:
+
         # Extract dataset information
         dataset_id = dataset.id 
         link = f"https://huggingface.co/datasets/{dataset_id}"
@@ -17,11 +31,13 @@ try:
         tags = dataset.tags
         tasks = []  # Store all task categories
         modality = []  # Store all modalities
-        for tag in tags:
+
+        for tag in tags: # loop through all tags to find task categories and modalities
             if tag.startswith("task_categories:"):
                 tasks.append(tag.split(":", 1)[1])
             elif tag.startswith("modality:"):
                 modality.append(tag.split(":", 1)[1])
+
         tasks = ", ".join(tasks) if tasks else "Unknown"
         modality = ", ".join(modality) if modality else "Unknown"
 
@@ -39,6 +55,7 @@ try:
 
     # Save DataFrame to CSV
     df.to_csv("dataset_selection/huggingface_datasets.csv", index=False)
+    
     # confirmation message
     print("Dataset information saved to dataset_selection/huggingface_datasets.csv")
 

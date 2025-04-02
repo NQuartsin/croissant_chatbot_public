@@ -124,6 +124,8 @@ class CroissantChatbotManager:
 
             These checks are meant to guide you in providing the best metadata possible. \n
 
+            PLEASE NOTE: The chatbot may not always provide the accurate suggestions or guidance.
+
             If you encounter any issues, you can refresh the chat by clicking the 'Refresh Chat' button.
             If you want to see these instructions again at any time, press the 'See Instructions' button.\n
         """
@@ -366,6 +368,7 @@ class CroissantChatbotManager:
             The updated chat history.
         """
         try:
+            # Check if the user wants to confirm the value despite issues
             if prompt.lower() == "confirm" and self.pending_attribute:
                 if self.pending_attribute in ["date_created", "date_modified", "date_published"]:
                     self.append_to_history({
@@ -381,6 +384,7 @@ class CroissantChatbotManager:
                 self.pending_attribute = None
                 return self.history
 
+            # Otherwise, handle the input for the pending attribute
             elif self.pending_attribute:
                 # Update and validate the attribute value
                 self.metadata_manager.update_temporary_metadata({self.pending_attribute: prompt.strip()})
@@ -439,7 +443,9 @@ class CroissantChatbotManager:
                         "role": "assistant",
                         "content": f"""You can do one of the following: 
                         - Enter a new value for `{attribute}`.
-                        - Use one of the suggestions provided."""
+                        - Use one of the suggestions provided.
+                        - Select a different attribute from the dropdown if you want to skip this one.
+                        """
                     })               
                 except Exception as e:
                     # Handle errors from the llm module
@@ -453,6 +459,8 @@ class CroissantChatbotManager:
                     "content": f"""You can do one of the following:
                     - Update the value by entering a new one.
                     - Keep the current value by doing nothing.
+                    - Re-enter the current value to undergo validation and quality checks.
+                    - Enter any input to trigger suggestions for this attribute.
                     """
                 })
         except Exception as e:

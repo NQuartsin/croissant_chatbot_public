@@ -6,7 +6,6 @@ from lexical_diversity import lex_div as ld
 from typing import Tuple, Dict
 from .constants import METADATA_ATTRIBUTES
 
-
 nlp = spacy.load("en_core_web_sm")
 
 class AttributeQualityChecker:
