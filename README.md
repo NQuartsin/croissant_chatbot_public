@@ -1,3 +1,9 @@
+---
+title: croissant_chatbot
+app_file: main/app.py
+sdk: gradio
+sdk_version: 5.22.0
+---
 # Croissant chatbot
 
 1. Visit [OpenRouter](https://openrouter.ai) and sign up.
