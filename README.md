@@ -77,7 +77,7 @@ def create_llm_response(prompt: str) -> str:
 ## Installation
 
 1. Clone the repository:
-https://github.com/NQuartsin/croissant_chatbot.git
+https://github.com/NQuartsin/croissant_chatbot_public.git
 
 2. Create a virtual environment 
 ```bash
